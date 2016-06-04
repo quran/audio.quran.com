@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import config from '../src/config';
 import { mapUrl } from 'utils/url.js';
 import PrettyError from 'pretty-error';
+import morgan from 'morgan';
 import http from 'http';
 
 import routes from './routes';
@@ -20,6 +21,7 @@ app.use(session({
   cookie: { maxAge: 60000 }
 }));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
 routes(app);
 
