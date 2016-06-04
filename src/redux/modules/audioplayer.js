@@ -1,6 +1,7 @@
 // import { buildAudioFromHash, testIfSupported } from '../../helpers/buildAudio';
 
 const LOAD = '@@quran/audioplayer/LOAD';
+const UPDATE = '@@quran/audioplayer/UPDATE';
 const SET_USER_AGENT = '@@quran/audioplayer/SET_USER_AGENT';
 const SET_CURRENT_FILE = '@@quran/audioplayer/SET_CURRENT_FILE';
 const PLAY = '@@quran/audioplayer/PLAY';
@@ -10,14 +11,13 @@ const REPEAT = '@@quran/audioplayer/REPEAT';
 
 const initialState = {
   file: null,
-  segments: {},
   userAgent: null,
   currentFile: null,
   isSupported: true,
   isPlaying: false,
   shouldRepeat: false,
-  shouldScroll: true,
-  isLoadedOnClient: false
+  progress: 0,
+  currentTime: 0
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -31,6 +31,11 @@ export default function reducer(state = initialState, action = {}) {
       }
 
       return state;
+    case UPDATE:
+      return {
+        ...state,
+        ...action.payload
+      };
     case SET_USER_AGENT:
       return {
         ...state,
@@ -47,6 +52,12 @@ export default function reducer(state = initialState, action = {}) {
         isPlaying: false
       };
     case PLAY_PAUSE:
+      if (state.file.paused && state.file.readyState >= 3) {
+        state.file.play();
+      } else if (!state.file.paused && state.file.readyState >= 3) {
+        state.file.pause();
+      }
+
       return {
         ...state,
         isPlaying: !state.isPlaying
@@ -108,5 +119,12 @@ export function load(url) {
   return {
     type: LOAD,
     url
+  };
+}
+
+export function update(payload) {
+  return {
+    type: UPDATE,
+    payload
   };
 }

@@ -3,34 +3,106 @@ import { connect } from 'react-redux';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 
-import { load, play, pause, playPause } from 'redux/modules/audioplayer';
+import { load, play, pause, playPause, update } from 'redux/modules/audioplayer';
+import formatSeconds from 'utils/formatSeconds';
 
 import Track from './Track';
 
 @connect(
   state => ({
     file: state.audioplayer.file,
-    // isSupported: state.audioplayer.isSupported,
+    progress: state.audioplayer.progress,
+    duration: state.audioplayer.duration,
+    currentTime: state.audioplayer.currentTime,
     isPlaying: state.audioplayer.isPlaying,
     shouldRepeat: state.audioplayer.shouldRepeat,
-    // currentSurah: state.audioplayer.currentSurah
   }),
-  { load, play, pause, playPause }
+  { load, play, pause, playPause, update }
 )
 export default class Audioplayer extends Component {
   static propTypes = {
     load: PropTypes.func.isRequired,
     playPause: PropTypes.func.isRequired,
+    update: PropTypes.func.isRequired,
     file: PropTypes.object,
     url: PropTypes.string.isRequired,
     isPlaying: PropTypes.bool.isRequired,
-    shouldRepeat: PropTypes.bool.isRequired
+    shouldRepeat: PropTypes.bool.isRequired,
+    progress: PropTypes.number,
+    currentTime: PropTypes.number,
+    duration: PropTypes.number
   };
 
   componentDidMount() {
     const { url, load } = this.props; // eslint-disable-line no-shadow
 
     load(url);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.file !== nextProps.file) {
+      this.handleFileLoad(nextProps.file);
+    }
+  }
+
+  handleFileLoad(file) {
+    const { update } = this.props; // eslint-disable-line no-shadow
+
+    // Preload file
+    file.setAttribute('preload', 'auto');
+
+    const onLoadeddata = () => {
+      // Default current time to zero. This will change
+      file.currentTime = 0; // eslint-disable-line no-param-reassign
+
+      update({
+        duration: file.duration
+      });
+    };
+
+    const onTimeupdate = () => {
+      const progress = (
+        file.currentTime /
+        file.duration * 100
+      );
+
+      update({
+        progress,
+        currentTime: file.currentTime
+      });
+    };
+
+    const onEnded = () => {
+      const { shouldRepeat } = this.props;
+
+      if (shouldRepeat) {
+        file.pause();
+        file.currentTime = 0; // eslint-disable-line no-param-reassign
+        file.play();
+      } else {
+        if (file.readyState >= 3 && file.paused) {
+          file.pause();
+        }
+        // onEnd();
+      }
+    };
+
+    const onPlay = () => {
+      // const { progress } = this.props;
+
+      // const currentTime = (
+      //   progress / 100 * file.duration
+      // );
+
+      // this.setState({
+      //   currentTime
+      // });
+    };
+
+    file.addEventListener('loadeddata', onLoadeddata);
+    file.addEventListener('timeupdate', onTimeupdate, false);
+    file.addEventListener('play', onPlay, false);
+    file.addEventListener('ended', onEnded, false);
   }
 
   renderPlayStopButtons() {
@@ -83,7 +155,7 @@ export default class Audioplayer extends Component {
   }
 
   render() {
-    const { file, isPlaying, shouldRepeat } = this.props;
+    const { file, progress } = this.props; // eslint-disable-line no-shadow
 
     return (
       <Row>
@@ -102,16 +174,12 @@ export default class Audioplayer extends Component {
             {this.renderRepeatButton()}
           </Row>
           {
-            file &&
-            <Track
-              file={file}
-              isPlaying={isPlaying}
-              shouldRepeat={shouldRepeat}
-              onPlay={play}
-              onPause={pause}
-              onEnd={() => console.log('END!')}
-            />
+            file && file.duration &&
+            <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span>
           }
+          <Track
+            progress={progress}
+          />
         </Col>
       </Row>
     );
