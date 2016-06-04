@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     arabic_name: DataTypes.STRING,
     relative_path: DataTypes.STRING,
     file_formats: DataTypes.STRING,
-    section: DataTypes.BOOLEAN,
+    section_id: DataTypes.INTEGER,
     home: DataTypes.BOOLEAN,
     description: DataTypes.TEXT,
     torrent_filename: DataTypes.STRING,
@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
       associate(models) {
         this.hasMany(models.audioFile, {foreignKey: 'qari_id'});
         this.belongsToMany(models.surah, {through: models.audioFile, foreignKey: 'sura_number'});
+        this.belongsTo(models.section);
       }
     }
   });

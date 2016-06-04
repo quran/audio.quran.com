@@ -9,6 +9,8 @@ import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 
+import Audioplayer from 'components/Audioplayer';
+
 import config from '../../config';
 
 import { loadAll } from 'redux/modules/qaris';
@@ -40,9 +42,9 @@ export default class App extends Component {
         <Navbar fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
-              <IndexLink to="/" activeStyle={{color: '#33e0ff'}}>
+              <IndexLink to="/">
                 <div className={styles.brand}/>
-                <span>{config.app.title}</span>
+                QuranicAudio
               </IndexLink>
             </Navbar.Brand>
             <Navbar.Toggle/>
@@ -50,19 +52,13 @@ export default class App extends Component {
 
           <Navbar.Collapse eventKey={0}>
             <Nav navbar>
-              <LinkContainer to="/widgets">
-                <NavItem eventKey={2}>Widgets</NavItem>
-              </LinkContainer>
-              <LinkContainer to="/survey">
-                <NavItem eventKey={3}>Survey</NavItem>
-              </LinkContainer>
               <LinkContainer to="/about">
                 <NavItem eventKey={4}>About Us</NavItem>
               </LinkContainer>
             </Nav>
             <Nav navbar pullRight>
-              <NavItem eventKey={1} target="_blank" title="View on Github" href="https://github.com/erikras/react-redux-universal-hot-example">
-                <i className="fa fa-github"/>
+              <NavItem eventKey={1} target="_blank" title="Quran.com" href="http://quran.com">
+                Quran.com
               </NavItem>
             </Nav>
           </Navbar.Collapse>
@@ -70,6 +66,7 @@ export default class App extends Component {
 
         <div className={styles.appContent}>
           {this.props.children}
+          <Audioplayer url="http://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/001.mp3" />
         </div>
       </div>
     );

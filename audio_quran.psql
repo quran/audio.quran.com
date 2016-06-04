@@ -2,12 +2,16 @@
 -- PostgreSQL database dump
 --
 
+-- Dumped from database version 9.5.1
+-- Dumped by pg_dump version 9.5.1
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
+SET row_security = off;
 
 --
 -- Name: plperl; Type: EXTENSION; Schema: -; Owner: 
@@ -44,7 +48,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: audio_files; Type: TABLE; Schema: public; Owner: mmahalwy; Tablespace: 
+-- Name: audio_files; Type: TABLE; Schema: public; Owner: mmahalwy
 --
 
 CREATE TABLE audio_files (
@@ -62,7 +66,7 @@ CREATE TABLE audio_files (
 ALTER TABLE audio_files OWNER TO mmahalwy;
 
 --
--- Name: qaris; Type: TABLE; Schema: public; Owner: mmahalwy; Tablespace: 
+-- Name: qaris; Type: TABLE; Schema: public; Owner: mmahalwy
 --
 
 CREATE TABLE qaris (
@@ -71,7 +75,7 @@ CREATE TABLE qaris (
     arabic_name character varying(1020) DEFAULT NULL::character varying,
     relative_path character varying(400) DEFAULT ''::character varying NOT NULL,
     file_formats character varying(200) DEFAULT ''::character varying NOT NULL,
-    section smallint DEFAULT 0::smallint,
+    section_id smallint DEFAULT (0)::smallint,
     home smallint,
     description character varying(65535),
     torrent_filename character varying(1020) DEFAULT NULL::character varying,
@@ -84,7 +88,7 @@ CREATE TABLE qaris (
 ALTER TABLE qaris OWNER TO mmahalwy;
 
 --
--- Name: related; Type: TABLE; Schema: public; Owner: mmahalwy; Tablespace: 
+-- Name: related; Type: TABLE; Schema: public; Owner: mmahalwy
 --
 
 CREATE TABLE related (
@@ -96,7 +100,40 @@ CREATE TABLE related (
 ALTER TABLE related OWNER TO mmahalwy;
 
 --
--- Name: surahs; Type: TABLE; Schema: public; Owner: mmahalwy; Tablespace: 
+-- Name: sections; Type: TABLE; Schema: public; Owner: quran_dev
+--
+
+CREATE TABLE sections (
+    id integer NOT NULL,
+    name character varying(255)
+);
+
+
+ALTER TABLE sections OWNER TO quran_dev;
+
+--
+-- Name: sections_id_seq; Type: SEQUENCE; Schema: public; Owner: quran_dev
+--
+
+CREATE SEQUENCE sections_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE sections_id_seq OWNER TO quran_dev;
+
+--
+-- Name: sections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: quran_dev
+--
+
+ALTER SEQUENCE sections_id_seq OWNED BY sections.id;
+
+
+--
+-- Name: surahs; Type: TABLE; Schema: public; Owner: mmahalwy
 --
 
 CREATE TABLE surahs (
@@ -109,7 +146,7 @@ CREATE TABLE surahs (
 ALTER TABLE surahs OWNER TO mmahalwy;
 
 --
--- Name: updates; Type: TABLE; Schema: public; Owner: mmahalwy; Tablespace: 
+-- Name: updates; Type: TABLE; Schema: public; Owner: mmahalwy
 --
 
 CREATE TABLE updates (
@@ -122,6 +159,13 @@ CREATE TABLE updates (
 
 
 ALTER TABLE updates OWNER TO mmahalwy;
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: quran_dev
+--
+
+ALTER TABLE ONLY sections ALTER COLUMN id SET DEFAULT nextval('sections_id_seq'::regclass);
+
 
 --
 -- Data for Name: audio_files; Type: TABLE DATA; Schema: public; Owner: mmahalwy
@@ -14575,128 +14619,128 @@ COPY audio_files (id, qari_id, sura_number, filenum, file_name, extension, strea
 -- Data for Name: qaris; Type: TABLE DATA; Schema: public; Owner: mmahalwy
 --
 
-COPY qaris (id, name, arabic_name, relative_path, file_formats, section, home, description, torrent_filename, torrent_info_hash, torrent_seeders, torrent_leechers) FROM stdin;
-1	Abdullah Awad al-Juhani	عبدالله عواد الجهني	abdullaah_3awwaad_al-juhaynee/	mp3,ogg	0	1	\N	[Quran] Abdullah Awad al-Juhani [127Kbps - 128Kbps].torrent	b3f798af9d7c913a7ffa9c278a0299d5d4ef6780	2	2
-2	Abdullah Basfar	عبدالله بصفر	abdullaah_basfar/	mp3,ogg	0	1	\N	[Quran] Abdullah Basfar [128Kbps].torrent	32ea836dd054f593a5333fd21ef0dc9a43e23567	2	0
-3	Abu Bakr al-Shatri	أبو بكر الشاطرى	abu_bakr_ash-shaatree/	mp3,ogg	0	0	\N	[Quran] Abu Bakr al-Shatri [128Kbps].torrent	9a4992f689834f03fafac3421d14923fa01bb4c9	4	0
-4	Sa`ud ash-Shuraym	سعود الشريم	sa3ood_al-shuraym/	mp3, ogg	0	1	\N	[Quran] Sa`ud ash-Shuraym [128Kbps].torrent	03d234fc5c063cc24d5749649dec338986ab21f9	3	1
-5	Mishari Rashid al-`Afasy	مشاري راشد العفاسي	mishaari_raashid_al_3afaasee/	mp3,ogg	0	1	\N	[Quran] Mishari Rashid al-`Afasy [128Kbps].torrent	1f70e929a5e360b7b7669c86774e93781875581b	5	3
-6	Muhammad Siddiq al-Minshawi	محمد صديق المنشاوي	muhammad_siddeeq_al-minshaawee/	mp3,ogg	0	1	\N	[Quran] Muhammad Siddiq al-Minshawi [128Kbps].torrent	b9e5b0e5285e55d4d873771f4d56ea15603db500	2	2
-7	Abdur-Rahman as-Sudais	عبدالرحمن السديس	abdurrahmaan_as-sudays/	mp3	0	1	\N	[Quran] Abdur-Rahman as-Sudais [128Kbps - 192Kbps].torrent	64f3320fdc17f7ea167634309be053dd2f37c004	2	2
-8	Ali Abdur-Rahman al-Huthaify	علي عبدالرحمن الحذيفي	huthayfi/	mp3	0	1	\N	[Quran] Ali Abdur-Rahman al-Huthaify [126Kbps - 192Kbps].torrent	1595beb7b6b6a332ec2dc3c8d52c75f05fddfc52	3	1
-9	Khalid al-Qahtani	خالد القحطاني	khaalid_al-qahtaanee/	mp3	0	1	\N	[Quran] Khalid al-Qahtani [192Kbps].torrent	55658b788a1694f426b80445323e8d4ef07b5d29	0	2
-12	Muhammad Jibreel	محمد جبريل	muhammad_jibreel/complete/	mp3	0	1	\N	[Quran] Muhammad Jibreel [128Kbps].torrent	bfa83feda08a3a83622650b43eba9d0ca4dee0cf	1	1
-13	Saad al-Ghamdi	سعد الغامدي	sa3d_al-ghaamidi/complete/	mp3	0	1	\N	[Quran] Saad al-Ghamdi [256Kbps].torrent	72844e0d6905badfe60de99d46670a0d634bcdc2	4	3
-16	Mahmoud Khaleel Al-Husary	محمود خليل الحصري	mahmood_khaleel_al-husaree/	mp3,ogg	0	0	\N	[Quran] Mahmoud Khalil Al-Husary [128Kbps].torrent	36e86a71bf8b17a130dfab53bf58622489c1d4f7	3	1
-17	Sahl Yasin	سهل ياسين	sahl_yaaseen/	mp3,ogg	0	1	\N	[Quran] Sahl Yasin [128Kbps].torrent	c22c9232a94b9a555f57bd39eb49ed07e5d77e15	1	2
-18	Salah Bukhatir	صلح بوخاطر	salaah_bukhaatir/	mp3,ogg	0	1	\N	[Quran] Salah Bukhatir [128Kbps].torrent	f1f44ba25b78ba2f6b8a3b006a98129efd7b4752	1	1
-19	Ahmed ibn Ali al-Ajmy	أحمد بن علي العجمي	ahmed_ibn_3ali_al-3ajamy/	mp3	0	1	\N	[Quran] Ahmed ibn Ali al-Ajmy [160Kbps].torrent	16fdf51721dff438ec85972740ba41741d4ba1b3	4	3
-20	Sudais and Shuraym	السديس والشريم	sodais_and_shuraim/	mp3	0	1	\N	[Quran] Sudais and Shuraym [128Kbps - 188Kbps].torrent	925046d8593cd03387342d76a816543be4206f0f	4	1
-21	AbdulAzeez al-Ahmad	عبدالعزيز الحمد	abdulazeez_al-ahmad/	mp3,ogg	0	1	\N	[Quran] AbdulAzeez al-Ahmad [128Kbps].torrent	9c5d8512844a1252306807fcc59036de9eec9a41	5	1
-22	Muhammad Ayyoob	محمد أيوب	muhammad_ayyoob/	mp3,ogg	0	0	\N	[Quran] Muhammad Ayyub [128Kbps].torrent	59191cd3d611122499291a96567bea042e9bfe3c	3	2
-23	Tawfeeq ibn Sa`id as-Sawa'igh	توفيق بن سعيد الصائغ	tawfeeq_bin_saeed-as-sawaaigh/	mp3	0	1	\N	[Quran] Tawfeeq ibn Sa`id as-Sawa'igh [128Kbps].torrent	906b363aae5bb684449d6587d2ba53533e6f5085	4	2
-24	Abdullah Ali Jabir [Taraweeh]	عبدالله علي جابر	abdullaah_alee_jaabir/	mp3,ogg	0	1	\N	[Quran] Abdullah Ali Jabir [128Kbps].torrent	3f98402078f99f9e01fae4d0100fb4b25decbeaa	3	0
-25	Madinah Taraweeh 1419	تراويح المدينة ١٤١٩	madinah_1419/	mp3,ogg	1	1	This is Live Recitation from Al-Madinah. Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhaynee</a>, <a href=\\"http://quranicaudio.com/quran/15\\">AbdulBari ath-Thubaity</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, and <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>.	[Quran] Madinah Taraweeh 1419 [128Kbps].torrent	540bcd64ea0accfe950b03d8c1546b5262532d52	2	0
-26	Muhammad al-Mehysni	محمد المحيسني	mehysni/	mp3	0	1	\N	[Quran] Muhammad al-Mehysni [128Kbps - 200Kbps].torrent	e8e2168c4b5b7d8479597bfd3c6cbdc60d004639	2	0
-27	Hani ar-Rifai	هاني الرفاعي	rifai/	mp3	0	1	\N	[Quran] Hani ar-Rifai [127Kbps - 192Kbps].torrent	61ba7b3938d1771a7be11862087a8f71216a4443	1	2
-28	Ibrahim Al-Jibrin	إبراهيم الجبرين	jibreen/	mp3	0	1	\N	[Quran] Ibrahim Al-Jibrin [128Kbps - 192Kbps].torrent	18b91d43183315595dd192741dbb65a77f416891	3	1
-29	Makkah Taraweeh 1426	تراويح مكة ١٤٢٦	makkah_1426/	mp3	1	1	This is Live Recitation from Masjid al-Haram in Makkah Al-Mukarramah, 1426 H./2005 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>, and <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>.	[Quran] Makkah Taraweeh 1426 [192Kbps].torrent	41a2f392b771c379326bdd96523aa65a5021b5ed	0	1
-30	Madinah Taraweeh 1426	تراويح المدينة ١٤٢٦	madinah_1426/	mp3	1	1	This is Live Recitation from Masjid al-Nabawi, 1426 H/2005 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/8\\">Ali Adur-Rahman al-Huthaify</a>, Hussain Aal ash-Shaykh, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, and <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>.	[Quran] Madinah Taraweeh 1426 [192Kbps].torrent	6cf89a696c93c7af373b5eb13657a19a3a484528	2	0
-31	Saad al-Ghamdi (Partial)	سعد الغامدي - غير مكتمل	sa3d_al-ghaamidi/hidayah/	mp3,ogg	0	0	\N	[Quran] Saad al-Ghamdi (Partial) [128Kbps].torrent	d6fe254db49f5fcd9f97e0595bf1140264e05f1a	\N	\N
-32	Muhammad Jibreel (Partial)	محمد جبريل - غير مكتمل	muhammad_jibreel/hidayah/	mp3,ogg	0	0	\N	[Quran] Muhammad Jibreel (Partial) [128Kbps].torrent	cb6743822861cb38324019ed7f90bda750c42890	\N	\N
-33	Madinah Taraweeh 1427	تراويح المدينة ١٤٢٧	madinah_1427/	mp3	1	1	This is Live Recitation from Masjid al-Nabawi, 1427 H./2006 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, and Hussain Aal ash-Shaykh.	[Quran] Madinah Taraweeh 1427 [192Kbps].torrent	c3ce9534ece513db22b79030f059e12e321a0582	1	0
-34	Makkah Taraweeh 1427	تراويح مكة ١٤٢٧	makkah_1427/	mp3	1	1	This is Live Recitation from Masjid al-Haram in Makkah Al-Mukarramah, 1427 H./2006 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>, and <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>.	[Quran] Makkah Taraweeh 1427 [192Kbps].torrent	30552d171183080ba25a44c6f0b73cd1cab71248	1	0
-35	Saleh al Taleb	صالح آل طالب	saleh_al_taleb/	mp3	0	1	\N	[Quran] Saleh al Taleb [128Kbps].torrent	d963af4c35885eafbb292fc8162e22f25631fb08	1	0
-36	Sudais and Shuraym with Aslam Athar [Pickthall Translation]	السديس والشريم مع اسلم اظهر - ترجمة معاني القران الكريم باللغة النجليزية - بيكثال	sudais_shuraim_and_english/	mp3	2	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/7\\">Sudais</a> and <a href=\\"http://quranicaudio.com/quran/4\\">Shuraim</a>.  The English is read by <b>Aslam Athar</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=33\\">Pickthall Translation</a>.	[Quran] Sudais and Shuraym with Aslam Athar [Pickthall Translation] [192Kbps].torrent	e4c78bad75d4a93ec05ae55c1885061a81e4f1cd	1	0
-37	AbdulBaset AbdulSamad [Murattal]	عبد الباسط عبد الصمد - مرتل	abdul_basit_murattal/	mp3	0	1	\N	[Quran] AbdulBaset AbdulSamad [Murattal] [192Kbps].torrent	dadd3900e624e9ad6a791253980d6f9e0db48299	4	1
-39	Muhammad Ayyub with Mikaal Waters [Muhsin Khan Translation]	محمد أيوب مع ميكال وترز - ترجمة معاني القران الكريم باللغة النجليزية - محسن خان	muhammad_ayub_and_mikaal_waters/	mp3	2	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/22\\">Shaykh Muhammad Ayoob</a>. The English is read by <b>Mikaal Waters</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=9\\">Muhsin Khan Translation</a>.	[Quran] Muhammad Ayyub with Mikaal Waters [Muhsin Khan Translation] [192Kbps].torrent	01d38dfeca6435dd46efc61b8ae5571ccb8b1836	2	0
-41	Muhammad Siddiq al-Minshawi [Mujawwad]	محمد صديق المنشاوي - مجود	minshawi_mujawwad/	mp3	0	1	\N	[Quran] Muhammad Siddiq al-Minshawi [Mujawwad] [128Kbps - 192Kbps].torrent	ec80f5249af08b61c8bf78a3dfb6a85d27e7ef49	0	4
-42	Shakir Qasami with Aslam Athar [Pickthall Translation]	شاكر قاسمى مع اسلم اظهر - ترجمة معاني القران الكريم باللغة النجليزية - بيكثال	shakir_qasami_with_english/	mp3	2	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <b>Shaykh Shakir Qasami</b>.  The English is read by <b>Aslam Athar</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=33\\">Pickthall Translation</a>.	[Quran] Shakir Qasami with Aslam Athar [Pickthall Translation] [128Kbps - 160Kbps].torrent	ce645f86e145723cf5667551f53d28ecfca51af7	0	1
-43	Salah al-Budair	صلح البدير	salahbudair/	mp3	0	1	\N	[Quran] Salah al-Budair [127Kbps - 192Kbps].torrent	b7c79066e0867a0f6e6d298c7106a98620cbb668	3	3
-15	AbdulBari ath-Thubaity	عبدالباري الثبيتي	thubaity/	mp3	0	1	\N	[Quran] AbdulBari ath-Thubaity [192Kbps].torrent	fcafab4c57e1d267db90f3a51741838dc2b1dcdf	2	0
-14	Fares Abbad	فارس عباد	fares/	mp3	0	1	\N	[Quran] Fares Abbad [127Kbps - 192Kbps].torrent	a0995ffcfe1e56903887e02eb6a6dbf647a2dd58	5	0
-11	AbdulMuhsin al-Qasim	عبد المحسن القاسم	abdul_muhsin_alqasim/	mp3	0	1	\N	[Quran] AbdulMuhsin al-Qasim [124Kbps - 192Kbps].torrent	69a569861b2578b0c0893043d916f322726ee193	2	0
-10	Nabil ar-Rifai	نبيل الرفاعي	nabil_rifa3i/	mp3	0	1	\N	[Quran] Nabil ar-Rifai [140Kbps - 183Kbps].torrent	a5fa57684b7748f0d0b34eaa3c48906a79032a46	0	1
-40	AbdulWadud Haneef	عبد الودود حنيف	abdulwadood_haneef/	mp3	0	1	\N	[Quran] AbdulWadud Haneef [192Kbps].torrent	c4e14f54d48a8145d90ea80eb18977dc9efeb227	2	0
-44	Aziz Alili	عزيز عليلى	aziz_alili/	mp3	0	1	\N	[Quran] Aziz Alili [128Kbps].torrent	5c3e975f5b6d335bf4be1d2ee06ea6b4c6fdd09e	2	0
-45	Makkah Taraweeh 1425	تراويح مكة ١٤٢٥	makkah_1425/	mp3	1	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1425 H./2004 A.D.  Contains 2 Imams: <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a> and <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>.	[Quran] Makkah Taraweeh 1425 [161Kbps - 192Kbps].torrent	2f623ac9bfe3af70469fdcb8d41fea5ae42c52e1	2	0
-46	Madinah Taraweeh 1423	تراويح المدينة ١٤٢٣	madinah_1423/	mp3	1	1	This is Live Recitation from Masjidun-Nabawi, 1423 H./2002 A.D.  Contains 5 Imams:  <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, <a href=\\"http://quranicaudio.com/quran/15\\">AbdulBari ath-Thubaity</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, and Hussain Aal Ash-Shaykh.	[Quran] Madinah Taraweeh 1423 [192Kbps].torrent	beef352976bd0570717001b30b6a98ce8bd25b51	0	1
-47	AbdulBaset AbdulSamad with Naeem Sultan [Pickthall Translation]	عبد الباسط عبد الصمد مع نعيم سلطان - ترجمة معاني القران الكريم باللغة النجليزية - بيكثال	abdulbaset_with_naeem_sultan_pickthall/	mp3	2	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <b>AbdulBaset AbdulSamad</b> [<a href=\\"http://quranicaudio.com/quran/37\\">Murattal</a>/<a href=\\"http://quranicaudio.com/quran/50\\">Mujawwad</a>].  The English is read by <b>Naeem Sultan</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=33\\">Pickthall Translation</a>.	[Quran] AbdulBaset AbdulSamad with Naeem Sultan [Pickthall Translation] [80Kbps].torrent	83a0ccdabec46646cdfd2b7b5133910e0d899b1c	2	1
-48	Sudais and Shuraym with Naeem Sultan [Pickthall Translation]	السديس والشريم مع نعيم سلطان - ترجمة معاني القران الكريم باللغة النجليزية - بيكثال	sudais_shuraim_with_naeem_sultan_pickthall/	mp3	2	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/7\\">Sudais</a> and <a href=\\"http://quranicaudio.com/quran/4\\">Shuraim</a>.  The English is read by <b>Naeem Sultan</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=33\\">Pickthall Translation</a>.	[Quran] Sudais and Shuraym with Naeem Sultan [Pickthall Translation] [64Kbps - 80Kbps].torrent	c1fe0225e58a0d20ed9d653ed0497b3fb03a9e4b	2	0
-104	Nasser Al Qatami	\N	nasser_bin_ali_alqatami/	mp3	0	1	This is the recitation for Sheikh Nasser Al Qatami. The files for the 30th juz' come from <a href=\\"http://mp3quran.net\\">mp3quran.net</a>.	[Quran] Nasser Al Qatami [96Kbps - 128Kbps].torrent	f7b841dccefc618e71c25accfa30cf74314bd5f1	\N	\N
-49	Mishari ibn Rashid al-`Afasy with Saabir [Muhsin Khan Translation]	مشارى راشد مع صابر - ترجمة معاني القران الكريم باللغة النجليزية - محسن خان	mishaari_with_saabir_mkhan/	mp3	2	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/5\\">Shaykh Mishaari Raashid</a>. The English is read by <b>Saabir</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=9\\">Muhsin Khan Translation</a>.	[Quran] Mishari ibn Rashid al-`Afasy with Saabir [Muhsin Khan Translation] [160Kbps - 192Kbps].torrent	11ef61ae5ab7265f3265ba496c757e0bda3959bc	1	1
-50	AbdulBaset AbdulSamad [Mujawwad]	عبد الباسط عبد الصمد - مجود	abdulbaset_mujawwad/	mp3	0	1	\N	[Quran] AbdulBaset AbdulSamad [Mujawwad] [128Kbps].torrent	9c0f330a5d2db560f7d7f24de55e4bc04cc558f2	10	3
-51	Maher al-Muaiqly [Assorted]	ماهر المعيقلى - متنوعة	maher_ma3eeqly/year1424-1425/	mp3	0	0	\N	[Quran] Maher al-Muaiqly [Assorted] [128Kbps].torrent	110a486ee0d20c8b640d83926cfb719ad3884a9c	1	0
-52	Maher al-Muaiqly [1422-1423]	ماهر المعيقلى - ١٤٢٢-١٤٢٣	maher_ma3eeqly/year1422-1423/	mp3	0	0	\N	[Quran] Maher al-Muaiqly [1422-1423] [128Kbps].torrent	bffb9da27a01ead0c94cf2616e09a443409a6f85	0	1
-53	Muhammad al-Luhaidan	محمد اللحيدان	muhammad_alhaidan/	mp3	0	1	\N	[Quran] Muhammad al-Luhaidan [128Kbps].torrent	2677b27707ac16023aff7ab35e5a200a0c4bbb21	2	0
+COPY qaris (id, name, arabic_name, relative_path, file_formats, section_id, home, description, torrent_filename, torrent_info_hash, torrent_seeders, torrent_leechers) FROM stdin;
+1	Abdullah Awad al-Juhani	عبدالله عواد الجهني	abdullaah_3awwaad_al-juhaynee/	mp3,ogg	1	1	\N	[Quran] Abdullah Awad al-Juhani [127Kbps - 128Kbps].torrent	b3f798af9d7c913a7ffa9c278a0299d5d4ef6780	2	2
+2	Abdullah Basfar	عبدالله بصفر	abdullaah_basfar/	mp3,ogg	1	1	\N	[Quran] Abdullah Basfar [128Kbps].torrent	32ea836dd054f593a5333fd21ef0dc9a43e23567	2	0
+3	Abu Bakr al-Shatri	أبو بكر الشاطرى	abu_bakr_ash-shaatree/	mp3,ogg	1	0	\N	[Quran] Abu Bakr al-Shatri [128Kbps].torrent	9a4992f689834f03fafac3421d14923fa01bb4c9	4	0
+4	Sa`ud ash-Shuraym	سعود الشريم	sa3ood_al-shuraym/	mp3, ogg	1	1	\N	[Quran] Sa`ud ash-Shuraym [128Kbps].torrent	03d234fc5c063cc24d5749649dec338986ab21f9	3	1
+5	Mishari Rashid al-`Afasy	مشاري راشد العفاسي	mishaari_raashid_al_3afaasee/	mp3,ogg	1	1	\N	[Quran] Mishari Rashid al-`Afasy [128Kbps].torrent	1f70e929a5e360b7b7669c86774e93781875581b	5	3
+6	Muhammad Siddiq al-Minshawi	محمد صديق المنشاوي	muhammad_siddeeq_al-minshaawee/	mp3,ogg	1	1	\N	[Quran] Muhammad Siddiq al-Minshawi [128Kbps].torrent	b9e5b0e5285e55d4d873771f4d56ea15603db500	2	2
+7	Abdur-Rahman as-Sudais	عبدالرحمن السديس	abdurrahmaan_as-sudays/	mp3	1	1	\N	[Quran] Abdur-Rahman as-Sudais [128Kbps - 192Kbps].torrent	64f3320fdc17f7ea167634309be053dd2f37c004	2	2
+8	Ali Abdur-Rahman al-Huthaify	علي عبدالرحمن الحذيفي	huthayfi/	mp3	1	1	\N	[Quran] Ali Abdur-Rahman al-Huthaify [126Kbps - 192Kbps].torrent	1595beb7b6b6a332ec2dc3c8d52c75f05fddfc52	3	1
+9	Khalid al-Qahtani	خالد القحطاني	khaalid_al-qahtaanee/	mp3	1	1	\N	[Quran] Khalid al-Qahtani [192Kbps].torrent	55658b788a1694f426b80445323e8d4ef07b5d29	0	2
+12	Muhammad Jibreel	محمد جبريل	muhammad_jibreel/complete/	mp3	1	1	\N	[Quran] Muhammad Jibreel [128Kbps].torrent	bfa83feda08a3a83622650b43eba9d0ca4dee0cf	1	1
+13	Saad al-Ghamdi	سعد الغامدي	sa3d_al-ghaamidi/complete/	mp3	1	1	\N	[Quran] Saad al-Ghamdi [256Kbps].torrent	72844e0d6905badfe60de99d46670a0d634bcdc2	4	3
+35	Saleh al Taleb	صالح آل طالب	saleh_al_taleb/	mp3	1	1	\N	[Quran] Saleh al Taleb [128Kbps].torrent	d963af4c35885eafbb292fc8162e22f25631fb08	1	0
+37	AbdulBaset AbdulSamad [Murattal]	عبد الباسط عبد الصمد - مرتل	abdul_basit_murattal/	mp3	1	1	\N	[Quran] AbdulBaset AbdulSamad [Murattal] [192Kbps].torrent	dadd3900e624e9ad6a791253980d6f9e0db48299	4	1
+41	Muhammad Siddiq al-Minshawi [Mujawwad]	محمد صديق المنشاوي - مجود	minshawi_mujawwad/	mp3	1	1	\N	[Quran] Muhammad Siddiq al-Minshawi [Mujawwad] [128Kbps - 192Kbps].torrent	ec80f5249af08b61c8bf78a3dfb6a85d27e7ef49	0	4
+43	Salah al-Budair	صلح البدير	salahbudair/	mp3	1	1	\N	[Quran] Salah al-Budair [127Kbps - 192Kbps].torrent	b7c79066e0867a0f6e6d298c7106a98620cbb668	3	3
+15	AbdulBari ath-Thubaity	عبدالباري الثبيتي	thubaity/	mp3	1	1	\N	[Quran] AbdulBari ath-Thubaity [192Kbps].torrent	fcafab4c57e1d267db90f3a51741838dc2b1dcdf	2	0
+14	Fares Abbad	فارس عباد	fares/	mp3	1	1	\N	[Quran] Fares Abbad [127Kbps - 192Kbps].torrent	a0995ffcfe1e56903887e02eb6a6dbf647a2dd58	5	0
+11	AbdulMuhsin al-Qasim	عبد المحسن القاسم	abdul_muhsin_alqasim/	mp3	1	1	\N	[Quran] AbdulMuhsin al-Qasim [124Kbps - 192Kbps].torrent	69a569861b2578b0c0893043d916f322726ee193	2	0
+10	Nabil ar-Rifai	نبيل الرفاعي	nabil_rifa3i/	mp3	1	1	\N	[Quran] Nabil ar-Rifai [140Kbps - 183Kbps].torrent	a5fa57684b7748f0d0b34eaa3c48906a79032a46	0	1
+40	AbdulWadud Haneef	عبد الودود حنيف	abdulwadood_haneef/	mp3	1	1	\N	[Quran] AbdulWadud Haneef [192Kbps].torrent	c4e14f54d48a8145d90ea80eb18977dc9efeb227	2	0
+44	Aziz Alili	عزيز عليلى	aziz_alili/	mp3	1	1	\N	[Quran] Aziz Alili [128Kbps].torrent	5c3e975f5b6d335bf4be1d2ee06ea6b4c6fdd09e	2	0
+104	Nasser Al Qatami	\N	nasser_bin_ali_alqatami/	mp3	1	1	This is the recitation for Sheikh Nasser Al Qatami. The files for the 30th juz' come from <a href=\\"http://mp3quran.net\\">mp3quran.net</a>.	[Quran] Nasser Al Qatami [96Kbps - 128Kbps].torrent	f7b841dccefc618e71c25accfa30cf74314bd5f1	\N	\N
 54	AbdulBaset AbdulSamad [Warsh]	عبد الباسط عبد الصمد - ورش	abdulbaset_warsh/	mp3	3	1	This is the Full Quran recited by AbdulBaset AbdulSamad in the Qiraat of Warsh an Naafi'.  A PDF file for each surah can be downloaded from <a href=\\"http://www.zanjabil.net/downloads/Quran/PDF/Warsh/\\">here</a>.  The sections that differ from the main Mushaf we use today (Hafs 'an 'Aasim) have been highlighted in the PDF files.  To download the complete Mushaf click <a href=\\"http://www.zanjabil.net/downloads/Quran/PDF/warsh%20an%20naafi%20al-madani.zip\\">here</a>.	[Quran] AbdulBaset AbdulSamad [Warsh] [128Kbps].torrent	0e7c7ac2cc61aae21960f2bee3d1ced0fa2eb5c1	5	0
-55	Al-Hussayni Al-'Azazy (with Children)	الحسيني العزازي مع اطفال	alhusaynee_al3azazee_with_children/	mp3	0	1	\N	[Quran] Al-Hussayni Al-'Azazy (with Children) [192Kbps].torrent	2339aa5f47a1d88e5033595b194099c29155c5e2	0	1
-56	Ibrahim Al-Jibreen [1426-1427]	إبراهيم الجبرين - ١٤٢٦-١٤٢٧	jibreen/jibreen_1426-1427/	mp3	0	\N	\N	[Quran] Ibrahim Al-Jibreen [1426-1427] [192Kbps].torrent	cfdebd7be81fe15f03cbd1832ce656c0e5f27009	1	0
-57	AbdulBaset AbdulSamad with Ibrahim Walk [Saheeh Intl Translation]	عبد الباسط عبد الصمد مع إبراهيم واق - ترجمة معاني القران الكريم باللغة النجليزية - صحيح الدولي	abdulbasit_w_ibrahim_walk_si/	mp3	2	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <b>AbdulBaset AbdulSamad</b> [<a href=\\"http://quranicaudio.com/quran/37\\">Murattal</a>/<a href=\\"http://quranicaudio.com/quran/50\\">Mujawwad</a>].  The English is read by <b>Ibrahaim Walk</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=257\\">Saheeh International Translation</a>.	[Quran] AbdulBaset AbdulSamad with Ibrahim Walk [Saheeh Intl Translation] [192Kbps].torrent	1c0093bced211d5a0fd3d7be096ff186cd99ca3e	0	3
-58	Mishari ibn Rashid al-`Afasy with Ibrahim Walk [Saheeh Intl Translation]	مشارى راشد مع إبراهيم واق - ترجمة معاني القران الكريم باللغة النجليزية - صحيح الدولي	mishaari_w_ibrahim_walk_si/	mp3	2	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/5\\">Shaykh Mishaari Raashid</a>. The English is read by <b>Ibrahaim Walk</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=257\\">Saheeh International Translation</a>.	[Quran] Mishari ibn Rashid al-`Afasy with Ibrahim Walk [Saheeh Intl Translation] [128Kbps - 192Kbps].torrent	b98865af8f1ef5993b1858f9594ce535ee85c45b	0	1
-59	Makkah Taraweeh 1428	تراويح مكة ١٤٢٨	makkah_1428/	mp3	1	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1428 H./2007 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.	[Quran] Makkah Taraweeh 1428 [192Kbps].torrent	5e6d82a0b9cca6d450bb72937dfe13f396438db3	1	0
 60	Abdur-Rashid Sufi [Soosi]	عبد الرشيد صوفي - السوسي	abdurrashid_sufi_soosi_rec/	mp3	3	1	This is the Full Quran recited by Abdur Rashid Sufi in the Qiraat of as-Soosi an Abee 'Amru.  A PDF file for each surah can be downloaded from <a href=\\"http://www.zanjabil.net/downloads/Quran/PDF/as-Soosi/\\">here</a>.  The sections that differ from the main Mushaf we use today (Hafs 'an 'Aasim) have been highlighted in the PDF files.  To download the complete Mushaf, click <a href=\\"http://www.zanjabil.net/downloads/Quran/PDF/as-soosi%20an%20abu%20amru%20al-basri.zip\\">here</a>.	[Quran] Abdur-Rashid Sufi [Soosi] [192Kbps].torrent	c08ba5dfb5f13980e8aa05669f74973febf84185	1	1
-61	Sadaqat `Ali	صدقات علي	sadaqat_ali/	mp3	0	1	\N	[Quran] Sadaqat `Ali [192Kbps].torrent	4e0c3672c9df6b083b1ccd81bd32c89de3b7f620	1	2
 62	Abdur-Rashid Sufi [Khalaf]	عبد الرشيد صوفي - خلف	abdurrashid_sufi_-_khalaf_3an_7amza_recitation/	mp3	3	1	This is the Full Quran recited by Abdur Rashid Sufi in the Qiraat of Khalaf an Hamzah.  A PDF file for each surah can be downloaded from <a href=\\"http://www.zanjabil.net/downloads/Quran/PDF/Khalaf/\\">here</a>.  The sections that differ from the main Mushaf we use today (Hafs 'an 'Aasim) have been highlighted in the PDF files.  To download the complete Mushaf, click <a href=\\"http://www.zanjabil.net/downloads/Quran/PDF/khalaf%20an%20hamzah%20al-koofi.zip\\">here</a>.	[Quran] Abdur-Rashid Sufi [Khalaf] [127Kbps].torrent	d40bfbb6f9edc94f469608e09f28c19ff183046e	1	0
-63	Makkah Taraweeh 1424	تراويح مكة ١٤٢٤	makkah_1424/	mp3	1	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1424 H./2003 A.D.  Contains 3 Imams: <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/35\\">Saleh al Taleb</a>.	[Quran] Makkah Taraweeh 1424 [128Kbps].torrent	75c73606b8da74c7260b3ab0ead973428840c04a	0	1
-64	Hamad Sinan	حامد سنان	hamad_sinan/	mp3	0	1	\N	[Quran] Hamad Sinan [117Kbps - 127Kbps].torrent	da49ced8885072b122802f888d0aaa0e5b7d2016	1	1
-105	Khalid Al Ghamdi	\N	khalid_alghamdi/	mp3	0	1	\N	[Quran] Khalid Al Ghamdi [143Kbps - 190Kbps].torrent	474db66074ae11761dfdff96cdb04079ab4d8b56	\N	\N
-65	Maher al-Muaiqly	ماهر المعيقلى	maher_256/	mp3	0	1	Sheikh Maher al-Muaiqly lead at both al-Masjid al-Haram in Makkah, and at Masjid al-Nabawi in Madinah.  These recitations were converted into mp3s from the files on <a href=\\"http://www.almuaiqly.com\\">the official webpage</a>.  The recitations on this page are from the years 1424-1425.  Some of his other recitations can be found in the <a href=\\"http://quranicaudio.com/quran/30\\">Madinah Taraweeh 1426</a>, <a href=\\"http://quranicaudio.com/quran/33\\">Madinah Taraweeh 1427</a>, and <a href=\\"http://quranicaudio.com/quran/59\\">Makkah Taraweeh 1428</a> sets.  This is a high quality, 256kbps version of Sheikh Maher's recitation, courtesy of <a href=\\"http://www.almuaiqly.com\\">Al-Muaiqly.com</a>.	[Quran] Maher al-Muaiqly [128Kbps - 256Kbps].torrent	20103cb07dc1c8096385468518437cec2f20c12a	7	4
-66	Abdullah Basfar with Ibrahim Walk [Saheeh Intl Translation]	عبد الله بصفر مع إبراهيم واق - ترجمة معاني القران الكريم باللغة النجليزية - صحيح الدولي	abdullah_basfar_w_ibrahim_walk_si/	mp3	2	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/2\\">Shaykh Abdullah Basfar</a>. The English is read by <b>Ibrahaim Walk</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=257\\">Saheeh International Translation</a>.	[Quran] Abdullah Basfar with Ibrahim Walk [Saheeh Intl Translation] [192Kbps].torrent	de2df42d4352b18e443e344041b8b640a2317da3	1	0
-67	Sudais and Shuraym [Urdu Translation]	السديس والشريم - ترجمة معاني القران الكريم باللغة الردية	sudais_and_shuraim_with_urdu/	mp3	2	1	This is the complete set of the Holy Qur'an along with an Urdu translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/7\\">Sudais</a> and <a href=\\"http://quranicaudio.com/quran/4\\">Shuraim</a>.  Special thanks to our friends at <a href=\\"http://aswatalislam.net\\">Aswat Al-Islam</a> for this collection.	[Quran] Sudais and Shuraym [Urdu Translation] [128Kbps].torrent	19ecb0fe1e628cc4c14bf1128252c7970bd7c029	2	1
-68	Abdur-Razaq bin Abtan al-Dulaimi [Mujawwad]	عبد الرزاق بن عبطان الدليمي - مجود	abdulrazaq_bin_abtan_al_dulaimi/	mp3	0	1	This is the mujawwad recitation for <a href=\\"http://www.islamhouse.com/p/108470\\">Sheikh AbdulRazaq bin Abtan Al-Dulaimi</a>.  These files are provided courtesy of <a href=\\"http://www.islamhouse.com/p/108470\\">islamhouse.com</a>.	[Quran] Abdur-Razaq bin Abtan al-Dulaimi [Mujawwad] [128Kbps].torrent	356573471bd529a872e97fdf43bcdf6b11c77347	2	1
-69	Abdullah Ali Jabir	عبدالله علي جابر - ستديو	abdullaah_alee_jaabir_studio/	mp3	0	1	\N	[Quran] Abdullah Ali Jabir [Studio] [128Kbps].torrent	c381567ce0b68b6cd10a7618b6b08251a97e13a1	4	0
-70	Muhammad Abdul-Kareem	محمد عبدالكريم	muhammad_abdulkareem/	mp3	0	1	May Allah reward the brothers at <a href=\\"http://islamhouse.com\\">IslamHouse</a> for these files.	[Quran] Muhammad Abdul-Kareem [128Kbps].torrent	18ae1f700e2ce0e6e03c22f17b2083957185a3d9	3	0
-71	Mustafa al-`Azawi	مصطفى العزاوى	mustafa_al3azzawi/	mp3	0	1	\N	[Quran] Mustafa al-`Azawi [127Kbps - 128Kbps].torrent	8f3971ed8a9a282ea28965f5269b1b336aacc8fc	0	1
-72	Abdullah Khayat	عبدالله خياط	khayat/	mp3	0	1	Special thanks to <a href=\\"http://mp3quran.net\\">mp3quran.net</a> for this recitation.	[Quran] Abdullah Khayat [128Kbps].torrent	c3860b4ac358b33a17a013145dd069afb295205f	1	0
-73	Madinah Taraweeh 1428	تراويح المدينة ١٤٢٨	madinah_1428/	mp3	1	1	This is the Live Recitation from Masjid al-Nabawi, 1428 H./2007 A.D.  Recited by 4 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, and Hussain Aal ash-Shaykh.  Special thanks to <a href=\\"http://shuraym.com\\">shuraym.com</a> for this recitation.	[Quran] Madinah Taraweeh 1428 [128Kbps].torrent	5b95554123737f731c449ccdd49b31824bf99f27	0	1
-74	Dr. Shawqy Hamed [Murattal]	الدكتور شوقي حامد - مرتل	dr.shawqy_7amed/murattal/	mp3	0	1	\N	[Quran] Dr. Shawqy Hamed [Murattal] [64Kbps - 128Kbps].torrent	8ee06829c6bdd92250dcdc3cc1b21b8728742eb1	0	1
-75	Dr. Shawqy Hamed [Mujawwad]	الدكتور شوقي حامد - مجود	dr.shawqy_7amed/mujawwad/	mp3	0	\N	\N	[Quran] Dr. Shawqy Hamed [Mujawwad] [128Kbps].torrent	a0c11e244d908583df0c005cc5cbb82902355cbd	0	1
-77	Makkah Taraweeh 1429	تراويح مكة ١٤٢٩	makkah_1429/	mp3	1	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1429 H./2008 A.D.  Contains 5 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, Adil al-Kalbaani, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.	[Quran] Makkah Taraweeh 1429 [192Kbps].torrent	b05e3252cba1c7b86c3d2164418c0b719af603ae	1	0
+50	AbdulBaset AbdulSamad [Mujawwad]	عبد الباسط عبد الصمد - مجود	abdulbaset_mujawwad/	mp3	1	1	\N	[Quran] AbdulBaset AbdulSamad [Mujawwad] [128Kbps].torrent	9c0f330a5d2db560f7d7f24de55e4bc04cc558f2	10	3
+51	Maher al-Muaiqly [Assorted]	ماهر المعيقلى - متنوعة	maher_ma3eeqly/year1424-1425/	mp3	1	0	\N	[Quran] Maher al-Muaiqly [Assorted] [128Kbps].torrent	110a486ee0d20c8b640d83926cfb719ad3884a9c	1	0
+52	Maher al-Muaiqly [1422-1423]	ماهر المعيقلى - ١٤٢٢-١٤٢٣	maher_ma3eeqly/year1422-1423/	mp3	1	0	\N	[Quran] Maher al-Muaiqly [1422-1423] [128Kbps].torrent	bffb9da27a01ead0c94cf2616e09a443409a6f85	0	1
+53	Muhammad al-Luhaidan	محمد اللحيدان	muhammad_alhaidan/	mp3	1	1	\N	[Quran] Muhammad al-Luhaidan [128Kbps].torrent	2677b27707ac16023aff7ab35e5a200a0c4bbb21	2	0
+55	Al-Hussayni Al-'Azazy (with Children)	الحسيني العزازي مع اطفال	alhusaynee_al3azazee_with_children/	mp3	1	1	\N	[Quran] Al-Hussayni Al-'Azazy (with Children) [192Kbps].torrent	2339aa5f47a1d88e5033595b194099c29155c5e2	0	1
+56	Ibrahim Al-Jibreen [1426-1427]	إبراهيم الجبرين - ١٤٢٦-١٤٢٧	jibreen/jibreen_1426-1427/	mp3	1	\N	\N	[Quran] Ibrahim Al-Jibreen [1426-1427] [192Kbps].torrent	cfdebd7be81fe15f03cbd1832ce656c0e5f27009	1	0
+61	Sadaqat `Ali	صدقات علي	sadaqat_ali/	mp3	1	1	\N	[Quran] Sadaqat `Ali [192Kbps].torrent	4e0c3672c9df6b083b1ccd81bd32c89de3b7f620	1	2
+64	Hamad Sinan	حامد سنان	hamad_sinan/	mp3	1	1	\N	[Quran] Hamad Sinan [117Kbps - 127Kbps].torrent	da49ced8885072b122802f888d0aaa0e5b7d2016	1	1
+105	Khalid Al Ghamdi	\N	khalid_alghamdi/	mp3	1	1	\N	[Quran] Khalid Al Ghamdi [143Kbps - 190Kbps].torrent	474db66074ae11761dfdff96cdb04079ab4d8b56	\N	\N
 78	Mahmoud Khalil Al-Husary [Doori]	محمود خليل الحصري - دوري	mahmood_khaleel_al-husaree_doori/	mp3	3	1	\N	[Quran] Mahmoud Khalil Al-Husary [Doori] [128Kbps].torrent	6cbb8f6dfda09f160be7126d68b38e7f9673af45	4	2
-79	Muhammad Hassan	محمد حسان	mu7ammad_7assan/	mp3	0	1	Special thanks to <a href=\\"http://www.4quran.com\\">4quran.com</a> for this recitation.	[Quran] Muhammad Hassan [127Kbps - 160Kbps].torrent	910eaa1381eae4c4d89e6777773288f2b3fe51cd	0	1
-80	Salah Al-Hashim	صلح الهاشم	salah_alhashim/	mp3	0	1	Special thanks to <a href=\\"http://www.el-moslem.com\\">El-Moslem.com</a> for this recitation.	[Quran] Salah Al-Hashim [128Kbps].torrent	18d42b45b132d4f90591eb7183cf1b17c7fce9d3	0	3
-81	Adel Kalbani	\N	adel_kalbani/	mp3	0	1	\N	[Quran] Adel Kalbani [128Kbps].torrent	6b0efa1112e52723b4ce3ad8848cb4b437ee1ff6	2	0
-82	Makkah Taraweeh 1430	\N	makkah_1430/	mp3	1	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1430 H./2009 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.	[Quran] Makkah Taraweeh 1430 [128Kbps].torrent	487e625fb336de2f02ff4d7d38319e206e658797	0	3
-83	Makkah Taraweeh 1431	تراويح مكة	makkah_1431/	mp3	1	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1431 H./2010 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.  Special thanks to <a href=\\"http://www.haramainrecordings.com\\">haramainrecordings.com</a> for this recitation. 	[Quran] Makkah Taraweeh 1431 [128Kbps].torrent	14969b1a7fb4236cbf4723ea4074e50fad040893	\N	\N
-84	Madinah Taraweeh 1431	\N	madinah_1431/	mp3	1	1	This is the Live Recitation from Masjid al-Nabawi, 1431 H./2010 A.D.  Recited by 5 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, Khalid al-Ghamdi, and Hussain Aal ash-Shaykh.  Special thanks to <a href=\\"http://shuraym.com\\">shuraym.com</a> for this recitation.	[Quran] Madinah Taraweeh 1431 [128Kbps].torrent	a4e7769822b1577c2839ba0e7c0c8d21a91dcbe1	\N	\N
-85	Hatem Farid	حاتم فريد	hatem_farid/collection/	mp3	0	1	This is the recitation for Sheikh Hatem Farid.  This particular recitation was contributed by a user of this website, and many of these recitations come from <a href=\\"http://el-moslem.com\\">el-moslem.com</a>.	[Quran] Hatem Farid [56Kbps - 256Kbps].torrent	f7abce08d49cea55d5d793092c7934fa20349f65	\N	\N
-86	Hatem Farid - Taraweeh 1432	حاتم فريد	hatem_farid/taraweeh1432/	mp3	0	\N	This is the recitation for Sheikh Hatem Farid, from Salat al-Taraweeh, 1432 A.H. (2011 A.D.).  This recitation comes from <a href=\\"http://hatemfarid.com\\">hatemfarid.com</a>.	[Quran] Hatem Farid - Taraweeh 1432 [128Kbps].torrent	4c45536c67bce35c465d9d26fe82b5d17c1c42e6	\N	\N
-87	Hatem Farid - Taraweeh 1431	\N	hatem_farid/taraweeh1431/	mp3	0	\N	This is the recitation for Sheikh Hatem Farid, from Salat al-Taraweeh, 1431 A.H. (2010 A.D.).  This recitation comes from <a href=\\"http://hatemfarid.com\\">hatemfarid.com</a>.	[Quran] Hatem Farid - Taraweeh 1431 [128Kbps].torrent	49e21ad7252d77e5b861c2f2fddbc58b3576df85	\N	\N
-88	Mostafa Ismaeel	مصطفى إسماعيل	mostafa_ismaeel/	mp3	0	1	\N	[Quran] Mostafa Ismaeel [128Kbps].torrent	98b7e43b76fbbafd8d017d86557dc009fb266a4c	\N	\N
-89	Mohamed Al-Tablawi	محمد الطبلاوي	mohamed_al-tablawi/	mp3	0	1	\N	[Quran] Mohamed Al-Tablawi [128Kbps].torrent	0b0b39faf81bbf08bb324ef5b64a4708dd5bcc2d	\N	\N
-90	Muhammad Sulaiman Patel	\N	muhammad_patel/	mp3	0	1	This is the recitation of Sheikh Muhammad Sulaiman Patel, the Imam of <a href=\\"http://masjideumar.co.nz\\">Masjid e Umar</a> in Auckland, New Zealand.  The mp3 files come from their website.	[Quran] Muhammad Sulaiman Patel [128Kbps - 256Kbps].torrent	c73c4f95775380348d232fac0f0d3c8cfeb2b17a	\N	\N
-91	Mohammad Al-Tablawi	محمد الطبلاوي	mohammad_altablawi/	mp3	0	1	\N	[Quran] Mohammad Al-Tablawi [128Kbps].torrent	60f1cea9b96f3217e4f92604e5bf46ca65e35438	\N	\N
-92	Mohammad Ismaeel Al-Muqaddim	\N	mohammad_ismaeel_almuqaddim/	mp3	0	1	\N	[Quran] Mohammad Ismaeel Al-Muqaddim [128Kbps].torrent	8105bd15029c14048846d9f0f75390e23486df5f	\N	\N
-93	Imad Zuhair Hafez	عماد زهير حافظ	imad_zuhair_hafez/	mp3	0	1	Thanks to the brothers at <a href=\\"http://assabile.com\\">Al-Sabeel</a> for this recitation.	[Quran] Imad Zuhair Hafez [83Kbps - 92Kbps].torrent	c679821d7597bd22a6c2b6a2378f31fcd64666ac	\N	\N
-94	Makkah Taraweeh 1432	تراويح مكة	makkah_1432/	mp3	1	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1432 H./2011 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.  Special thanks to <a href=\\"http://www.haramainrecordings.com\\">haramainrecordings.com</a> for this recitation.	[Quran] Makkah Taraweeh 1432 [128Kbps].torrent	aa0ac69aafa9cc350cd6268a196796339c343ca6	\N	\N
-95	Mishari al-`Afasy - Taraweeh 1430	مشاري بن راشد العفاسي	mishaari_california/	mp3	0	\N	This is the recording of Sheikh Mishari Rashid from Salat al-Taraweeh in the year of 1430 H./2009 A.D.  It was recorded in Irvine, California during the sheikh's visit.	[Quran] Mishari al-`Afasy - Taraweeh 1430 [128Kbps].torrent	417d603b8ad38542c12d557f81a1e1562be9f4f2	\N	\N
-96	Hatem Farid - Taraweeh 1433	حاتم فريد	hatem_farid/taraweeh1433/	mp3	0	\N	This is the recitation for Sheikh Hatem Farid, from Salat al-Taraweeh, 1433 A.H. (2012 A.D.).  This recitation comes from <a href=\\"http://hatemfarid.com\\">hatemfarid.com</a>.	[Quran] Hatem Farid - Taraweeh 1433 [128Kbps].torrent	16ef192baf58bcb164ec51e358c0335f05172983	\N	\N
-97	Yasser ad-Dussary	\N	yasser_ad-dussary/	mp3	0	1	\N	[Quran] Yasser ad-Dussary [128Kbps].torrent	aa66b9a08e3ef9507e9545bc359c3d58627c571f	\N	\N
-98	Makkah Taraweeh 1433	تراويح مكة	makkah_1433/	mp3	1	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1433 H./2012 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.  Special thanks to <a href=\\"http://www.shuraym.com\\">shuraym.com</a> for this recitation.	[Quran] Makkah Taraweeh 1433 [256Kbps].torrent	0f8e896802d0f6aecc5adabc4e6a3fd32ecf70c8	\N	\N
-99	Madinah Taraweeh 1429	\N	madinah_1429/	mp3	1	1	This is the Live Recitation from Masjid al-Nabawi, 1429 H./2008 A.D.  Recited by 4 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, and Hussain Aal ash-Shaykh.	[Quran] Madinah Taraweeh 1429 [48Kbps].torrent	7d5b9cd72ea0c7d1d2791435d30086a578801084	\N	\N
-100	Madinah Taraweeh 1430	\N	madinah_1430/	mp3	1	1	This is the Live Recitation from Masjid al-Nabawi, 1430 H./2009 A.D.  Recited by 5 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, <a href=\\"http://quranicaudio.com/quran/13\\">Saad al-Ghamdi</a>, and Hussain Aal ash-Shaykh.	[Quran] Madinah Taraweeh 1430 [48Kbps].torrent	315fc73bedda5606694e18037e5cfc40be4ebc18	\N	\N
-101	Madinah Taraweeh 1432	\N	madinah_1432/	mp3	1	1	This is the Live Recitation from Masjid al-Nabawi, 1432 H./2011 A.D.  Recited by 5 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, Imaad Hafidh, and Hussain Aal ash-Shaykh.	[Quran] Madinah Taraweeh 1432 [48Kbps].torrent	515f1085594720442527971b023fcbfc24cb4dc4	\N	\N
-102	Madinah Taraweeh 1433	\N	madinah_1433/	mp3	1	1	This is the Live Recitation from Masjid al-Nabawi, 1433 H./2012 A.D.  Recited by 4 Imams: <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, Khalid al-Ghamdi, and Hussain Aal ash-Shaykh.	[Quran] Madinah Taraweeh 1433 [48Kbps].torrent	986e0739f2592aa4cab3185415ad8969fa78535b	\N	\N
-103	Ibrahim Al Akhdar	\N	ibrahim_al_akhdar/	mp3	0	1	\N	[Quran] Ibrahim Al Akhdar [40Kbps].torrent	b2c557573c3a1650afd670944648fb60792a46a7	\N	\N
-106	AbdulKareem Al Hazmi	\N	abdulkareem_al_hazmi/	mp3	0	1	This is the 1433/1434H Live Taraweeh recitation of AbdulKareem Al Hazmi (from Makkah) recorded at the King Fahd Mosque / Islamic Foundation of Shaikh Ibn Taymiyah, Culver City CA.	[Quran] AbdulKareem Al Hazmi [256Kbps].torrent	924fe16d194109f238f9e2c3f9ae3c879394dfab	\N	\N
-107	Muhammad Ayyoob [Taraweeh]	\N	muhammad_ayyoob_hq/	mp3	0	1	This is a taraweeh set for Sheikh Muhammad Ayyoob. It contains recordings over the past 20 years in 192kbps mp3 format. These files were obtained from <a href=\\"http://mdayyoub.com/index.php\\">here</a>, and have been converted to mp3 format for this site.	\N	\N	\N	\N
-108	Abdul-Mun'im Abdul-Mubdi'	\N	abdulmun3im_abdulmubdi2/	mp3	0	1	The original version of this recitation comes from the brothers at <a href=\\"http://el-moslem.com\\">el-moslem.com</a>.	\N	\N	\N	\N
-109	Abdur-Rashid Sufi	\N	abdurrashid_sufi/	mp3	0	1	The original version of this recitation comes from the brothers at <a href=\\"http://moments.net\\">moments.net</a>.	\N	\N	\N	\N
+65	Maher al-Muaiqly	ماهر المعيقلى	maher_256/	mp3	1	1	Sheikh Maher al-Muaiqly lead at both al-Masjid al-Haram in Makkah, and at Masjid al-Nabawi in Madinah.  These recitations were converted into mp3s from the files on <a href=\\"http://www.almuaiqly.com\\">the official webpage</a>.  The recitations on this page are from the years 1424-1425.  Some of his other recitations can be found in the <a href=\\"http://quranicaudio.com/quran/30\\">Madinah Taraweeh 1426</a>, <a href=\\"http://quranicaudio.com/quran/33\\">Madinah Taraweeh 1427</a>, and <a href=\\"http://quranicaudio.com/quran/59\\">Makkah Taraweeh 1428</a> sets.  This is a high quality, 256kbps version of Sheikh Maher's recitation, courtesy of <a href=\\"http://www.almuaiqly.com\\">Al-Muaiqly.com</a>.	[Quran] Maher al-Muaiqly [128Kbps - 256Kbps].torrent	20103cb07dc1c8096385468518437cec2f20c12a	7	4
+68	Abdur-Razaq bin Abtan al-Dulaimi [Mujawwad]	عبد الرزاق بن عبطان الدليمي - مجود	abdulrazaq_bin_abtan_al_dulaimi/	mp3	1	1	This is the mujawwad recitation for <a href=\\"http://www.islamhouse.com/p/108470\\">Sheikh AbdulRazaq bin Abtan Al-Dulaimi</a>.  These files are provided courtesy of <a href=\\"http://www.islamhouse.com/p/108470\\">islamhouse.com</a>.	[Quran] Abdur-Razaq bin Abtan al-Dulaimi [Mujawwad] [128Kbps].torrent	356573471bd529a872e97fdf43bcdf6b11c77347	2	1
+69	Abdullah Ali Jabir	عبدالله علي جابر - ستديو	abdullaah_alee_jaabir_studio/	mp3	1	1	\N	[Quran] Abdullah Ali Jabir [Studio] [128Kbps].torrent	c381567ce0b68b6cd10a7618b6b08251a97e13a1	4	0
+70	Muhammad Abdul-Kareem	محمد عبدالكريم	muhammad_abdulkareem/	mp3	1	1	May Allah reward the brothers at <a href=\\"http://islamhouse.com\\">IslamHouse</a> for these files.	[Quran] Muhammad Abdul-Kareem [128Kbps].torrent	18ae1f700e2ce0e6e03c22f17b2083957185a3d9	3	0
+71	Mustafa al-`Azawi	مصطفى العزاوى	mustafa_al3azzawi/	mp3	1	1	\N	[Quran] Mustafa al-`Azawi [127Kbps - 128Kbps].torrent	8f3971ed8a9a282ea28965f5269b1b336aacc8fc	0	1
+72	Abdullah Khayat	عبدالله خياط	khayat/	mp3	1	1	Special thanks to <a href=\\"http://mp3quran.net\\">mp3quran.net</a> for this recitation.	[Quran] Abdullah Khayat [128Kbps].torrent	c3860b4ac358b33a17a013145dd069afb295205f	1	0
+74	Dr. Shawqy Hamed [Murattal]	الدكتور شوقي حامد - مرتل	dr.shawqy_7amed/murattal/	mp3	1	1	\N	[Quran] Dr. Shawqy Hamed [Murattal] [64Kbps - 128Kbps].torrent	8ee06829c6bdd92250dcdc3cc1b21b8728742eb1	0	1
+75	Dr. Shawqy Hamed [Mujawwad]	الدكتور شوقي حامد - مجود	dr.shawqy_7amed/mujawwad/	mp3	1	\N	\N	[Quran] Dr. Shawqy Hamed [Mujawwad] [128Kbps].torrent	a0c11e244d908583df0c005cc5cbb82902355cbd	0	1
+79	Muhammad Hassan	محمد حسان	mu7ammad_7assan/	mp3	1	1	Special thanks to <a href=\\"http://www.4quran.com\\">4quran.com</a> for this recitation.	[Quran] Muhammad Hassan [127Kbps - 160Kbps].torrent	910eaa1381eae4c4d89e6777773288f2b3fe51cd	0	1
+80	Salah Al-Hashim	صلح الهاشم	salah_alhashim/	mp3	1	1	Special thanks to <a href=\\"http://www.el-moslem.com\\">El-Moslem.com</a> for this recitation.	[Quran] Salah Al-Hashim [128Kbps].torrent	18d42b45b132d4f90591eb7183cf1b17c7fce9d3	0	3
+81	Adel Kalbani	\N	adel_kalbani/	mp3	1	1	\N	[Quran] Adel Kalbani [128Kbps].torrent	6b0efa1112e52723b4ce3ad8848cb4b437ee1ff6	2	0
+85	Hatem Farid	حاتم فريد	hatem_farid/collection/	mp3	1	1	This is the recitation for Sheikh Hatem Farid.  This particular recitation was contributed by a user of this website, and many of these recitations come from <a href=\\"http://el-moslem.com\\">el-moslem.com</a>.	[Quran] Hatem Farid [56Kbps - 256Kbps].torrent	f7abce08d49cea55d5d793092c7934fa20349f65	\N	\N
+86	Hatem Farid - Taraweeh 1432	حاتم فريد	hatem_farid/taraweeh1432/	mp3	1	\N	This is the recitation for Sheikh Hatem Farid, from Salat al-Taraweeh, 1432 A.H. (2011 A.D.).  This recitation comes from <a href=\\"http://hatemfarid.com\\">hatemfarid.com</a>.	[Quran] Hatem Farid - Taraweeh 1432 [128Kbps].torrent	4c45536c67bce35c465d9d26fe82b5d17c1c42e6	\N	\N
+87	Hatem Farid - Taraweeh 1431	\N	hatem_farid/taraweeh1431/	mp3	1	\N	This is the recitation for Sheikh Hatem Farid, from Salat al-Taraweeh, 1431 A.H. (2010 A.D.).  This recitation comes from <a href=\\"http://hatemfarid.com\\">hatemfarid.com</a>.	[Quran] Hatem Farid - Taraweeh 1431 [128Kbps].torrent	49e21ad7252d77e5b861c2f2fddbc58b3576df85	\N	\N
+88	Mostafa Ismaeel	مصطفى إسماعيل	mostafa_ismaeel/	mp3	1	1	\N	[Quran] Mostafa Ismaeel [128Kbps].torrent	98b7e43b76fbbafd8d017d86557dc009fb266a4c	\N	\N
+89	Mohamed Al-Tablawi	محمد الطبلاوي	mohamed_al-tablawi/	mp3	1	1	\N	[Quran] Mohamed Al-Tablawi [128Kbps].torrent	0b0b39faf81bbf08bb324ef5b64a4708dd5bcc2d	\N	\N
+90	Muhammad Sulaiman Patel	\N	muhammad_patel/	mp3	1	1	This is the recitation of Sheikh Muhammad Sulaiman Patel, the Imam of <a href=\\"http://masjideumar.co.nz\\">Masjid e Umar</a> in Auckland, New Zealand.  The mp3 files come from their website.	[Quran] Muhammad Sulaiman Patel [128Kbps - 256Kbps].torrent	c73c4f95775380348d232fac0f0d3c8cfeb2b17a	\N	\N
+91	Mohammad Al-Tablawi	محمد الطبلاوي	mohammad_altablawi/	mp3	1	1	\N	[Quran] Mohammad Al-Tablawi [128Kbps].torrent	60f1cea9b96f3217e4f92604e5bf46ca65e35438	\N	\N
+92	Mohammad Ismaeel Al-Muqaddim	\N	mohammad_ismaeel_almuqaddim/	mp3	1	1	\N	[Quran] Mohammad Ismaeel Al-Muqaddim [128Kbps].torrent	8105bd15029c14048846d9f0f75390e23486df5f	\N	\N
+93	Imad Zuhair Hafez	عماد زهير حافظ	imad_zuhair_hafez/	mp3	1	1	Thanks to the brothers at <a href=\\"http://assabile.com\\">Al-Sabeel</a> for this recitation.	[Quran] Imad Zuhair Hafez [83Kbps - 92Kbps].torrent	c679821d7597bd22a6c2b6a2378f31fcd64666ac	\N	\N
+95	Mishari al-`Afasy - Taraweeh 1430	مشاري بن راشد العفاسي	mishaari_california/	mp3	1	\N	This is the recording of Sheikh Mishari Rashid from Salat al-Taraweeh in the year of 1430 H./2009 A.D.  It was recorded in Irvine, California during the sheikh's visit.	[Quran] Mishari al-`Afasy - Taraweeh 1430 [128Kbps].torrent	417d603b8ad38542c12d557f81a1e1562be9f4f2	\N	\N
+96	Hatem Farid - Taraweeh 1433	حاتم فريد	hatem_farid/taraweeh1433/	mp3	1	\N	This is the recitation for Sheikh Hatem Farid, from Salat al-Taraweeh, 1433 A.H. (2012 A.D.).  This recitation comes from <a href=\\"http://hatemfarid.com\\">hatemfarid.com</a>.	[Quran] Hatem Farid - Taraweeh 1433 [128Kbps].torrent	16ef192baf58bcb164ec51e358c0335f05172983	\N	\N
+97	Yasser ad-Dussary	\N	yasser_ad-dussary/	mp3	1	1	\N	[Quran] Yasser ad-Dussary [128Kbps].torrent	aa66b9a08e3ef9507e9545bc359c3d58627c571f	\N	\N
+103	Ibrahim Al Akhdar	\N	ibrahim_al_akhdar/	mp3	1	1	\N	[Quran] Ibrahim Al Akhdar [40Kbps].torrent	b2c557573c3a1650afd670944648fb60792a46a7	\N	\N
 110	Abdur-Rashid Sufi [Abi al-Haarith an al-Kasaa'ee]	\N	abdurrashid_sufi_abi_al7arith/	mp3	3	1	\N	\N	\N	\N	\N
 111	Abdur-Rashid Sufi [ad-Doori an Abi Amr]	\N	abdurrashid_sufi_doori/	mp3	3	1	\N	\N	\N	\N	\N
 112	Abdur-Rashid Sufi [Shu'bah an Asim]	\N	abdurrashid_sufi_shu3ba/	mp3	3	1	\N	\N	\N	\N	\N
-113	Ahmad al-Huthaify	\N	ahmad_alhuthayfi/	mp3	0	1	Special thanks to the brothers at <a href=\\"http://www.mazameer.com/cat-29.html\\">mazameer</a> for this recitation.	\N	\N	\N	\N
 114	Ali al-Huthaify [Qaloon]	\N	huthayfi_qaloon/	mp3	3	1	The original version of this recitation comes from the brothers at <a href=\\"http://islamway.com\\">islamway.com</a>.	\N	\N	\N	\N
-115	Abu Bakr al-Shatri [Taraweeh]	\N	abu_bakr_ash-shatri_tarawee7/	mp3	0	1	\N	\N	\N	\N	\N
-116	Idrees Abkar	\N	idrees_akbar/	mp3	0	1	\N	\N	\N	\N	\N
-117	Bandar Baleela	\N	bandar_baleela/	mp3	0	1	\N	\N	\N	\N	\N
-118	Masjid Quba Taraweeh 1434	\N	masjid_quba_1434/	mp3	0	1	\N	\N	\N	\N	\N
-119	Muhammad Khaleel	\N	muhammad_khaleel/	mp3	0	1	\N	\N	\N	\N	\N
-120	Makkah Taraweeh 1434	\N	makkah_1434/	mp3	1	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1434 H./2013 A.D.  Contains 6 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>, <a href=\\"http://quranicaudio.com/quran/105\\">Khalid al Ghamdi</a>, and <a href=\\"http://quranicaudio.com/quran/117\\">Bandar Baleela</a>.  Special thanks to <a href=\\"http://www.shuraym.com\\">shuraym.com</a> for this recitation.	\N	\N	\N	\N
-121	Muhammad al-Mehysni - Taraweeh 1435	\N	muhaisny_1435/	mp3	0	\N	\N	\N	\N	\N	\N
-122	Mahmoud Khaleel Al-Husary	\N	mahmood_khaleel_al-husaree_iza3a/	mp3	0	1	This is the broadcast version of Sheikh Al-Husary's recitation. It is one of his earliest recitations, aired on the Egyptain Quran radio station. Special thanks to <a href=\\"http://islamway.com\\">islamway</a> for this recitation.	\N	\N	\N	\N
-123	Madinah Taraweeh 1435	\N	madinah_1435/	mp3	1	1	This is the Live Recitation from Masjid al-Nabawi, 1435 H./2014 A.D.  Recited by 6 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, Abdullah al-Bu'ayjan, Ahmad Hameed, and Husayn aal ash-Shaykh. Special thanks to <a href=\\"http://www.mazameer.com\\">Mazameer</a> for this recitation.	\N	\N	\N	\N
+36	Sudais and Shuraym with Aslam Athar [Pickthall Translation]	السديس والشريم مع اسلم اظهر - ترجمة معاني القران الكريم باللغة النجليزية - بيكثال	sudais_shuraim_and_english/	mp3	4	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/7\\">Sudais</a> and <a href=\\"http://quranicaudio.com/quran/4\\">Shuraim</a>.  The English is read by <b>Aslam Athar</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=33\\">Pickthall Translation</a>.	[Quran] Sudais and Shuraym with Aslam Athar [Pickthall Translation] [192Kbps].torrent	e4c78bad75d4a93ec05ae55c1885061a81e4f1cd	1	0
+39	Muhammad Ayyub with Mikaal Waters [Muhsin Khan Translation]	محمد أيوب مع ميكال وترز - ترجمة معاني القران الكريم باللغة النجليزية - محسن خان	muhammad_ayub_and_mikaal_waters/	mp3	4	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/22\\">Shaykh Muhammad Ayoob</a>. The English is read by <b>Mikaal Waters</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=9\\">Muhsin Khan Translation</a>.	[Quran] Muhammad Ayyub with Mikaal Waters [Muhsin Khan Translation] [192Kbps].torrent	01d38dfeca6435dd46efc61b8ae5571ccb8b1836	2	0
+42	Shakir Qasami with Aslam Athar [Pickthall Translation]	شاكر قاسمى مع اسلم اظهر - ترجمة معاني القران الكريم باللغة النجليزية - بيكثال	shakir_qasami_with_english/	mp3	4	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <b>Shaykh Shakir Qasami</b>.  The English is read by <b>Aslam Athar</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=33\\">Pickthall Translation</a>.	[Quran] Shakir Qasami with Aslam Athar [Pickthall Translation] [128Kbps - 160Kbps].torrent	ce645f86e145723cf5667551f53d28ecfca51af7	0	1
+47	AbdulBaset AbdulSamad with Naeem Sultan [Pickthall Translation]	عبد الباسط عبد الصمد مع نعيم سلطان - ترجمة معاني القران الكريم باللغة النجليزية - بيكثال	abdulbaset_with_naeem_sultan_pickthall/	mp3	4	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <b>AbdulBaset AbdulSamad</b> [<a href=\\"http://quranicaudio.com/quran/37\\">Murattal</a>/<a href=\\"http://quranicaudio.com/quran/50\\">Mujawwad</a>].  The English is read by <b>Naeem Sultan</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=33\\">Pickthall Translation</a>.	[Quran] AbdulBaset AbdulSamad with Naeem Sultan [Pickthall Translation] [80Kbps].torrent	83a0ccdabec46646cdfd2b7b5133910e0d899b1c	2	1
+48	Sudais and Shuraym with Naeem Sultan [Pickthall Translation]	السديس والشريم مع نعيم سلطان - ترجمة معاني القران الكريم باللغة النجليزية - بيكثال	sudais_shuraim_with_naeem_sultan_pickthall/	mp3	4	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/7\\">Sudais</a> and <a href=\\"http://quranicaudio.com/quran/4\\">Shuraim</a>.  The English is read by <b>Naeem Sultan</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=33\\">Pickthall Translation</a>.	[Quran] Sudais and Shuraym with Naeem Sultan [Pickthall Translation] [64Kbps - 80Kbps].torrent	c1fe0225e58a0d20ed9d653ed0497b3fb03a9e4b	2	0
+106	AbdulKareem Al Hazmi	\N	abdulkareem_al_hazmi/	mp3	1	1	This is the 1433/1434H Live Taraweeh recitation of AbdulKareem Al Hazmi (from Makkah) recorded at the King Fahd Mosque / Islamic Foundation of Shaikh Ibn Taymiyah, Culver City CA.	[Quran] AbdulKareem Al Hazmi [256Kbps].torrent	924fe16d194109f238f9e2c3f9ae3c879394dfab	\N	\N
+107	Muhammad Ayyoob [Taraweeh]	\N	muhammad_ayyoob_hq/	mp3	1	1	This is a taraweeh set for Sheikh Muhammad Ayyoob. It contains recordings over the past 20 years in 192kbps mp3 format. These files were obtained from <a href=\\"http://mdayyoub.com/index.php\\">here</a>, and have been converted to mp3 format for this site.	\N	\N	\N	\N
+108	Abdul-Mun'im Abdul-Mubdi'	\N	abdulmun3im_abdulmubdi2/	mp3	1	1	The original version of this recitation comes from the brothers at <a href=\\"http://el-moslem.com\\">el-moslem.com</a>.	\N	\N	\N	\N
+109	Abdur-Rashid Sufi	\N	abdurrashid_sufi/	mp3	1	1	The original version of this recitation comes from the brothers at <a href=\\"http://moments.net\\">moments.net</a>.	\N	\N	\N	\N
+113	Ahmad al-Huthaify	\N	ahmad_alhuthayfi/	mp3	1	1	Special thanks to the brothers at <a href=\\"http://www.mazameer.com/cat-29.html\\">mazameer</a> for this recitation.	\N	\N	\N	\N
+49	Mishari ibn Rashid al-`Afasy with Saabir [Muhsin Khan Translation]	مشارى راشد مع صابر - ترجمة معاني القران الكريم باللغة النجليزية - محسن خان	mishaari_with_saabir_mkhan/	mp3	4	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/5\\">Shaykh Mishaari Raashid</a>. The English is read by <b>Saabir</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=9\\">Muhsin Khan Translation</a>.	[Quran] Mishari ibn Rashid al-`Afasy with Saabir [Muhsin Khan Translation] [160Kbps - 192Kbps].torrent	11ef61ae5ab7265f3265ba496c757e0bda3959bc	1	1
+57	AbdulBaset AbdulSamad with Ibrahim Walk [Saheeh Intl Translation]	عبد الباسط عبد الصمد مع إبراهيم واق - ترجمة معاني القران الكريم باللغة النجليزية - صحيح الدولي	abdulbasit_w_ibrahim_walk_si/	mp3	4	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <b>AbdulBaset AbdulSamad</b> [<a href=\\"http://quranicaudio.com/quran/37\\">Murattal</a>/<a href=\\"http://quranicaudio.com/quran/50\\">Mujawwad</a>].  The English is read by <b>Ibrahaim Walk</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=257\\">Saheeh International Translation</a>.	[Quran] AbdulBaset AbdulSamad with Ibrahim Walk [Saheeh Intl Translation] [192Kbps].torrent	1c0093bced211d5a0fd3d7be096ff186cd99ca3e	0	3
+58	Mishari ibn Rashid al-`Afasy with Ibrahim Walk [Saheeh Intl Translation]	مشارى راشد مع إبراهيم واق - ترجمة معاني القران الكريم باللغة النجليزية - صحيح الدولي	mishaari_w_ibrahim_walk_si/	mp3	4	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/5\\">Shaykh Mishaari Raashid</a>. The English is read by <b>Ibrahaim Walk</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=257\\">Saheeh International Translation</a>.	[Quran] Mishari ibn Rashid al-`Afasy with Ibrahim Walk [Saheeh Intl Translation] [128Kbps - 192Kbps].torrent	b98865af8f1ef5993b1858f9594ce535ee85c45b	0	1
+66	Abdullah Basfar with Ibrahim Walk [Saheeh Intl Translation]	عبد الله بصفر مع إبراهيم واق - ترجمة معاني القران الكريم باللغة النجليزية - صحيح الدولي	abdullah_basfar_w_ibrahim_walk_si/	mp3	4	1	This is the complete set of the Holy Qur'an along with an English Verse-by-Verse translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/2\\">Shaykh Abdullah Basfar</a>. The English is read by <b>Ibrahaim Walk</b> using the <a href=\\"http://searchquran.net/quran.php?q=1&langs=257\\">Saheeh International Translation</a>.	[Quran] Abdullah Basfar with Ibrahim Walk [Saheeh Intl Translation] [192Kbps].torrent	de2df42d4352b18e443e344041b8b640a2317da3	1	0
+67	Sudais and Shuraym [Urdu Translation]	السديس والشريم - ترجمة معاني القران الكريم باللغة الردية	sudais_and_shuraim_with_urdu/	mp3	4	1	This is the complete set of the Holy Qur'an along with an Urdu translation. The Arabic is recited by <a href=\\"http://quranicaudio.com/quran/7\\">Sudais</a> and <a href=\\"http://quranicaudio.com/quran/4\\">Shuraim</a>.  Special thanks to our friends at <a href=\\"http://aswatalislam.net\\">Aswat Al-Islam</a> for this collection.	[Quran] Sudais and Shuraym [Urdu Translation] [128Kbps].torrent	19ecb0fe1e628cc4c14bf1128252c7970bd7c029	2	1
+25	Madinah Taraweeh 1419	تراويح المدينة ١٤١٩	madinah_1419/	mp3,ogg	2	1	This is Live Recitation from Al-Madinah. Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhaynee</a>, <a href=\\"http://quranicaudio.com/quran/15\\">AbdulBari ath-Thubaity</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, and <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>.	[Quran] Madinah Taraweeh 1419 [128Kbps].torrent	540bcd64ea0accfe950b03d8c1546b5262532d52	2	0
+29	Makkah Taraweeh 1426	تراويح مكة ١٤٢٦	makkah_1426/	mp3	2	1	This is Live Recitation from Masjid al-Haram in Makkah Al-Mukarramah, 1426 H./2005 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>, and <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>.	[Quran] Makkah Taraweeh 1426 [192Kbps].torrent	41a2f392b771c379326bdd96523aa65a5021b5ed	0	1
+30	Madinah Taraweeh 1426	تراويح المدينة ١٤٢٦	madinah_1426/	mp3	2	1	This is Live Recitation from Masjid al-Nabawi, 1426 H/2005 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/8\\">Ali Adur-Rahman al-Huthaify</a>, Hussain Aal ash-Shaykh, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, and <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>.	[Quran] Madinah Taraweeh 1426 [192Kbps].torrent	6cf89a696c93c7af373b5eb13657a19a3a484528	2	0
+33	Madinah Taraweeh 1427	تراويح المدينة ١٤٢٧	madinah_1427/	mp3	2	1	This is Live Recitation from Masjid al-Nabawi, 1427 H./2006 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, and Hussain Aal ash-Shaykh.	[Quran] Madinah Taraweeh 1427 [192Kbps].torrent	c3ce9534ece513db22b79030f059e12e321a0582	1	0
+34	Makkah Taraweeh 1427	تراويح مكة ١٤٢٧	makkah_1427/	mp3	2	1	This is Live Recitation from Masjid al-Haram in Makkah Al-Mukarramah, 1427 H./2006 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>, and <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>.	[Quran] Makkah Taraweeh 1427 [192Kbps].torrent	30552d171183080ba25a44c6f0b73cd1cab71248	1	0
+45	Makkah Taraweeh 1425	تراويح مكة ١٤٢٥	makkah_1425/	mp3	2	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1425 H./2004 A.D.  Contains 2 Imams: <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a> and <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>.	[Quran] Makkah Taraweeh 1425 [161Kbps - 192Kbps].torrent	2f623ac9bfe3af70469fdcb8d41fea5ae42c52e1	2	0
+46	Madinah Taraweeh 1423	تراويح المدينة ١٤٢٣	madinah_1423/	mp3	2	1	This is Live Recitation from Masjidun-Nabawi, 1423 H./2002 A.D.  Contains 5 Imams:  <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, <a href=\\"http://quranicaudio.com/quran/15\\">AbdulBari ath-Thubaity</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, and Hussain Aal Ash-Shaykh.	[Quran] Madinah Taraweeh 1423 [192Kbps].torrent	beef352976bd0570717001b30b6a98ce8bd25b51	0	1
+59	Makkah Taraweeh 1428	تراويح مكة ١٤٢٨	makkah_1428/	mp3	2	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1428 H./2007 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.	[Quran] Makkah Taraweeh 1428 [192Kbps].torrent	5e6d82a0b9cca6d450bb72937dfe13f396438db3	1	0
+63	Makkah Taraweeh 1424	تراويح مكة ١٤٢٤	makkah_1424/	mp3	2	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1424 H./2003 A.D.  Contains 3 Imams: <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/35\\">Saleh al Taleb</a>.	[Quran] Makkah Taraweeh 1424 [128Kbps].torrent	75c73606b8da74c7260b3ab0ead973428840c04a	0	1
+73	Madinah Taraweeh 1428	تراويح المدينة ١٤٢٨	madinah_1428/	mp3	2	1	This is the Live Recitation from Masjid al-Nabawi, 1428 H./2007 A.D.  Recited by 4 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, and Hussain Aal ash-Shaykh.  Special thanks to <a href=\\"http://shuraym.com\\">shuraym.com</a> for this recitation.	[Quran] Madinah Taraweeh 1428 [128Kbps].torrent	5b95554123737f731c449ccdd49b31824bf99f27	0	1
+77	Makkah Taraweeh 1429	تراويح مكة ١٤٢٩	makkah_1429/	mp3	2	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1429 H./2008 A.D.  Contains 5 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, Adil al-Kalbaani, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.	[Quran] Makkah Taraweeh 1429 [192Kbps].torrent	b05e3252cba1c7b86c3d2164418c0b719af603ae	1	0
+82	Makkah Taraweeh 1430	\N	makkah_1430/	mp3	2	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1430 H./2009 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.	[Quran] Makkah Taraweeh 1430 [128Kbps].torrent	487e625fb336de2f02ff4d7d38319e206e658797	0	3
+83	Makkah Taraweeh 1431	تراويح مكة	makkah_1431/	mp3	2	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1431 H./2010 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.  Special thanks to <a href=\\"http://www.haramainrecordings.com\\">haramainrecordings.com</a> for this recitation. 	[Quran] Makkah Taraweeh 1431 [128Kbps].torrent	14969b1a7fb4236cbf4723ea4074e50fad040893	\N	\N
+84	Madinah Taraweeh 1431	\N	madinah_1431/	mp3	2	1	This is the Live Recitation from Masjid al-Nabawi, 1431 H./2010 A.D.  Recited by 5 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, Khalid al-Ghamdi, and Hussain Aal ash-Shaykh.  Special thanks to <a href=\\"http://shuraym.com\\">shuraym.com</a> for this recitation.	[Quran] Madinah Taraweeh 1431 [128Kbps].torrent	a4e7769822b1577c2839ba0e7c0c8d21a91dcbe1	\N	\N
+94	Makkah Taraweeh 1432	تراويح مكة	makkah_1432/	mp3	2	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1432 H./2011 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.  Special thanks to <a href=\\"http://www.haramainrecordings.com\\">haramainrecordings.com</a> for this recitation.	[Quran] Makkah Taraweeh 1432 [128Kbps].torrent	aa0ac69aafa9cc350cd6268a196796339c343ca6	\N	\N
+98	Makkah Taraweeh 1433	تراويح مكة	makkah_1433/	mp3	2	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1433 H./2012 A.D.  Contains 4 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, and <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>.  Special thanks to <a href=\\"http://www.shuraym.com\\">shuraym.com</a> for this recitation.	[Quran] Makkah Taraweeh 1433 [256Kbps].torrent	0f8e896802d0f6aecc5adabc4e6a3fd32ecf70c8	\N	\N
+99	Madinah Taraweeh 1429	\N	madinah_1429/	mp3	2	1	This is the Live Recitation from Masjid al-Nabawi, 1429 H./2008 A.D.  Recited by 4 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, and Hussain Aal ash-Shaykh.	[Quran] Madinah Taraweeh 1429 [48Kbps].torrent	7d5b9cd72ea0c7d1d2791435d30086a578801084	\N	\N
+100	Madinah Taraweeh 1430	\N	madinah_1430/	mp3	2	1	This is the Live Recitation from Masjid al-Nabawi, 1430 H./2009 A.D.  Recited by 5 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, <a href=\\"http://quranicaudio.com/quran/13\\">Saad al-Ghamdi</a>, and Hussain Aal ash-Shaykh.	[Quran] Madinah Taraweeh 1430 [48Kbps].torrent	315fc73bedda5606694e18037e5cfc40be4ebc18	\N	\N
+101	Madinah Taraweeh 1432	\N	madinah_1432/	mp3	2	1	This is the Live Recitation from Masjid al-Nabawi, 1432 H./2011 A.D.  Recited by 5 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, Imaad Hafidh, and Hussain Aal ash-Shaykh.	[Quran] Madinah Taraweeh 1432 [48Kbps].torrent	515f1085594720442527971b023fcbfc24cb4dc4	\N	\N
+102	Madinah Taraweeh 1433	\N	madinah_1433/	mp3	2	1	This is the Live Recitation from Masjid al-Nabawi, 1433 H./2012 A.D.  Recited by 4 Imams: <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, Khalid al-Ghamdi, and Hussain Aal ash-Shaykh.	[Quran] Madinah Taraweeh 1433 [48Kbps].torrent	986e0739f2592aa4cab3185415ad8969fa78535b	\N	\N
+120	Makkah Taraweeh 1434	\N	makkah_1434/	mp3	2	1	This is Live Recitation from Masjidul-Haram in Al-Makkah Al-Mukarramah, 1434 H./2013 A.D.  Contains 6 Imams:  <a href=\\"http://quranicaudio.com/quran/4\\">Sa'ud al-Shuraym</a>, <a href=\\"http://quranicaudio.com/quran/51\\">Maher al-Muaiqly</a>, <a href=\\"http://quranicaudio.com/quran/7\\">Abdur-Rahman as-Sudays</a>, <a href=\\"http://quranicaudio.com/quran/1\\">Abdullah Awwad al-Juhany</a>, <a href=\\"http://quranicaudio.com/quran/105\\">Khalid al Ghamdi</a>, and <a href=\\"http://quranicaudio.com/quran/117\\">Bandar Baleela</a>.  Special thanks to <a href=\\"http://www.shuraym.com\\">shuraym.com</a> for this recitation.	\N	\N	\N	\N
+123	Madinah Taraweeh 1435	\N	madinah_1435/	mp3	2	1	This is the Live Recitation from Masjid al-Nabawi, 1435 H./2014 A.D.  Recited by 6 Imams: <a href=\\"http://quranicaudio.com/quran/8\\">Ali Abdur-Rahman al-Huthaify</a>, <a href=\\"http://quranicaudio.com/quran/11\\">AbdulMuhsin al-Qasim</a>, <a href=\\"http://quranicaudio.com/quran/43\\">Salah al-Budair</a>, Abdullah al-Bu'ayjan, Ahmad Hameed, and Husayn aal ash-Shaykh. Special thanks to <a href=\\"http://www.mazameer.com\\">Mazameer</a> for this recitation.	\N	\N	\N	\N
+16	Mahmoud Khaleel Al-Husary	محمود خليل الحصري	mahmood_khaleel_al-husaree/	mp3,ogg	1	0	\N	[Quran] Mahmoud Khalil Al-Husary [128Kbps].torrent	36e86a71bf8b17a130dfab53bf58622489c1d4f7	3	1
+17	Sahl Yasin	سهل ياسين	sahl_yaaseen/	mp3,ogg	1	1	\N	[Quran] Sahl Yasin [128Kbps].torrent	c22c9232a94b9a555f57bd39eb49ed07e5d77e15	1	2
+18	Salah Bukhatir	صلح بوخاطر	salaah_bukhaatir/	mp3,ogg	1	1	\N	[Quran] Salah Bukhatir [128Kbps].torrent	f1f44ba25b78ba2f6b8a3b006a98129efd7b4752	1	1
+19	Ahmed ibn Ali al-Ajmy	أحمد بن علي العجمي	ahmed_ibn_3ali_al-3ajamy/	mp3	1	1	\N	[Quran] Ahmed ibn Ali al-Ajmy [160Kbps].torrent	16fdf51721dff438ec85972740ba41741d4ba1b3	4	3
+20	Sudais and Shuraym	السديس والشريم	sodais_and_shuraim/	mp3	1	1	\N	[Quran] Sudais and Shuraym [128Kbps - 188Kbps].torrent	925046d8593cd03387342d76a816543be4206f0f	4	1
+21	AbdulAzeez al-Ahmad	عبدالعزيز الحمد	abdulazeez_al-ahmad/	mp3,ogg	1	1	\N	[Quran] AbdulAzeez al-Ahmad [128Kbps].torrent	9c5d8512844a1252306807fcc59036de9eec9a41	5	1
+22	Muhammad Ayyoob	محمد أيوب	muhammad_ayyoob/	mp3,ogg	1	0	\N	[Quran] Muhammad Ayyub [128Kbps].torrent	59191cd3d611122499291a96567bea042e9bfe3c	3	2
+23	Tawfeeq ibn Sa`id as-Sawa'igh	توفيق بن سعيد الصائغ	tawfeeq_bin_saeed-as-sawaaigh/	mp3	1	1	\N	[Quran] Tawfeeq ibn Sa`id as-Sawa'igh [128Kbps].torrent	906b363aae5bb684449d6587d2ba53533e6f5085	4	2
+24	Abdullah Ali Jabir [Taraweeh]	عبدالله علي جابر	abdullaah_alee_jaabir/	mp3,ogg	1	1	\N	[Quran] Abdullah Ali Jabir [128Kbps].torrent	3f98402078f99f9e01fae4d0100fb4b25decbeaa	3	0
+26	Muhammad al-Mehysni	محمد المحيسني	mehysni/	mp3	1	1	\N	[Quran] Muhammad al-Mehysni [128Kbps - 200Kbps].torrent	e8e2168c4b5b7d8479597bfd3c6cbdc60d004639	2	0
+27	Hani ar-Rifai	هاني الرفاعي	rifai/	mp3	1	1	\N	[Quran] Hani ar-Rifai [127Kbps - 192Kbps].torrent	61ba7b3938d1771a7be11862087a8f71216a4443	1	2
+28	Ibrahim Al-Jibrin	إبراهيم الجبرين	jibreen/	mp3	1	1	\N	[Quran] Ibrahim Al-Jibrin [128Kbps - 192Kbps].torrent	18b91d43183315595dd192741dbb65a77f416891	3	1
+31	Saad al-Ghamdi (Partial)	سعد الغامدي - غير مكتمل	sa3d_al-ghaamidi/hidayah/	mp3,ogg	1	0	\N	[Quran] Saad al-Ghamdi (Partial) [128Kbps].torrent	d6fe254db49f5fcd9f97e0595bf1140264e05f1a	\N	\N
+32	Muhammad Jibreel (Partial)	محمد جبريل - غير مكتمل	muhammad_jibreel/hidayah/	mp3,ogg	1	0	\N	[Quran] Muhammad Jibreel (Partial) [128Kbps].torrent	cb6743822861cb38324019ed7f90bda750c42890	\N	\N
+115	Abu Bakr al-Shatri [Taraweeh]	\N	abu_bakr_ash-shatri_tarawee7/	mp3	1	1	\N	\N	\N	\N	\N
+116	Idrees Abkar	\N	idrees_akbar/	mp3	1	1	\N	\N	\N	\N	\N
+117	Bandar Baleela	\N	bandar_baleela/	mp3	1	1	\N	\N	\N	\N	\N
+118	Masjid Quba Taraweeh 1434	\N	masjid_quba_1434/	mp3	1	1	\N	\N	\N	\N	\N
+119	Muhammad Khaleel	\N	muhammad_khaleel/	mp3	1	1	\N	\N	\N	\N	\N
+121	Muhammad al-Mehysni - Taraweeh 1435	\N	muhaisny_1435/	mp3	1	\N	\N	\N	\N	\N	\N
+122	Mahmoud Khaleel Al-Husary	\N	mahmood_khaleel_al-husaree_iza3a/	mp3	1	1	This is the broadcast version of Sheikh Al-Husary's recitation. It is one of his earliest recitations, aired on the Egyptain Quran radio station. Special thanks to <a href=\\"http://islamway.com\\">islamway</a> for this recitation.	\N	\N	\N	\N
 \.
 
 
@@ -14800,6 +14844,25 @@ COPY related (qari, related) FROM stdin;
 121	26
 122	16
 \.
+
+
+--
+-- Data for Name: sections; Type: TABLE DATA; Schema: public; Owner: quran_dev
+--
+
+COPY sections (id, name) FROM stdin;
+1	Recitations
+2	Recitations from Haramain Taraweeh
+3	Non-Hafs Recitations
+4	Recitations with Translations
+\.
+
+
+--
+-- Name: sections_id_seq; Type: SEQUENCE SET; Schema: public; Owner: quran_dev
+--
+
+SELECT pg_catalog.setval('sections_id_seq', 1, false);
 
 
 --
@@ -14999,7 +15062,7 @@ COPY updates (id, qari_id, dateadded, minidesc, rssdesc) FROM stdin;
 
 
 --
--- Name: qaris_pkey; Type: CONSTRAINT; Schema: public; Owner: mmahalwy; Tablespace: 
+-- Name: qaris_pkey; Type: CONSTRAINT; Schema: public; Owner: mmahalwy
 --
 
 ALTER TABLE ONLY qaris
@@ -15007,7 +15070,7 @@ ALTER TABLE ONLY qaris
 
 
 --
--- Name: quran_pkey; Type: CONSTRAINT; Schema: public; Owner: mmahalwy; Tablespace: 
+-- Name: quran_pkey; Type: CONSTRAINT; Schema: public; Owner: mmahalwy
 --
 
 ALTER TABLE ONLY audio_files
@@ -15015,7 +15078,7 @@ ALTER TABLE ONLY audio_files
 
 
 --
--- Name: related_pkey; Type: CONSTRAINT; Schema: public; Owner: mmahalwy; Tablespace: 
+-- Name: related_pkey; Type: CONSTRAINT; Schema: public; Owner: mmahalwy
 --
 
 ALTER TABLE ONLY related
@@ -15023,7 +15086,15 @@ ALTER TABLE ONLY related
 
 
 --
--- Name: surainfo_pkey; Type: CONSTRAINT; Schema: public; Owner: mmahalwy; Tablespace: 
+-- Name: sections_pkey; Type: CONSTRAINT; Schema: public; Owner: quran_dev
+--
+
+ALTER TABLE ONLY sections
+    ADD CONSTRAINT sections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: surainfo_pkey; Type: CONSTRAINT; Schema: public; Owner: mmahalwy
 --
 
 ALTER TABLE ONLY surahs
@@ -15031,7 +15102,7 @@ ALTER TABLE ONLY surahs
 
 
 --
--- Name: updates_pkey; Type: CONSTRAINT; Schema: public; Owner: mmahalwy; Tablespace: 
+-- Name: updates_pkey; Type: CONSTRAINT; Schema: public; Owner: mmahalwy
 --
 
 ALTER TABLE ONLY updates
@@ -15039,13 +15110,64 @@ ALTER TABLE ONLY updates
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: mmahalwy
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM mmahalwy;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO mmahalwy;
 GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- Name: audio_files; Type: ACL; Schema: public; Owner: mmahalwy
+--
+
+REVOKE ALL ON TABLE audio_files FROM PUBLIC;
+REVOKE ALL ON TABLE audio_files FROM mmahalwy;
+GRANT ALL ON TABLE audio_files TO mmahalwy;
+GRANT ALL ON TABLE audio_files TO quran_dev;
+
+
+--
+-- Name: qaris; Type: ACL; Schema: public; Owner: mmahalwy
+--
+
+REVOKE ALL ON TABLE qaris FROM PUBLIC;
+REVOKE ALL ON TABLE qaris FROM mmahalwy;
+GRANT ALL ON TABLE qaris TO mmahalwy;
+GRANT ALL ON TABLE qaris TO quran_dev;
+
+
+--
+-- Name: related; Type: ACL; Schema: public; Owner: mmahalwy
+--
+
+REVOKE ALL ON TABLE related FROM PUBLIC;
+REVOKE ALL ON TABLE related FROM mmahalwy;
+GRANT ALL ON TABLE related TO mmahalwy;
+GRANT ALL ON TABLE related TO quran_dev;
+
+
+--
+-- Name: surahs; Type: ACL; Schema: public; Owner: mmahalwy
+--
+
+REVOKE ALL ON TABLE surahs FROM PUBLIC;
+REVOKE ALL ON TABLE surahs FROM mmahalwy;
+GRANT ALL ON TABLE surahs TO mmahalwy;
+GRANT ALL ON TABLE surahs TO quran_dev;
+
+
+--
+-- Name: updates; Type: ACL; Schema: public; Owner: mmahalwy
+--
+
+REVOKE ALL ON TABLE updates FROM PUBLIC;
+REVOKE ALL ON TABLE updates FROM mmahalwy;
+GRANT ALL ON TABLE updates TO mmahalwy;
+GRANT ALL ON TABLE updates TO quran_dev;
 
 
 --

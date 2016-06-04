@@ -15,21 +15,21 @@ module.exports = Object.assign({
   apiHost: process.env.APIHOST || 'localhost',
   apiPort: process.env.APIPORT,
   app: {
-    title: 'React Redux Example',
-    description: 'All the modern best practices in one example.',
+    title: 'Quran Mp3 and Audio Downloads in High Quality - QuranicAudio.com',
+    description: "All the Quran recitations on this site are in high quality and are free for download and streaming as mp3s. Please enjoy your stay, contact us with your suggestions, tell your friends about the site, and don't forget us in your prayers!",
     head: {
       titleTemplate: 'React Redux Example: %s',
       meta: [
-        {name: 'description', content: 'All the modern best practices in one example.'},
+        {name: 'description', content: "All the Quran recitations on this site are in high quality and are free for download and streaming as mp3s. Please enjoy your stay, contact us with your suggestions, tell your friends about the site, and don't forget us in your prayers!"},
         {charset: 'utf-8'},
-        {property: 'og:site_name', content: 'React Redux Example'},
+        {property: 'og:site_name', content: 'Quran Mp3 and Audio Downloads in High Quality - QuranicAudio.com'},
         {property: 'og:image', content: 'https://react-redux.herokuapp.com/logo.jpg'},
         {property: 'og:locale', content: 'en_US'},
         {property: 'og:title', content: 'React Redux Example'},
-        {property: 'og:description', content: 'All the modern best practices in one example.'},
+        {property: 'og:description', content: "All the Quran recitations on this site are in high quality and are free for download and streaming as mp3s. Please enjoy your stay, contact us with your suggestions, tell your friends about the site, and don't forget us in your prayers!"},
         {property: 'og:card', content: 'summary'},
-        {property: 'og:site', content: '@erikras'},
-        {property: 'og:creator', content: '@erikras'},
+        {property: 'og:site', content: '@quran'},
+        {property: 'og:creator', content: '@quran'},
         {property: 'og:image:width', content: '200'},
         {property: 'og:image:height', content: '200'}
       ]

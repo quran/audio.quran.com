@@ -94,7 +94,10 @@ export default class Audioplayer extends Component {
         if (file.readyState >= 3 && file.paused) {
           file.pause();
         }
-        // onEnd();
+
+        update({
+          isPlaying: false
+        });
       }
     };
 
