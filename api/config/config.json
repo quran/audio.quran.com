@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "quran_dev",
+    "password": null,
+    "database": "audio_quran",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "quran_dev",
+    "password": null,
+    "database": "audio_quran",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "quran_dev",
+    "password": null,
+    "database": "audio_quran",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

@@ -11,6 +11,7 @@ import ApiClient from './helpers/ApiClient';
 import Html from './helpers/Html';
 import PrettyError from 'pretty-error';
 import http from 'http';
+import useragent from 'express-useragent';
 
 import { match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -18,6 +19,7 @@ import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 import createHistory from 'react-router/lib/createMemoryHistory';
 import {Provider} from 'react-redux';
 import getRoutes from './routes';
+import { setUserAgent } from 'redux/modules/audioplayer';
 
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort;
 const pretty = new PrettyError();
@@ -30,6 +32,7 @@ const proxy = httpProxy.createProxyServer({
 
 app.use(compression());
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
+app.use(useragent.express());
 
 app.use(Express.static(path.join(__dirname, '..', 'static')));
 
@@ -40,10 +43,6 @@ app.use('/api', (req, res) => {
 
 app.use('/ws', (req, res) => {
   proxy.web(req, res, {target: targetUrl + '/ws'});
-});
-
-server.on('upgrade', (req, socket, head) => {
-  proxy.ws(req, socket, head);
 });
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
@@ -70,6 +69,8 @@ app.use((req, res) => {
   const memoryHistory = createHistory(req.originalUrl);
   const store = createStore(memoryHistory, client);
   const history = syncHistoryWithStore(memoryHistory, store);
+
+  store.dispatch(setUserAgent(req.useragent));
 
   function hydrateOnClient() {
     res.send('<!doctype html>\n' +
