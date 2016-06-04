@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 // import { connect } from 'react-redux';
 import { IndexLink } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
-// import { asyncConnect } from 'redux-connect';
+import { asyncConnect } from 'redux-connect';
 import Helmet from 'react-helmet';
 
 import Navbar from 'react-bootstrap/lib/Navbar';
@@ -11,6 +11,13 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 
 import config from '../../config';
 
+import { loadAll } from 'redux/modules/qaris';
+
+@asyncConnect([{
+  promise({ store: { dispatch } }) {
+    return dispatch(loadAll());
+  }
+}])
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired

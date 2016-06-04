@@ -1,3 +1,6 @@
+import { normalize } from 'normalizr';
+import { camelizeKeys } from 'humps';
+
 export default function clientMiddleware(client) {
   return ({dispatch, getState}) => {
     return next => action => {
@@ -5,7 +8,7 @@ export default function clientMiddleware(client) {
         return action(dispatch, getState);
       }
 
-      const { promise, types, ...rest } = action; // eslint-disable-line no-redeclare
+      const { promise, types, schema, ...rest } = action; // eslint-disable-line no-redeclare
       if (!promise) {
         return next(action);
       }
@@ -15,7 +18,15 @@ export default function clientMiddleware(client) {
 
       const actionPromise = promise(client);
       actionPromise.then(
-        (result) => next({...rest, result, type: SUCCESS}),
+        (result) => {
+          let camelizedJson = camelizeKeys(result);
+
+          if (schema) {
+            camelizedJson = normalize(camelizedJson, schema);
+          }
+
+          return next({...rest, result: camelizedJson, type: SUCCESS});
+        },
         (error) => next({...rest, error, type: FAILURE})
       ).catch((error)=> {
         console.error('MIDDLEWARE ERROR:', error);

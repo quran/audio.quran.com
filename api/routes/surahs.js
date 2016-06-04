@@ -1,20 +1,21 @@
 import { Router } from 'express';
+import superagent from 'superagent';
 
 import models from '../models';
 
 const router = Router();
 
 router.get('/', (req, res) => {
-  return models.surah.all().then(surah => res.send(surah));
+  superagent.get('http://quran.com:3000/v2/surahs').end((err, response) => res.send(response.body));
 });
 
 router.get('/:id', (req, res) => {
-  return models.surah.findById(req.params.id).then(surah => res.send(surah));
+  superagent.get(`http://quran.com:3000/v2/surahs/${req.params.id}`).end((err, response) => res.send(response.body));
 });
 
 router.get('/:id/audio_files', (req, res) => {
   models.surah.findById(req.params.id).then(surah => {
-    surah.getAudioFiles({ include: [ models.qari ] }).then(files => res.send(files));
+    surah.getAudioFiles().then(files => res.send(files));
   });
 });
 
