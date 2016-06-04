@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate(models) {
         this.hasMany(models.audioFile, {foreignKey: 'qari_id'});
-        this.belongsToMany(models.surah, {through: models.audioFile, foreignKey: 'sura_number'});
+        this.belongsToMany(models.surah, {through: models.audioFile, foreignKey: 'surah_number'});
         this.belongsTo(models.section);
       }
     }

@@ -54,7 +54,7 @@ SET default_with_oids = false;
 CREATE TABLE audio_files (
     id integer NOT NULL,
     qari_id integer,
-    sura_number integer,
+    surah_number integer,
     filenum integer,
     file_name character varying(180) DEFAULT ''::character varying NOT NULL,
     extension character varying(12) DEFAULT ''::character varying NOT NULL,
@@ -133,17 +133,24 @@ ALTER SEQUENCE sections_id_seq OWNED BY sections.id;
 
 
 --
--- Name: surahs; Type: TABLE; Schema: public; Owner: mmahalwy
+-- Name: surahs; Type: TABLE; Schema: public; Owner: quran_dev
 --
 
 CREATE TABLE surahs (
-    number integer DEFAULT 0 NOT NULL,
-    name character varying(120) DEFAULT ''::character varying NOT NULL,
-    arabic_name character varying(120) DEFAULT NULL::character varying
+    surah_id integer NOT NULL,
+    ayat integer NOT NULL,
+    bismillah_pre boolean NOT NULL,
+    revelation_order integer NOT NULL,
+    revelation_place text NOT NULL,
+    page integer[] NOT NULL,
+    name_complex text NOT NULL,
+    name_simple text NOT NULL,
+    name_english text NOT NULL,
+    name_arabic text NOT NULL
 );
 
 
-ALTER TABLE surahs OWNER TO mmahalwy;
+ALTER TABLE surahs OWNER TO quran_dev;
 
 --
 -- Name: updates; Type: TABLE; Schema: public; Owner: mmahalwy
@@ -171,7 +178,7 @@ ALTER TABLE ONLY sections ALTER COLUMN id SET DEFAULT nextval('sections_id_seq':
 -- Data for Name: audio_files; Type: TABLE DATA; Schema: public; Owner: mmahalwy
 --
 
-COPY audio_files (id, qari_id, sura_number, filenum, file_name, extension, stream_count, download_count) FROM stdin;
+COPY audio_files (id, qari_id, surah_number, filenum, file_name, extension, stream_count, download_count) FROM stdin;
 1	1	1	\N	001.mp3	mp3	11223	10252
 2	1	1	\N	001.ogg	ogg	1	17
 3	1	2	\N	002.mp3	mp3	6555	5758
@@ -14866,125 +14873,124 @@ SELECT pg_catalog.setval('sections_id_seq', 1, false);
 
 
 --
--- Data for Name: surahs; Type: TABLE DATA; Schema: public; Owner: mmahalwy
+-- Data for Name: surahs; Type: TABLE DATA; Schema: public; Owner: quran_dev
 --
 
-COPY surahs (number, name, arabic_name) FROM stdin;
-1	Surat Al-Fatiha	\N
-2	Surat Al-Baqara	\N
-3	Surat Aal-E-Imran	\N
-4	Surat An-Nisa	\N
-5	Surat Al-Maeda	\N
-6	Surat Al-Anaam	\N
-7	Surat Al-Araf	\N
-8	Surat Al-Anfal	\N
-9	Surat At-Tawba	\N
-10	Surat Yunus	\N
-11	Surat Hud	\N
-12	Surat Yusuf	\N
-13	Surat Ar-Rad	\N
-14	Surat Ibrahim	\N
-15	Surat Al-Hijr	\N
-16	Surat An-Nahl	\N
-17	Surat Al-Isra	\N
-18	Surat Al-Kahf	\N
-19	Surat Maryam	\N
-20	Surat Ta-Ha	\N
-21	Surat Al-Anbiya	\N
-22	Surat Al-Hajj	\N
-23	Surat Al-Mumenoon	\N
-24	Surat An-Noor	\N
-25	Surat Al-Furqan	\N
-26	Surat Ash-Shuara	\N
-27	Surat An-Naml	\N
-28	Surat Al-Qasas	\N
-29	Surat Al-Ankaboot	\N
-30	Surat Ar-Room	\N
-31	Surat Luqman	\N
-32	Surat As-Sajda	\N
-33	Surat Al-Ahzab	\N
-34	Surat Saba	\N
-35	Surat Fatir	\N
-36	Surat Ya-Seen	\N
-37	Surat As-Saaffat	\N
-38	Surat Sad	\N
-39	Surat Az-Zumar	\N
-40	Surat Ghafir	\N
-41	Surat Fussilat	\N
-42	Surat Ash-Shura	\N
-43	Surat Az-Zukhruf	\N
-44	Surat Ad-Dukhan	\N
-45	Surat Al-Jathiya	\N
-46	Surat Al-Ahqaf	\N
-47	Surat Muhammad	\N
-48	Surat Al-Fath	\N
-49	Surat Al-Hujraat	\N
-50	Surat Qaf	\N
-51	Surat Adh-Dhariyat	\N
-52	Surat At-Tur	\N
-53	Surat An-Najm	\N
-54	Surat Al-Qamar	\N
-55	Surat Ar-Rahman	\N
-56	Surat Al-Waqia	\N
-57	Surat Al-Hadid	\N
-58	Surat Al-Mujadila	\N
-59	Surat Al-Hashr	\N
-60	Surat Al-Mumtahina	\N
-61	Surat As-Saff	\N
-62	Surat Al-Jumua	\N
-63	Surat Al-Munafiqoon	\N
-64	Surat At-Taghabun	\N
-65	Surat At-Talaq	\N
-66	Surat At-Tahrim	\N
-67	Surat Al-Mulk	\N
-68	Surat Al-Qalam	\N
-69	Surat Al-Haaqqa	\N
-70	Surat Al-Maarij	\N
-71	Surat Nooh	\N
-72	Surat Al-Jinn	\N
-73	Surat Al-Muzzammil	\N
-74	Surat Al-Muddaththir	\N
-75	Surat Al-Qiyama	\N
-76	Surat Al-Insan	\N
-77	Surat Al-Mursalat	\N
-78	Surat An-Naba	\N
-79	Surat An-Naziat	\N
-80	Surat Abasa	\N
-81	Surat At-Takwir	\N
-82	Surat Al-Infitar	\N
-83	Surat Al-Mutaffifin	\N
-84	Surat Al-Inshiqaq	\N
-85	Surat Al-Burooj	\N
-86	Surat At-Tariq	\N
-87	Surat Al-Ala	\N
-88	Surat Al-Ghashiya	\N
-89	Surat Al-Fajr	\N
-90	Surat Al-Balad	\N
-91	Surat Ash-Shams	\N
-92	Surat Al-Lail	\N
-93	Surat Ad-Dhuha	\N
-94	Surat Al-Inshirah	\N
-95	Surat At-Tin	\N
-96	Surat Al-Alaq	\N
-97	Surat Al-Qadr	\N
-98	Surat Al-Bayyina	\N
-99	Surat Az-Zalzala	\N
-100	Surat Al-Adiyat	\N
-101	Surat Al-Qaria	\N
-102	Surat At-Takathur	\N
-103	Surat Al-Asr	\N
-104	Surat Al-Humaza	\N
-105	Surat Al-Fil	\N
-106	Surat Quraish	\N
-107	Surat Al-Maun	\N
-108	Surat Al-Kauther	\N
-109	Surat Al-Kafiroon	\N
-110	Surat An-Nasr	\N
-111	Surat Al-Masadd	\N
-112	Surat Al-Ikhlas	\N
-113	Surat Al-Falaq	\N
-114	Surat An-Nas	\N
-115	Du3a2 Khatm Al-Quran	\N
+COPY surahs (surah_id, ayat, bismillah_pre, revelation_order, revelation_place, page, name_complex, name_simple, name_english, name_arabic) FROM stdin;
+1	7	f	5	makkah	{1,1}	Al-Fātiĥah	Al-Fatihah	The Opener	الفاتحة
+2	286	t	87	madinah	{2,49}	Al-Baqarah	Al-Baqarah	The Cow	البقرة
+3	200	t	89	madinah	{50,76}	Āli `Imrān	Ali 'Imran	Family of Imran	آل عمران
+4	176	t	92	madinah	{77,106}	An-Nisā	An-Nisa	The Women	النساء
+5	120	t	112	madinah	{106,127}	Al-Mā'idah	Al-Ma'idah	The Table Spread	المائدة
+6	165	t	55	makkah	{128,150}	Al-'An`ām	Al-An'am	The Cattle	الأنعام
+7	206	t	39	makkah	{151,176}	Al-'A`rāf	Al-A'raf	The Heights	الأعراف
+8	75	t	88	madinah	{177,186}	Al-'Anfāl	Al-Anfal	The Spoils of War	الأنفال
+9	129	f	113	madinah	{187,207}	At-Tawbah	At-Tawbah	The Repentance	التوبة
+10	109	t	51	makkah	{208,221}	Yūnus	Yunus	Jonah	يونس
+11	123	t	52	makkah	{221,235}	Hūd	Hud	Hud	هود
+12	111	t	53	makkah	{235,248}	Yūsuf	Yusuf	Joseph	يوسف
+13	43	t	96	madinah	{249,255}	Ar-Ra`d	Ar-Ra'd	The Thunder	الرعد
+14	52	t	72	makkah	{255,261}	Ibrāhīm	Ibrahim	Abrahim	ابراهيم
+15	99	t	54	makkah	{262,267}	Al-Ĥijr	Al-Hijr	The Rocky Tract	الحجر
+16	128	t	70	makkah	{267,281}	An-Naĥl	An-Nahl	The Bee	النحل
+17	111	t	50	makkah	{282,293}	Al-'Isrā	Al-Isra	The Night Journey	الإسراء
+18	110	t	69	makkah	{293,304}	Al-Kahf	Al-Kahf	The Cave	الكهف
+19	98	t	44	makkah	{305,312}	Maryam	Maryam	Mary	مريم
+20	135	t	45	makkah	{312,321}	Ţāhā	Taha	Ta-Ha	طه
+21	112	t	73	makkah	{322,331}	Al-'Anbyā	Al-Anbya	The Prophets	الأنبياء
+22	78	t	103	madinah	{332,341}	Al-Ĥaj	Al-Haj	The Pilgrimage	الحج
+23	118	t	74	makkah	{342,349}	Al-Mu'minūn	Al-Mu'minun	The Believers	المؤمنون
+24	64	t	102	madinah	{350,359}	An-Nūr	An-Nur	The Light	النور
+25	77	t	42	makkah	{359,366}	Al-Furqān	Al-Furqan	The Criterian	الفرقان
+26	227	t	47	makkah	{367,376}	Ash-Shu`arā	Ash-Shu'ara	The Poets	الشعراء
+27	93	t	48	makkah	{377,385}	An-Naml	An-Naml	The Ant	النمل
+28	88	t	49	makkah	{385,396}	Al-Qaşaş	Al-Qasas	The Stories	القصص
+29	69	t	85	makkah	{396,404}	Al-`Ankabūt	Al-'Ankabut	The Spider	العنكبوت
+30	60	t	84	makkah	{404,410}	Ar-Rūm	Ar-Rum	The Romans	الروم
+31	34	t	57	makkah	{411,414}	Luqmān	Luqman	Luqman	لقمان
+32	30	t	75	makkah	{415,417}	As-Sajdah	As-Sajdah	The Prostration	السجدة
+33	73	t	90	madinah	{418,427}	Al-'Aĥzāb	Al-Ahzab	The Combined Forces	الأحزاب
+34	54	t	58	makkah	{428,434}	Saba	Saba	Sheba	سبإ
+35	45	t	43	makkah	{434,440}	Fāţir	Fatir	Originator	فاطر
+36	83	t	41	makkah	{440,445}	Yā-Sīn	Ya-Sin	Ya Sin	يس
+37	182	t	56	makkah	{446,452}	Aş-Şāffāt	As-Saffat	Those who set the Ranks	الصافات
+38	88	t	38	makkah	{453,458}	Şād	Sad	The Letter "Saad"	ص
+39	75	t	59	makkah	{458,467}	Az-Zumar	Az-Zumar	The Troops	الزمر
+40	85	t	60	makkah	{467,476}	Ghāfir	Ghafir	The Forgiver	غافر
+41	54	t	61	makkah	{477,482}	Fuşşilat	Fussilat	Explained in Detail	فصلت
+42	53	t	62	makkah	{483,489}	Ash-Shūraá	Ash-Shuraa	The Consultation	الشورى
+43	89	t	63	makkah	{489,495}	Az-Zukhruf	Az-Zukhruf	The Ornaments of Gold	الزخرف
+44	59	t	64	makkah	{496,498}	Ad-Dukhān	Ad-Dukhan	The Smoke	الدخان
+45	37	t	65	makkah	{499,502}	Al-Jāthiyah	Al-Jathiyah	The Crouching	الجاثية
+46	35	t	66	makkah	{502,506}	Al-'Aĥqāf	Al-Ahqaf	The Wind-Curved Sandhills	الأحقاف
+47	38	t	95	madinah	{507,510}	Muĥammad	Muhammad	Muhammad	محمد
+48	29	t	111	madinah	{511,515}	Al-Fatĥ	Al-Fath	The Victory	الفتح
+49	18	t	106	madinah	{515,517}	Al-Ĥujurāt	Al-Hujurat	The Rooms	الحجرات
+50	45	t	34	makkah	{518,520}	Qāf	Qaf	The Letter "Qaf"	ق
+51	60	t	67	makkah	{520,523}	Adh-Dhāriyāt	Adh-Dhariyat	The Winnowing Winds	الذاريات
+52	49	t	76	makkah	{523,525}	Aţ-Ţūr	At-Tur	The Mount	الطور
+53	62	t	23	makkah	{526,528}	An-Najm	An-Najm	The Star	النجم
+54	55	t	37	makkah	{528,531}	Al-Qamar	Al-Qamar	The Moon	القمر
+55	78	t	97	madinah	{531,534}	Ar-Raĥmān	Ar-Rahman	The Beneficent	الرحمن
+56	96	t	46	makkah	{534,537}	Al-Wāqi`ah	Al-Waqi'ah	The Inevitable	الواقعة
+57	29	t	94	madinah	{537,541}	Al-Ĥadīd	Al-Hadid	The Iron	الحديد
+58	22	t	105	madinah	{542,545}	Al-Mujādila	Al-Mujadila	The Pleading Woman	المجادلة
+59	24	t	101	madinah	{545,548}	Al-Ĥashr	Al-Hashr	The Exile	الحشر
+60	13	t	91	madinah	{549,551}	Al-Mumtaĥanah	Al-Mumtahanah	She that is to be examined	الممتحنة
+61	14	t	109	madinah	{551,552}	Aş-Şaf	As-Saf	The Ranks	الصف
+62	11	t	110	madinah	{553,554}	Al-Jumu`ah	Al-Jumu'ah	The Congregation, Friday	الجمعة
+63	11	t	104	madinah	{554,555}	Al-Munāfiqūn	Al-Munafiqun	The Hypocrites	المنافقون
+64	18	t	108	madinah	{556,557}	At-Taghābun	At-Taghabun	The Mutual Disillusion	التغابن
+65	12	t	99	madinah	{558,559}	Aţ-Ţalāq	At-Talaq	The Divorce	الطلاق
+66	12	t	107	madinah	{560,561}	At-Taĥrīm	At-Tahrim	The Prohibtiion	التحريم
+67	30	t	77	makkah	{562,564}	Al-Mulk	Al-Mulk	The Sovereignty	الملك
+68	52	t	2	makkah	{564,566}	Al-Qalam	Al-Qalam	The Pen	القلم
+69	52	t	78	makkah	{566,568}	Al-Ĥāqqah	Al-Haqqah	The Reality	الحاقة
+70	44	t	79	makkah	{568,570}	Al-Ma`ārij	Al-Ma'arij	The Ascending Stairways	المعارج
+71	28	t	71	makkah	{570,571}	Nūĥ	Nuh	Noah	نوح
+72	28	t	40	makkah	{572,573}	Al-Jinn	Al-Jinn	The Jinn	الجن
+73	20	t	3	makkah	{574,575}	Al-Muzzammil	Al-Muzzammil	The Enshrouded One	المزمل
+74	56	t	4	makkah	{575,577}	Al-Muddaththir	Al-Muddaththir	The Cloaked One	المدثر
+75	40	t	31	makkah	{577,578}	Al-Qiyāmah	Al-Qiyamah	The Resurrection	القيامة
+76	31	t	98	madinah	{578,580}	Al-'Insān	Al-Insan	The Man	الانسان
+77	50	t	33	makkah	{580,581}	Al-Mursalāt	Al-Mursalat	The Emissaries	المرسلات
+78	40	t	80	makkah	{582,583}	An-Naba	An-Naba	The Tidings	النبإ
+79	46	t	81	makkah	{583,584}	An-Nāzi`āt	An-Nazi'at	Those who drag forth	النازعات
+80	42	t	24	makkah	{585,585}	`Abasa	'Abasa	He Frowned	عبس
+81	29	t	7	makkah	{586,586}	At-Takwīr	At-Takwir	The Overthrowing	التكوير
+82	19	t	82	makkah	{587,587}	Al-'Infiţār	Al-Infitar	The Cleaving	الإنفطار
+83	36	t	86	makkah	{587,589}	Al-Muţaffifīn	Al-Mutaffifin	The Defrauding	المطففين
+84	25	t	83	makkah	{589,589}	Al-'Inshiqāq	Al-Inshiqaq	The Sundering	الإنشقاق
+85	22	t	27	makkah	{590,590}	Al-Burūj	Al-Buruj	The Mansions of the Stars	البروج
+86	17	t	36	makkah	{591,591}	Aţ-Ţāriq	At-Tariq	The Nightcommer	الطارق
+87	19	t	8	makkah	{591,592}	Al-'A`lá	Al-A'la	The Most High	الأعلى
+88	26	t	68	makkah	{592,592}	Al-Ghāshiyah	Al-Ghashiyah	The Overwhelming	الغاشية
+89	30	t	10	makkah	{593,594}	Al-Fajr	Al-Fajr	The Dawn	الفجر
+90	20	t	35	makkah	{594,594}	Al-Balad	Al-Balad	The City	البلد
+91	15	t	26	makkah	{595,595}	Ash-Shams	Ash-Shams	The Sun	الشمس
+92	21	t	9	makkah	{595,596}	Al-Layl	Al-Layl	The Night	الليل
+93	11	t	11	makkah	{596,596}	Ađ-Đuĥaá	Ad-Duhaa	The Morning Hours	الضحى
+94	8	t	12	makkah	{596,596}	Ash-Sharĥ	Ash-Sharh	The Relief	الشرح
+95	8	t	28	makkah	{597,597}	At-Tīn	At-Tin	The Fig	التين
+96	19	t	1	makkah	{597,597}	Al-`Alaq	Al-'Alaq	The Clot	العلق
+97	5	t	25	makkah	{598,598}	Al-Qadr	Al-Qadr	The Power	القدر
+98	8	t	100	madinah	{598,599}	Al-Bayyinah	Al-Bayyinah	The Clear Proof	البينة
+99	8	t	93	madinah	{599,599}	Az-Zalzalah	Az-Zalzalah	The Earthquake	الزلزلة
+100	11	t	14	makkah	{599,600}	Al-`Ādiyāt	Al-'Adiyat	The Courser	العاديات
+101	11	t	30	makkah	{600,600}	Al-Qāri`ah	Al-Qari'ah	The Calamity	القارعة
+102	8	t	16	makkah	{600,600}	At-Takāthur	At-Takathur	The Rivalry in world increase	التكاثر
+103	3	t	13	makkah	{601,601}	Al-`Aşr	Al-'Asr	The Declining Day	العصر
+104	9	t	32	makkah	{601,601}	Al-Humazah	Al-Humazah	The Traducer	الهمزة
+105	5	t	19	makkah	{601,601}	Al-Fīl	Al-Fil	The Elephant	الفيل
+106	4	t	29	makkah	{602,602}	Quraysh	Quraysh	Quraysh	قريش
+107	7	t	17	makkah	{602,602}	Al-Mā`ūn	Al-Ma'un	The Small Kindesses	الماعون
+108	3	t	15	makkah	{602,602}	Al-Kawthar	Al-Kawthar	The Abundance	الكوثر
+109	6	t	18	makkah	{603,603}	Al-Kāfirūn	Al-Kafirun	The Disbelievers	الكافرون
+110	3	t	114	madinah	{603,603}	An-Naşr	An-Nasr	The Divine Support	النصر
+111	5	t	6	makkah	{603,603}	Al-Masad	Al-Masad	The Palm Fiber	المسد
+112	4	t	22	makkah	{604,604}	Al-'Ikhlāş	Al-Ikhlas	The Sincerity	الإخلاص
+113	5	t	20	makkah	{604,604}	Al-Falaq	Al-Falaq	The Daybreak	الفلق
+114	6	t	21	makkah	{604,604}	An-Nās	An-Nas	The Mankind	الناس
 \.
 
 
@@ -15094,11 +15100,11 @@ ALTER TABLE ONLY sections
 
 
 --
--- Name: surainfo_pkey; Type: CONSTRAINT; Schema: public; Owner: mmahalwy
+-- Name: surah_pkey; Type: CONSTRAINT; Schema: public; Owner: quran_dev
 --
 
 ALTER TABLE ONLY surahs
-    ADD CONSTRAINT surainfo_pkey PRIMARY KEY (number);
+    ADD CONSTRAINT surah_pkey PRIMARY KEY (surah_id);
 
 
 --
@@ -15148,16 +15154,6 @@ REVOKE ALL ON TABLE related FROM PUBLIC;
 REVOKE ALL ON TABLE related FROM mmahalwy;
 GRANT ALL ON TABLE related TO mmahalwy;
 GRANT ALL ON TABLE related TO quran_dev;
-
-
---
--- Name: surahs; Type: ACL; Schema: public; Owner: mmahalwy
---
-
-REVOKE ALL ON TABLE surahs FROM PUBLIC;
-REVOKE ALL ON TABLE surahs FROM mmahalwy;
-GRANT ALL ON TABLE surahs TO mmahalwy;
-GRANT ALL ON TABLE surahs TO quran_dev;
 
 
 --

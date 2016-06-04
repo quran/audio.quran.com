@@ -6,11 +6,11 @@ import models from '../models';
 const router = Router();
 
 router.get('/', (req, res) => {
-  superagent.get('http://quran.com:3000/v2/surahs').end((err, response) => res.send(response.body));
+  models.surah.all().then(surahs => res.send(surahs));
 });
 
 router.get('/:id', (req, res) => {
-  superagent.get(`http://quran.com:3000/v2/surahs/${req.params.id}`).end((err, response) => res.send(response.body));
+  models.surah.findById(req.params.id).then(surah => res.send(surah));
 });
 
 router.get('/:id/audio_files', (req, res) => {
