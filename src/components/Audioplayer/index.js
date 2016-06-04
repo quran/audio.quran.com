@@ -45,6 +45,17 @@ export default class Audioplayer extends Component {
     }
   }
 
+  handleTrackChange = (fraction) => {
+    const { file, update } = this.props; // eslint-disable-line no-shadow
+
+    update({
+      progress: fraction * 100,
+      currentTime: fraction * file.duration
+    });
+
+    file.currentTime = fraction * file.duration;
+  }
+
   handleFileLoad(file) {
     const { update } = this.props; // eslint-disable-line no-shadow
 
@@ -87,17 +98,7 @@ export default class Audioplayer extends Component {
       }
     };
 
-    const onPlay = () => {
-      // const { progress } = this.props;
-
-      // const currentTime = (
-      //   progress / 100 * file.duration
-      // );
-
-      // this.setState({
-      //   currentTime
-      // });
-    };
+    const onPlay = () => {};
 
     file.addEventListener('loadeddata', onLoadeddata);
     file.addEventListener('timeupdate', onTimeupdate, false);
@@ -179,6 +180,7 @@ export default class Audioplayer extends Component {
           }
           <Track
             progress={progress}
+            onTrackChange={this.handleTrackChange}
           />
         </Col>
       </Row>
