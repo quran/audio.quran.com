@@ -19,18 +19,24 @@ import { loadAll as loadSurahs } from 'redux/modules/surahs';
 
 @asyncConnect([
   {
-    promise({ store: { dispatch } }) {
-      return dispatch(loadQaris());
+    promise({ store: { getState, dispatch } }) {
+      if (!Object.keys(getState().qaris.entities).length) {
+        return dispatch(loadQaris());
+      }
     }
   },
   {
-    promise({ store: { dispatch } }) {
-      return dispatch(loadSections());
+    promise({ store: { getState, dispatch } }) {
+      if (!Object.keys(getState().sections.entities).length) {
+        return dispatch(loadSections());
+      }
     }
   },
   {
-    promise({ store: { dispatch } }) {
-      return dispatch(loadSurahs());
+    promise({ store: { getState, dispatch } }) {
+      if (!Object.keys(getState().surahs.entities).length) {
+        return dispatch(loadSurahs());
+      }
     }
   },
 ])
