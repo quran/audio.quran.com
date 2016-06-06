@@ -4,10 +4,14 @@ import {reducer as reduxAsyncConnect} from 'redux-connect';
 
 import audioplayer from './audioplayer';
 import qaris from './qaris';
+import sections from './sections';
+import surahs from './surahs';
 
 export default combineReducers({
   routing: routerReducer,
   reduxAsyncConnect,
   audioplayer,
-  qaris
+  qaris,
+  sections,
+  surahs
 });

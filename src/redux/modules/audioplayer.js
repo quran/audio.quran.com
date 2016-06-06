@@ -26,6 +26,7 @@ export default function reducer(state = initialState, action = {}) {
       if (__CLIENT__) {
         return {
           ...state,
+          isPlaying: false,
           file: new Audio(action.url)
         };
       }

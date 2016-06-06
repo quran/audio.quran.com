@@ -5,7 +5,8 @@ import {
   App,
   Home,
   NotFound,
-  Qaris
+  Qaris,
+  Qari
 } from 'containers';
 
 export default () => {
@@ -16,6 +17,8 @@ export default () => {
 
       <Route path="/qaris" component={Qaris} />
       <Route path="/reciters" component={Qaris} />
+
+      <Route path="quran/:id" component={Qari} />
       { /* Catch all route */ }
       <Route path="*" component={NotFound} status={404} />
     </Route>

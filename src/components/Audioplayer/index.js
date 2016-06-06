@@ -42,7 +42,19 @@ export default class Audioplayer extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.file !== nextProps.file) {
       this.handleFileLoad(nextProps.file);
+
+      if (this.props.file) {
+        this.handleRemoveFileListeneres(this.props.file);
+      }
     }
+  }
+
+  handleRemoveFileListeneres(file) {
+    file.pause();
+    file.onloadeddata = null;
+    file.ontimeupdate = null;
+    file.onplay = null;
+    file.onended = null;
   }
 
   handleTrackChange = (fraction) => {
@@ -103,10 +115,10 @@ export default class Audioplayer extends Component {
 
     const onPlay = () => {};
 
-    file.addEventListener('loadeddata', onLoadeddata);
-    file.addEventListener('timeupdate', onTimeupdate, false);
-    file.addEventListener('play', onPlay, false);
-    file.addEventListener('ended', onEnded, false);
+    file.onloadeddata = onLoadeddata;
+    file.ontimeupdate = onTimeupdate;
+    file.onplay = onPlay;
+    file.onended = onEnded;
   }
 
   renderPlayStopButtons() {

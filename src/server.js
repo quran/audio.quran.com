@@ -12,6 +12,7 @@ import Html from './helpers/Html';
 import PrettyError from 'pretty-error';
 import http from 'http';
 import useragent from 'express-useragent';
+import logger from 'morgan';
 
 import { match } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -33,6 +34,7 @@ const proxy = httpProxy.createProxyServer({
 app.use(compression());
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 app.use(useragent.express());
+app.use(logger('dev'));
 
 app.use(Express.static(path.join(__dirname, '..', 'static')));
 

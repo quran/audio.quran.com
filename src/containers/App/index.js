@@ -13,13 +13,27 @@ import Audioplayer from 'components/Audioplayer';
 
 import config from '../../config';
 
-import { loadAll } from 'redux/modules/qaris';
+import { loadAll as loadQaris } from 'redux/modules/qaris';
+import { loadAll as loadSections } from 'redux/modules/sections';
+import { loadAll as loadSurahs } from 'redux/modules/surahs';
 
-@asyncConnect([{
-  promise({ store: { dispatch } }) {
-    return dispatch(loadAll());
-  }
-}])
+@asyncConnect([
+  {
+    promise({ store: { dispatch } }) {
+      return dispatch(loadQaris());
+    }
+  },
+  {
+    promise({ store: { dispatch } }) {
+      return dispatch(loadSections());
+    }
+  },
+  {
+    promise({ store: { dispatch } }) {
+      return dispatch(loadSurahs());
+    }
+  },
+])
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired
