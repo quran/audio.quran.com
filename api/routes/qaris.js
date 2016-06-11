@@ -8,14 +8,25 @@ router.get('/', (req, res) => {
   return models.qari.all().then(qaris => res.send(qaris));
 });
 
+router.get('/audio_files', (req, res) => {
+  return models.qari.all({ include: [ models.audioFile ] }).then(qaris => res.send(qaris));
+});
+
 router.get('/:id', (req, res) => {
   return models.qari.findById(req.params.id).then(qari => res.send(qari));
 });
 
 router.get('/:id/audio_files', (req, res) => {
   models.qari.findById(req.params.id).then(qari => {
-    qari.getAudioFiles({ include: [ models.surah ] }).then(files => res.send(files));
+    qari.getAudioFiles({ order: 'surah_id', include: [ models.surah ] }).then(files => res.send(files));
   });
 });
+
+router.get('/:id/audio_files/:type', (req, res) => {
+  models.qari.findById(req.params.id).then(qari => {
+    qari.getAudioFiles({ order: 'surah_id', where: {extension: req.params.type}, include: [ models.surah ] }).then(files => res.send(files));
+  });
+});
+
 
 export default router;

@@ -1,0 +1,60 @@
+@import "../../theme/variables.scss";
+
+.reciterBackground{
+  background: url('../../../static/reciter-background.jpeg') center center no-repeat;
+  background-size: cover;
+  min-height: 400px;
+  min-height: 40vh;
+  color: #fff;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.list{
+  margin-top: -70px;
+}
+
+.panel{
+  border-radius: 0px;
+  padding: 20px;
+  border: none;
+
+  .muted{
+    opacity: 0.5;
+  }
+
+  .download{
+    color: $brand-primary;
+    background: transparent;
+    border-radius: 50px;
+    border-color: #e7e7e7;
+    visibility: hidden;
+  }
+
+
+  :global(.list-group-item){
+    :global(.fa-play-circle){
+      display: none;
+    }
+  }
+
+  :global(.list-group-item:hover){
+    :global(.fa-play-circle){
+      display: inline;
+      font-size: 16px;
+    }
+    :global(.index){
+      display: none;
+    }
+    .download{
+      visibility: visible;;
+    }
+  }
+}
+.row{
+  cursor: pointer;
+
+  &:hover{
+    background-color: #f7f7f7;
+  }
+}

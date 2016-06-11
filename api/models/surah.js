@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'surahs',
     classMethods: {
       associate: function(models) {
-        this.hasMany(models.audioFile, {foreignKey: 'surah_number'});
+        this.hasMany(models.audioFile, {foreignKey: 'surah_id'});
         this.belongsToMany(models.qari, {through: models.audioFile, foreignKey: 'qari_id'});
       }
     },
