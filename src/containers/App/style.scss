@@ -17,5 +17,12 @@
   }
 }
 .appContent {
-  margin: 50px 0; // for fixed navbar
+  margin-top: -75px;
+}
+.audioplayer{
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: #fff;
 }

@@ -18,13 +18,13 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/audio_files', (req, res) => {
   models.qari.findById(req.params.id).then(qari => {
-    qari.getAudioFiles({ order: 'surah_id', include: [ models.surah ] }).then(files => res.send(files));
+    qari.getAudioFiles({ order: 'surah_id' }).then(files => res.send(files));
   });
 });
 
 router.get('/:id/audio_files/:type', (req, res) => {
   models.qari.findById(req.params.id).then(qari => {
-    qari.getAudioFiles({ order: 'surah_id', where: {extension: req.params.type}, include: [ models.surah ] }).then(files => res.send(files));
+    qari.getAudioFiles({ order: 'surah_id', where: { extension: req.params.type } }).then(files => res.send(files));
   });
 });
 

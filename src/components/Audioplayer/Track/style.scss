@@ -1,10 +1,27 @@
 .container{
-  height: 50px;
+  height: 6px;
   width: 100%;
   background-color: #f7f7f7;
+  cursor: pointer;
 }
 
 .progress{
   height: 100%;
   background-color: #2CA4AB;
+  position: relative;
+
+
+  &:after{
+    content: '';
+    height: 12px;
+    width: 12px;
+    border-radius: 10px;
+    position: absolute;
+    right: 0px;
+    display: block;
+    background: #fff;
+    top: -3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.45);
+    transition: height 0.5s;
+  }
 }

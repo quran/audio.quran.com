@@ -1,19 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { asyncConnect } from 'redux-connect';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 
 import { load } from 'redux/modules/audioplayer';
+import { load as loadFiles } from 'redux/modules/files';
 import zeroPad from 'utils/zeroPad';
+import formatSeconds from 'utils/formatSeconds';
 
 const styles = require('./style.scss');
 
+@asyncConnect([{
+  promise({ params, store: { dispatch } }) {
+    return dispatch(loadFiles(params.id));
+  }
+}])
 @connect(
   (state, ownProps) => ({
     surahs: state.surahs.entities,
-    qari: state.qaris.entities[ownProps.params.id]
+    qari: state.qaris.entities[ownProps.params.id],
+    files: state.files.entities[ownProps.params.id]
   }),
   { load }
 )
@@ -21,6 +30,7 @@ export default class Qaris extends Component {
   static propTypes = {
     surahs: PropTypes.object.isRequired,
     qari: PropTypes.object.isRequired,
+    files: PropTypes.object.isRequired,
     load: PropTypes.func.isRequired
   };
 
@@ -31,7 +41,7 @@ export default class Qaris extends Component {
   }
 
   render() {
-    const { surahs, qari } = this.props;
+    const { surahs, qari, files } = this.props;
 
     return (
       <div>
@@ -51,18 +61,26 @@ export default class Qaris extends Component {
                 <ul className="list-group">
                   {
                     Object.values(surahs).map(surah => (
-                       <li className={`list-group-item ${styles.row}`} onClick={this.handleSurahSelection.bind(this, surah.id)}>
+                       <li key={surah.id} className={`list-group-item ${styles.row}`} onClick={this.handleSurahSelection.bind(this, surah.id)}>
                         <Row>
-                          <Col xs={1} className="text-center">
-                            <span className={styles.muted}>
-                              <span className="index">{surah.id}.</span>
-                              <i className="fa fa-play-circle" />
-                            </span>
+                          <Col md={6} xs={8}>
+                            <Row>
+                              <Col md={1} xs={2}>
+                              <h5 className="text-muted">
+                                <span className={styles.muted}>
+                                  <span className="index">{surah.id}.</span>
+                                  <i className="fa fa-play-circle fa-lg" />
+                                </span>
+                              </h5>
+                              </Col>
+                              <Col md={11} xs={10}>
+                                <h5 className="text-muted">
+                                  Surat {surah.name.simple}
+                                </h5>
+                              </Col>
+                            </Row>
                           </Col>
-                          <Col xs={5}>
-                            Surat {surah.name.simple} <span className="pull-right"></span>
-                          </Col>
-                          <Col xs={5} className="text-right">
+                          <Col md={5} className="text-right hidden-xs hidden-sm">
                             <Button
                               bsStyle="primary"
                               className={styles.download}
@@ -73,8 +91,10 @@ export default class Qaris extends Component {
                               <i className="fa fa-arrow-circle-down" /> Download
                             </Button>
                           </Col>
-                          <Col xs={1} className="text-right">
-                            1:12min
+                          <Col md={1} xs={4} className="text-right">
+                            <h5 className={`text-muted ${styles.muted}`}>
+                              {formatSeconds(files[surah.id].format.duration)}
+                            </h5>
                           </Col>
                         </Row>
                       </li>

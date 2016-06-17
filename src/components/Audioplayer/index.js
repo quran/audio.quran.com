@@ -124,32 +124,22 @@ export default class Audioplayer extends Component {
   renderPlayStopButtons() {
     const { isPlaying, playPause } = this.props; // eslint-disable-line no-shadow
 
-    let icon = <i className="fa fa-play" />;
-
     if (isPlaying) {
-      icon = <i className="fa fa-pause" />;
+      return <i onClick={playPause} className="text-primary pointer fa fa-pause-circle fa-3x" />;
     }
 
-    return (
-      <a className={`pointer`} onClick={playPause}>
-        {icon}
-      </a>
-    );
+    return <i onClick={playPause} className="text-primary pointer fa fa-play-circle fa-3x" />;
   }
 
   renderPreviousButton() {
     return (
-      <a className={`pointer`}>
-        <i className="fa fa-skipback" />
-      </a>
+      <i className="pointer fa fa-fast-backward fa-lg" />
     );
   }
 
   renderNextButton() {
     return (
-      <a className={`pointer`}>
-        <i className="fa fa-skipforward" />
-      </a>
+      <i className="pointer fa fa-fast-forward fa-lg" />
     );
   }
 
@@ -157,7 +147,7 @@ export default class Audioplayer extends Component {
     // const { shouldRepeat } = this.props;
 
     return (
-      <Col xs={2} className="text-center pull-right">
+      <div className="text-center pull-right">
         <input type="checkbox" id="repeat" />
         <label
           htmlFor="repeat"
@@ -166,7 +156,7 @@ export default class Audioplayer extends Component {
         >
           <i className="fa fa-repeat" />
         </label>
-      </Col>
+      </div>
     );
   }
 
@@ -176,27 +166,34 @@ export default class Audioplayer extends Component {
     return (
       <Row>
         <Col md={12}>
-          <Row>
-            <Col xs={2} className="text-center">
-              {this.renderPreviousButton()}
-            </Col>
-            <Col xs={3} className="text-center">
-              {this.renderPlayStopButtons()}
-            </Col>
-            <Col xs={2} className="text-center">
-              {this.renderNextButton()}
-            </Col>
-
-            {this.renderRepeatButton()}
-          </Row>
-          {
-            file && file.duration &&
-            <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span>
-          }
           <Track
             progress={progress}
             onTrackChange={this.handleTrackChange}
           />
+          <Row>
+            <Col md={2} xs={3} className="text-center">
+              <ul className="list-inline vertical-align">
+                <li>
+                  {this.renderPreviousButton()}
+                </li>
+                <li>
+                  {this.renderPlayStopButtons()}
+                </li>
+                <li>
+                  {this.renderNextButton()}
+                </li>
+              </ul>
+            </Col>
+            <Col xs={3}>
+              {
+                file && !isNaN(file.duration) &&
+                <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span>
+              }
+            </Col>
+            <Col xs={2}>
+              {this.renderRepeatButton()}
+            </Col>
+          </Row>
         </Col>
       </Row>
     );

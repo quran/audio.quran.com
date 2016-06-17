@@ -1,10 +1,10 @@
 @import "../../theme/variables.scss";
 
 .reciterBackground{
-  background: url('../../../static/reciter-background.jpeg') center center no-repeat;
+  background: url('../../../static/images/1.jpeg') center center no-repeat;
   background-size: cover;
-  min-height: 400px;
-  min-height: 40vh;
+  min-height: 300px;
+  min-height: 30vh;
   color: #fff;
   padding-top: 5rem;
   padding-bottom: 5rem;
@@ -41,7 +41,6 @@
   :global(.list-group-item:hover){
     :global(.fa-play-circle){
       display: inline;
-      font-size: 16px;
     }
     :global(.index){
       display: none;

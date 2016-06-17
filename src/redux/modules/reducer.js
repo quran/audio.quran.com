@@ -6,11 +6,13 @@ import audioplayer from './audioplayer';
 import qaris from './qaris';
 import sections from './sections';
 import surahs from './surahs';
+import files from './files';
 
 export default combineReducers({
   routing: routerReducer,
   reduxAsyncConnect,
   audioplayer,
+  files,
   qaris,
   sections,
   surahs

@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 // import { connect } from 'react-redux';
 import { IndexLink } from 'react-router';
-import { LinkContainer } from 'react-router-bootstrap';
 import { asyncConnect } from 'redux-connect';
 import Helmet from 'react-helmet';
 
@@ -59,7 +58,7 @@ export default class App extends Component {
     return (
       <div className={styles.app}>
         <Helmet {...config.app.head}/>
-        <Navbar fixedTop>
+        <Navbar inverse>
           <Navbar.Header>
             <Navbar.Brand>
               <IndexLink to="/">
@@ -71,11 +70,6 @@ export default class App extends Component {
           </Navbar.Header>
 
           <Navbar.Collapse eventKey={0}>
-            <Nav navbar>
-              <LinkContainer to="/about">
-                <NavItem eventKey={4}>About Us</NavItem>
-              </LinkContainer>
-            </Nav>
             <Nav navbar pullRight>
               <NavItem eventKey={1} target="_blank" title="Quran.com" href="http://quran.com">
                 Quran.com
@@ -86,7 +80,9 @@ export default class App extends Component {
 
         <div className={styles.appContent}>
           {this.props.children}
-          <Audioplayer url="http://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/001.mp3" />
+          <div className={styles.audioplayer}>
+            <Audioplayer url="http://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/001.mp3" />
+          </div>
         </div>
       </div>
     );
