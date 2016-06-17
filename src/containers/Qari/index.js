@@ -34,10 +34,10 @@ export default class Qaris extends Component {
     load: PropTypes.func.isRequired
   };
 
-  handleSurahSelection = (id) => {
+  handleSurahSelection = (surah) => {
     const { qari } = this.props;
 
-    this.props.load(`http://download.quranicaudio.com/quran/${qari.relativePath}${zeroPad(id, 3)}.mp3`);
+    this.props.load({ qari, surah });
   }
 
   render() {
@@ -61,7 +61,7 @@ export default class Qaris extends Component {
                 <ul className="list-group">
                   {
                     Object.values(surahs).map(surah => (
-                       <li key={surah.id} className={`list-group-item ${styles.row}`} onClick={this.handleSurahSelection.bind(this, surah.id)}>
+                       <li key={surah.id} className={`list-group-item ${styles.row}`} onClick={this.handleSurahSelection.bind(this, surah)}>
                         <Row>
                           <Col md={6} xs={8}>
                             <Row>

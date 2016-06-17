@@ -81,7 +81,7 @@ export default class App extends Component {
         <div className={styles.appContent}>
           {this.props.children}
           <div className={styles.audioplayer}>
-            <Audioplayer url="http://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee/001.mp3" />
+            <Audioplayer />
           </div>
         </div>
       </div>

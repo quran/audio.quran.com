@@ -1,0 +1,28 @@
+@import "../../theme/variables.scss";
+
+.controls{
+  margin: 0px;
+
+  :global(li) {
+    padding: 0px 10px;
+  }
+
+  .name{
+    padding-left: 25px;
+  }
+}
+
+.rightNav{
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.repeat{
+  vertical-align: bottom;
+
+  &.active{
+    color: $brand-primary;
+  }
+}

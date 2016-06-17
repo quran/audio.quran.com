@@ -1,5 +1,6 @@
-// import { buildAudioFromHash, testIfSupported } from '../../helpers/buildAudio';
+import zeroPad from 'utils/zeroPad';
 
+const AUDIO_URL = 'http://download.quranicaudio.com/quran';
 const LOAD = '@@quran/audioplayer/LOAD';
 const UPDATE = '@@quran/audioplayer/UPDATE';
 const SET_USER_AGENT = '@@quran/audioplayer/SET_USER_AGENT';
@@ -27,7 +28,9 @@ export default function reducer(state = initialState, action = {}) {
         return {
           ...state,
           isPlaying: false,
-          file: new Audio(action.url)
+          file: new Audio(`${AUDIO_URL}/${action.qari.relativePath}${zeroPad(action.surah.id, 3)}.mp3`),
+          qari: action.qari,
+          surah: action.surah
         };
       }
 
@@ -116,10 +119,11 @@ export function repeat() {
   };
 }
 
-export function load(url) {
+export function load({ surah, qari }) {
   return {
     type: LOAD,
-    url
+    surah,
+    qari
   };
 }
 
