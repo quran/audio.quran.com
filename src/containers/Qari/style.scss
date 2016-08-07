@@ -1,7 +1,6 @@
 @import "../../styles/variables.scss";
 
 .reciterBackground{
-  background: url('../../../static/images/2.jpeg') center center no-repeat;
   background-size: cover;
   min-height: 300px;
   min-height: 30vh;
@@ -38,12 +37,23 @@
 
 
   :global(.list-group-item){
-    :global(.fa-play-circle){
-      display: none;
-    }
+
   }
 
   :global(.list-group-item:hover){
+
+  }
+}
+.row{
+  cursor: pointer;
+
+  :global(.fa-play-circle){
+    display: none;
+  }
+
+  &:hover{
+    background-color: #f7f7f7;
+
     :global(.fa-play-circle){
       display: inline;
       line-height: 0.5em;
@@ -54,12 +64,5 @@
     .download{
       visibility: visible;;
     }
-  }
-}
-.row{
-  cursor: pointer;
-
-  &:hover{
-    background-color: #f7f7f7;
   }
 }

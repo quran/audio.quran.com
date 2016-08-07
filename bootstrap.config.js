@@ -48,7 +48,7 @@ module.exports = {
     "alerts": false,
     "progress-bars": false,
     "media": false,
-    "list-group": false,
+    "list-group": true,
     "panels": true,
     "wells": false,
     "close": true,

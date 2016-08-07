@@ -26,7 +26,8 @@
     "dev": "env NODE_PATH='./src' PORT=8000 UV_THREADPOOL_SIZE=100 node webpack/webpack-dev-server.js & env NODE_PATH='./src' PORT=8000 APIPORT=8080 node bin/server.js & env APIPORT=8080 NODE_PATH='./api' node bin/api.js",
     "test": "karma start",
     "test-node": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register",
-    "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register --watch"
+    "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register --watch",
+    "compress-images": "node compress-images.js"
   },
   "betterScripts": {
     "start-prod": {
@@ -160,6 +161,12 @@
     "eslint-plugin-react": "^3.5.0",
     "font-awesome": "^4.4.0",
     "font-awesome-webpack": "0.0.4",
+    "imagemin": "^5.2.2",
+    "imagemin-jpeg-recompress": "^5.1.0",
+    "imagemin-jpegoptim": "^5.0.0",
+    "imagemin-jpegtran": "^5.0.2",
+    "imagemin-mozjpeg": "^6.0.0",
+    "imagemin-pngquant": "^5.0.0",
     "json-loader": "^0.5.4",
     "karma": "^0.13.10",
     "karma-cli": "^0.1.1",

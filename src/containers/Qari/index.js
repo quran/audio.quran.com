@@ -42,10 +42,14 @@ export default class Qaris extends Component {
 
   render() {
     const { surahs, qari, files } = this.props;
+    const image = require(`../../../static/images/background/${(parseInt(qari.id, 10) + 1) % 33}.jpeg`);
 
     return (
       <div>
-        <Grid fluid className={`${styles.reciterBackground} ${qari.sectionId === 2 && styles.meccaBg}`}>
+        <Grid
+          fluid
+          className={`${styles.reciterBackground} ${qari.sectionId === 2 && styles.meccaBg}`}
+          style={{background: `url(${image}) center top no-repeat`}}>
           <Row>
             <Col md={12} className="text-center">
               <h1>

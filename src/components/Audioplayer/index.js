@@ -188,6 +188,10 @@ export default class Audioplayer extends Component {
   render() {
     const { file, progress, qari, surah } = this.props; // eslint-disable-line no-shadow
 
+    if (!qari || !surah) {
+      return <noscript />;
+    }
+
     return (
       <Row>
         <Col md={12}>
