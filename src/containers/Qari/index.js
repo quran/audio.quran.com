@@ -45,7 +45,7 @@ export default class Qaris extends Component {
 
     return (
       <div>
-        <Grid fluid className={styles.reciterBackground}>
+        <Grid fluid className={`${styles.reciterBackground} ${qari.sectionId === 2 && styles.meccaBg}`}>
           <Row>
             <Col md={12} className="text-center">
               <h1>
@@ -60,8 +60,12 @@ export default class Qaris extends Component {
               <div className={`panel panel-default ${styles.panel}`}>
                 <ul className="list-group">
                   {
-                    Object.values(surahs).map(surah => (
-                       <li key={surah.id} className={`list-group-item ${styles.row}`} onClick={this.handleSurahSelection.bind(this, surah)}>
+                    Object.values(surahs).filter(surah => files[surah.id]).map(surah => (
+                       <li
+                        key={surah.id}
+                        className={`list-group-item ${styles.row}`}
+                        onClick={() => this.handleSurahSelection(surah)}
+                      >
                         <Row>
                           <Col md={6} xs={8}>
                             <Row>

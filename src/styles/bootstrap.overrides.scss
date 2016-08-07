@@ -23,3 +23,27 @@
 .pointer{
   cursor: pointer;
 }
+
+.home-nav-pills.nav-justified{
+  li{
+    border-bottom: 2px solid #d7d7d7;
+
+    a:hover{
+      background: transparent;
+    }
+
+    &.active{
+      border-bottom: 3px solid $brand-primary;
+
+      a{
+        background: #fff;
+        color: $brand-primary;
+
+        &:hover{
+          background: transparent;
+          color: $brand-primary;
+        }
+      }
+    }
+  }
+}

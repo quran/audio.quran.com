@@ -9,6 +9,8 @@ const PLAY = '@@quran/audioplayer/PLAY';
 const PAUSE = '@@quran/audioplayer/PAUSE';
 const PLAY_PAUSE = '@@quran/audioplayer/PLAY_PAUSE';
 const REPEAT = '@@quran/audioplayer/REPEAT';
+const NEXT = '@@quran/audioplayer/NEXT';
+const PREVIOUS = '@@quran/audioplayer/PREVIOUS';
 
 const initialState = {
   file: null,
@@ -23,18 +25,22 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case LOAD:
+    case LOAD: {
       if (__CLIENT__) {
+        const file = new Audio(`${AUDIO_URL}/${action.qari.relativePath}${zeroPad(action.surah.id, 3)}.mp3`);
+        file.play();
+
         return {
           ...state,
-          isPlaying: false,
-          file: new Audio(`${AUDIO_URL}/${action.qari.relativePath}${zeroPad(action.surah.id, 3)}.mp3`),
+          isPlaying: true,
           qari: action.qari,
-          surah: action.surah
+          surah: action.surah,
+          file
         };
       }
 
       return state;
+    }
     case UPDATE:
       return {
         ...state,
@@ -56,6 +62,8 @@ export default function reducer(state = initialState, action = {}) {
         isPlaying: false
       };
     case PLAY_PAUSE:
+      if (!state.file) return state;
+
       if (state.file.paused && state.file.readyState >= 3) {
         state.file.play();
       } else if (!state.file.paused && state.file.readyState >= 3) {
@@ -76,6 +84,32 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         currentFile: action.file
       };
+    case NEXT: {
+      state.file.pause();
+      const file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id + 1, 3)}.mp3`);
+      file.play();
+
+      return {
+        ...state,
+        isPlaying: true,
+        qari: action.qari,
+        surah: action.surah,
+        file
+      };
+    }
+    case PREVIOUS: {
+      state.file.pause();
+      const file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id - 1, 3)}.mp3`);
+      file.play();
+
+      return {
+        ...state,
+        isPlaying: true,
+        qari: action.qari,
+        surah: action.surah,
+        file
+      };
+    }
     default:
       return state;
   }
@@ -131,5 +165,17 @@ export function update(payload) {
   return {
     type: UPDATE,
     payload
+  };
+}
+
+export function next() {
+  return {
+    type: NEXT
+  };
+}
+
+export function previous() {
+  return {
+    type: PREVIOUS
   };
 }

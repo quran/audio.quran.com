@@ -1,13 +1,18 @@
-@import "../../theme/variables.scss";
+@import "../../styles/variables.scss";
 
 .reciterBackground{
-  background: url('../../../static/images/1.jpeg') center center no-repeat;
+  background: url('../../../static/images/2.jpeg') center center no-repeat;
   background-size: cover;
   min-height: 300px;
   min-height: 30vh;
   color: #fff;
   padding-top: 5rem;
   padding-bottom: 5rem;
+}
+
+.meccaBg{
+  background: url('../../../static/images/mecca-4.jpg') center 60% no-repeat;
+  background-size: cover;
 }
 
 .list{
@@ -41,6 +46,7 @@
   :global(.list-group-item:hover){
     :global(.fa-play-circle){
       display: inline;
+      line-height: 0.5em;
     }
     :global(.index){
       display: none;

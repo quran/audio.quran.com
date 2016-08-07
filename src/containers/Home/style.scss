@@ -1,13 +1,25 @@
-@import "../../theme/variables.scss";
+@import "../../styles/variables.scss";
 
 .header{
   background-color: $brand-primary;
+  background: url('../../../static/images/index-bg.jpg') center center no-repeat;
+  background-size: cover;
   height: 400px;
   height: 30vh;
   color: #fff;
 
+  @media(max-width: $screen-sm){
+    height: 60vh;
+  }
+
 
   .description{
     font-weight: 300;
+    line-height: 150%;
   }
+}
+
+.pills{
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
 }

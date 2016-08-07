@@ -50,17 +50,19 @@ export default class Home extends Component {
         </Grid>
         <Grid>
           <Row>
-            <Col md={12}>
-              <Nav bsStyle="pills" justified activeKey={section} onSelect={this.handleSelect}>
+            <Col md={12} className={styles.pills}>
+              <Nav bsStyle="pills" justified activeKey={section} onSelect={this.handleSelect} className="home-nav-pills">
                 {
                   Object.values(sections).map(currentSection => (
                     <NavItem key={currentSection.id} eventKey={currentSection.id}>{currentSection.name}</NavItem>
                   ))
                 }
               </Nav>
+            </Col>
+            <Col md={12}>
               <Row>
                 {
-                  Object.values(qaris).filter(qari => qari.sectionId === section).map(qari => (
+                  Object.values(qaris).filter(qari => qari.sectionId === section).sort((prev, next) => next.name > prev.name ? -1 : 1).map(qari => (
                     <Col md={4} key={qari.id}>
                       <Link to={`/quran/${qari.id}`}>
                         {qari.name}

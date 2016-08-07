@@ -1,4 +1,4 @@
-@import "../../theme/variables.scss";
+@import "../../styles/variables.scss";
 
 .controls{
   margin: 0px;
@@ -20,9 +20,16 @@
 }
 
 .repeat{
-  vertical-align: bottom;
+  :global(i){
+    vertical-align: bottom;
+  }
 
   &.active{
     color: $brand-primary;
   }
+}
+
+.disabled{
+  opacity: 0.5;
+  cursor: not-allowed !important;
 }
