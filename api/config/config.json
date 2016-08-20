@@ -15,9 +15,9 @@
   },
   "production": {
     "username": "quran_dev",
-    "password": null,
+    "password": "dev_quran",
     "database": "audio_quran",
-    "host": "127.0.0.1",
+    "host": "postgres",
     "dialect": "postgres"
   }
 }

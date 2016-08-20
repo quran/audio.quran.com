@@ -36,7 +36,9 @@ app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 app.use(useragent.express());
 app.use(logger('dev'));
 
+// static content
 app.use(Express.static(path.join(__dirname, '..', 'static')));
+app.use('/public', Express.static(path.join((process.env.PWD || process.env.pm_cwd), '/static/dist')));
 
 // Proxy to API server
 app.use('/api', (req, res) => {

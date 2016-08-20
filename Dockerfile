@@ -1,10 +1,10 @@
 FROM node:6.3
 
-ENV NODE_ENV production
 ENV API_URL http://localhost:8080
-ENV SENTRY_KEY_CLIENT https://44c105328ae544ae9928f9eb74b40061@app.getsentry.com/80639
-ENV SENTRY_KEY_SERVER https://44c105328ae544ae9928f9eb74b40061:41ca814d33124e04ab450104c3938cb1@app.getsentry.com/80639
+ENV USE_LOCAL_ASSETS true
+ENV NODE_ENV production
 ENV PORT 8000
+ENV APIPORT 3000
 
 RUN apt-get -y update && apt-get -y install supervisor ssh rsync
 
@@ -20,23 +20,12 @@ ADD package.json package.json
 RUN npm install
 RUN npm install -g pm2
 
-RUN mkdir /quran
-RUN cp -a /tmp/node_modules /quran
+RUN mkdir /quranicaudio
+RUN cp -a /tmp/node_modules /quranicaudio
 
-WORKDIR /quran
-ADD . /quran/
+WORKDIR /quranicaudio
+ADD . /quranicaudio/
 RUN npm run build
-
-# ssh keys
-WORKDIR /root
-RUN mv /quran/.ssh /root/
-
-# upload js and css
-WORKDIR /quran/static/dist
-RUN rsync --update --progress -raz . ahmedre@rsync.keycdn.com:zones/assets/
-
-# go back to /quran
-WORKDIR /quran
 
 EXPOSE 8000
 CMD ["supervisord", "--nodaemon", "-c", "/etc/supervisor/supervisord.conf"]
