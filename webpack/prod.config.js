@@ -13,6 +13,7 @@ var relativeAssetsPath = '../static/dist';
 var assetsPath = path.join(__dirname, relativeAssetsPath);
 
 module.exports = {
+  context: path.join(process.env.PWD, './'),
   output: {
     path: assetsPath,
     publicPath: process.env.USE_LOCAL_ASSETS ? '/public/' : '//assets-1f14.kxcdn.com/',

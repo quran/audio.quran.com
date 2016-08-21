@@ -34,5 +34,5 @@ if (config.apiPort) {
     console.info('==> 💻  Send requests to http://%s:%s', config.apiHost, config.apiPort);
   });
 } else {
-  console.error('==>     ERROR: No PORT environment variable has been specified');
+  console.error('==>     ERROR: No APIPORT environment variable has been specified');
 }
