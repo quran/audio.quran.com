@@ -52,7 +52,7 @@ export default class Qaris extends Component {
           style={{background: `url(${image}) center top no-repeat`}}>
           <Row>
             <Col md={12} className="text-center">
-              <h1>
+              <h1 className={styles.reciterName}>
                 {qari.name}
               </h1>
             </Col>

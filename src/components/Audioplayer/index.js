@@ -201,7 +201,7 @@ export default class Audioplayer extends Component {
           />
           <Grid fluid>
             <Row>
-              <Col md={5} mdOffset={1} xs={3}>
+              <Col md={5} mdOffset={1} xs={12}>
                 <ul className={`list-inline vertical-align ${styles.controls}`}>
                   <li>
                     {this.renderPreviousButton()}
