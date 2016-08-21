@@ -8,7 +8,6 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 
 const styles = require('./style.scss');
-const images = Array(33).join(',').split(',').map((__, index) => require(`../../../static/images/background/compressed/${index + 1}.jpeg`));
 
 @connect(
   state => ({
@@ -68,7 +67,7 @@ export default class Home extends Component {
                       <Link
                         className={styles.reciter}
                         to={`/quran/${qari.id}`}
-                        style={{background: `url(${images[qari.id % images.length]}) center center no-repeat`, backgroundSize: 'cover'}}>
+                        style={{background: `url(/images/compressed/${qari.id % 33}.jpg) center center no-repeat`, backgroundSize: 'cover'}}>
                         <div className={styles.overlay} />
                         <div className={styles.text}>{qari.name}</div>
                       </Link>
