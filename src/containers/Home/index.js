@@ -67,7 +67,7 @@ export default class Home extends Component {
                       <Link
                         className={styles.reciter}
                         to={`/quran/${qari.id}`}
-                        style={{background: `url(/images/compressed/${qari.id % 33}.jpg) center center no-repeat`, backgroundSize: 'cover'}}>
+                        style={{background: `url(/images/background/compressed/${qari.id % 33}.jpeg) center center no-repeat`, backgroundSize: 'cover'}}>
                         <div className={styles.overlay} />
                         <div className={styles.text}>{qari.name}</div>
                       </Link>
