@@ -38,7 +38,7 @@ export default class Home extends Component {
       <div>
         <Grid className={styles.header} fluid>
           <Row>
-            <Col md={8} mdOffset={2} className="text-center">
+            <Col md={8} mdOffset={2} className={`text-center ${styles.header__text}`}>
               <h3>Quranic Audio</h3>
               <h4 className={styles.description}>
                 Welcome to QuranicAudio.com, your source for high quality recitations of the Quran.

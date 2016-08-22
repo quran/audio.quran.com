@@ -9,13 +9,19 @@
   color: #fff;
 
   @media(max-width: $screen-sm){
-    height: 60vh;
+    height: 50vh;
+    padding: 1px;
   }
-
 
   .description{
     font-weight: 300;
     line-height: 150%;
+  }
+}
+
+.header__text {
+  @media (max-width: $screen-sm) {
+    margin-top: 15%;
   }
 }
 
