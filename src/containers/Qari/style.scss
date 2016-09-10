@@ -7,11 +7,13 @@
   color: #fff;
   padding-top: 5rem;
   padding-bottom: 5rem;
+  background-color: $brand-primary;
 
   @media (max-width: $screen-md) {
     padding-bottom: 8rem;
   }
 }
+
 
 .meccaBg{
   background: url('../../../static/images/mecca-4.jpg') center 60% no-repeat;
@@ -66,7 +68,35 @@
       display: none;
     }
     .download{
-      visibility: visible;;
+      visibility: visible;
     }
+  }
+}
+
+.buttonContain {
+  padding-bottom: 3rem;
+}
+
+.button {
+  border-radius: 50px;
+  border-color: white;
+  border-width: 2px;
+  margin-right: 10px;
+  padding: 10px 30px;
+  outline: none;
+
+  span {
+    font-size: 14px;
+  }
+
+  .icon {
+    font-size: 20px;
+    padding-right: 10px;
+  }
+
+  &:hover {
+    border-color: white;
+    background: #FFF;
+    color: $brand-primary;
   }
 }

@@ -6,11 +6,10 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 
-import { load } from 'redux/modules/audioplayer';
+import { load, play, next, continuous} from 'redux/modules/audioplayer';
 import { load as loadFiles } from 'redux/modules/files';
 import zeroPad from 'utils/zeroPad';
 import formatSeconds from 'utils/formatSeconds';
-
 const styles = require('./style.scss');
 
 @asyncConnect([{
@@ -22,39 +21,70 @@ const styles = require('./style.scss');
   (state, ownProps) => ({
     surahs: state.surahs.entities,
     qari: state.qaris.entities[ownProps.params.id],
-    files: state.files.entities[ownProps.params.id]
+    files: state.files.entities[ownProps.params.id],
+    Playing: state.audioplayer.isPlaying,
   }),
-  { load }
+  { load, play, next, continuous}
 )
 export default class Qaris extends Component {
   static propTypes = {
     surahs: PropTypes.object.isRequired,
     qari: PropTypes.object.isRequired,
     files: PropTypes.object.isRequired,
-    load: PropTypes.func.isRequired
+    load: PropTypes.func.isRequired,
+    play: PropTypes.func.isRequired,
+    next: PropTypes.func.isRequired,
+    continuous: PropTypes.func.isRequired,
+    Playing: PropTypes.bool.isRequired
   };
+
+  handlePlayAll() {
+    const {surahs, files, Playing} = this.props;
+
+    if (!Playing) {
+      this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[0]);
+    }
+
+    this.props.continuous();
+  }
 
   handleSurahSelection = (surah) => {
     const { qari } = this.props;
-
     this.props.load({ qari, surah });
   }
 
   render() {
     const { surahs, qari, files } = this.props;
-    const image = require(`../../../static/images/background/${(parseInt(qari.id, 10) + 1) % 33}.jpeg`);
 
     return (
       <div>
         <Grid
           fluid
-          className={`${styles.reciterBackground} ${qari.sectionId === 2 && styles.meccaBg}`}
-          style={{background: `url(${image}) center top no-repeat`}}>
+          className={`${styles.reciterBackground} ${qari.sectionId === 2 && styles.meccaBg}`}>
           <Row>
             <Col md={12} className="text-center">
               <h1 className={styles.reciterName}>
                 {qari.name}
               </h1>
+
+              <div className={styles.buttonContain}>
+                <Button
+                  bsStyle="primary"
+                  className={styles.button}
+                  onClick={this.handlePlayAll.bind(this)}
+                  >
+                  <i className={`fa fa-play ${styles.icon}`} /><span>Play All</span>
+                </Button>
+
+                <Button
+                  bsStyle="primary"
+                  className={styles.button}
+                  onClick={(event) => event.stopPropagation()}
+                  >
+                  <span>Download All</span>
+                </Button>
+              </div>
+
             </Col>
           </Row>
         </Grid>

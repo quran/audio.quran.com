@@ -12,7 +12,8 @@ import {
   update,
   repeat,
   previous,
-  next
+  next,
+  continuous
 } from 'redux/modules/audioplayer';
 
 import formatSeconds from 'utils/formatSeconds';
@@ -24,6 +25,7 @@ const styles = require('./style.scss');
 @connect(
   state => ({
     file: state.audioplayer.file,
+    surahs: state.surahs.entities,
     qari: state.audioplayer.qari,
     surah: state.audioplayer.surah,
     progress: state.audioplayer.progress,
@@ -31,15 +33,18 @@ const styles = require('./style.scss');
     currentTime: state.audioplayer.currentTime,
     isPlaying: state.audioplayer.isPlaying,
     shouldRepeat: state.audioplayer.shouldRepeat,
+    shouldContinuous: state.audioplayer.shouldContinuous,
   }),
-  { load, play, pause, playPause, update, repeat, next, previous }
+  { load, play, pause, playPause, update, repeat, next, previous, continuous }
 )
 export default class Audioplayer extends Component {
   static propTypes = {
     load: PropTypes.func.isRequired,
+    surahs: PropTypes.object.isRequired,
     playPause: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
     repeat: PropTypes.func.isRequired,
+    continuous: PropTypes.func.isRequired,
     next: PropTypes.func.isRequired,
     previous: PropTypes.func.isRequired,
     file: PropTypes.object,
@@ -47,6 +52,7 @@ export default class Audioplayer extends Component {
     surah: PropTypes.object,
     isPlaying: PropTypes.bool.isRequired,
     shouldRepeat: PropTypes.bool.isRequired,
+    shouldContinuous: PropTypes.bool.isRequired,
     progress: PropTypes.number,
     currentTime: PropTypes.number,
     duration: PropTypes.number
@@ -109,7 +115,7 @@ export default class Audioplayer extends Component {
     };
 
     const onEnded = () => {
-      const { shouldRepeat } = this.props;
+      const { shouldRepeat, shouldContinuous} = this.props;
 
       if (shouldRepeat) {
         file.pause();
@@ -123,6 +129,11 @@ export default class Audioplayer extends Component {
         update({
           isPlaying: false
         });
+      }
+
+      if (shouldContinuous) {
+        const { surah, surahs, qari } = this.props; // eslint-disable-line no-shadow
+        this.props.load({surah: Object.values(surahs)[surah.id], qari: qari});
       }
     };
 
@@ -188,7 +199,7 @@ export default class Audioplayer extends Component {
   render() {
     const { file, progress, qari, surah } = this.props; // eslint-disable-line no-shadow
 
-    if (!qari || !surah) {
+    if (!surah) {
       return <noscript />;
     }
 
