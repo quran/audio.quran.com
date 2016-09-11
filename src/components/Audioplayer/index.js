@@ -13,7 +13,8 @@ import {
   repeat,
   previous,
   next,
-  continuous
+  continuous,
+  random
 } from 'redux/modules/audioplayer';
 
 import formatSeconds from 'utils/formatSeconds';
@@ -34,8 +35,9 @@ const styles = require('./style.scss');
     isPlaying: state.audioplayer.isPlaying,
     shouldRepeat: state.audioplayer.shouldRepeat,
     shouldContinuous: state.audioplayer.shouldContinuous,
+    shouldRandom: state.audioplayer.shouldRandom,
   }),
-  { load, play, pause, playPause, update, repeat, next, previous, continuous }
+  { load, play, pause, playPause, update, repeat, next, previous, continuous, random }
 )
 export default class Audioplayer extends Component {
   static propTypes = {
@@ -45,6 +47,7 @@ export default class Audioplayer extends Component {
     update: PropTypes.func.isRequired,
     repeat: PropTypes.func.isRequired,
     continuous: PropTypes.func.isRequired,
+    random: PropTypes.func.isRequired,
     next: PropTypes.func.isRequired,
     previous: PropTypes.func.isRequired,
     file: PropTypes.object,
@@ -53,6 +56,7 @@ export default class Audioplayer extends Component {
     isPlaying: PropTypes.bool.isRequired,
     shouldRepeat: PropTypes.bool.isRequired,
     shouldContinuous: PropTypes.bool.isRequired,
+    shouldRandom: PropTypes.bool.isRequired,
     progress: PropTypes.number,
     currentTime: PropTypes.number,
     duration: PropTypes.number
@@ -115,12 +119,19 @@ export default class Audioplayer extends Component {
     };
 
     const onEnded = () => {
-      const { shouldRepeat, shouldContinuous} = this.props;
+      const { shouldRepeat, shouldContinuous, shouldRandom} = this.props;
 
       if (shouldRepeat) {
         file.pause();
         file.currentTime = 0; // eslint-disable-line no-param-reassign
         file.play();
+      } else if (shouldContinuous) {
+        const { surah, surahs, qari } = this.props; // eslint-disable-line no-shadow
+        this.props.load({surah: Object.values(surahs)[surah.id], qari: qari});
+      } else if (shouldRandom) {
+        const {surahs, qari } = this.props; // eslint-disable-line no-shadow
+        const randomSurah = Math.floor(Math.random() * (113 + 1));
+        this.props.load({surah: Object.values(surahs)[randomSurah ], qari: qari});
       } else {
         if (file.readyState >= 3 && file.paused) {
           file.pause();
@@ -129,11 +140,6 @@ export default class Audioplayer extends Component {
         update({
           isPlaying: false
         });
-      }
-
-      if (shouldContinuous) {
-        const { surah, surahs, qari } = this.props; // eslint-disable-line no-shadow
-        this.props.load({surah: Object.values(surahs)[surah.id], qari: qari});
       }
     };
 
@@ -183,7 +189,7 @@ export default class Audioplayer extends Component {
     const { shouldRepeat, repeat } = this.props; // eslint-disable-line no-shadow
 
     return (
-      <div className={`text-center pull-right ${styles.repeat} ${shouldRepeat && styles.active}`}>
+      <div className={`text-center pull-right ${styles.toggle} ${shouldRepeat && styles.active}`}>
         <input type="checkbox" id="repeat" className="hidden" />
         <label
           htmlFor="repeat"
@@ -191,6 +197,23 @@ export default class Audioplayer extends Component {
           onClick={repeat}
         >
           <i className="fa fa-repeat" />
+        </label>
+      </div>
+    );
+  }
+
+  renderRandomButton() {
+    const { shouldRandom, random } = this.props; // eslint-disable-line no-shadow
+
+    return (
+      <div className={`text-center pull-right ${styles.toggle} ${shouldRandom && styles.active}`}>
+        <input type="checkbox" id="random" className="hidden" />
+        <label
+          htmlFor="repeat"
+          className={`pointer`}
+          onClick={random}
+        >
+          <i className="fa fa-random" />
         </label>
       </div>
     );
@@ -251,6 +274,9 @@ export default class Audioplayer extends Component {
                       file && !isNaN(file.duration) &&
                       <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span>
                     }
+                  </li>
+                  <li>
+                    {this.renderRandomButton()}
                   </li>
                   <li>
                     {this.renderRepeatButton()}

@@ -10,6 +10,7 @@ const PAUSE = '@@quran/audioplayer/PAUSE';
 const PLAY_PAUSE = '@@quran/audioplayer/PLAY_PAUSE';
 const REPEAT = '@@quran/audioplayer/REPEAT';
 const CONTINUOUS = '@@quran/audioplayer/CONTINUOUS';
+const RANDOM = '@@quran/audioplayer/RANDOM';
 const NEXT = '@@quran/audioplayer/NEXT';
 const PREVIOUS = '@@quran/audioplayer/PREVIOUS';
 
@@ -21,6 +22,7 @@ const initialState = {
   isPlaying: false,
   shouldRepeat: false,
   shouldContinuous: false,
+  shouldRandom: false,
   progress: 0,
   currentTime: 0
 };
@@ -79,12 +81,22 @@ export default function reducer(state = initialState, action = {}) {
     case REPEAT:
       return {
         ...state,
+        shouldContinuous: false,
         shouldRepeat: !state.shouldRepeat
       };
     case CONTINUOUS:
       return {
         ...state,
+        shouldRepeat: false,
+        shouldRandom: false,
         shouldContinuous: !state.shouldContinuous
+      };
+    case RANDOM:
+      return {
+        ...state,
+        shouldRepeat: false,
+        shouldContinuous: false,
+        shouldRandom: !state.shouldRandom
       };
     case SET_CURRENT_FILE:
       return {
@@ -162,6 +174,12 @@ export function repeat() {
 export function continuous() {
   return {
     type: CONTINUOUS
+  };
+}
+
+export function random() {
+  return {
+    type: RANDOM
   };
 }
 
