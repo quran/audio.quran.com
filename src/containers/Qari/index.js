@@ -60,7 +60,7 @@ export default class Qaris extends Component {
       <div>
         <Grid
           fluid
-          className={`${styles.reciterBackground} ${qari.sectionId === 2 && styles.meccaBg}`}>
+          className={`${styles.reciterBackground}`}>
           <Row>
             <Col md={12} className="text-center">
               <h1 className={styles.reciterName}>
