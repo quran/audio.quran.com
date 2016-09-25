@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Link from 'react-router/lib/Link';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
-
+import formatQarisByLetter from '../../utils/formatQarisByLetter';
+import Qaris from '../../components/Qaris';
 const styles = require('./style.scss');
-
 @connect(
   state => ({
     qaris: state.qaris.entities,
@@ -33,23 +32,19 @@ export default class Home extends Component {
   render() {
     const { sections, qaris } = this.props;
     const { section } = this.state;
+    const formated = formatQarisByLetter(qaris);
 
     return (
       <div>
         <Grid className={styles.header} fluid>
           <Row>
             <Col md={8} mdOffset={2} className={`text-center ${styles.header__text}`}>
-              <h3>Quranic Audio</h3>
-              <h4 className={styles.description}>
-                Welcome to QuranicAudio.com, your source for high quality recitations of the Quran.
-                All the Quran recitations on this site are in high quality and are free for download and streaming as mp3s.
-                Please enjoy your stay, contact us with your suggestions, tell your friends about the site, and don't forget us in your prayers!
-              </h4>
+              <h1 className={styles.heading}>QuranicAudio</h1>
             </Col>
           </Row>
         </Grid>
         <Grid>
-          <Row>
+          <Row className={styles.container}>
             <Col md={12} className={styles.pills}>
               <Nav bsStyle="pills" justified activeKey={section} onSelect={this.handleSelect} className="home-nav-pills">
                 {
@@ -61,19 +56,7 @@ export default class Home extends Component {
             </Col>
             <Col md={12}>
               <Row>
-                {
-                  Object.values(qaris).filter(qari => qari.sectionId === section).sort((prev, next) => next.name > prev.name ? -1 : 1).map(qari => (
-                    <Col md={3} key={qari.id}>
-                      <Link
-                        className={styles.reciter}
-                        to={`/quran/${qari.id}`}
-                        style={{background: `url(/images/background/compressed/${qari.id % 33}.jpeg) center center no-repeat`, backgroundSize: 'cover'}}>
-                        <div className={styles.overlay} />
-                        <div className={styles.text}>{qari.name}</div>
-                      </Link>
-                    </Col>
-                  ))
-                }
+                {formated.map((item, index) => <Qaris key={index} qaris={item} />)}
               </Row>
             </Col>
           </Row>

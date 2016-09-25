@@ -75,16 +75,7 @@ export default class Qaris extends Component {
                   >
                   <i className={`fa fa-play ${styles.icon}`} /><span>Play All</span>
                 </Button>
-
-                <Button
-                  bsStyle="primary"
-                  className={styles.button}
-                  onClick={(event) => event.stopPropagation()}
-                  >
-                  <span>Download All</span>
-                </Button>
               </div>
-
             </Col>
           </Row>
         </Grid>

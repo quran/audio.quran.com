@@ -4,18 +4,12 @@
   background-color: $brand-primary;
   background: url('../../../static/images/index-bg.jpg') center center no-repeat;
   background-size: cover;
-  height: 400px;
-  height: 30vh;
+  height: 350px;
   color: #fff;
 
   @media(max-width: $screen-sm){
-    height: 50vh;
+    height: 30vh;
     padding: 1px;
-  }
-
-  .description{
-    font-weight: 300;
-    line-height: 150%;
   }
 }
 
@@ -23,6 +17,21 @@
   @media (max-width: $screen-sm) {
     margin-top: 15%;
   }
+
+
+}
+.heading {
+  font-family: 'Montserrat-Bold';
+  font-size: 48px;
+  margin-top: 5%;
+  left: 0;
+  position: relative;
+}
+
+.container {
+  position: relative;
+  background: white;
+  bottom: 75px;
 }
 
 .pills{
