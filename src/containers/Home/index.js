@@ -59,6 +59,7 @@ export default class Home extends Component {
                 {formated.map((item, index) => <Qaris key={index} qaris={item} />)}
               </Row>
             </Col>
+            <span className={styles.goTop} onClick={() => window.scrollTo(0, 0)}>Go to the top <i className="fa fa-chevron-up"></i></span>
           </Row>
         </Grid>
       </div>

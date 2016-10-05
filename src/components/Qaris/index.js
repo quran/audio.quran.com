@@ -16,7 +16,7 @@ export default class Qaris extends Component {
         return (<li key={index} className={styles.listItem}><Link to={`/quran/${qari.id}`}>{cleanUp(qari.name)}</Link></li>);
       });
     } else {
-      list = (<li>We dont have reciters that starts with “{letter}” Suggest here</li>);
+      list = (<li className={styles.listItemError}>We dont have reciters that starts with “{letter}” Suggest here</li>);
     }
 
     return (
