@@ -1,0 +1,96 @@
+@import "../../styles/variables.scss";
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-height: 100px;
+
+  .letter {
+    font-family: $font-family-sans-serif;
+    border: 1px solid $border-color;
+    font-size: 16px;
+    color: #2E2E2E;
+    padding: 5px 10px 5px 10px;
+    border-radius: 50%;
+    position: absolute;
+    margin-top: 10px;
+
+    @include mobile() {
+      width: 100%;
+      background: #2CA4AB;
+      border-radius: 0;
+      position: relative;
+      text-align: center;
+      font-weight: 400;
+      font-size: 26px;
+      color: white;
+    }
+  }
+
+  .list {
+    position: relative;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 10px;
+    &::after {
+      content: '';
+      width: 100%;
+      // border-bottom: 1px solid $border-color;
+    }
+
+    @include mobile() {
+      padding-left: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+
+  }
+
+  .listItem {
+    font-family: $font-family-regular;
+    padding: 10px 0 20px 20px;
+    font-size: 14px;
+    width: 370px;
+    color: black;
+    letter-spacing: 1px;
+
+    @include mobile() {
+      width: 100%;
+      border-bottom: 1px solid #EFEFEF;
+      margin: 10px 20px;
+
+      a {
+        display: block;
+        line-height: 20px;
+      }
+
+      &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+    }
+
+  }
+
+  .listItemError {
+    font-family: $font-family-regular;
+    padding: 8px 0 35px 20px;
+    font-size: 16px;
+    width: 100%;
+    color: black;
+    @include mobile() {
+      position: relative;
+      top: 20px;
+      text-align: center;
+    }
+
+  }
+
+  .arabicName {
+    float: right;
+  }
+}

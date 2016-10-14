@@ -9,6 +9,8 @@ const PLAY = '@@quran/audioplayer/PLAY';
 const PAUSE = '@@quran/audioplayer/PAUSE';
 const PLAY_PAUSE = '@@quran/audioplayer/PLAY_PAUSE';
 const REPEAT = '@@quran/audioplayer/REPEAT';
+const CONTINUOUS = '@@quran/audioplayer/CONTINUOUS';
+const RANDOM = '@@quran/audioplayer/RANDOM';
 const NEXT = '@@quran/audioplayer/NEXT';
 const PREVIOUS = '@@quran/audioplayer/PREVIOUS';
 
@@ -19,6 +21,8 @@ const initialState = {
   isSupported: true,
   isPlaying: false,
   shouldRepeat: false,
+  shouldContinuous: false,
+  shouldRandom: false,
   progress: 0,
   currentTime: 0
 };
@@ -77,7 +81,22 @@ export default function reducer(state = initialState, action = {}) {
     case REPEAT:
       return {
         ...state,
+        shouldContinuous: false,
         shouldRepeat: !state.shouldRepeat
+      };
+    case CONTINUOUS:
+      return {
+        ...state,
+        shouldRepeat: false,
+        shouldRandom: false,
+        shouldContinuous: !state.shouldContinuous
+      };
+    case RANDOM:
+      return {
+        ...state,
+        shouldRepeat: false,
+        shouldContinuous: false,
+        shouldRandom: !state.shouldRandom
       };
     case SET_CURRENT_FILE:
       return {
@@ -88,12 +107,11 @@ export default function reducer(state = initialState, action = {}) {
       state.file.pause();
       const file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id + 1, 3)}.mp3`);
       file.play();
-
       return {
         ...state,
         isPlaying: true,
-        qari: action.qari,
-        surah: action.surah,
+        qari: action.qari || state.qari,
+        surah: action.surah || state.surah,
         file
       };
     }
@@ -150,6 +168,18 @@ export function playPause() {
 export function repeat() {
   return {
     type: REPEAT
+  };
+}
+
+export function continuous() {
+  return {
+    type: CONTINUOUS
+  };
+}
+
+export function random() {
+  return {
+    type: RANDOM
   };
 }
 

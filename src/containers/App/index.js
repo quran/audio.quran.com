@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 // import { connect } from 'react-redux';
-import { IndexLink } from 'react-router';
+// import { IndexLink } from 'react-router';
 import { asyncConnect } from 'redux-connect';
 import Helmet from 'react-helmet';
 
@@ -59,20 +59,10 @@ export default class App extends Component {
       <div className={styles.app}>
         <Helmet {...config.app.head}/>
         <Navbar inverse>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <IndexLink to="/">
-                <div className={styles.brand}/>
-                QuranicAudio
-              </IndexLink>
-            </Navbar.Brand>
-            <Navbar.Toggle/>
-          </Navbar.Header>
-
           <Navbar.Collapse eventKey={0}>
             <Nav navbar pullRight>
               <NavItem eventKey={1} target="_blank" title="Quran.com" href="http://quran.com">
-                Quran.com
+                <span className={styles.quran}>Quran.com</span>
               </NavItem>
             </Nav>
           </Navbar.Collapse>
