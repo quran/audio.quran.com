@@ -39,7 +39,7 @@ export default class Home extends Component {
         <Grid className={styles.header} fluid>
           <Row>
             <Col md={8} mdOffset={2} className={`text-center ${styles.header__text}`}>
-              <h1 className={styles.heading}>QuranicAudio</h1>
+              <h1 className={styles.heading}><a href="/" className={styles.heading__link}>QuranicAudio</a></h1>
             </Col>
           </Row>
         </Grid>

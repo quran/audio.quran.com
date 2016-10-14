@@ -1,15 +1,30 @@
 @import "../../styles/variables.scss";
 
-.header{
+.header {
   background-color: $brand-primary;
   background: url('../../../static/images/index-bg.jpg') center center no-repeat;
   background-size: cover;
   height: 350px;
   color: #fff;
 
+
+
   @media(max-width: $screen-sm){
     height: 30vh;
     padding: 1px;
+
+    &.fixed {
+      position: fixed;
+      top: 0px;
+      width:100%;
+      height: 120px;
+      background: #009faa;
+      color: #FFF;
+      font-size: 23px;
+      padding-top: 50px;
+      transition: height 0.3s linear 0s, padding 0.3s linear 0s;
+      overflow:hidden;
+    }
   }
 }
 
@@ -17,9 +32,8 @@
   @media (max-width: $screen-sm) {
     margin-top: 15%;
   }
-
-
 }
+
 .heading {
   font-family: 'Montserrat-Bold';
   font-size: 48px;
@@ -28,10 +42,19 @@
   position: relative;
 }
 
+.heading__link {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
 .container {
   position: relative;
   background: white;
   bottom: 75px;
+  top: 0;
+  @include mobile() {
+    top: 10px;
+  }
 }
 
 .goTop {

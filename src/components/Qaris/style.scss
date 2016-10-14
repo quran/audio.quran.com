@@ -15,6 +15,7 @@
     border-radius: 50%;
     position: absolute;
     margin-top: 10px;
+
     @include mobile() {
       width: 100%;
       background: #2CA4AB;
@@ -23,7 +24,6 @@
       text-align: center;
       font-weight: 400;
       font-size: 26px;
-      margin-left: 2px;
       color: white;
     }
   }
@@ -38,11 +38,13 @@
     &::after {
       content: '';
       width: 100%;
-      border-bottom: 1px solid $border-color;
+      // border-bottom: 1px solid $border-color;
     }
 
     @include mobile() {
       padding-left: 0;
+      margin-top: 0;
+      margin-bottom: 0;
     }
 
 
@@ -50,20 +52,25 @@
 
   .listItem {
     font-family: $font-family-regular;
-    padding-right: 0;
-    padding-left: 20px;
-    padding-bottom: 35px;
-    font-size: 16px;
+    padding: 10px 0 20px 20px;
+    font-size: 14px;
     width: 370px;
     color: black;
+    letter-spacing: 1px;
 
     @include mobile() {
       width: 100%;
       border-bottom: 1px solid #EFEFEF;
-      padding: 20px 10px;
+      margin: 10px 20px;
+
+      a {
+        display: block;
+        line-height: 20px;
+      }
 
       &:last-child {
         border-bottom: none;
+        padding-bottom: 0;
       }
     }
 
@@ -75,6 +82,12 @@
     font-size: 16px;
     width: 100%;
     color: black;
+    @include mobile() {
+      position: relative;
+      top: 20px;
+      text-align: center;
+    }
+
   }
 
   .arabicName {
