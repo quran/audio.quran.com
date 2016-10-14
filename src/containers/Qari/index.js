@@ -38,16 +38,6 @@ export default class Qaris extends Component {
     Playing: PropTypes.bool.isRequired
   };
 
-  handlePlayAll() {
-    const {surahs, files, Playing} = this.props;
-
-    if (!Playing) {
-      this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[0]);
-    }
-
-    this.props.continuous();
-  }
-
   handleSurahSelection = (surah) => {
     const { qari } = this.props;
     this.props.load({ qari, surah });
@@ -56,11 +46,21 @@ export default class Qaris extends Component {
   render() {
     const { surahs, qari, files } = this.props;
 
+    const handlePlayAll = () => {
+      const { Playing } = this.props;
+
+      if (!Playing) {
+        this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[0]);
+      }
+
+      this.props.continuous();
+    };
+
     return (
       <div>
         <Grid
           fluid
-          className={`${styles.reciterBackground}`}>
+          className={styles.reciterBackground}>
           <Row>
             <Col md={12} className="text-center">
               <h1 className={styles.reciterName}>
@@ -71,7 +71,7 @@ export default class Qaris extends Component {
                 <Button
                   bsStyle="primary"
                   className={styles.button}
-                  onClick={this.handlePlayAll.bind(this)}
+                  onClick={handlePlayAll}
                   >
                   <i className={`fa fa-play ${styles.icon}`} /><span>Play All</span>
                 </Button>

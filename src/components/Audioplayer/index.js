@@ -43,6 +43,14 @@ export default class Audioplayer extends Component {
   static propTypes = {
     load: PropTypes.func.isRequired,
     surahs: PropTypes.object.isRequired,
+    surah: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      ayat: PropTypes.number.isRequired,
+      bismillahPre: PropTypes.bool.isRequired,
+      name: PropTypes.object.isRequired,
+      revelation: PropTypes.object.isRequired,
+      page: PropTypes.array.isRequired
+    }),
     playPause: PropTypes.func.isRequired,
     update: PropTypes.func.isRequired,
     repeat: PropTypes.func.isRequired,
@@ -52,7 +60,6 @@ export default class Audioplayer extends Component {
     previous: PropTypes.func.isRequired,
     file: PropTypes.object,
     qari: PropTypes.object,
-    surah: PropTypes.object,
     isPlaying: PropTypes.bool.isRequired,
     shouldRepeat: PropTypes.bool.isRequired,
     shouldContinuous: PropTypes.bool.isRequired,
@@ -221,7 +228,6 @@ export default class Audioplayer extends Component {
 
   render() {
     const { file, progress, qari, surah } = this.props; // eslint-disable-line no-shadow
-
     if (!surah) {
       return <noscript />;
     }
