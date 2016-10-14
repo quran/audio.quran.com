@@ -53,15 +53,15 @@
 
   .listItem {
     font-family: $font-family-regular;
-    padding: 10px 0 20px 20px;
+    padding: 20px 0 20px 20px;
     font-size: 14px;
     width: 370px;
     color: black;
     letter-spacing: 1px;
+    border-bottom: 1px solid #EFEFEF;
 
     @include mobile() {
       width: 100%;
-      border-bottom: 1px solid #EFEFEF;
       margin: 10px 20px;
 
       a {
