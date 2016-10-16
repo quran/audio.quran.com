@@ -66,6 +66,7 @@ export default class Qaris extends Component {
               <h1 className={styles.reciterName}>
                 {qari.name}
               </h1>
+              <span>This is the complete set of the Holy Quran as recrited by {qari.name}.</span>
 
               <div className={styles.buttonContain}>
                 <Button
