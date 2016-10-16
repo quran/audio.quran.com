@@ -5,8 +5,8 @@
   "license": "MIT",
   "version": "1.0.0",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/quran/audio.quran.com"
+    "url": "https://github.com/quran/audio.quran.com",
+    "type": "git"
   },
   "homepage": "https://github.com/quran/audio.quran.com",
   "keywords": [
