@@ -8,13 +8,14 @@
 
   .letter {
     font-family: $font-family-sans-serif;
-    border: 1px solid $border-color;
+    border: 2px solid $border-color;
     font-size: 16px;
     color: #2E2E2E;
-    padding: 5px 10px 5px 10px;
+    padding: 7px 13px 6px 13px;
     border-radius: 50%;
     position: absolute;
     margin-top: 10px;
+    left: 17px;
 
     @include mobile() {
       width: 100%;
@@ -26,6 +27,7 @@
       font-weight: 400;
       font-size: 26px;
       color: white;
+      left: 0;
     }
   }
 
@@ -36,6 +38,8 @@
     flex-wrap: wrap;
     width: 100%;
     margin-top: 10px;
+    left: 40px;
+    overflow: hidden;
 
     &::after {
       content: '';
@@ -51,6 +55,7 @@
       padding-left: 0;
       margin-top: 0;
       margin-bottom: 0;
+      left: 0;
     }
 
 
@@ -58,18 +63,21 @@
 
   .listItem {
     font-family: $font-family-regular;
-    padding: 20px 0 20px 20px;
+    padding: 10px 0 20px 20px;
     font-size: 14px;
     width: 370px;
-    color: black;
     letter-spacing: 1px;
-    border-bottom: 1px solid #EFEFEF;
+
+    .link {
+      color: black;
+    }
 
     @include mobile() {
+      border-bottom: 1px solid $border-color;
       width: 100%;
       margin: 0px 20px;
 
-      a {
+      .link {
         display: block;
         line-height: 20px;
       }
@@ -84,16 +92,16 @@
   }
 
   .listItemError {
-    font-family: $font-family-regular;
+    color: #606060;
+    font-family: "Montserrat-light", sans-serif;
+    letter-spacing: 0.13px;
     padding: 8px 0 35px 20px;
     font-size: 16px;
     width: 100%;
-    color: black;
-    border-bottom: 1px solid #EFEFEF;
+    border-bottom: 1px solid $border-color;
     @include mobile() {
       position: relative;
       top: 20px;
-      text-align: center;
     }
 
   }

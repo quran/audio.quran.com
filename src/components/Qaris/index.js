@@ -13,7 +13,7 @@ export default class Qaris extends Component {
     let list;
     if (qaris.length > 0) {
       list = qaris.map((qari, index) => {
-        return (<li key={index} className={styles.listItem}><Link to={`/quran/${qari.id}`}>{cleanUp(qari.name)}</Link></li>);
+        return (<li key={index} className={styles.listItem}><Link className={styles.link} to={`/quran/${qari.id}`}>{cleanUp(qari.name)}</Link></li>);
       });
     } else {
       list = (<li className={styles.listItemError}>We dont have reciters that starts with “{letter}”.</li>);
