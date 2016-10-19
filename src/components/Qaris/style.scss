@@ -107,6 +107,15 @@
   }
 
   .arabicName {
-    float: right;
+
+    @include mobile() {
+      float: right;
+    }
+    color: #2CA4AB;
+    font-size: 16px;
+    display: block;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
