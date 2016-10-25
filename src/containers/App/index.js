@@ -4,9 +4,11 @@ import React, { Component, PropTypes } from 'react';
 import { asyncConnect } from 'redux-connect';
 import Helmet from 'react-helmet';
 
-import Navbar from 'react-bootstrap/lib/Navbar';
-import Nav from 'react-bootstrap/lib/Nav';
-import NavItem from 'react-bootstrap/lib/NavItem';
+// import Navbar from 'react-bootstrap/lib/Navbar';
+// import Nav from 'react-bootstrap/lib/Nav';
+// import NavItem from 'react-bootstrap/lib/NavItem';
+
+import Link from 'react-router/lib/Link';
 
 import Audioplayer from 'components/Audioplayer';
 
@@ -58,16 +60,10 @@ export default class App extends Component {
     return (
       <div className={styles.app}>
         <Helmet {...config.app.head}/>
-        <Navbar inverse>
-          <Navbar.Collapse eventKey={0}>
-            <Nav navbar pullRight>
-              <NavItem eventKey={1} target="_blank" title="Quran.com" href="http://quran.com">
-                <span className={styles.quran}>Quran.com</span>
-              </NavItem>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-
+        <div className={styles.linkContainer}>
+          <Link to="/" className={styles.link}><span>Home</span></Link>
+          <Link to="https://quran.com" className={`${styles.link} ${styles.linkRight}`}><span>Quran.com</span></Link>
+        </div>
         <div className={styles.appContent}>
           {this.props.children}
           <div className={styles.audioplayer}>
