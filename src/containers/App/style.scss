@@ -21,6 +21,10 @@
   font-size: 20px;
 }
 
+.linkContainer {
+  margin-bottom: 10px;
+}
+
 .appContent {
   margin-top: -75px;
   padding-bottom: 6rem;
@@ -31,4 +35,18 @@
   right: 0px;
   bottom: 0px;
   background: #fff;
+}
+
+.link {
+  color: white;
+  font-size: 20px;
+  position: relative;
+  margin-left: 30px;
+
+  &.linkRight {
+    left: 0;
+    float: right;
+    position: relative;
+    margin-right: 30px;
+  }
 }
