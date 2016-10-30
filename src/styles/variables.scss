@@ -15,3 +15,15 @@ $navbar-inverse-color: #fff;
 $navbar-inverse-link-color: #fff;
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
 @import 'mixins';
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+
+.sticky:before,
+.sticky:after {
+    content: '';
+    display: table;
+}
