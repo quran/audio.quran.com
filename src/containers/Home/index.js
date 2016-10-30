@@ -8,14 +8,9 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import formatQarisByLetter from '../../utils/formatQarisByLetter';
 import Qaris from '../../components/Qaris';
 const styles = require('./style.scss');
-@connect(
-  state => ({
-    qaris: state.qaris.entities,
-    sections: state.sections.entities
-  })
-)
 
-export default class Home extends Component {
+class Home extends Component {
+
   static propTypes = {
     qaris: PropTypes.object.isRequired,
     sections: PropTypes.object.isRequired
@@ -66,3 +61,10 @@ export default class Home extends Component {
     );
   }
 }
+
+export default connect(
+  state => ({
+    qaris: state.qaris.entities,
+    sections: state.sections.entities
+  })
+)(Home);
