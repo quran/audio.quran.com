@@ -12,22 +12,7 @@ import zeroPad from 'utils/zeroPad';
 import formatSeconds from 'utils/formatSeconds';
 const styles = require('./style.scss');
 
-@asyncConnect([{
-  promise({ params, store: { dispatch } }) {
-    return dispatch(loadFiles(params.id));
-  }
-}])
-@connect(
-  (state, ownProps) => ({
-    surahs: state.surahs.entities,
-    qari: state.qaris.entities[ownProps.params.id],
-    files: state.files.entities[ownProps.params.id],
-    Playing: state.audioplayer.isPlaying,
-    currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
-  }),
-  { load, play, next, continuous}
-)
-export default class Qaris extends Component {
+class Qaris extends Component {
   static propTypes = {
     surahs: PropTypes.object.isRequired,
     qari: PropTypes.object.isRequired,
@@ -141,3 +126,20 @@ export default class Qaris extends Component {
     );
   }
 }
+
+const connectedQaris = connect(
+  (state, ownProps) => ({
+    surahs: state.surahs.entities,
+    qari: state.qaris.entities[ownProps.params.id],
+    files: state.files.entities[ownProps.params.id],
+    Playing: state.audioplayer.isPlaying,
+    currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
+  }),
+  { load, play, next, continuous}
+)(Qaris);
+
+export default asyncConnect([{
+  promise({ params, store: { dispatch } }) {
+    return dispatch(loadFiles(params.id));
+  }
+}])(connectedQaris);

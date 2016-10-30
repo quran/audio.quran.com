@@ -8,14 +8,9 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import formatQarisByLetter from '../../utils/formatQarisByLetter';
 import Qaris from '../../components/Qaris';
 const styles = require('./style.scss');
-@connect(
-  state => ({
-    qaris: state.qaris.entities,
-    sections: state.sections.entities
-  })
-)
 
-export default class Home extends Component {
+class Home extends Component {
+
   static propTypes = {
     qaris: PropTypes.object.isRequired,
     sections: PropTypes.object.isRequired
@@ -33,6 +28,7 @@ export default class Home extends Component {
     const { sections, qaris } = this.props;
     const { section } = this.state;
     const formated = formatQarisByLetter(qaris);
+    console.log('section', section);
 
     return (
       <div>
@@ -56,7 +52,7 @@ export default class Home extends Component {
             </Col>
             <Col md={12}>
               <Row>
-                {formated.map((item, index) => <Qaris key={index} qaris={item} />)}
+                {formated.map((item, index) => <Qaris key={index} data={item} section={section} />)}
               </Row>
             </Col>
             <span className={styles.goTop} onClick={() => window.scrollTo(0, 0)}>Go to the top <i className="fa fa-chevron-up"></i></span>
@@ -66,3 +62,10 @@ export default class Home extends Component {
     );
   }
 }
+
+export default connect(
+  state => ({
+    qaris: state.qaris.entities,
+    sections: state.sections.entities
+  })
+)(Home);
