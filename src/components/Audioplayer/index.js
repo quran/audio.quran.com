@@ -258,7 +258,7 @@ export default class Audioplayer extends Component {
                     <h4>
                       {qari.name}
                       <br />
-                      <small>
+                      <small className={styles.surahName}>
                         {surah.name.simple} ({surah.name.english})
                       </small>
                     </h4> :
@@ -273,8 +273,8 @@ export default class Audioplayer extends Component {
                   </li>
                 </ul>
               </Col>
-              <Col md={6} className={`text-center ${styles.rightNav}`}>
-                <ul className={`list-inline vertical-align ${styles.controls}`}>
+              <Col md={6} className={`text-center ${styles.info}`}>
+                <ul className={`list-inline vertical-align`}>
                   <li>
                     {
                       file && !isNaN(file.duration) &&

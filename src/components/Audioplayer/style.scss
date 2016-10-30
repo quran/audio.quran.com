@@ -3,8 +3,8 @@
 .controls{
   margin: 0px;
 
-  :global(li) {
-    padding: 0px 10px;
+  @include mobile() {
+    text-align: center;
   }
 
   .name{
@@ -12,11 +12,20 @@
   }
 }
 
-.rightNav{
+.info {
   position: absolute;
   right: 15px;
   top: 50%;
   transform: translateY(-50%);
+
+  @include mobile() {
+    left: 25%;
+    right: 0;
+    top: 0;
+    position: relative;
+    transform: initial;
+    float: left;
+  }
 }
 
 .toggle{
