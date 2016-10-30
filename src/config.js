@@ -18,14 +18,15 @@ module.exports = Object.assign({
     title: 'Quran Mp3 and Audio Downloads in High Quality - QuranicAudio.com',
     description: "All the Quran recitations on this site are in high quality and are free for download and streaming as mp3s. Please enjoy your stay, contact us with your suggestions, tell your friends about the site, and don't forget us in your prayers!",
     head: {
-      titleTemplate: 'React Redux Example: %s',
+      titleTemplate: '%s - QuranicAudio.com',
+      title: 'Quran Mp3 and Audio Downloads in High Quality',
       meta: [
         {name: 'description', content: "All the Quran recitations on this site are in high quality and are free for download and streaming as mp3s. Please enjoy your stay, contact us with your suggestions, tell your friends about the site, and don't forget us in your prayers!"},
         {charset: 'utf-8'},
         {property: 'og:site_name', content: 'Quran Mp3 and Audio Downloads in High Quality - QuranicAudio.com'},
-        {property: 'og:image', content: 'https://react-redux.herokuapp.com/logo.jpg'},
+        {property: 'og:image', content: '/images/QuranicAudio.png'},
         {property: 'og:locale', content: 'en_US'},
-        {property: 'og:title', content: 'React Redux Example'},
+        {property: 'og:title', content: 'Quran Mp3 and Audio Downloads in High Quality'},
         {property: 'og:description', content: "All the Quran recitations on this site are in high quality and are free for download and streaming as mp3s. Please enjoy your stay, contact us with your suggestions, tell your friends about the site, and don't forget us in your prayers!"},
         {property: 'og:card', content: 'summary'},
         {property: 'og:site', content: '@quran'},
