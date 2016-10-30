@@ -44,11 +44,16 @@
 
   }
 }
+
 .row{
   cursor: pointer;
 
   :global(.fa-play-circle){
     display: none;
+  }
+
+  &.current {
+    background-color: #f7f7f7;
   }
 
   &:hover{
