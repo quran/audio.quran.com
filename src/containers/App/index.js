@@ -20,10 +20,6 @@ class App extends Component {
     store: PropTypes.object.isRequired
   };
 
-  handleLogout = (event) => {
-    event.preventDefault();
-  };
-
   render() {
     return (
       <div className={styles.app}>
