@@ -16,6 +16,7 @@
     position: absolute;
     margin-top: 10px;
     left: 17px;
+    z-index: 10;
 
     @include mobile() {
       width: 100%;
@@ -28,6 +29,7 @@
       font-size: 26px;
       color: white;
       left: 0;
+      border: none;
     }
   }
 
@@ -40,6 +42,7 @@
     margin-top: 10px;
     left: 40px;
     overflow: hidden;
+    z-index: 1;
 
     &::after {
       content: '';
@@ -67,6 +70,7 @@
     font-size: 14px;
     width: 370px;
     letter-spacing: 1px;
+    z-index: 1;
 
     .link {
       color: black;
