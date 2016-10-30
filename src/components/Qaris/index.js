@@ -10,20 +10,13 @@ export default class Qaris extends Component {
     const { letter, qaris } = this.props.qaris;
     const cleanUp = (name) => (name.replace(/(\d|\[|\().*/g, ''));
 
-    let list;
-    if (qaris.length > 0) {
-      list = qaris.map((qari, index) => {
-        return (<li key={index} className={styles.listItem}><Link className={styles.link} to={`/quran/${qari.id}`}>{cleanUp(qari.name)}</Link></li>);
-      });
-    } else {
-      list = (<li className={styles.listItemError}>We dont have reciters that starts with “{letter}”.</li>);
-    }
+    if (qaris.length < 1) return false;
 
     return (
       <div className={styles.container}>
         <span className={styles.letter}>{letter}</span>
         <ul className={styles.list}>
-          {list}
+          {qaris.map((qari, index) => (<li key={index} className={styles.listItem}><Link className={styles.link} to={`/quran/${qari.id}`}>{cleanUp(qari.name)}</Link></li>))}
         </ul>
 
       </div>
