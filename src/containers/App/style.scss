@@ -1,3 +1,4 @@
+@import "../../styles/variables.scss";
 .app {
   .brand {
     position: absolute;
@@ -29,7 +30,7 @@
   margin-top: -75px;
   padding-bottom: 6rem;
 }
-.audioplayer{
+.audioplayer {
   position: fixed;
   left: 0px;
   right: 0px;

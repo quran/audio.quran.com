@@ -23,6 +23,7 @@ const styles = require('./style.scss');
     qari: state.qaris.entities[ownProps.params.id],
     files: state.files.entities[ownProps.params.id],
     Playing: state.audioplayer.isPlaying,
+    currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
   }),
   { load, play, next, continuous}
 )
@@ -33,6 +34,7 @@ export default class Qaris extends Component {
     files: PropTypes.object.isRequired,
     load: PropTypes.func.isRequired,
     play: PropTypes.func.isRequired,
+    currentSurah: PropTypes.any,
     next: PropTypes.func.isRequired,
     continuous: PropTypes.func.isRequired,
     Playing: PropTypes.bool.isRequired
@@ -44,7 +46,7 @@ export default class Qaris extends Component {
   }
 
   render() {
-    const { surahs, qari, files } = this.props;
+    const { surahs, qari, files, currentSurah } = this.props;
 
     const handlePlayAll = () => {
       const { Playing } = this.props;
@@ -89,7 +91,7 @@ export default class Qaris extends Component {
                     Object.values(surahs).filter(surah => files[surah.id]).map(surah => (
                        <li
                         key={surah.id}
-                        className={`list-group-item ${styles.row}`}
+                        className={`list-group-item ${styles.row} ${surah.id === currentSurah.id ? `${styles.current} js-currentSurah` : ''}`}
                         onClick={() => this.handleSurahSelection(surah)}
                       >
                         <Row>

@@ -9,6 +9,7 @@ const initialState = {
   errored: false,
   loaded: false,
   current: null,
+  surah: {},
   entities: {}
 };
 
