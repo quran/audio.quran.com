@@ -28,7 +28,6 @@ class Home extends Component {
     const { sections, qaris } = this.props;
     const { section } = this.state;
     const formated = formatQarisByLetter(qaris);
-    console.log('section', section);
 
     return (
       <div>
