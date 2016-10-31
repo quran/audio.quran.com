@@ -18,6 +18,7 @@ import {
 } from 'redux/modules/audioplayer';
 
 import formatSeconds from 'utils/formatSeconds';
+import { cleanUpBrackets } from 'utils/cleanUp';
 
 import Track from './Track';
 
@@ -256,7 +257,7 @@ export default class Audioplayer extends Component {
                   {
                     qari && surah ?
                     <h4>
-                      {qari.name}
+                      {cleanUpBrackets(qari.name)}
                       <br />
                       <small className={styles.surahName}>
                         {surah.name.simple} ({surah.name.english})

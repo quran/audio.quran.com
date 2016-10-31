@@ -75,14 +75,20 @@
       color: rgb(119, 119, 119);
     }
 
+    &:hover{
+      background-color: $hover-grey;
+    }
+
     @include mobile() {
       border-bottom: 1px solid $border-color;
       width: 100%;
-      margin: 5px 10px;
+      margin: 0 10px 0 10px;
+      padding-top: 20px;
 
       .link {
         display: block;
         line-height: 20px;
+        text-decoration: none;
       }
 
       &:last-child {
