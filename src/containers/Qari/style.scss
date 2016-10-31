@@ -53,11 +53,11 @@
   }
 
   &.current {
-    background-color: #f7f7f7;
+    background-color: $hover-grey;
   }
-  
+
   &:hover{
-    background-color: #f7f7f7;
+    background-color: $hover-grey;
 
     :global(.fa-play-circle){
       display: inline;
