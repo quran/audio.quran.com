@@ -1,14 +1,12 @@
-import { arrayOf } from 'normalizr';
-import { sectionsSchema } from '../schemas';
-
-const LOAD = '@@quran/sections/LOAD';
-const LOAD_SUCCESS = '@@quran/sections/LOAD_SUCCESS';
-const LOAD_FAIL = '@@quran/sections/LOAD_FAIL';
+import {
+  LOAD,
+  LOAD_SUCCESS,
+  LOAD_FAIL
+} from 'actions/files';
 
 const initialState = {
   errored: false,
   loaded: false,
-  current: null,
   entities: {}
 };
 
@@ -20,6 +18,10 @@ export default function reducer(state = initialState, action = {}) {
         loaded: false,
         loading: true
       };
+    case LOAD_FAIL:
+      return {
+        errored: true
+      };
     case LOAD_SUCCESS:
       return {
         ...state,
@@ -27,7 +29,7 @@ export default function reducer(state = initialState, action = {}) {
         errored: false,
         entities: {
           ...state.entities,
-          ...action.result.entities.sections
+          [action.id]: action.result.entities.files
         }
       };
     default:
@@ -35,10 +37,3 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function loadAll() {
-  return {
-    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    schema: arrayOf(sectionsSchema),
-    promise: (client) => client.get(`/sections`)
-  };
-}

@@ -20,7 +20,7 @@ import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
 import createHistory from 'react-router/lib/createMemoryHistory';
 import {Provider} from 'react-redux';
 import getRoutes from './routes';
-import { setUserAgent } from 'redux/modules/audioplayer';
+import { setUserAgent } from 'actions/audioplayer';
 
 const targetUrl = 'http://' + config.apiHost + ':' + config.apiPort;
 const pretty = new PrettyError();

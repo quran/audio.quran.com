@@ -1,18 +1,20 @@
 import zeroPad from 'utils/zeroPad';
 
-const AUDIO_URL = 'http://download.quranicaudio.com/quran';
-const LOAD = '@@quran/audioplayer/LOAD';
-const UPDATE = '@@quran/audioplayer/UPDATE';
-const SET_USER_AGENT = '@@quran/audioplayer/SET_USER_AGENT';
-const SET_CURRENT_FILE = '@@quran/audioplayer/SET_CURRENT_FILE';
-const PLAY = '@@quran/audioplayer/PLAY';
-const PAUSE = '@@quran/audioplayer/PAUSE';
-const PLAY_PAUSE = '@@quran/audioplayer/PLAY_PAUSE';
-const REPEAT = '@@quran/audioplayer/REPEAT';
-const CONTINUOUS = '@@quran/audioplayer/CONTINUOUS';
-const RANDOM = '@@quran/audioplayer/RANDOM';
-const NEXT = '@@quran/audioplayer/NEXT';
-const PREVIOUS = '@@quran/audioplayer/PREVIOUS';
+import {
+  PREVIOUS,
+  NEXT,
+  RANDOM,
+  CONTINUOUS,
+  REPEAT,
+  PLAY_PAUSE,
+  PAUSE,
+  PLAY,
+  SET_CURRENT_FILE,
+  SET_USER_AGENT,
+  UPDATE,
+  LOAD,
+  AUDIO_URL
+} from 'actions/audioplayer';
 
 const initialState = {
   file: null,
@@ -131,81 +133,4 @@ export default function reducer(state = initialState, action = {}) {
     default:
       return state;
   }
-}
-
-export function setUserAgent(userAgent) {
-  return {
-    type: SET_USER_AGENT,
-    userAgent
-  };
-}
-
-export function setCurrentFile(file) {
-  return {
-    type: SET_CURRENT_FILE,
-    file
-  };
-}
-
-export function play() {
-  return {
-    type: PLAY
-  };
-}
-
-export function pause() {
-  return {
-    type: PAUSE
-  };
-}
-
-export function playPause() {
-  return {
-    type: PLAY_PAUSE
-  };
-}
-
-export function repeat() {
-  return {
-    type: REPEAT
-  };
-}
-
-export function continuous() {
-  return {
-    type: CONTINUOUS
-  };
-}
-
-export function random() {
-  return {
-    type: RANDOM
-  };
-}
-
-export function load({ surah, qari }) {
-  return {
-    type: LOAD,
-    surah,
-    qari
-  };
-}
-
-export function update(payload) {
-  return {
-    type: UPDATE,
-    payload
-  };
-}
-
-export function next() {
-  return {
-    type: NEXT
-  };
-}
-
-export function previous() {
-  return {
-    type: PREVIOUS
-  };
 }

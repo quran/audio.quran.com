@@ -15,7 +15,7 @@ import {
   next,
   continuous,
   random
-} from 'redux/modules/audioplayer';
+} from 'actions/audioplayer';
 
 import formatSeconds from 'utils/formatSeconds';
 import { cleanUpBrackets } from 'utils/cleanUp';

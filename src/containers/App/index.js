@@ -6,9 +6,9 @@ import Helmet from 'react-helmet';
 import Link from 'react-router/lib/Link';
 import Audioplayer from 'components/Audioplayer';
 import config from '../../config';
-import { loadAll as loadQaris } from 'redux/modules/qaris';
-import { loadAll as loadSections } from 'redux/modules/sections';
-import { loadAll as loadSurahs } from 'redux/modules/surahs';
+import { loadAll as loadQaris } from 'actions/qaris';
+import { loadAll as loadSections } from 'actions/sections';
+import { loadAll as loadSurahs } from 'actions/surahs';
 const styles = require('./style.scss');
 
 class App extends Component {
