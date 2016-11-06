@@ -6,7 +6,9 @@ import Col from 'react-bootstrap/lib/Col';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import formatQarisByLetter from '../../utils/formatQarisByLetter';
-import Qaris from '../../components/Qaris';
+import QarisList from '../../components/QarisList';
+import Link from 'react-router/lib/Link';
+
 const styles = require('./style.scss');
 
 class Home extends Component {
@@ -34,7 +36,7 @@ class Home extends Component {
         <Grid className={styles.header} fluid>
           <Row>
             <Col md={8} mdOffset={2} className={`text-center ${styles.header__text}`}>
-              <h1 className={styles.heading}><a href="/" className={styles.heading__link}>QuranicAudio</a></h1>
+              <h1 className={styles.heading}><Link to="/" className={styles.heading__link}>QuranicAudio</Link></h1>
             </Col>
           </Row>
         </Grid>
@@ -44,14 +46,14 @@ class Home extends Component {
               <Nav bsStyle="pills" justified activeKey={section} onSelect={this.handleSelect} className="home-nav-pills">
                 {
                   Object.values(sections).map(currentSection => (
-                    <NavItem key={currentSection.id} eventKey={currentSection.id}>{currentSection.name}</NavItem>
+                    <NavItem className={styles.pillsItem} key={currentSection.id} eventKey={currentSection.id}>{currentSection.name}</NavItem>
                   ))
                 }
               </Nav>
             </Col>
             <Col md={12}>
               <Row>
-                {formated.map((item, index) => <Qaris key={index} data={item} section={section} />)}
+                {formated.map((item, index) => <QarisList key={index} data={item} section={section} />)}
               </Row>
             </Col>
             <span className={styles.goTop} onClick={() => window.scrollTo(0, 0)}>Go to the top <i className="fa fa-chevron-up"></i></span>

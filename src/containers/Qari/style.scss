@@ -27,12 +27,13 @@
     opacity: 0.5;
   }
 
-  .download{
+  .options{
     color: $brand-primary;
     background: transparent;
     border-radius: 50px;
     border-color: #e7e7e7;
     visibility: hidden;
+    margin-left: 5px;
   }
 
 
@@ -66,7 +67,7 @@
     :global(.index){
       display: none;
     }
-    .download{
+    .options{
       visibility: visible;
     }
   }

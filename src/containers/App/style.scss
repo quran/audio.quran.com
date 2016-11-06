@@ -23,7 +23,7 @@
 }
 
 .linkContainer {
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }
 
 .appContent {
@@ -44,6 +44,7 @@
   font-size: 20px;
   position: relative;
   margin-left: 30px;
+  font-size: 30px;
 
   &.linkRight {
     left: 0;
