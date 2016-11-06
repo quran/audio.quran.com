@@ -71,21 +71,20 @@ export default class Audioplayer extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.file !== nextProps.file) {
+    if (this.props.surah !== nextProps.surah) {
       this.handleFileLoad(nextProps.file);
-
-      if (this.props.file) {
-        this.handleRemoveFileListeneres(this.props.file);
-      }
+      this.handleRemoveFileListeneres(this.props.file);
     }
   }
 
   handleRemoveFileListeneres(file) {
-    file.pause();
-    file.onloadeddata = null;
-    file.ontimeupdate = null;
-    file.onplay = null;
-    file.onended = null;
+    if (file) {
+      file.pause();
+      file.onloadeddata = null;
+      file.ontimeupdate = null;
+      file.onplay = null;
+      file.onended = null;
+    }
   }
 
   handleTrackChange = (fraction) => {
@@ -170,24 +169,24 @@ export default class Audioplayer extends Component {
   }
 
   renderPreviousButton() {
-    const { previous, surah } = this.props; // eslint-disable-line no-shadow
+    const { previous, surah, surahs } = this.props; // eslint-disable-line no-shadow
     const disabled = surah ? surah.id === 1 && true : true;
 
     return (
       <i
-        onClick={() => !disabled && previous()}
+        onClick={() => !disabled && previous({surahs: Object.values(surahs)})}
         className={`pointer fa fa-fast-backward fa-lg ${disabled && styles.disabled}`}
       />
     );
   }
 
   renderNextButton() {
-    const { next, surah } = this.props; // eslint-disable-line no-shadow
+    const { next, surah, surahs } = this.props; // eslint-disable-line no-shadow
     const disabled = surah ? surah.id === 114 && true : true;
 
     return (
       <i
-        onClick={() => !disabled && next()}
+        onClick={() => !disabled && next({surahs: Object.values(surahs)})}
         className={`pointer fa fa-fast-forward fa-lg ${disabled && styles.disabled}`}
       />
     );
@@ -244,15 +243,11 @@ export default class Audioplayer extends Component {
             <Row>
               <Col md={5} mdOffset={1} xs={12}>
                 <ul className={`list-inline vertical-align ${styles.controls}`}>
-                  <li>
-                    {this.renderPreviousButton()}
-                  </li>
-                  <li>
-                    {this.renderPlayStopButtons()}
-                  </li>
-                  <li>
-                    {this.renderNextButton()}
-                  </li>
+                  {[this.renderPreviousButton(), this.renderPlayStopButtons(), this.renderNextButton()].map((item, index) => (
+                    <li className={styles.controlsItem} key={index}>
+                      {item}
+                     </li>
+                    ))}
                   <li className={`text-left ${styles.name}`}>
                   {
                     qari && surah ?
@@ -276,18 +271,9 @@ export default class Audioplayer extends Component {
               </Col>
               <Col md={6} className={`text-center ${styles.info}`}>
                 <ul className={`list-inline vertical-align`}>
-                  <li>
-                    {
-                      file && !isNaN(file.duration) &&
-                      <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span>
-                    }
-                  </li>
-                  <li>
-                    {this.renderRandomButton()}
-                  </li>
-                  <li>
-                    {this.renderRepeatButton()}
-                  </li>
+                  <li>{!isNaN(file.duration) ? <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span> : 'Loading ...'}</li>
+                  <li>{this.renderRandomButton()}</li>
+                  <li>{this.renderRepeatButton()}</li>
                 </ul>
               </Col>
             </Row>

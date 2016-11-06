@@ -6,6 +6,10 @@
   @include mobile() {
     text-align: center;
   }
+
+  .controlsItem {
+    padding-right: 20px;
+  }
 }
 
 .name{
@@ -42,3 +46,4 @@
   opacity: 0.5;
   cursor: not-allowed !important;
 }
+

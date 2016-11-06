@@ -112,8 +112,8 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         isPlaying: true,
+        surah: action.surahs[state.surah.id] || state.surah,
         qari: action.qari || state.qari,
-        surah: action.surah || state.surah,
         file
       };
     }
@@ -121,12 +121,11 @@ export default function reducer(state = initialState, action = {}) {
       state.file.pause();
       const file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id - 1, 3)}.mp3`);
       file.play();
-
       return {
         ...state,
         isPlaying: true,
-        qari: action.qari,
-        surah: action.surah,
+        surah: action.surahs[state.surah.id - 2] || state.surah,
+        qari: action.qari || state.qari,
         file
       };
     }

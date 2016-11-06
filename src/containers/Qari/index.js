@@ -102,12 +102,20 @@ class Qaris extends Component {
                           <Col md={5} className="text-right hidden-xs hidden-sm">
                             <Button
                               bsStyle="primary"
-                              className={styles.download}
+                              className={styles.options}
                               href={`http://download.quranicaudio.com/quran/${qari.relativePath}${zeroPad(surah.id, 3)}.mp3`}
                               target="_blank"
                               onClick={(event) => event.stopPropagation()}
                               download>
                               <i className="fa fa-arrow-circle-down" /> Download
+                            </Button>
+                             <Button
+                              bsStyle="primary"
+                              className={styles.options}
+                              href={`https://www.quran.com/${surah.id}`}
+                              target="_blank"
+                              onClick={(event) => event.stopPropagation()}>
+                              <i className="fa fa-book" /> Read
                             </Button>
                           </Col>
                           <Col md={1} xs={4} className="text-right">

@@ -77,14 +77,16 @@ export function update(payload) {
   };
 }
 
-export function next() {
+export function next(action) {
   return {
-    type: NEXT
+    type: NEXT,
+    surahs: action.surahs
   };
 }
 
-export function previous() {
+export function previous(action) {
   return {
-    type: PREVIOUS
+    type: PREVIOUS,
+    surahs: action.surahs
   };
 }

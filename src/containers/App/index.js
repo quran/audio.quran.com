@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-// import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import Helmet from 'react-helmet';
 
@@ -9,11 +8,13 @@ import config from '../../config';
 import { loadAll as loadQaris } from 'actions/qaris';
 import { loadAll as loadSections } from 'actions/sections';
 import { loadAll as loadSurahs } from 'actions/surahs';
+import {isHome } from '../../utils';
 const styles = require('./style.scss');
 
 class App extends Component {
   static propTypes = {
-    children: PropTypes.object.isRequired
+    children: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
   };
 
   static contextTypes = {
@@ -25,8 +26,8 @@ class App extends Component {
       <div className={styles.app}>
         <Helmet {...config.app.head}/>
         <div className={styles.linkContainer}>
-          <Link to="/" className={styles.link}><span>Home</span></Link>
-          <Link to="https://quran.com" className={`${styles.link} ${styles.linkRight}`}><span>Quran.com</span></Link>
+        <Link to="/" title="Select from your favourite recriters" className={styles.link}>{isHome(this.props.location.pathname) ? <i className="fa fa-home" aria-hidden="true"></i> : <i></i>}</Link>
+        <Link to="https://quran.com" title="Read the holy Quran, on quran.com" className={`${styles.link} ${styles.linkRight}`}><i className="fa fa-book" aria-hidden="true"></i></Link>
         </div>
         <div className={styles.appContent}>
           {this.props.children}

@@ -1,7 +1,6 @@
 import {
   LOAD,
-  LOAD_SUCCESS,
-  LOAD_FAIL
+  LOAD_SUCCESS
 } from 'actions/files';
 
 const initialState = {
@@ -17,10 +16,6 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loaded: false,
         loading: true
-      };
-    case LOAD_FAIL:
-      return {
-        errored: true
       };
     case LOAD_SUCCESS:
       return {

@@ -33,7 +33,6 @@
     "__DISABLE_SSR__": true,
     "__DEVTOOLS__": true,
     "socket": true,
-    "Stickyfill": true,
     "webpackIsomorphicTools": true
   }
 }
