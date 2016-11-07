@@ -78,7 +78,6 @@ class Qaris extends Component {
                        <li
                         key={surah.id}
                         className={`list-group-item ${styles.row} ${surah.id === currentSurah.id ? `${styles.current} js-currentSurah` : ''}`}
-                        onTouchStart={() => this.handleSurahSelection(surah)}
                         onClick={() => this.handleSurahSelection(surah)}
                       >
                         <Row>
