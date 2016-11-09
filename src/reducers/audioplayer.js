@@ -72,7 +72,6 @@ export default function reducer(state = initialState, action = {}) {
       if (state.file.paused && state.file.readyState >= 3) {
         state.file.play();
       } else if (!state.file.paused && state.file.readyState >= 3) {
-        debugger;
         state.file.pause();
       }
 
