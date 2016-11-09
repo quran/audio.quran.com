@@ -77,10 +77,10 @@ class Qaris extends Component {
                     Object.values(surahs).filter(surah => files[surah.id]).map(surah => (
                        <li
                         key={surah.id}
-                        className={`list-group-item ${styles.row} ${surah.id === currentSurah.id ? `${styles.current} js-currentSurah` : ''}`}
+                        className={`list-group-item ${styles.row} ${surah.id === currentSurah.id ? `${styles.active} js-currentSurah` : ''}`}
                         onClick={() => this.handleSurahSelection(surah)}
                       >
-                        <Row>
+                        <Row className={styles.surahRow}>
                           <Col md={6} xs={8}>
                             <Row>
                               <Col md={1} xs={2}>

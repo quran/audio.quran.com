@@ -69,10 +69,10 @@ export default function reducer(state = initialState, action = {}) {
       };
     case PLAY_PAUSE:
       if (!state.file) return state;
-
       if (state.file.paused && state.file.readyState >= 3) {
         state.file.play();
       } else if (!state.file.paused && state.file.readyState >= 3) {
+        debugger;
         state.file.pause();
       }
 

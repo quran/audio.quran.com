@@ -20,7 +20,7 @@
 
 .panel{
   border-radius: 0px;
-  padding: 20px;
+  padding: 10px;
   border: none;
 
   .muted{
@@ -36,13 +36,26 @@
     margin-left: 5px;
   }
 
-
+  .surahRow {
+    margin-right: -12px;
+  }
   :global(.list-group-item){
-
+    border-color: $border-color;
+    
+    &.active {
+      border-left: 2px solid $brand-primary;
+      & .surahRow div > * {
+        color: $brand-primary;
+      }
+      & .surahRow .muted {
+        opacity: 1;
+        
+      }
+    }
   }
 
   :global(.list-group-item:hover){
-
+    background-color: $hover-grey;
   }
 }
 
@@ -53,17 +66,17 @@
     display: none;
   }
 
-  &.current {
+  &.active {
     background-color: $hover-grey;
   }
 
   &:hover{
-    background-color: $hover-grey;
 
     :global(.fa-play-circle){
       display: inline;
       line-height: 0.5em;
     }
+
     :global(.index){
       display: none;
     }
