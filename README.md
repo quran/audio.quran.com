@@ -1,4 +1,4 @@
-# Audio.quran.com
+# Audio.quran.com 
 
 ---
 
@@ -28,3 +28,5 @@ psql -c 'create database audio_quran;' -U quran_dev
 psql audio_quran < audio_quran.psql
 psql -c 'GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO quran_dev;' -d audio_quran
 ```
+## Staging
+http://staging.quran.com:9000/
