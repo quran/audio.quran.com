@@ -43,6 +43,7 @@ class Qaris extends Component {
       this.props.continuous();
     };
 
+    const description = qari.description ? qari.description : '';
     return (
       <div>
         <Helmet title={`Holy Quran recritation by ${qari.name}`} />
@@ -54,8 +55,7 @@ class Qaris extends Component {
               <h1 className={styles.reciterName}>
                 {qari.name}
               </h1>
-              <span>This is the complete set of the Holy Quran as recrited by {qari.name}.</span>
-
+              <p className={styles.description} dangerouslySetInnerHTML={{__html: description.replace(/\\/g, '')}} />
               <div className={styles.buttonContain}>
                 <Button
                   bsStyle="primary"

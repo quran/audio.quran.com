@@ -116,3 +116,12 @@
     color: $brand-primary;
   }
 }
+
+.description {
+  margin-left: 25%;
+  width: 50%;
+  a {
+    color: white;
+    text-decoration: underline;
+  }
+}
