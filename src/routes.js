@@ -6,7 +6,8 @@ import {
   Home,
   NotFound,
   Qaris,
-  Qari
+  Qari,
+  About
 } from 'containers';
 
 export default () => {
@@ -14,7 +15,7 @@ export default () => {
     <Route path="/" component={App}>
       { /* Home (main) route */ }
       <IndexRoute component={Home}/>
-
+      <Route path="/about" component={About} />
       <Route path="/qaris" component={Qaris} />
       <Route path="/reciters" component={Qaris} />
 

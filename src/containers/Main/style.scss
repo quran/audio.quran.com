@@ -4,10 +4,8 @@
   background-color: $brand-primary;
   background: url('../../../static/images/index-bg.jpg') center center no-repeat;
   background-size: cover;
-  height: 350px;
+  height: 300px;
   color: #fff;
-
-
 
   @media(max-width: $screen-sm){
     height: 30vh;
@@ -55,6 +53,15 @@
   @include mobile() {
     top: 10px;
   }
+}
+
+.aboutContainer {
+  position: relative;
+  background: white;
+  @include mobile() {
+    top: 10px;
+  }
+  margin: 0 10px;
 }
 
 .goTop {
