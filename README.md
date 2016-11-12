@@ -1,4 +1,6 @@
-# Audio.quran.com 
+# audio.quran.com 
+
+The source code for the upcoming version of [quranicaudio](http://quranicaudio.com).
 
 ---
 
