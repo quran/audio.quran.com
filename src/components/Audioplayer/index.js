@@ -121,7 +121,8 @@ export default class Audioplayer extends Component {
 
       update({
         progress,
-        currentTime: file.currentTime
+        currentTime: file.currentTime,
+        isPlaying: !file.paused
       });
     };
 
