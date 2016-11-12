@@ -34,6 +34,10 @@
     border-color: #e7e7e7;
     visibility: hidden;
     margin-left: 5px;
+    &:hover {
+      background: $brand-primary;
+      color: white;
+    }
   }
 
   .surahRow {
