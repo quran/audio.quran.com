@@ -26,8 +26,11 @@ class Qaris extends Component {
   };
 
   handleSurahSelection = (surah) => {
-    const { qari } = this.props;
-    this.props.load({ qari, surah });
+    const { qari, currentSurah } = this.props;
+    const currenSurahId = currentSurah ? currentSurah.id : {};
+    if (currenSurahId !== surah.id) {
+      this.props.load({ qari, surah });
+    }
   }
 
   render() {
