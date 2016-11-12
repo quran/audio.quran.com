@@ -16,7 +16,7 @@ export default class QarisList extends Component {
 
     return (
       <div className={styles.container}>
-        <span className={`${styles.letter}`}>{letter}</span>
+        <span className={`${styles.letter} ${letter === 'I' ? styles.slimLetter : ''}`}>{letter}</span>
         <ul className={styles.list}>
           {filterBasedOnSection.filter((item) => (item.sectionId === section && item.home)).map((qari, index) => (<li key={index} className={styles.listItem}><Link className={styles.link} to={`/quran/${qari.id}`}>{qari.name}</Link></li>))}
         </ul>

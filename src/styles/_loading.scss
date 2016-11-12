@@ -1,3 +1,4 @@
+@import 'mixins';
 :global(.loading) {
   font-size: 3px;
   position: relative;
@@ -10,7 +11,12 @@
   transition: opacity 0.5s ease-in-out;
   opacity: 0;
   display: none;
+  margin: 0;
 
+  @include mobile() {
+    font-size: 4px;
+    margin: 10px 5px 0 5px;
+  }
 
 &,
 &:after {

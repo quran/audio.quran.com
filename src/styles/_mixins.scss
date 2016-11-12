@@ -1,3 +1,5 @@
+$screen-sm:                  768px !default;
+
 @mixin mobile($mobile-break-point: $screen-sm) {
   @media(max-width: $mobile-break-point){
     @content;
