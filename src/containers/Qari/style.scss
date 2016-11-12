@@ -103,7 +103,13 @@
   border-width: 2px;
   margin-right: 10px;
   padding: 10px 30px;
-  outline: none;
+  user-select: inherit;
+
+
+  &:focus {
+    outline: none;
+    user-select: inherit;
+  }
 
   span {
     font-size: 14px;
