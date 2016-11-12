@@ -1,5 +1,5 @@
 :global(.loading) {
-  font-size: 2px;
+  font-size: 3px;
   position: relative;
   display: block;
   text-indent: -9999em;
@@ -10,6 +10,7 @@
   transition: opacity 0.5s ease-in-out;
   opacity: 0;
   display: none;
+
 
 &,
 &:after {
