@@ -18,6 +18,15 @@
     left: 17px;
     z-index: 10;
 
+  &.slimLetter {
+    padding-left: 15px;
+     &::after {
+      content: 'I';
+      visibility: hidden;
+    }
+  }
+
+
     @include mobile() {
       width: 100%;
       background: #2CA4AB;

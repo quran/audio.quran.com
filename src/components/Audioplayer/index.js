@@ -160,7 +160,7 @@ export default class Audioplayer extends Component {
   }
 
   renderLoading() {
-    return (<i className=" text-primary pointer loading is-loading"></i>);
+    return (<i className=" text-primary loading is-loading"></i>);
   }
 
   renderPlayStopButtons() {
@@ -173,7 +173,7 @@ export default class Audioplayer extends Component {
       return <i onClick={playPause} className={`text-primary pointer fa fa-pause-circle fa-3x ${!file && styles.disabled}`} />;
     }
 
-    return <i onClick={playPause} className={`text-primary pointer fa fa-play-circle fa-3x ${!file && styles.disabled}`} />;
+    // return <i onClick={playPause} className={`text-primary pointer fa fa-play-circle fa-3x ${!file && styles.disabled}`} />;
   }
 
   renderPreviousButton() {
