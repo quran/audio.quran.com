@@ -160,13 +160,16 @@ export default class Audioplayer extends Component {
   }
 
   renderLoading() {
-    return (<i className="loading is-loading"></i>);
+    return (<i className=" text-primary pointer loading is-loading"></i>);
   }
 
   renderPlayStopButtons() {
     const { isPlaying, playPause, file } = this.props; // eslint-disable-line no-shadow
+    if (file.readyState < 4) {
+      return this.renderLoading();
+    }
 
-    if (isPlaying) {
+    if (isPlaying && file.readyState >= 4) {
       return <i onClick={playPause} className={`text-primary pointer fa fa-pause-circle fa-3x ${!file && styles.disabled}`} />;
     }
 
@@ -276,7 +279,7 @@ export default class Audioplayer extends Component {
               </Col>
               <Col md={6} className={`text-center ${styles.infoContainer}`}>
                 <ul className={`list-inline vertical-align ${styles.info}`}>
-                  <li>{!isNaN(file.duration) ? <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span> : this.renderLoading()}</li>
+                  <li>{!isNaN(file.duration) ? <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span> : ''}</li>
                   <li>{this.renderRandomButton()}</li>
                   <li>{this.renderRepeatButton()}</li>
                 </ul>

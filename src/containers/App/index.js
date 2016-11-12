@@ -29,7 +29,7 @@ class App extends Component {
         <Nav />
         <div className={styles.linkContainer}>
           <Link to="/" title="Select from your favourite recriters" className={styles.link}>{isHome(this.props.location.pathname) ? <i className="fa fa-home" aria-hidden="true"></i> : <i></i>}</Link>
-          <Link to="https://quran.com" title="Read the holy Quran, on quran.com" className={`${styles.link} ${styles.linkRight}`}><i className="fa fa-book" aria-hidden="true"></i></Link>
+          <a href="https://quran.com" title="Read the holy Quran, on quran.com" className={`${styles.link} ${styles.linkRight}`}><i className="fa fa-book" aria-hidden="true"></i></a>
         </div>
         <div className={styles.appContent}>
           {this.props.children}
