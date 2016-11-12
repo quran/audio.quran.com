@@ -17,7 +17,7 @@
     "username": "quran_dev",
     "password": "dev_quran",
     "database": "audio_quran",
-    "host": "postgres",
+    "host": "db.quranicaudio.com",
     "dialect": "postgres"
   }
 }
