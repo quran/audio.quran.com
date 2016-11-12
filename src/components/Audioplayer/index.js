@@ -158,6 +158,10 @@ export default class Audioplayer extends Component {
     file.onended = onEnded;
   }
 
+  renderLoading() {
+    return (<i className="loading is-loading"></i>);
+  }
+
   renderPlayStopButtons() {
     const { isPlaying, playPause, file } = this.props; // eslint-disable-line no-shadow
 
@@ -269,12 +273,13 @@ export default class Audioplayer extends Component {
                   </li>
                 </ul>
               </Col>
-              <Col md={6} className={`text-center ${styles.info}`}>
-                <ul className={`list-inline vertical-align`}>
-                  <li>{!isNaN(file.duration) ? <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span> : 'Loading ...'}</li>
+              <Col md={6} className={`text-center ${styles.infoContainer}`}>
+                <ul className={`list-inline vertical-align ${styles.info}`}>
+                  <li>{!isNaN(file.duration) ? <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span> : this.renderLoading()}</li>
                   <li>{this.renderRandomButton()}</li>
                   <li>{this.renderRepeatButton()}</li>
                 </ul>
+                <p className={styles.surahNameEnglish}>{surah.name.simple} ({surah.name.english})</p>
               </Col>
             </Row>
           </Grid>

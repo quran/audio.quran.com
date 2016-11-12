@@ -10,7 +10,7 @@ import applyRouterMiddleware from 'react-router/lib/applyRouterMiddleware';
 import useScroll from 'react-router-scroll';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-connect';
-
+import ga from 'utils/googleAnalytics';
 import getRoutes from './routes';
 
 const client = new ApiClient();
@@ -32,6 +32,8 @@ ReactDOM.render(
   </Provider>,
   dest
 );
+
+ga();
 
 if (process.env.NODE_ENV !== 'production') {
   window.React = React; // enable debugger
