@@ -1,10 +1,14 @@
 @import "../../styles/variables.scss";
+@import "../../styles/loading.scss";
 
 .controls{
   margin: 0px;
 
   @include mobile() {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
   }
 
   .controlsItem {
@@ -14,32 +18,64 @@
 
 .name{
   padding-left: 25px;
+  @include mobile() {
+    h4 {
+      display: none;
+    }
+  }
 }
 
 .surahName {
   color: #292929;
 }
 
-.info {
+.surahNameEnglish {
+    display: none;
+   @include mobile() {
+    display: block;
+    font-size: 16px;
+  }
+}
+
+.infoContainer {
   position: absolute;
   right: 15px;
-  top: 50%;
+  top: 60%;
   transform: translateY(-50%);
 
   @include mobile() {
-    left: 25%;
-    right: 0;
-    top: 0;
     position: relative;
     transform: initial;
-    float: left;
+    right: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+
+   & .list-inline {
+     margin-bottom: 0;
+    }
   }
+
+  .info {
+  @include mobile() {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+}
 }
 
 .toggle{
   :global(i){
     vertical-align: bottom;
+
+   
   }
+   @include mobile() {
+      font-size: 20px
+    }
 
   &.active{
     color: $brand-primary;

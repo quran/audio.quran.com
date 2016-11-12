@@ -1,0 +1,44 @@
+:global(.loading) {
+  font-size: 2px;
+  position: relative;
+  display: block;
+  text-indent: -9999em;
+  border: 1.1em solid rgba(255, 255, 255, 0.2);
+  border-left: 1.1em solid $brand-primary;
+  transform: translateZ(0);
+  animation: load8 1.1s infinite linear;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+  display: none;
+
+&,
+&:after {
+  border-radius: 50%;
+  width: 10em;
+  height: 10em;
+  box-sizing: content-box;
+}
+
+@-webkit-keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+}
+
+:global(.is-loading) {
+    opacity: 1;
+    display: inherit;
+    transition: opacity 0.5s ease-in-out;
+}

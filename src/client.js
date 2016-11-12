@@ -10,7 +10,7 @@ import applyRouterMiddleware from 'react-router/lib/applyRouterMiddleware';
 import useScroll from 'react-router-scroll';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-connect';
-
+import 'utils/googleAnalytics';
 import getRoutes from './routes';
 
 const client = new ApiClient();
