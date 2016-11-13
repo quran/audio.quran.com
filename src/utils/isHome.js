@@ -1,3 +1,3 @@
-export default function isHome(path) {
-  return path !== '/';
+export default function showHome(path) {
+  return (path !== '/' && path.indexOf('section') !== 1);
 }

@@ -14,14 +14,33 @@ class Home extends Component {
 
   static propTypes = {
     qaris: PropTypes.object.isRequired,
-    sections: PropTypes.object.isRequired
+    sections: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    context: PropTypes.object.isRequired,
+    location: PropTypes.object,
+    params: PropTypes.object
+
   };
 
+  contextTypes: {
+    router: React.PropTypes.func.isRequired
+  }
+
   state = {
-    section: 1
+    section: Number(this.props.params.section) || 1
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const routeChanged = nextProps.location !== this.props.location;
+    if (routeChanged) {
+      const section = Number(nextProps.params.section) || 1;
+      this.setState({ section });
+    }
   }
 
   handleSelect = (section) => {
+    const url = section !== 1 ? `/section/${section}` : '/';
+    this.props.context.router.push(url);
     this.setState({ section });
   }
 

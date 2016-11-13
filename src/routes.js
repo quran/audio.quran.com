@@ -13,8 +13,10 @@ import {
 export default () => {
   return (
     <Route path="/" component={App}>
+
       { /* Home (main) route */ }
       <IndexRoute component={Home}/>
+      <Route path="/section/(:section)" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/qaris" component={Qaris} />
       <Route path="/reciters" component={Qaris} />

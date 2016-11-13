@@ -241,8 +241,6 @@ export default class Audioplayer extends Component {
       return <noscript />;
     }
 
-    debugger;
-
     return (
       <Row>
         <Col md={12}>

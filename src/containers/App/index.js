@@ -14,15 +14,21 @@ const styles = require('./style.scss');
 
 class App extends Component {
   static propTypes = {
-    children: PropTypes.object.isRequired,
+    children: PropTypes.object,
     location: PropTypes.object.isRequired
   };
 
   static contextTypes = {
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
+    router: React.PropTypes.object.isRequired
   };
 
   render() {
+    const childrenWithProps = React.Children.map(this.props.children,
+      (child) => React.cloneElement(child, {
+        context: this.context
+      })
+    );
     return (
       <div className={styles.app}>
         <Helmet {...config.app.head}/>
@@ -32,7 +38,7 @@ class App extends Component {
           <a href="https://quran.com" title="Read the holy Quran, on quran.com" className={`${styles.link} ${styles.linkRight}`}><i className="fa fa-book" aria-hidden="true"></i></a>
         </div>
         <div className={styles.appContent}>
-          {this.props.children}
+          {childrenWithProps}
           <div className={styles.audioplayer}>
             <Audioplayer />
           </div>
