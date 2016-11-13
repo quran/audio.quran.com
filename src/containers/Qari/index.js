@@ -63,7 +63,7 @@ class Qaris extends Component {
                   className={`${styles.button} ${shouldContinuous ? styles.playAllActive : ''}`}
                   onClick={handlePlayAll}
                   >
-                  <i className={`fa fa-play ${styles.icon}`} /><span>Play All</span>
+                  <i className={`fa ${shouldContinuous ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Play All</span>
                 </Button>
               </div>
             </Col>
