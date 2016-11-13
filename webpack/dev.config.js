@@ -23,7 +23,7 @@ module.exports = {
   ],
   output: {
     path: path.resolve('./build'),
-    publicPath: 'http://localhostgi:8001/public/',
+    publicPath: 'http://localhost:8001/public/',
     filename: 'main.js'
   },
   module: {
