@@ -34,11 +34,9 @@ class Qaris extends Component {
   }
 
   render() {
-    const { surahs, qari, files, currentSurah } = this.props;
+    const { surahs, qari, files, currentSurah, Playing } = this.props;
 
     const handlePlayAll = () => {
-      const { Playing } = this.props;
-
       if (!Playing) {
         this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[0]);
       }
@@ -74,7 +72,7 @@ class Qaris extends Component {
         <Grid className={styles.list}>
           <Row>
             <Col md={10} mdOffset={1}>
-              <div className={`panel panel-default ${styles.panel}`}>
+              <div className={`panel panel-default ${styles.panel} ${Playing ? styles.panelPlaying : ''}`}>
                 <ul className="list-group">
                   {
                     Object.values(surahs).filter(surah => files[surah.id]).map(surah => (

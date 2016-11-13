@@ -18,10 +18,17 @@
   margin-top: -70px;
 }
 
-.panel{
+.panel {
+  margin-bottom: 10px;
   border-radius: 0px;
   padding: 10px;
   border: none;
+
+  &.panelPlaying {
+    @include mobile() {
+      margin-bottom: 150px;
+    }
+  }
 
   .muted{
     opacity: 0.5;
@@ -45,7 +52,7 @@
   }
   :global(.list-group-item){
     border-color: $border-color;
-    
+
     &.active {
       border-left: 2px solid $brand-primary;
       & .surahRow div > * {
@@ -53,7 +60,7 @@
       }
       & .surahRow .muted {
         opacity: 1;
-        
+
       }
     }
   }
@@ -72,9 +79,6 @@
 
   &.active {
     background-color: $hover-grey;
-  }
-
-  &:hover{
 
     :global(.fa-play-circle){
       display: inline;
@@ -84,13 +88,25 @@
     :global(.index){
       display: none;
     }
-    .options{
-      visibility: visible;
+  }
+
+  @include desktop() {
+
+    &:hover{
+      :global(.fa-play-circle){
+        display: inline;
+        line-height: 0.5em;
+      }
+
+      :global(.index){
+        display: none;
+      }
+      .options{
+        visibility: visible;
+      }
     }
   }
 }
-
-
 
 .buttonContain {
   padding-bottom: 3rem;
