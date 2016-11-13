@@ -14,14 +14,33 @@ class Home extends Component {
 
   static propTypes = {
     qaris: PropTypes.object.isRequired,
-    sections: PropTypes.object.isRequired
+    sections: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    context: PropTypes.object.isRequired,
+    location: PropTypes.object,
+    params: PropTypes.object
+
   };
 
+  contextTypes: {
+    router: React.PropTypes.func.isRequired
+  }
+
   state = {
-    section: 1
+    section: Number(this.props.params.section) || 1
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const routeChanged = nextProps.location !== this.props.location;
+    if (routeChanged) {
+      const section = Number(nextProps.params.section) || 1;
+      this.setState({ section });
+    }
   }
 
   handleSelect = (section) => {
+    const url = section !== 1 ? `/section/${section}` : '/';
+    this.props.context.router.push(url);
     this.setState({ section });
   }
 
@@ -33,11 +52,9 @@ class Home extends Component {
     return (
       <div>
         <Grid className={styles.header} fluid>
-          <Row>
             <Col md={8} mdOffset={2} className={`text-center ${styles.header__text}`}>
               <h1 className={styles.heading}>QuranicAudio</h1>
             </Col>
-          </Row>
         </Grid>
         <Grid>
           <Row className={styles.container}>

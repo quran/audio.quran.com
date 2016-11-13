@@ -1,7 +1,14 @@
 $screen-sm:                  768px !default;
+$screen-md:                  992px !default;
 
 @mixin mobile($mobile-break-point: $screen-sm) {
   @media(max-width: $mobile-break-point){
+    @content;
+  }
+}
+
+@mixin desktop($mobile-break-point: $screen-md) {
+  @media(min-width: $mobile-break-point){
     @content;
   }
 }

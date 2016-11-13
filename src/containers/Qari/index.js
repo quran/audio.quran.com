@@ -22,6 +22,7 @@ class Qaris extends Component {
     currentSurah: PropTypes.any,
     next: PropTypes.func.isRequired,
     continuous: PropTypes.func.isRequired,
+    shouldContinuous: PropTypes.bool,
     Playing: PropTypes.bool.isRequired
   };
 
@@ -34,16 +35,13 @@ class Qaris extends Component {
   }
 
   render() {
-    const { surahs, qari, files, currentSurah } = this.props;
+    const { surahs, qari, files, currentSurah, Playing, shouldContinuous} = this.props;
 
     const handlePlayAll = () => {
-      const { Playing } = this.props;
-
-      if (!Playing) {
+      this.props.continuous();
+      if (!shouldContinuous) {
         this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[0]);
       }
-
-      this.props.continuous();
     };
 
     const description = qari.description ? qari.description : '';
@@ -62,10 +60,10 @@ class Qaris extends Component {
               <div className={styles.buttonContain}>
                 <Button
                   bsStyle="primary"
-                  className={styles.button}
+                  className={`${styles.button} ${shouldContinuous ? styles.playAllActive : ''}`}
                   onClick={handlePlayAll}
                   >
-                  <i className={`fa fa-play ${styles.icon}`} /><span>Play All</span>
+                  <i className={`fa ${shouldContinuous ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Play All</span>
                 </Button>
               </div>
             </Col>
@@ -74,13 +72,13 @@ class Qaris extends Component {
         <Grid className={styles.list}>
           <Row>
             <Col md={10} mdOffset={1}>
-              <div className={`panel panel-default ${styles.panel}`}>
+              <div className={`panel panel-default ${styles.panel} ${Playing ? styles.panelPlaying : ''}`}>
                 <ul className="list-group">
                   {
                     Object.values(surahs).filter(surah => files[surah.id]).map(surah => (
                        <li
                         key={surah.id}
-                        className={`list-group-item ${styles.row} ${surah.id === currentSurah.id ? `${styles.active} js-currentSurah` : ''}`}
+                        className={`list-group-item ${styles.row} ${surah.id === currentSurah.id ? `${styles.active}` : ''}`}
                         onClick={() => this.handleSurahSelection(surah)}
                       >
                         <Row className={styles.surahRow}>
@@ -145,6 +143,7 @@ const connectedQaris = connect(
     qari: state.qaris.entities[ownProps.params.id],
     files: state.files.entities[ownProps.params.id],
     Playing: state.audioplayer.isPlaying,
+    shouldContinuous: state.audioplayer.shouldContinuous,
     currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
   }),
   { load, play, next, continuous}
