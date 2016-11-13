@@ -121,6 +121,11 @@
   padding: 10px 30px;
   user-select: inherit;
 
+  &.playAllActive {
+    border-color: white;
+    background: white;
+    color: $brand-primary;
+  }
 
   &:focus {
     outline: none;

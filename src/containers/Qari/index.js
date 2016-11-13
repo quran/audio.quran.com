@@ -22,6 +22,7 @@ class Qaris extends Component {
     currentSurah: PropTypes.any,
     next: PropTypes.func.isRequired,
     continuous: PropTypes.func.isRequired,
+    shouldContinuous: PropTypes.bool,
     Playing: PropTypes.bool.isRequired
   };
 
@@ -34,11 +35,13 @@ class Qaris extends Component {
   }
 
   render() {
-    const { surahs, qari, files, currentSurah, Playing } = this.props;
+    const { surahs, qari, files, currentSurah, Playing, shouldContinuous} = this.props;
 
     const handlePlayAll = () => {
       this.props.continuous();
-      this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[0]);
+      if (!shouldContinuous) {
+        this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[0]);
+      }
     };
 
     const description = qari.description ? qari.description : '';
@@ -57,7 +60,7 @@ class Qaris extends Component {
               <div className={styles.buttonContain}>
                 <Button
                   bsStyle="primary"
-                  className={styles.button}
+                  className={`${styles.button} ${shouldContinuous ? styles.playAllActive : ''}`}
                   onClick={handlePlayAll}
                   >
                   <i className={`fa fa-play ${styles.icon}`} /><span>Play All</span>
@@ -75,7 +78,7 @@ class Qaris extends Component {
                     Object.values(surahs).filter(surah => files[surah.id]).map(surah => (
                        <li
                         key={surah.id}
-                        className={`list-group-item ${styles.row} ${surah.id === currentSurah.id ? `${styles.active} js-currentSurah` : ''}`}
+                        className={`list-group-item ${styles.row} ${surah.id === currentSurah.id ? `${styles.active}` : ''}`}
                         onClick={() => this.handleSurahSelection(surah)}
                       >
                         <Row className={styles.surahRow}>
@@ -140,6 +143,7 @@ const connectedQaris = connect(
     qari: state.qaris.entities[ownProps.params.id],
     files: state.files.entities[ownProps.params.id],
     Playing: state.audioplayer.isPlaying,
+    shouldContinuous: state.audioplayer.shouldContinuous,
     currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
   }),
   { load, play, next, continuous}
