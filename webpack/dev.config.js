@@ -16,14 +16,14 @@ module.exports = {
     ]
   },
   entry: [
-    'webpack-hot-middleware/client?path=http://192.168.1.102:8001/__webpack_hmr',
+    'webpack-hot-middleware/client?path=http://localhost:8001/__webpack_hmr',
     'webpack/hot/only-dev-server',
     'bootstrap-sass!./bootstrap.config.js',
     './src/client.js'
   ],
   output: {
     path: path.resolve('./build'),
-    publicPath: 'http://192.168.1.102:8001/public/',
+    publicPath: 'http://localhostgi:8001/public/',
     filename: 'main.js'
   },
   module: {

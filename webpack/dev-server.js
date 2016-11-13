@@ -23,8 +23,8 @@ new WebpackDevServer(webpack(config), {
   debug: true,
   headers:     {"Access-Control-Allow-Origin": "*"},
   proxy: {
-    '*': { target: 'http://192.168.1.102:8000' }
+    '*': { target: 'http://localhost:8000' }
   }
 }).listen(8001, function () {
-  console.info('==> 💻  Webpack Dev Server at http://192.168.1.102:8001');
+  console.info('==> 💻  Webpack Dev Server at http://localhost:8001');
 });
