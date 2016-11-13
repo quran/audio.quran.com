@@ -52,11 +52,9 @@ class Home extends Component {
     return (
       <div>
         <Grid className={styles.header} fluid>
-          <Row>
             <Col md={8} mdOffset={2} className={`text-center ${styles.header__text}`}>
               <h1 className={styles.heading}>QuranicAudio</h1>
             </Col>
-          </Row>
         </Grid>
         <Grid>
           <Row className={styles.container}>
