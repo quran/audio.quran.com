@@ -37,11 +37,8 @@ class Qaris extends Component {
     const { surahs, qari, files, currentSurah, Playing } = this.props;
 
     const handlePlayAll = () => {
-      if (!Playing) {
-        this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[0]);
-      }
-
       this.props.continuous();
+      this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[0]);
     };
 
     const description = qari.description ? qari.description : '';
