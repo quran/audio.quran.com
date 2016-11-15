@@ -43,6 +43,8 @@ export default function reducer(state = initialState, action = {}) {
           state.qari = action.qair;
         }
 
+        file.title = `action.surah - ${action.qari}`;
+
         return {
           ...state,
           isPlaying: true,
@@ -137,7 +139,7 @@ export default function reducer(state = initialState, action = {}) {
           file
         };
       }
-
+      file.title = `action.surah - ${action.qari}`;
       file.play();
       return newState;
     }
@@ -166,6 +168,7 @@ export default function reducer(state = initialState, action = {}) {
         };
       }
 
+      file.title = `action.surah - ${action.qari}`;
       file.play();
       return newState;
     }
