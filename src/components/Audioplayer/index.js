@@ -183,8 +183,8 @@ export default class Audioplayer extends Component {
 
   renderPreviousButton() {
     const { previous, surah, surahs, surahPage, qari } = this.props; // eslint-disable-line no-shadow
-    let disabled = surah ? surah.id === 1 && true : true;
-    disabled = surahPage ? qari.id === 1 && true : true;
+    const disableBasedOnSurah = surah ? surah.id === 1 && true : true;
+    const disabled = surahPage ? qari.id === 1 && true : disableBasedOnSurah;
 
     return (
       <i
@@ -196,8 +196,8 @@ export default class Audioplayer extends Component {
 
   renderNextButton() {
     const { next, surah, surahs, qaris, surahPage, qari } = this.props; // eslint-disable-line no-shadow
-    let disabled = surah ? surah.id === 114 && true : true;
-    disabled = surahPage ? qari.id === Object.keys(qaris).length : true;
+    const disableBasedOnSurah = surah ? surah.id === 114 && true : true;
+    const disabled = surahPage ? qari.id === Object.keys(qaris).length : disableBasedOnSurah;
 
     return (
       <i

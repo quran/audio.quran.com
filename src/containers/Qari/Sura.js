@@ -47,7 +47,7 @@ class Sura extends Component {
           <Row>
             <Col md={12} className="text-center">
               <h1>
-                {`${surah.name.simple}(${surah.name.english})`}
+                {`${surah.name.simple}`}
               </h1>
               <div className={styles.buttonContain}>
                 <Button
@@ -77,7 +77,7 @@ class Sura extends Component {
                         onClick={() => this.handleSurahSelection(qari)}
                       >
                         <Row className={styles.surahRow}>
-                          <Col md={8} xs={8}>
+                          <Col md={8} xs={12}>
                             <Row>
                               <Col md={1} xs={2}>
                               <h5 className="text-muted">
@@ -87,12 +87,12 @@ class Sura extends Component {
                                 </span>
                               </h5>
                               </Col>
-                              <Col md={11} xs={11}>
+                              <Col md={11} xs={10}>
                                 <h5 className={`text-muted`}><Link className={styles.link} onClick={(event) => event.stopPropagation()} to={`/quran/${qari.id}`}>{qari.name}</Link></h5>
                               </Col>
                             </Row>
                           </Col>
-                          <Col md={2} xs={4} className="text-right pull-right" >
+                          <Col md={2} xs={2} className="text-right pull-right hidden-xs" >
                             <Button
                               bsStyle="primary"
                               className={styles.options}
