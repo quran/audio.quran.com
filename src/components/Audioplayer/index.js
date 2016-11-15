@@ -170,7 +170,7 @@ export default class Audioplayer extends Component {
 
   renderPlayStopButtons() {
     const { isPlaying, playPause, file } = this.props; // eslint-disable-line no-shadow
-    if (file.readyState < 3) {
+    if (file.readyState < 4) {
       return this.renderLoading();
     }
 
