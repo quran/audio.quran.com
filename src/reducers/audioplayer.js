@@ -119,8 +119,8 @@ export default function reducer(state = initialState, action = {}) {
       let newState = {};
       if (state.surahPage) {
         const nextQari = state.qaris[state.qari.id + 1];
-        file.title = `action.surah - ${nextQari.name}`;
         file = new Audio(`${AUDIO_URL}/${nextQari.relativePath}${zeroPad(state.surah.id, 3)}.mp3`);
+        file.title = `${state.surah.name.simple} - ${nextQari.name}`;
         file.play();
         newState = {
           ...state,
@@ -131,7 +131,7 @@ export default function reducer(state = initialState, action = {}) {
         };
       } else {
         file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id + 1, 3)}.mp3`);
-        file.title = `action.surah - ${state.qari.name}`;
+        file.title = `${state.surah.name.simple} - ${state.qari.name}`;
         newState = {
           ...state,
           isPlaying: true,
@@ -150,6 +150,7 @@ export default function reducer(state = initialState, action = {}) {
       if (state.surahPage) {
         const previusQari = state.qaris[state.qari.id - 1];
         file = new Audio(`${AUDIO_URL}/${previusQari.relativePath}${zeroPad(state.surah.id, 3)}.mp3`);
+        file.title = `${state.surah.name.simple} - ${previusQari.name}`;
         newState = {
           ...state,
           isPlaying: true,
@@ -159,6 +160,7 @@ export default function reducer(state = initialState, action = {}) {
         };
       } else {
         file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id - 1, 3)}.mp3`);
+        file.title = `${state.surah.name.simple} - ${state.qari.name}`;
         newState = {
           ...state,
           isPlaying: true,
@@ -168,7 +170,6 @@ export default function reducer(state = initialState, action = {}) {
         };
       }
 
-      file.title = `action.surah - ${action.qari}`;
       file.play();
       return newState;
     }
