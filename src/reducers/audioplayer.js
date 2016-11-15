@@ -26,7 +26,9 @@ const initialState = {
   shouldContinuous: false,
   shouldRandom: false,
   progress: 0,
-  currentTime: 0
+  currentTime: 0,
+  surahPage: false,
+  qaris: null
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -36,11 +38,18 @@ export default function reducer(state = initialState, action = {}) {
         const file = new Audio(`${AUDIO_URL}/${action.qari.relativePath}${zeroPad(action.surah.id, 3)}.mp3`);
         file.play();
 
+        if (action.surahPage) {
+          state.qaris = action.qaris;
+          state.qari = action.qair;
+        }
+
+        file.title = `${action.surah.name.simple} - ${action.qari.name}`;
         return {
           ...state,
           isPlaying: true,
           qari: action.qari,
           surah: action.surah,
+          surahPage: action.surahPage,
           file
         };
       }
@@ -106,27 +115,63 @@ export default function reducer(state = initialState, action = {}) {
       };
     case NEXT: {
       state.file.pause();
-      const file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id + 1, 3)}.mp3`);
+      let file = null;
+      let newState = {};
+      if (state.surahPage) {
+        const nextQari = state.qaris[state.qari.id + 1];
+        file = new Audio(`${AUDIO_URL}/${nextQari.relativePath}${zeroPad(state.surah.id, 3)}.mp3`);
+        file.title = `${state.surah.name.simple} - ${nextQari.name}`;
+        file.play();
+        newState = {
+          ...state,
+          isPlaying: true,
+          surah: state.surah,
+          qari: nextQari,
+          file
+        };
+      } else {
+        file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id + 1, 3)}.mp3`);
+        file.title = `${state.surah.name.simple} - ${state.qari.name}`;
+        newState = {
+          ...state,
+          isPlaying: true,
+          surah: action.surahs[state.surah.id] || state.surah,
+          qari: action.qari || state.qari,
+          file
+        };
+      }
       file.play();
-      return {
-        ...state,
-        isPlaying: true,
-        surah: action.surahs[state.surah.id] || state.surah,
-        qari: action.qari || state.qari,
-        file
-      };
+      return newState;
     }
     case PREVIOUS: {
       state.file.pause();
-      const file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id - 1, 3)}.mp3`);
+      let newState = {};
+      let file = null;
+      if (state.surahPage) {
+        const previusQari = state.qaris[state.qari.id - 1];
+        file = new Audio(`${AUDIO_URL}/${previusQari.relativePath}${zeroPad(state.surah.id, 3)}.mp3`);
+        file.title = `${state.surah.name.simple} - ${previusQari.name}`;
+        newState = {
+          ...state,
+          isPlaying: true,
+          surah: state.surah,
+          qari: previusQari,
+          file
+        };
+      } else {
+        file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id - 1, 3)}.mp3`);
+        file.title = `${state.surah.name.simple} - ${state.qari.name}`;
+        newState = {
+          ...state,
+          isPlaying: true,
+          surah: action.surahs[state.surah.id - 2] || state.surah,
+          qari: action.qari || state.qari,
+          file
+        };
+      }
+
       file.play();
-      return {
-        ...state,
-        isPlaying: true,
-        surah: action.surahs[state.surah.id - 2] || state.surah,
-        qari: action.qari || state.qari,
-        file
-      };
+      return newState;
     }
     default:
       return state;

@@ -7,9 +7,15 @@ import {
   NotFound,
   Qaris,
   Qari,
-  About
+  About,
+  Sura
 } from 'containers';
 
+function isValid(nextState, replaceState) {
+  if (isNaN(nextState.params.id) || nextState.params.id > 114 || nextState.params.id < 1) {
+    replaceState('/');
+  }
+}
 export default () => {
   return (
     <Route path="/" component={App}>
@@ -22,6 +28,9 @@ export default () => {
       <Route path="/reciters" component={Qaris} />
 
       <Route path="quran/:id" component={Qari} />
+      <Route path="/sura" component={Home} onEnter={isValid}/>
+      <Route path="/sura/:id" component={Sura} onEnter={isValid}/>
+      <Route path="/download/:id" component={Home} />
       { /* Catch all route */ }
       <Route path="*" component={NotFound} status={404} />
     </Route>
