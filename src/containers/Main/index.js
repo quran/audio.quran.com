@@ -7,6 +7,7 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import formatQarisByLetter from '../../utils/formatQarisByLetter';
 import QarisList from '../../components/QarisList';
+import Header from '../../components/Header';
 
 const styles = require('./style.scss');
 
@@ -51,11 +52,7 @@ class Home extends Component {
 
     return (
       <div>
-        <Grid className={styles.header} fluid>
-            <Col md={8} mdOffset={2} className={`text-center ${styles.header__text}`}>
-              <h1 className={styles.heading}>QuranicAudio</h1>
-            </Col>
-        </Grid>
+        <Header />
         <Grid>
           <Row className={styles.container}>
             <Col md={12} className={styles.pills}>

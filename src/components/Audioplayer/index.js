@@ -29,12 +29,14 @@ const styles = require('./style.scss');
     file: state.audioplayer.file,
     surahs: state.surahs.entities,
     qari: state.audioplayer.qari,
+    qaris: state.audioplayer.qaris,
     surah: state.audioplayer.surah,
     progress: state.audioplayer.progress,
     duration: state.audioplayer.duration,
     currentTime: state.audioplayer.currentTime,
     isPlaying: state.audioplayer.isPlaying,
     shouldRepeat: state.audioplayer.shouldRepeat,
+    surahPage: state.audioplayer.surahPage,
     shouldContinuous: state.audioplayer.shouldContinuous,
     shouldRandom: state.audioplayer.shouldRandom,
   }),
@@ -44,6 +46,7 @@ export default class Audioplayer extends Component {
   static propTypes = {
     load: PropTypes.func.isRequired,
     surahs: PropTypes.object.isRequired,
+    qaris: PropTypes.object,
     surah: PropTypes.shape({
       id: PropTypes.number.isRequired,
       ayat: PropTypes.number.isRequired,
@@ -65,13 +68,14 @@ export default class Audioplayer extends Component {
     shouldRepeat: PropTypes.bool.isRequired,
     shouldContinuous: PropTypes.bool.isRequired,
     shouldRandom: PropTypes.bool.isRequired,
+    surahPage: PropTypes.bool,
     progress: PropTypes.number,
     currentTime: PropTypes.number,
     duration: PropTypes.number
   };
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.surah !== nextProps.surah) {
+    if (this.props.surah !== nextProps.surah || this.props.qari !== nextProps.qari) {
       this.handleFileLoad(nextProps.file);
       this.handleRemoveFileListeneres(this.props.file);
     }
@@ -166,7 +170,7 @@ export default class Audioplayer extends Component {
 
   renderPlayStopButtons() {
     const { isPlaying, playPause, file } = this.props; // eslint-disable-line no-shadow
-    if (file.readyState < 4) {
+    if (file.readyState < 3) {
       return this.renderLoading();
     }
 
@@ -178,8 +182,9 @@ export default class Audioplayer extends Component {
   }
 
   renderPreviousButton() {
-    const { previous, surah, surahs } = this.props; // eslint-disable-line no-shadow
-    const disabled = surah ? surah.id === 1 && true : true;
+    const { previous, surah, surahs, surahPage, qari } = this.props; // eslint-disable-line no-shadow
+    let disabled = surah ? surah.id === 1 && true : true;
+    disabled = surahPage ? qari.id === 1 && true : true;
 
     return (
       <i
@@ -190,8 +195,9 @@ export default class Audioplayer extends Component {
   }
 
   renderNextButton() {
-    const { next, surah, surahs } = this.props; // eslint-disable-line no-shadow
-    const disabled = surah ? surah.id === 114 && true : true;
+    const { next, surah, surahs, qaris, surahPage, qari } = this.props; // eslint-disable-line no-shadow
+    let disabled = surah ? surah.id === 114 && true : true;
+    disabled = surahPage ? qari.id === Object.keys(qaris).length : true;
 
     return (
       <i

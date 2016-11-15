@@ -62,11 +62,13 @@ export function random() {
   };
 }
 
-export function load({ surah, qari }) {
+export function load({ surah, qari, surahPage, qaris }) {
   return {
     type: LOAD,
     surah,
-    qari
+    qari,
+    surahPage,
+    qaris
   };
 }
 
