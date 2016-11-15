@@ -37,7 +37,6 @@ class Sura extends Component {
 
   render() {
     const { surah, Playing, qaris, currentQari} = this.props;
-    // console.log(this.props.currentQari);
     return (
       <div>
         <Helmet title={`Surah ${surah.name.simple}`} />
@@ -47,7 +46,7 @@ class Sura extends Component {
           <Row>
             <Col md={12} className="text-center">
               <h1>
-                {`${surah.name.simple}`}
+                Surat {`${surah.name.simple}`}
               </h1>
               <div className={styles.buttonContain}>
                 <Button
