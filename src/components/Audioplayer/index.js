@@ -24,25 +24,7 @@ import Track from './Track';
 
 const styles = require('./style.scss');
 
-@connect(
-  state => ({
-    file: state.audioplayer.file,
-    surahs: state.surahs.entities,
-    qari: state.audioplayer.qari,
-    qaris: state.audioplayer.qaris,
-    surah: state.audioplayer.surah,
-    progress: state.audioplayer.progress,
-    duration: state.audioplayer.duration,
-    currentTime: state.audioplayer.currentTime,
-    isPlaying: state.audioplayer.isPlaying,
-    shouldRepeat: state.audioplayer.shouldRepeat,
-    surahPage: state.audioplayer.surahPage,
-    shouldContinuous: state.audioplayer.shouldContinuous,
-    shouldRandom: state.audioplayer.shouldRandom,
-  }),
-  { load, play, pause, playPause, update, repeat, next, previous, continuous, random }
-)
-export default class Audioplayer extends Component {
+class Audioplayer extends Component {
   static propTypes = {
     load: PropTypes.func.isRequired,
     surahs: PropTypes.object.isRequired,
@@ -299,3 +281,23 @@ export default class Audioplayer extends Component {
     );
   }
 }
+
+
+export default connect(
+  state => ({
+    file: state.audioplayer.file,
+    surahs: state.surahs.entities,
+    qari: state.audioplayer.qari,
+    qaris: state.audioplayer.qaris,
+    surah: state.audioplayer.surah,
+    progress: state.audioplayer.progress,
+    duration: state.audioplayer.duration,
+    currentTime: state.audioplayer.currentTime,
+    isPlaying: state.audioplayer.isPlaying,
+    shouldRepeat: state.audioplayer.shouldRepeat,
+    surahPage: state.audioplayer.surahPage,
+    shouldContinuous: state.audioplayer.shouldContinuous,
+    shouldRandom: state.audioplayer.shouldRandom,
+  }),
+  { load, play, pause, playPause, update, repeat, next, previous, continuous, random }
+)(Audioplayer);
