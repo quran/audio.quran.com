@@ -13,7 +13,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/download/:id', (req, res) => {
-  return models.audioFile.findOne({ where: {id: req.params.id } }).then(files => res.send(files));
+  return models.audioFile.findOne({ where: {id: req.params.id, extension: 'mp3'} }).then(files => res.send(files));
 });
 
 export default router;
