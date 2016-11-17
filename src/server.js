@@ -59,21 +59,21 @@ proxy.on('error', (error, req, res) => {
   res.end(JSON.stringify(json));
 });
 
-app.get('/download/:id', (req, res) => {
-  const fullUrl = req.protocol + '://' + req.get('host') + '/api/audio_files/download/' + req.params.id;
-  fetch(fullUrl)
-  .then((response) => {
-    if (response.status >= 400) {
-      throw new Error('Bad response from server');
-    }
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data);
-    const url = `http://download.quranicaudio.com/quran/abdullaah_basfar/${data.file_name}`;
-    res.end(url);
-  });
-});
+// app.get('/download/:id', (req, res) => {
+//   const fullUrl = req.protocol + '://' + req.get('host') + '/api/audio_files/download/' + req.params.id;
+  // fetch(fullUrl)
+  // .then((response) => {
+  //   if (response.status >= 400) {
+  //     throw new Error('Bad response from server');
+  //   }
+  //   return response.json();
+  // })
+  // .then((data) => {
+  //   console.log(data);
+  //   const url = `http://download.quranicaudio.com/quran/abdullaah_basfar/${data.file_name}`;
+  //   res.end(url);
+  // });
+// });
 
 app.use((req, res) => {
   if (__DEVELOPMENT__) {

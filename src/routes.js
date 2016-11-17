@@ -8,7 +8,8 @@ import {
   Qaris,
   Qari,
   About,
-  Sura
+  Sura,
+  Download
 } from 'containers';
 
 function isValid(nextState, replaceState) {
@@ -28,6 +29,7 @@ export default () => {
       <Route path="/reciters" component={Qaris} />
 
       <Route path="quran/:id" component={Qari} />
+      <Route path="download/:id" component={Download} />
       <Route path="/sura" component={Home} onEnter={isValid}/>
       <Route path="/sura/:id" component={Sura} onEnter={isValid}/>
       { /* Catch all route */ }
