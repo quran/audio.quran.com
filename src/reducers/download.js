@@ -1,6 +1,7 @@
 import {
   LOAD,
-  LOAD_SUCCESS
+  LOAD_SUCCESS,
+  LOAD_FAIL
 } from 'actions/download';
 
 const initialState = {
@@ -10,13 +11,18 @@ const initialState = {
 };
 
 export default function reducer(state = initialState, action = {}) {
-  console.log(action.type);
   switch (action.type) {
     case LOAD:
       return {
         ...state,
         loaded: false,
         loading: true
+      };
+    case LOAD_FAIL:
+      return {
+        ...state,
+        loaded: false,
+        errored: true,
       };
     case LOAD_SUCCESS:
 
