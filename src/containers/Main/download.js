@@ -7,22 +7,20 @@ import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import { load } from 'actions/download';
 import zeroPad from 'utils/zeroPad';
-const AUDIO_URL = 'http://download.quranicaudio.com/quran';
 
 const styles = require('./style.scss');
 
 class Download extends Component {
+
   static propTypes = {
     qaris: PropTypes.object.isRequired,
-    params: PropTypes.object.isRequired,
     surahs: PropTypes.object.isRequired,
-    download: PropTypes.object.isRequired
+    data: PropTypes.object.isRequired
   }
 
   render() {
-    const { surahs, download, qaris} = this.props;
-    const { surahId, qariId } = download;
-    const file = `${AUDIO_URL}/${qaris[qariId].relativePath}${zeroPad(surahId, 3)}.mp3`;
+    const { surahs, data, qaris} = this.props;
+    const { surahId, qariId } = data;
     return (
       <div>
         <Header />
@@ -30,9 +28,8 @@ class Download extends Component {
           <Row className={styles.aboutContainer}>
             <Col md={8} mdOffset={2}>
               <Row>
-                <h1>Download </h1>
-                <h2>Surat {surahs[surahId].name.simple} by {qaris[qariId].name}</h2>
-                <a href={file}>Download</a>
+                <h1>Surat {surahs[surahId].name.simple} by {qaris[qariId].name}</h1>
+                <a className={styles.downloadLink} href={`http://download.quranicaudio.com/quran/${qaris[qariId].relativePath}${zeroPad(surahId, 3)}.mp3`}>Download</a>
               </Row>
             </Col>
           </Row>
@@ -47,7 +44,7 @@ const connectedDownload = connect(
     qaris: state.qaris.entities,
     surahs: state.surahs.entities,
     sections: state.sections.entities,
-    download: state.download
+    data: state.download
   })
 )(Download);
 
