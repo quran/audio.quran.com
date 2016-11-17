@@ -3,6 +3,7 @@ module.exports = function(sequelize, DataTypes) {
   var AudioFile = sequelize.define('audioFile', {
     qari_id: DataTypes.INTEGER,
     surah_id: DataTypes.INTEGER,
+    main_id:{ type: DataTypes.INTEGER, field: "id" },
     recitation_id: DataTypes.INTEGER,
     filenum: DataTypes.INTEGER,
     file_name: DataTypes.STRING,

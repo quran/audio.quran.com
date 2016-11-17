@@ -12,4 +12,8 @@ router.get('/:id', (req, res) => {
   return models.audioFile.findById(req.params.id).then(files => res.send(files));
 });
 
+router.get('/download/:id', (req, res) => {
+  return models.audioFile.findOne({ where: {id: req.params.id } }).then(files => res.send(files));
+});
+
 export default router;

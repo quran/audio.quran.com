@@ -30,7 +30,7 @@ const proxy = httpProxy.createProxyServer({
   target: targetUrl,
   ws: true
 });
-
+require('isomorphic-fetch');
 app.use(compression());
 app.use(favicon(path.join(__dirname, '..', 'static', 'favicon.ico')));
 app.use(useragent.express());
@@ -57,6 +57,14 @@ proxy.on('error', (error, req, res) => {
 
   json = {error: 'proxy_error', reason: error.message};
   res.end(JSON.stringify(json));
+});
+
+app.get('/download/:id', (req, res) => {
+   var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  res.end(fullUrl);
+
+  // fetch()
+
 });
 
 app.use((req, res) => {
