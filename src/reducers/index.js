@@ -7,6 +7,7 @@ import qaris from 'reducers/qaris';
 import sections from 'reducers/sections';
 import surahs from 'reducers/surahs';
 import files from 'reducers/files';
+import download from 'reducers/download';
 
 export default combineReducers({
   routing: routerReducer,
@@ -15,5 +16,6 @@ export default combineReducers({
   files,
   qaris,
   sections,
-  surahs
+  surahs,
+  download
 });

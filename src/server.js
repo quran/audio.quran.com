@@ -59,6 +59,7 @@ proxy.on('error', (error, req, res) => {
   res.end(JSON.stringify(json));
 });
 
+
 app.use((req, res) => {
   if (__DEVELOPMENT__) {
     // Do not cache webpack stats: the script file would change since

@@ -55,6 +55,25 @@
   }
 }
 
+.downloadLink {
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  border: 2px solid $brand-primary;
+  position: relative;
+  top: 50px;
+  text-decoration: none;
+
+  &:hover {
+    background: $brand-primary;
+    color: white;
+  }
+}
+
+
 .aboutContainer {
   position: relative;
   background: white;
@@ -85,7 +104,7 @@
 
   .pillsItem {
     font-size: 16px;
-    &:hover {    
+    &:hover {
       background-color: $hover-grey;
     }
   }
