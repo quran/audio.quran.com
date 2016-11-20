@@ -8,28 +8,34 @@ import Button from 'react-bootstrap/lib/Button';
 import Helmet from 'react-helmet';
 import { load, play, next, random} from 'actions/audioplayer';
 import { load as loadFiles } from 'actions/files';
+import { load as loadRelated } from 'actions/related';
 import zeroPad from 'utils/zeroPad';
 import formatSeconds from 'utils/formatSeconds';
 import Track from 'components/Audioplayer/Track';
 import LinkContainer from 'utils/LinkContainer';
+import Related from 'components/Related';
 const styles = require('./style.scss');
 
 class Qaris extends Component {
   static propTypes = {
     surahs: PropTypes.object.isRequired,
+    qaris: PropTypes.any.isRequired,
     qari: PropTypes.object.isRequired,
     files: PropTypes.object.isRequired,
     currentTime: PropTypes.any,
     progress: PropTypes.number,
+    related: PropTypes.array.isRequired,
     load: PropTypes.func.isRequired,
     play: PropTypes.func.isRequired,
     currentSurah: PropTypes.any,
     currentQari: PropTypes.any,
     next: PropTypes.func.isRequired,
     random: PropTypes.func.isRequired,
-    shouldRandom: PropTypes.bool,
+    shouldContinuous: PropTypes.bool,
     isPlaying: PropTypes.bool.isRequired
   };
+
+  state = { toggleRelated: false };
 
   handleSurahSelection = (surah) => {
     const { qari, currentSurah, currentQari } = this.props;
@@ -38,13 +44,19 @@ class Qaris extends Component {
       this.props.load({ qari, surah });
     }
   }
+  handleRelated = () => {
+    this.setState({
+      toggleRelated: !this.state.toggleRelated
+    });
+  }
 
   render() {
-    const { surahs, qari, files, currentSurah, isPlaying, shouldRandom, currentQari, currentTime, progress } = this.props;
+    const { surahs, qari, files, currentSurah, isPlaying, shouldContinuous, currentQari, currentTime, progress, qaris, related } = this.props;
+    const { toggleRelated} = this.state;
 
     const handlePlayAll = () => {
       this.props.random();
-      if (!shouldRandom) {
+      if (!shouldContinuous) {
         const randomSurah = Math.floor(Math.random() * (113 + 1));
         const surahId = (currentSurah && currentSurah.id) ? currentSurah.id + 1 : randomSurah;
         this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[surahId]);
@@ -73,11 +85,20 @@ class Qaris extends Component {
               <div className={styles.buttonContain}>
                 <Button
                   bsStyle="primary"
-                  className={`${styles.button} ${shouldRandom ? styles.playAllActive : ''}`}
+                  className={`${styles.button} ${shouldContinuous ? styles.playAllActive : ''}`}
                   onClick={handlePlayAll}
                   >
-                  <i className={`fa ${shouldRandom ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Shuffle Play</span>
+                  <i className={`fa ${shouldContinuous ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Shuffle Play</span>
                 </Button>
+                 {related && (
+                 <Button
+                  bsStyle="primary"
+                  className={`${styles.button} ${this.state.toggleRelated ? styles.playAllActive : ''}`}
+                  onClick={this.handleRelated}
+                  >
+                  <i className={`fa fa-sitemap ${styles.icon}`} /><span>{toggleRelated ? 'Hide Related' : 'Show Related'}</span>
+                </Button>)}
+               <Related related={related} qaris={qaris} toggle={toggleRelated}/>
               </div>
             </Col>
           </Row>
@@ -159,12 +180,14 @@ class Qaris extends Component {
 
 const connectedQaris = connect(
   (state, ownProps) => ({
+    related: state.related.qaris,
     surahs: state.surahs.entities,
+    qaris: state.qaris.entities,
     qari: state.qaris.entities[ownProps.params.id],
     files: state.files.entities[ownProps.params.id],
     isPlaying: state.audioplayer.isPlaying,
     currentTime: state.audioplayer.currentTime,
-    shouldRandom: state.audioplayer.shouldRandom,
+    shouldContinuous: state.audioplayer.shouldContinuous,
     progress: state.audioplayer.progress,
     currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
     currentQari: state.audioplayer.qari
@@ -175,5 +198,10 @@ const connectedQaris = connect(
 export default asyncConnect([{
   promise({ params, store: { dispatch } }) {
     return dispatch(loadFiles(params.id));
+  }
+},
+{
+  promise({ params, store: { dispatch } }) {
+    return dispatch(loadRelated(params.id));
   }
 }])(connectedQaris);

@@ -7,6 +7,7 @@ import qaris from 'reducers/qaris';
 import sections from 'reducers/sections';
 import surahs from 'reducers/surahs';
 import files from 'reducers/files';
+import related from 'reducers/related';
 import download from 'reducers/download';
 
 export default combineReducers({
@@ -17,5 +18,6 @@ export default combineReducers({
   qaris,
   sections,
   surahs,
-  download
+  download,
+  related
 });
