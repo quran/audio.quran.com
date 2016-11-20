@@ -90,7 +90,7 @@ class Qaris extends Component {
                   >
                   <i className={`fa ${shouldContinuous ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Shuffle Play</span>
                 </Button>
-                 {related && (
+                 {related.length > 0 && (
                  <Button
                   bsStyle="primary"
                   className={`${styles.button} ${this.state.toggleRelated ? styles.playAllActive : ''}`}
