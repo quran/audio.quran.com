@@ -35,8 +35,13 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD: {
       if (__CLIENT__) {
-        const file = new Audio(`${AUDIO_URL}/${action.qari.relativePath}${zeroPad(action.surah.id, 3)}.mp3`);
-        file.play();
+        let file = {};
+        try {
+          file = new Audio(`${AUDIO_URL}/${action.qari.relativePath}${zeroPad(action.surah.id, 3)}.mp3`);
+          file.play();
+        } catch (error) {
+          console.log(error);
+        }
 
         if (action.surahPage) {
           state.qaris = action.qaris;
