@@ -23,7 +23,7 @@ const initialState = {
   isSupported: true,
   isPlaying: false,
   shouldRepeat: false,
-  shouldContinuous: false,
+  shouldContinuous: true,
   shouldRandom: false,
   progress: 0,
   currentTime: 0,

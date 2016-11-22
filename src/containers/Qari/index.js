@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Helmet from 'react-helmet';
-import { load, play, next, continuous} from 'actions/audioplayer';
+import { load, play, next, random} from 'actions/audioplayer';
 import { load as loadFiles } from 'actions/files';
 import zeroPad from 'utils/zeroPad';
 import formatSeconds from 'utils/formatSeconds';
@@ -23,8 +23,8 @@ class Qaris extends Component {
     play: PropTypes.func.isRequired,
     currentSurah: PropTypes.any,
     next: PropTypes.func.isRequired,
-    continuous: PropTypes.func.isRequired,
-    shouldContinuous: PropTypes.bool,
+    random: PropTypes.func.isRequired,
+    shouldRandom: PropTypes.bool,
     Playing: PropTypes.bool.isRequired
   };
 
@@ -37,12 +37,14 @@ class Qaris extends Component {
   }
 
   render() {
-    const { surahs, qari, files, currentSurah, Playing, shouldContinuous} = this.props;
+    const { surahs, qari, files, currentSurah, Playing, shouldRandom} = this.props;
 
     const handlePlayAll = () => {
-      this.props.continuous();
-      if (!shouldContinuous) {
-        this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[0]);
+      this.props.random();
+      if (!shouldRandom) {
+        const randomSurah = Math.floor(Math.random() * (113 + 1));
+        const surahId = (currentSurah && currentSurah.id) ? currentSurah.id + 1 : randomSurah;
+        this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[surahId]);
       }
     };
 
@@ -62,10 +64,10 @@ class Qaris extends Component {
               <div className={styles.buttonContain}>
                 <Button
                   bsStyle="primary"
-                  className={`${styles.button} ${shouldContinuous ? styles.playAllActive : ''}`}
+                  className={`${styles.button} ${shouldRandom ? styles.playAllActive : ''}`}
                   onClick={handlePlayAll}
                   >
-                  <i className={`fa ${shouldContinuous ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Play All</span>
+                  <i className={`fa ${shouldRandom ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Shuffle Play</span>
                 </Button>
               </div>
             </Col>
@@ -143,10 +145,10 @@ const connectedQaris = connect(
     qari: state.qaris.entities[ownProps.params.id],
     files: state.files.entities[ownProps.params.id],
     Playing: state.audioplayer.isPlaying,
-    shouldContinuous: state.audioplayer.shouldContinuous,
+    shouldRandom: state.audioplayer.shouldRandom,
     currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
   }),
-  { load, play, next, continuous}
+  { load, play, next, random}
 )(Qaris);
 
 export default asyncConnect([{
