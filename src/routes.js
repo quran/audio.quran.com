@@ -28,8 +28,9 @@ export default () => {
       <Route path="/qaris" component={Qaris} />
       <Route path="/reciters" component={Qaris} />
 
-      <Route path="quran/:id" component={Qari} />
-      <Route path="download/:id" component={Download} />
+      <Route path="/quran/:id" component={Qari} />
+      <Route path="/download/:id" component={Download} />
+      <Route path="/stream.m3u/:id" component={Download} />
       <Route path="/sura" component={Home} onEnter={isValid}/>
       <Route path="/sura/:id" component={Sura} onEnter={isValid}/>
       { /* Catch all route */ }
