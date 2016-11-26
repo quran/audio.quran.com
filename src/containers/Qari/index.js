@@ -38,7 +38,7 @@ class Qaris extends Component {
   }
 
   render() {
-    const { surahs, qari, files, currentSurah, Playing, shouldRandom} = this.props;
+    const { surahs, qari, files, currentSurah, Playing, shouldRandom, currentQari} = this.props;
 
     const handlePlayAll = () => {
       this.props.random();
@@ -50,6 +50,7 @@ class Qaris extends Component {
     };
 
     const description = qari.description ? qari.description : '';
+
     return (
       <div>
         <Helmet title={`Holy Quran recritation by ${qari.name}`} />
@@ -83,7 +84,7 @@ class Qaris extends Component {
                     Object.values(surahs).filter(surah => files[surah.id]).map(surah => (
                        <li
                         key={surah.id}
-                        className={`list-group-item ${styles.row} ${surah.id === currentSurah.id ? `${styles.active}` : ''}`}
+                        className={`list-group-item ${styles.row} ${(surah.id === currentSurah.id && currentQari.id === qari.id) ? `${styles.active}` : ''}`}
                         onClick={() => this.handleSurahSelection(surah)}
                       >
                         <Row className={styles.surahRow}>
