@@ -31,7 +31,7 @@
   }
 
   .muted{
-    opacity: 0.5;
+    color: $black;
   }
 
   .options{
@@ -75,10 +75,15 @@
 
   :global(.fa-play-circle){
     display: none;
+    color: $grey;
   }
 
   &.active {
     background-color: $hover-grey;
+
+    .link {
+      color: $brand-primary;
+    }
 
     :global(.fa-play-circle){
       display: inline;
@@ -163,5 +168,5 @@
 
 
 .link {
-  color: $grey;
+  color: $black;
 }

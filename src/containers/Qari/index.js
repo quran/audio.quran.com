@@ -21,8 +21,8 @@ class Qaris extends Component {
     files: PropTypes.object.isRequired,
     load: PropTypes.func.isRequired,
     play: PropTypes.func.isRequired,
-    currentSurah: PropTypes.any.object,
-    currentQari: PropTypes.any.object,
+    currentSurah: PropTypes.any,
+    currentQari: PropTypes.any,
     next: PropTypes.func.isRequired,
     random: PropTypes.func.isRequired,
     shouldRandom: PropTypes.bool,
@@ -91,7 +91,7 @@ class Qaris extends Component {
                           <Col md={6} xs={8}>
                             <Row>
                               <Col md={1} xs={2}>
-                              <h5 className="text-muted">
+                              <h5>
                                 <span className={styles.muted}>
                                   <span className="index">{surah.id}.</span>
                                   <i className="fa fa-play-circle fa-lg" />
