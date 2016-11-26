@@ -10,7 +10,7 @@
     font-family: $font-family-sans-serif;
     border: 2px solid $border-color;
     font-size: 16px;
-    color: #2E2E2E;
+    color: $black;
     padding: 7px 13px 6px 13px;
     border-radius: 50%;
     position: absolute;
@@ -82,7 +82,7 @@
     line-height: 1em;
 
     .link {
-      color: rgb(119, 119, 119);
+      color: $black;
     }
 
     &:hover{
