@@ -23,7 +23,7 @@ const initialState = {
   isSupported: true,
   isPlaying: false,
   shouldRepeat: false,
-  shouldContinuous: false,
+  shouldContinuous: true,
   shouldRandom: false,
   progress: 0,
   currentTime: 0,
@@ -41,6 +41,7 @@ export default function reducer(state = initialState, action = {}) {
           file.play();
         } catch (error) {
           console.log(error);
+          return state;
         }
 
         if (action.surahPage) {
