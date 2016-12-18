@@ -21,7 +21,7 @@
 .panel {
   margin-bottom: 10px;
   border-radius: 0px;
-  padding: 10px;
+  padding: 10px 0 10px 0;
   border: none;
 
   &.panelPlaying {
@@ -51,10 +51,11 @@
     margin-right: -12px;
   }
   :global(.list-group-item){
+    padding-left: 0;
     border-color: $border-color;
 
     &.active {
-      border-left: 2px solid $brand-primary;
+      // padding-right: 10px;
       & .surahRow div > * {
         color: $brand-primary;
       }
@@ -105,6 +106,7 @@
 
       :global(.index){
         display: none;
+        text-align: center;
       }
       .options{
         visibility: visible;
@@ -165,7 +167,9 @@
     width: inherit;
   }
 }
-
+.numbering {
+  text-align: center;
+}
 
 .link {
   color: $black;

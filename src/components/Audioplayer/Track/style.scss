@@ -12,7 +12,6 @@
   position: relative;
   padding-left: 12px;
 
-
   &:after{
     content: '';
     height: 12px;
@@ -27,3 +26,7 @@
     transition: height 0.5s;
   }
 }
+
+.simple:after {
+    display: none;
+  }
