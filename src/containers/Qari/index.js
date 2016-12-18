@@ -19,6 +19,7 @@ class Qaris extends Component {
     surahs: PropTypes.object.isRequired,
     qari: PropTypes.object.isRequired,
     files: PropTypes.object.isRequired,
+    currentTime: PropTypes.any,
     load: PropTypes.func.isRequired,
     play: PropTypes.func.isRequired,
     currentSurah: PropTypes.any,
@@ -26,7 +27,7 @@ class Qaris extends Component {
     next: PropTypes.func.isRequired,
     random: PropTypes.func.isRequired,
     shouldRandom: PropTypes.bool,
-    Playing: PropTypes.bool.isRequired
+    isPlaying: PropTypes.bool.isRequired
   };
 
   handleSurahSelection = (surah) => {
@@ -38,7 +39,7 @@ class Qaris extends Component {
   }
 
   render() {
-    const { surahs, qari, files, currentSurah, Playing, shouldRandom, currentQari} = this.props;
+    const { surahs, qari, files, currentSurah, isPlaying, shouldRandom, currentQari, currentTime} = this.props;
 
     const handlePlayAll = () => {
       this.props.random();
@@ -50,6 +51,9 @@ class Qaris extends Component {
     };
 
     const description = qari.description ? qari.description : '';
+    const currentSurahTime = (surah) => {
+      return (surah.id === currentSurah.id) ? `${formatSeconds(currentTime)} / ` : '';
+    };
 
     return (
       <div>
@@ -78,7 +82,7 @@ class Qaris extends Component {
         <Grid className={styles.list}>
           <Row>
             <Col md={10} mdOffset={1}>
-              <div className={`panel panel-default ${styles.panel} ${Playing ? styles.panelPlaying : ''}`}>
+              <div className={`panel panel-default ${styles.panel} ${isPlaying ? styles.panelPlaying : ''}`}>
                 <ul className="list-group">
                   {
                     Object.values(surahs).filter(surah => files[surah.id]).map(surah => (
@@ -103,7 +107,7 @@ class Qaris extends Component {
                               </Col>
                             </Row>
                           </Col>
-                          <Col md={5} className="text-right hidden-xs hidden-sm">
+                          <Col md={4} className="text-right hidden-xs hidden-sm">
                             <Button
                               bsStyle="primary"
                               className={styles.options}
@@ -122,9 +126,9 @@ class Qaris extends Component {
                               <i className="fa fa-book" /> Read
                             </Button>
                           </Col>
-                          <Col md={1} xs={4} className="text-right">
+                          <Col md={2} xs={4} className="text-right">
                             <h5 className={`text-muted ${styles.muted}`}>
-                              {formatSeconds(files[surah.id].format.duration)}
+                              {currentSurahTime(surah)}{formatSeconds(files[surah.id].format.duration)}
                             </h5>
                           </Col>
                         </Row>
@@ -146,7 +150,8 @@ const connectedQaris = connect(
     surahs: state.surahs.entities,
     qari: state.qaris.entities[ownProps.params.id],
     files: state.files.entities[ownProps.params.id],
-    Playing: state.audioplayer.isPlaying,
+    isPlaying: state.audioplayer.isPlaying,
+    currentTime: state.audioplayer.currentTime,
     shouldRandom: state.audioplayer.shouldRandom,
     currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
     currentQari: state.audioplayer.qari
