@@ -7,20 +7,18 @@ export default class Track extends Component {
     progress: PropTypes.number.isRequired,
     onTrackChange: PropTypes.func,
     simple: PropTypes.bool,
-    style: PropTypes.any
+    style: PropTypes.object
   };
 
   handleClick = (event) => {
-    const { onTrackChange, simple } = this.props;
+    const { onTrackChange } = this.props;
 
-    if (!simple) {
-      const fraction = (
-        event.nativeEvent.offsetX /
-        this.refs.container.getBoundingClientRect().width
-      );
+    const fraction = (
+      event.nativeEvent.offsetX /
+      this.refs.container.getBoundingClientRect().width
+    );
 
-      return onTrackChange(fraction);
-    }
+    return onTrackChange(fraction);
   }
 
   render() {
@@ -28,7 +26,7 @@ export default class Track extends Component {
 
     return (
       <div ref="container" className={styles.container} onClick={this.handleClick} style={style}>
-        <div className={`${styles.progress} ${simple ? styles.simple : ''}`} style={{width: `${progress}%`}}/>
+        <div className={`${styles.progress} ${simple ? styles.simple : ''}`} style={{ width: `${progress}%` }} />
       </div>
     );
   }
