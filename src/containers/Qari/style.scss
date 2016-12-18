@@ -169,6 +169,9 @@
 }
 .numbering {
   text-align: center;
+  @include mobile() {
+    margin-left: 10px;
+  }
 }
 
 .link {
