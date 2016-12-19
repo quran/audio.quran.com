@@ -5,7 +5,9 @@ const styles = require('./style.scss');
 export default class Track extends Component {
   static propTypes = {
     progress: PropTypes.number.isRequired,
-    onTrackChange: PropTypes.func.isRequired
+    onTrackChange: PropTypes.func,
+    simple: PropTypes.bool,
+    style: PropTypes.object
   };
 
   handleClick = (event) => {
@@ -20,11 +22,11 @@ export default class Track extends Component {
   }
 
   render() {
-    const { progress } = this.props;
+    const { progress, simple, style } = this.props;
 
     return (
-      <div ref="container" className={styles.container} onClick={this.handleClick}>
-        <div className={styles.progress} style={{width: `${progress}%`}}/>
+      <div ref="container" className={styles.container} onClick={this.handleClick} style={style}>
+        <div className={`${styles.progress} ${simple ? styles.simple : ''}`} style={{ width: `${progress}%` }} />
       </div>
     );
   }

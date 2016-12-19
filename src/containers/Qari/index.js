@@ -11,7 +11,7 @@ import { load as loadFiles } from 'actions/files';
 import zeroPad from 'utils/zeroPad';
 import formatSeconds from 'utils/formatSeconds';
 import Link from 'react-router/lib/Link';
-
+import Track from 'components/Audioplayer/Track';
 const styles = require('./style.scss');
 
 class Qaris extends Component {
@@ -19,6 +19,8 @@ class Qaris extends Component {
     surahs: PropTypes.object.isRequired,
     qari: PropTypes.object.isRequired,
     files: PropTypes.object.isRequired,
+    currentTime: PropTypes.any,
+    progress: PropTypes.number,
     load: PropTypes.func.isRequired,
     play: PropTypes.func.isRequired,
     currentSurah: PropTypes.any,
@@ -26,7 +28,7 @@ class Qaris extends Component {
     next: PropTypes.func.isRequired,
     random: PropTypes.func.isRequired,
     shouldRandom: PropTypes.bool,
-    Playing: PropTypes.bool.isRequired
+    isPlaying: PropTypes.bool.isRequired
   };
 
   handleSurahSelection = (surah) => {
@@ -38,7 +40,7 @@ class Qaris extends Component {
   }
 
   render() {
-    const { surahs, qari, files, currentSurah, Playing, shouldRandom, currentQari} = this.props;
+    const { surahs, qari, files, currentSurah, isPlaying, shouldRandom, currentQari, currentTime, progress } = this.props;
 
     const handlePlayAll = () => {
       this.props.random();
@@ -50,6 +52,11 @@ class Qaris extends Component {
     };
 
     const description = qari.description ? qari.description : '';
+    const currentSurahTime = (surah) => {
+      return (surah.id === currentSurah.id) ? `${formatSeconds(currentTime)} / ` : '';
+    };
+
+    const progressBarStyle = {position: 'absolute', bottom: '-5px', height: '2px'};
 
     return (
       <div>
@@ -78,7 +85,7 @@ class Qaris extends Component {
         <Grid className={styles.list}>
           <Row>
             <Col md={10} mdOffset={1}>
-              <div className={`panel panel-default ${styles.panel} ${Playing ? styles.panelPlaying : ''}`}>
+              <div className={`panel panel-default ${styles.panel} ${isPlaying ? styles.panelPlaying : ''}`}>
                 <ul className="list-group">
                   {
                     Object.values(surahs).filter(surah => files[surah.id]).map(surah => (
@@ -90,20 +97,20 @@ class Qaris extends Component {
                         <Row className={styles.surahRow}>
                           <Col md={6} xs={8}>
                             <Row>
-                              <Col md={1} xs={2}>
-                              <h5>
+                              <Col md={2} xs={2}>
+                              <h5 className={styles.numbering}>
                                 <span className={styles.muted}>
                                   <span className="index">{surah.id}.</span>
                                   <i className="fa fa-play-circle fa-lg" />
                                 </span>
                               </h5>
                               </Col>
-                              <Col md={11} xs={10}>
+                              <Col md={10} xs={10}>
                                 <h5 className={`text-muted`}><Link className={styles.link} onClick={(event) => event.stopPropagation()} to={`/sura/${surah.id}`}>Surat {surah.name.simple}</Link></h5>
                               </Col>
                             </Row>
                           </Col>
-                          <Col md={5} className="text-right hidden-xs hidden-sm">
+                          <Col md={4} className="text-right hidden-xs hidden-sm">
                             <Button
                               bsStyle="primary"
                               className={styles.options}
@@ -122,12 +129,13 @@ class Qaris extends Component {
                               <i className="fa fa-book" /> Read
                             </Button>
                           </Col>
-                          <Col md={1} xs={4} className="text-right">
+                          <Col md={2} xs={4} className="text-right">
                             <h5 className={`text-muted ${styles.muted}`}>
-                              {formatSeconds(files[surah.id].format.duration)}
+                              {currentSurahTime(surah)}{formatSeconds(files[surah.id].format.duration)}
                             </h5>
                           </Col>
                         </Row>
+                        {surah.id === currentSurah.id ? <Track progress={progress} simple style={progressBarStyle} /> : false}
                       </li>
                     ))
                   }
@@ -146,8 +154,10 @@ const connectedQaris = connect(
     surahs: state.surahs.entities,
     qari: state.qaris.entities[ownProps.params.id],
     files: state.files.entities[ownProps.params.id],
-    Playing: state.audioplayer.isPlaying,
+    isPlaying: state.audioplayer.isPlaying,
+    currentTime: state.audioplayer.currentTime,
     shouldRandom: state.audioplayer.shouldRandom,
+    progress: state.audioplayer.progress,
     currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
     currentQari: state.audioplayer.qari
   }),
