@@ -40,7 +40,7 @@ class Qaris extends Component {
   }
 
   render() {
-    const { surahs, qari, files, currentSurah, isPlaying, shouldRandom, currentQari, currentTime, progress} = this.props;
+    const { surahs, qari, files, currentSurah, isPlaying, shouldRandom, currentQari, currentTime, progress } = this.props;
 
     const handlePlayAll = () => {
       this.props.random();
@@ -56,7 +56,7 @@ class Qaris extends Component {
       return (surah.id === currentSurah.id) ? `${formatSeconds(currentTime)} / ` : '';
     };
 
-    const progressBarStyle = {'position': 'absolute', bottom: '-5px', height: '2px'};
+    const progressBarStyle = {position: 'absolute', bottom: '-5px', height: '2px'};
 
     return (
       <div>
