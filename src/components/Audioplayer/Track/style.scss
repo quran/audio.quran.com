@@ -1,5 +1,5 @@
 .container{
-  height: 8px;
+  height: 7px;
   width: 100%;
   background-color: #f7f7f7;
   cursor: pointer;
@@ -7,7 +7,7 @@
   transition: height 0.1s ease-in;
 
   &.activeHover {
-    height: 15px;
+    height: 14px;
   }
 }
 
