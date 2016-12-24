@@ -12,6 +12,7 @@ export default function createStore(history, client, data) {
     const { persistState } = require('redux-devtools');
     const DevTools = require('../containers/DevTools/DevTools');
     const logger = createLogger({
+      collapsed: true,
       predicate: (getState, action) => action.type !== '@@quran/audioplayer/UPDATE'
     });
     middleware.push(logger);
