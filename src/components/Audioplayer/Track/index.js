@@ -21,11 +21,22 @@ export default class Track extends Component {
     return onTrackChange(fraction);
   }
 
+  handleMouse = (event) => {
+    const elClassList = event.target.closest(`.${styles.container}`).classList;
+    if (event.type === 'mouseenter') {
+      return elClassList.add(styles.activeHover);
+    }
+    return elClassList.remove(styles.activeHover);
+  }
+
   render() {
     const { progress, simple, style } = this.props;
 
     return (
-      <div ref="container" className={styles.container} onClick={this.handleClick} style={style}>
+      <div ref="container" className={styles.container}
+        onMouseEnter={this.handleMouse}
+        onMouseLeave={this.handleMouse}
+        onClick={this.handleClick} style={style}>
         <div className={`${styles.progress} ${simple ? styles.simple : ''}`} style={{ width: `${progress}%` }} />
       </div>
     );

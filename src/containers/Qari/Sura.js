@@ -76,17 +76,17 @@ class Sura extends Component {
                         onClick={() => this.handleSurahSelection(qari)}
                       >
                         <Row className={styles.surahRow}>
-                          <Col md={8} xs={12}>
+                          <Col md={6} xs={8}>
                             <Row>
-                              <Col md={1} xs={2}>
-                              <h5 className="text-muted">
-                                <span className={styles.muted}>
-                                  <span className="index">{qari.id}.</span>
-                                  <i className="fa fa-play-circle fa-lg" />
-                                </span>
-                              </h5>
+                               <Col md={2} xs={2}>
+                                  <h5 className={styles.numbering}>
+                                    <span className={styles.muted}>
+                                      <span className="index">{qari.id}.</span>
+                                      <i className="fa fa-play-circle fa-lg" />
+                                    </span>
+                                  </h5>
                               </Col>
-                              <Col md={11} xs={10}>
+                              <Col md={10} xs={10}>
                                 <h5 className={`text-muted`}><Link className={styles.link} onClick={(event) => event.stopPropagation()} to={`/quran/${qari.id}`}>{qari.name}</Link></h5>
                               </Col>
                             </Row>
