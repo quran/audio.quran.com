@@ -11,6 +11,7 @@ import { load as loadFiles } from 'actions/files';
 import zeroPad from 'utils/zeroPad';
 import formatSeconds from 'utils/formatSeconds';
 import Track from 'components/Audioplayer/Track';
+import LinkContainer from 'utils/LinkContainer';
 const styles = require('./style.scss');
 
 class Qaris extends Component {
@@ -83,7 +84,7 @@ class Qaris extends Component {
         </Grid>
         <Grid className={styles.list}>
           <Row>
-            <Col md={10} mdOffset={1}>
+            <Col md={11} mdOffset={1}>
               <div className={`panel panel-default ${styles.panel} ${isPlaying ? styles.panelPlaying : ''}`}>
                 <ul className="list-group">
                   {
@@ -94,7 +95,7 @@ class Qaris extends Component {
                         onClick={() => this.handleSurahSelection(surah)}
                       >
                         <Row className={styles.surahRow}>
-                          <Col md={6} xs={8}>
+                          <Col md={5} xs={8}>
                             <Row>
                               <Col md={2} xs={2}>
                               <h5 className={styles.numbering}>
@@ -109,7 +110,23 @@ class Qaris extends Component {
                               </Col>
                             </Row>
                           </Col>
-                          <Col md={4} className="text-right hidden-xs hidden-sm">
+                          <Col md={5} className="text-right hidden-xs hidden-sm">
+                            <LinkContainer to={`/sura/${surah.id}`}>
+                                <Button
+                                bsStyle="primary"
+                                className={styles.options}
+                                onClick={(event) => event.stopPropagation()}>
+                                <i className="fa fa-users" /> Other Qaris
+                              </Button>
+                            </LinkContainer>
+                             <Button
+                              bsStyle="primary"
+                              className={styles.options}
+                              href={`https://www.quran.com/${surah.id}`}
+                              target="_blank"
+                              onClick={(event) => event.stopPropagation()}>
+                              <i className="fa fa-book" /> Read
+                            </Button>
                             <Button
                               bsStyle="primary"
                               className={styles.options}
@@ -118,14 +135,6 @@ class Qaris extends Component {
                               onClick={(event) => event.stopPropagation()}
                               download>
                               <i className="fa fa-arrow-circle-down" /> Download
-                            </Button>
-                             <Button
-                              bsStyle="primary"
-                              className={styles.options}
-                              href={`https://www.quran.com/${surah.id}`}
-                              target="_blank"
-                              onClick={(event) => event.stopPropagation()}>
-                              <i className="fa fa-book" /> Read
                             </Button>
                           </Col>
                           <Col md={2} xs={4} className="text-right">
