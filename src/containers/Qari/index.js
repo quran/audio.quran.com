@@ -10,7 +10,6 @@ import { load, play, next, random} from 'actions/audioplayer';
 import { load as loadFiles } from 'actions/files';
 import zeroPad from 'utils/zeroPad';
 import formatSeconds from 'utils/formatSeconds';
-import Link from 'react-router/lib/Link';
 import Track from 'components/Audioplayer/Track';
 const styles = require('./style.scss');
 
@@ -106,7 +105,7 @@ class Qaris extends Component {
                               </h5>
                               </Col>
                               <Col md={10} xs={10}>
-                                <h5 className={`text-muted`}><Link className={styles.link} onClick={(event) => event.stopPropagation()} to={`/sura/${surah.id}`}>Surat {surah.name.simple}</Link></h5>
+                                <h5 className={`text-muted`}>Surat {surah.name.simple}</h5>
                               </Col>
                             </Row>
                           </Col>
