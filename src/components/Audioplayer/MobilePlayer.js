@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Grid from 'react-bootstrap/lib/Grid';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
-
+import style from './mobile.scss';
+import Track from './Track';
 import {
   load,
   play,
@@ -18,13 +16,8 @@ import {
 } from 'actions/audioplayer';
 
 import formatSeconds from 'utils/formatSeconds';
-import { cleanUpBrackets } from 'utils/cleanUp';
 
-import Track from './Track';
-
-const styles = require('./style.scss');
-
-class Audioplayer extends Component {
+class MobilePlayer extends Component {
   static propTypes = {
     load: PropTypes.func.isRequired,
     surahs: PropTypes.object.isRequired,
@@ -55,6 +48,9 @@ class Audioplayer extends Component {
     currentTime: PropTypes.number,
     duration: PropTypes.number
   };
+  state = {
+    open: false
+  };
 
   componentWillReceiveProps(nextProps) {
     if (this.props.surah !== nextProps.surah || this.props.qari !== nextProps.qari) {
@@ -72,7 +68,6 @@ class Audioplayer extends Component {
       file.onended = null;
     }
   }
-
   handleTrackChange = (fraction) => {
     const { file, update } = this.props; // eslint-disable-line no-shadow
 
@@ -145,47 +140,41 @@ class Audioplayer extends Component {
     file.onplay = onPlay;
     file.onended = onEnded;
   }
-
-  renderLoading() {
-    return (<i className=" text-primary loading is-loading"></i>);
-  }
-
   renderPlayStopButtons() {
     const { isPlaying, playPause, file } = this.props; // eslint-disable-line no-shadow
     if (file.readyState < 4) {
-      return this.renderLoading();
+      return (<i className={`text-primary pointer loading is-loading ${style.isLoading}`}></i>);
     }
 
     if (isPlaying && file.readyState >= 4) {
-      return <i onClick={playPause} className={`text-primary pointer fa fa-pause-circle fa-3x ${!file && styles.disabled}`} />;
+      return <i onClick={playPause} className={`text-primary pointer fa fa-pause-circle ${!file && style.disabled} ${style.playPause}`} />;
     }
 
-    return <i onClick={playPause} className={`text-primary pointer fa fa-play-circle fa-3x ${!file && styles.disabled}`} />;
+    return <i onClick={playPause} className={`text-primary pointer fa fa-play-circle${!file && style.disabled} ${style.playPause}`} />;
   }
 
   renderPreviousButton() {
-    const { previous, surah, surahs, surahPage, qari } = this.props; // eslint-disable-line no-shadow
-    const disableBasedOnSurah = surah ? surah.id === 1 && true : true;
-    const disabled = surahPage ? qari.id === 1 && true : disableBasedOnSurah;
-
-    return (
-      <i
-        onClick={() => !disabled && previous({surahs: Object.values(surahs)})}
-        className={`pointer fa fa-fast-backward fa-lg ${disabled && styles.disabled}`}
-      />
-    );
-  }
-
-  renderNextButton() {
-    const { next, surah, surahs, qaris, surahPage, qari } = this.props; // eslint-disable-line no-shadow
+    const { previous, surah, surahs, qaris, surahPage, qari } = this.props; // eslint-disable-line no-shadow
     const disableBasedOnSurah = surah ? surah.id === 114 && true : true;
     const disabled = surahPage ? qari.id === Object.keys(qaris).length : disableBasedOnSurah;
 
     return (
       <i
-        onClick={() => !disabled && next({surahs: Object.values(surahs)})}
-        className={`pointer fa fa-fast-forward fa-lg ${disabled && styles.disabled}`}
-      />
+        onClick={() => !disabled && previous({ surahs: Object.values(surahs) })}
+        className={`pointer fa fa-fast-backward fa-lg ${disabled && style.disabled} ${style.previous}`}
+        />
+    );
+  }
+  renderNextButton() {
+    const { next, surah, surahs, surahPage, qari } = this.props; // eslint-disable-line no-shadow
+    const disableBasedOnSurah = surah ? surah.id === 1 && true : true;
+    const disabled = surahPage ? qari.id === 1 && true : disableBasedOnSurah;
+
+    return (
+      <i
+        onClick={() => !disabled && next({ surahs: Object.values(surahs) })}
+         className={`pointer fa fa-fast-forward fa-lg ${disabled && style.disabled} ${style.next}`}
+        />
     );
   }
 
@@ -193,97 +182,66 @@ class Audioplayer extends Component {
     const { shouldRepeat, repeat } = this.props; // eslint-disable-line no-shadow
 
     return (
-      <div className={`text-center pull-right ${styles.toggle} ${shouldRepeat && styles.active}`}>
+      <div className={`${style.toggle} ${shouldRepeat && style.active}`}>
         <input type="checkbox" id="repeat" className="hidden" />
         <label
           htmlFor="repeat"
           className={`pointer`}
           onClick={repeat}
-        >
-          <i className="fa fa-repeat" />
+          >
+          <i className={`fa fa-repeat ${style.repeat}`} />
         </label>
       </div>
     );
   }
-
   renderRandomButton() {
     const { shouldRandom, random } = this.props; // eslint-disable-line no-shadow
 
     return (
-      <div className={`text-center pull-right ${styles.toggle} ${shouldRandom && styles.active}`}>
+      <div className={`${style.toggle} ${shouldRandom && style.active}`}>
         <input type="checkbox" id="random" className="hidden" />
         <label
           htmlFor="repeat"
           className={`pointer`}
           onClick={random}
         >
-          <i className="fa fa-random" />
+          <i className={`fa fa-random ${style.random}`} />
         </label>
       </div>
     );
   }
 
   render() {
-    const { file, progress, qari, surah} = this.props; // eslint-disable-line no-shadow
-    if (!surah) {
-      return <noscript />;
-    }
-
+    const { qari, surah, progress, file } = this.props; // eslint-disable-line no-shadow, react/prop-types
+    const isOpen = this.state.open ? style.active : false;
+    const validFileTiming = file && !isNaN(file.duration);
+    if (!surah) return false;
     return (
-      <div className={styles.audioplayer}>
-        <Row>
-          <Col md={12}>
-            <Track
-              progress={progress}
-              onTrackChange={this.handleTrackChange}
-            />
-            <Grid fluid>
-              <Row>
-                <Col md={5} mdOffset={1} xs={12}>
-                  <ul className={`list-inline vertical-align ${styles.controls}`}>
-                    {[this.renderPreviousButton(), this.renderPlayStopButtons(), this.renderNextButton()].map((item, index) => (
-                      <li className={styles.controlsItem} key={index}>
-                        {item}
-                      </li>
-                      ))}
-                    <li className={`text-left ${styles.name}`}>
-                    {
-                      qari && surah ?
-                      <h4>
-                        {cleanUpBrackets(qari.name)}
-                        <br />
-                        <small className={styles.surahName}>
-                          {surah.name.simple} ({surah.name.english})
-                        </small>
-                      </h4> :
-                      <h4>
-                        --
-                        <br />
-                        <small>
-                          --
-                        </small>
-                      </h4>
-                    }
-                    </li>
-                  </ul>
-                </Col>
-                <Col md={6} className={`text-center ${styles.infoContainer}`}>
-                  <ul className={`list-inline vertical-align ${styles.info}`}>
-                    <li>{!isNaN(file.duration) ? <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span> : ''}</li>
-                    <li>{this.renderRandomButton()}</li>
-                    <li>{this.renderRepeatButton()}</li>
-                  </ul>
-                  <p className={styles.surahNameEnglish}>{surah.name.simple} ({surah.name.english})</p>
-                </Col>
-              </Row>
-            </Grid>
-          </Col>
-        </Row>
-      </div>
-    );
+          <div className={`${style.audioplayer} ${isOpen}`}>
+              <i onClick={() => this.setState({open: !this.state.open})} className={`fa fa-chevron-up ${style.chevron}`} aria-hidden="true"></i>
+              <h2 className={style.qariName}>{qari && qari.name}</h2>
+              <h3 className={style.surahName}>{`Surat ${surah.name.simple}`}</h3>
+              <div className={style.surahMisc}>
+                <p> سورة {surah.name.arabic}</p>
+              </div>
+              <div className={style.controls}>
+                <ul className={style.timeline}>
+                    <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.currentTime) : '00:00'}</li>
+                      <li className={style.track}><Track simple={false} progress={validFileTiming ? progress : 0} onTrackChange={this.handleTrackChange} style={{background: '#5b5b5b'}} /></li>
+                      <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.duration) : '00:00'}</li>
+                </ul>
+                <div className={style.controlActions}>
+                    {this.renderRandomButton()}
+                    {this.renderPreviousButton()}
+                    {this.renderPlayStopButtons()}
+                    {this.renderNextButton()}
+                    {this.renderRepeatButton()}
+                </div>
+              </div>
+          </div>
+      );
   }
 }
-
 
 export default connect(
   state => ({
@@ -302,4 +260,4 @@ export default connect(
     shouldRandom: state.audioplayer.shouldRandom,
   }),
   { load, play, pause, playPause, update, repeat, next, previous, continuous, random }
-)(Audioplayer);
+)(MobilePlayer);

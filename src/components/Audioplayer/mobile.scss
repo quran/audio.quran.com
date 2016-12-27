@@ -1,0 +1,158 @@
+@import "../../styles/variables.scss";
+@import "../../styles/loading.scss";
+
+$easing: cubic-bezier(0.47, 0, 0.745, 0.715);
+$brand-color: #2CA4AB;
+.audioplayer {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 11;
+    height: 12%;
+    background-color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    font-family: Montserrat;
+    transition: all .8s $easing;
+    border-top: 5px solid #2CA4AB;
+
+    .chevron {
+        z-index: 2;
+        font-size: 30px;
+        position: absolute;
+        left: 22px;
+        top: 27px;
+        transition: all .8s $easing;
+    }
+
+    &.active {
+     height: 100%;
+        & .chevron {
+            transform: rotate(180deg);
+        }  
+    }
+
+    .qariName {
+        font-size: 34px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        text-align: center;
+        color: #1e1e1e;
+        top: 0;
+        position: relative;
+        margin-bottom: 0;
+        z-index: 1;
+    }
+
+    .surahName {
+        font-size: 22px;
+        color: #1e1e1e;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        margin-top: 20px;
+    }
+
+    .surahMisc {
+        border-radius: 20px;
+        background-color: #666666;
+        height: 100px;
+        color: white;
+        margin: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        top: 20%;
+        font-size: 35px;
+    }
+
+    .controls {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        bottom: 0;
+        position: relative;
+        width: 100%;
+        top: 50%;
+
+        .timeline {
+            list-style: none;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            padding-left: 0;
+            margin-bottom: 30px;
+
+                &:nth-child(2) {
+                 background: red;
+                }
+
+            .timelineItem {
+                font-size: 20px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                color: #606060;
+                padding: 0 10px 0 10px;
+            }
+
+            .track {
+                width: 98%;
+                position: relative;
+                top: 10px;
+            }
+        }
+
+        .controlActions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .next,
+            .previous {
+                margin-left: 10%;
+                margin-right: 10%;
+                font-size: 30px;
+            }
+
+            .playPause {
+                position: relative;
+                font-size: 120px;
+            }
+
+            .random,
+            .repeat {
+                font-size: 30px;
+                position: relative;
+                top: 5px;
+            }
+        }
+    }
+
+    .toggle{
+        :global(i){
+            vertical-align: bottom;
+        }
+
+        @include mobile() {
+            font-size: 20px
+        }
+
+        &.active{
+            color: $brand-primary;
+        }
+    }
+    .disabled{
+        opacity: 0.5;
+        cursor: not-allowed !important;
+    }
+
+    .isLoading {
+        font-size: 8px;
+        margin: 15px 5px 15px 5px;
+    }
+}
