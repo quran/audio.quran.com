@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import style from './mobile.scss';
 import Track from './Track';
+import Common from './CommonAudio';
 import {
   load,
   play,
@@ -16,7 +16,7 @@ import {
 } from 'actions/audioplayer';
 
 import formatSeconds from 'utils/formatSeconds';
-
+import style from './mobile.scss';
 class MobilePlayer extends Component {
   static propTypes = {
     load: PropTypes.func.isRequired,
@@ -48,10 +48,17 @@ class MobilePlayer extends Component {
     currentTime: PropTypes.number,
     duration: PropTypes.number
   };
+
+  constructor(props) {
+    super(props);
+    this.handleTrackChange = Common.handleTrackChange.bind(this);
+    this.handleFileLoad = Common.handleFileLoad.bind(this);
+    this.handleRemoveFileListeneres = Common.handleRemoveFileListeneres.bind(this);
+  }
+
   state = {
     open: false
   };
-
   componentWillReceiveProps(nextProps) {
     if (this.props.surah !== nextProps.surah || this.props.qari !== nextProps.qari) {
       this.handleFileLoad(nextProps.file);
@@ -59,87 +66,6 @@ class MobilePlayer extends Component {
     }
   }
 
-  handleRemoveFileListeneres(file) {
-    if (file) {
-      file.pause();
-      file.onloadeddata = null;
-      file.ontimeupdate = null;
-      file.onplay = null;
-      file.onended = null;
-    }
-  }
-  handleTrackChange = (fraction) => {
-    const { file, update } = this.props; // eslint-disable-line no-shadow
-
-    update({
-      progress: fraction * 100,
-      currentTime: fraction * file.duration
-    });
-
-    file.currentTime = fraction * file.duration;
-  }
-
-  handleFileLoad(file) {
-    const { update } = this.props; // eslint-disable-line no-shadow
-
-    // Preload file
-    file.setAttribute('preload', 'auto');
-
-    const onLoadeddata = () => {
-      // Default current time to zero. This will change
-      file.currentTime = 0; // eslint-disable-line no-param-reassign
-
-      update({
-        duration: file.duration
-      });
-    };
-
-    const onTimeupdate = () => {
-      const progress = (
-        file.currentTime /
-        file.duration * 100
-      );
-
-      update({
-        progress,
-        currentTime: file.currentTime,
-        isPlaying: !file.paused
-      });
-    };
-
-    const onEnded = () => {
-      const { shouldRepeat, shouldContinuous, shouldRandom} = this.props;
-
-      if (shouldRepeat) {
-        file.pause();
-        file.currentTime = 0; // eslint-disable-line no-param-reassign
-        file.play();
-      } else if (shouldContinuous) {
-        const { surah, surahs, qari } = this.props; // eslint-disable-line no-shadow
-        this.props.load({surah: Object.values(surahs)[surah.id], qari: qari});
-      } else if (shouldRandom) {
-        const {surahs, qari } = this.props; // eslint-disable-line no-shadow
-        const randomSurah = Math.floor(Math.random() * (113 + 1));
-        this.props.load({surah: Object.values(surahs)[randomSurah ], qari: qari});
-      } else {
-        if (file.readyState >= 3 && file.paused) {
-          file.pause();
-        }
-
-        update({
-          surah: null,
-          isPlaying: false
-        });
-      }
-    };
-
-    const onPlay = () => {};
-
-    file.onloadeddata = onLoadeddata;
-    file.ontimeupdate = onTimeupdate;
-    file.onplay = onPlay;
-    file.onended = onEnded;
-  }
   renderPlayStopButtons() {
     const { isPlaying, playPause, file } = this.props; // eslint-disable-line no-shadow
     if (file.readyState < 4) {
@@ -173,7 +99,7 @@ class MobilePlayer extends Component {
     return (
       <i
         onClick={() => !disabled && next({ surahs: Object.values(surahs) })}
-         className={`pointer fa fa-fast-forward fa-lg ${disabled && style.disabled} ${style.next}`}
+        className={`pointer fa fa-fast-forward fa-lg ${disabled && style.disabled} ${style.next}`}
         />
     );
   }
@@ -204,7 +130,7 @@ class MobilePlayer extends Component {
           htmlFor="repeat"
           className={`pointer`}
           onClick={random}
-        >
+          >
           <i className={`fa fa-random ${style.random}`} />
         </label>
       </div>
@@ -217,29 +143,29 @@ class MobilePlayer extends Component {
     const validFileTiming = file && !isNaN(file.duration);
     if (!surah) return false;
     return (
-          <div className={`${style.audioplayer} ${isOpen}`}>
-              <i onClick={() => this.setState({open: !this.state.open})} className={`fa fa-chevron-up ${style.chevron}`} aria-hidden="true"></i>
-              <h2 className={style.qariName}>{qari && qari.name}</h2>
-              <h3 className={style.surahName}>{`Surat ${surah.name.simple}`}</h3>
-              <div className={style.surahMisc}>
-                <p> سورة {surah.name.arabic}</p>
-              </div>
-              <div className={style.controls}>
-                <ul className={style.timeline}>
-                    <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.currentTime) : '00:00'}</li>
-                      <li className={style.track}><Track simple={false} progress={validFileTiming ? progress : 0} onTrackChange={this.handleTrackChange} style={{background: '#5b5b5b'}} /></li>
-                      <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.duration) : '00:00'}</li>
-                </ul>
-                <div className={style.controlActions}>
-                    {this.renderRandomButton()}
-                    {this.renderPreviousButton()}
-                    {this.renderPlayStopButtons()}
-                    {this.renderNextButton()}
-                    {this.renderRepeatButton()}
-                </div>
-              </div>
+      <div className={`${style.audioplayer} ${isOpen}`}>
+        <i onClick={() => this.setState({ open: !this.state.open })} className={`fa fa-chevron-up ${style.chevron}`} aria-hidden="true"></i>
+        <h2 className={style.qariName}>{qari && qari.name}</h2>
+        <h3 className={style.surahName}>{`Surat ${surah.name.simple}`}</h3>
+        <div className={style.surahMisc}>
+          <p> سورة {surah.name.arabic}</p>
+        </div>
+        <div className={style.controls}>
+          <ul className={style.timeline}>
+            <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.currentTime) : '00:00'}</li>
+            <li className={style.track}><Track simple={false} progress={validFileTiming ? progress : 0} onTrackChange={this.handleTrackChange} style={{ background: '#5b5b5b' }} /></li>
+            <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.duration) : '00:00'}</li>
+          </ul>
+          <div className={style.controlActions}>
+            {this.renderRandomButton()}
+            {this.renderPreviousButton()}
+            {this.renderPlayStopButtons()}
+            {this.renderNextButton()}
+            {this.renderRepeatButton()}
           </div>
-      );
+        </div>
+      </div>
+    );
   }
 }
 
