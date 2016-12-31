@@ -76,7 +76,7 @@ class MobilePlayer extends Component {
       return <i onClick={playPause} className={`text-primary pointer fa fa-pause-circle ${!file && style.disabled} ${style.playPause}`} />;
     }
 
-    return <i onClick={playPause} className={`text-primary pointer fa fa-play-circle${!file && style.disabled} ${style.playPause}`} />;
+    return <i onClick={playPause} className={`text-primary pointer fa fa-play-circle ${!file && style.disabled} ${style.playPause}`} />;
   }
 
   renderPreviousButton() {

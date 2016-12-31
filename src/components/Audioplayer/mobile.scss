@@ -49,6 +49,15 @@ $brand-color: #2CA4AB;
         top: -4px;
     }
 
+    .playPauseButton {
+        position: absolute;
+        float: left;
+        text-align: right;
+        right: 14px;
+        font-size: 50px;
+        bottom: 10px;
+    }
+
     .surahName {
         font-size: 16px;
         color: #1e1e1e;
@@ -167,5 +176,9 @@ $brand-color: #2CA4AB;
     .isLoading {
         font-size: 8px;
         margin: 15px 5px 15px 5px;
+    }
+
+    .chevronLoading {
+        font-size: 2px;
     }
 }
