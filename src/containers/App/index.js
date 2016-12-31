@@ -4,12 +4,13 @@ import Helmet from 'react-helmet';
 
 import Link from 'react-router/lib/Link';
 import Audioplayer from 'components/Audioplayer';
+import AudioplayerMobile from 'components/Audioplayer/MobilePlayer';
 import Nav from 'components/Nav';
 import config from '../../config';
 import { loadAll as loadQaris } from 'actions/qaris';
 import { loadAll as loadSections } from 'actions/sections';
 import { loadAll as loadSurahs } from 'actions/surahs';
-import {isHome } from '../../utils';
+import { isHome, isMobile } from '../../utils';
 const styles = require('./style.scss');
 
 class App extends Component {
@@ -23,12 +24,23 @@ class App extends Component {
     router: React.PropTypes.object.isRequired
   };
 
+  state = {
+    isMobile: isMobile()
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', () => {
+      this.setState({isMobile: isMobile()});
+    });
+  }
+
   render() {
     const childrenWithProps = React.Children.map(this.props.children,
       (child) => React.cloneElement(child, {
         context: this.context
       })
     );
+
     return (
       <div className={styles.app}>
         <Helmet {...config.app.head}/>
@@ -39,9 +51,7 @@ class App extends Component {
         </div>
         <div className={styles.appContent}>
           {childrenWithProps}
-          <div className={styles.audioplayer}>
-            <Audioplayer />
-          </div>
+          {this.state.isMobile ? <AudioplayerMobile /> : <Audioplayer />}
         </div>
       </div>
     );

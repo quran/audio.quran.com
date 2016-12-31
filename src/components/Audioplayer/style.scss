@@ -1,6 +1,15 @@
 @import "../../styles/variables.scss";
 @import "../../styles/loading.scss";
 
+.audioplayer {
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: #fff;
+  z-index: 11;
+}
+
 .controls{
   margin: 0px;
 

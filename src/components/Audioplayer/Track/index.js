@@ -7,7 +7,8 @@ export default class Track extends Component {
     progress: PropTypes.number.isRequired,
     onTrackChange: PropTypes.func,
     simple: PropTypes.bool,
-    style: PropTypes.object
+    style: PropTypes.object,
+    progressStyle: PropTypes.object
   };
 
   handleClick = (event) => {
@@ -30,14 +31,14 @@ export default class Track extends Component {
   }
 
   render() {
-    const { progress, simple, style } = this.props;
-
+    const { progress, simple, style, progressStyle} = this.props;
+    const progressStyleObject = Object.assign({}, { width: `${progress}%` }, progressStyle);
     return (
       <div ref="container" className={styles.container}
         onMouseEnter={this.handleMouse}
         onMouseLeave={this.handleMouse}
         onClick={this.handleClick} style={style}>
-        <div className={`${styles.progress} ${simple ? styles.simple : ''}`} style={{ width: `${progress}%` }} />
+        <div className={`${styles.progress} ${simple ? styles.simple : ''}`} style={progressStyleObject} />
       </div>
     );
   }

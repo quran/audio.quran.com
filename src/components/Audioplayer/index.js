@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-
+import Common from './CommonAudio';
 import {
   load,
   play,
@@ -56,6 +56,12 @@ class Audioplayer extends Component {
     duration: PropTypes.number
   };
 
+  constructor(props) {
+    super(props);
+    this.handleTrackChange = Common.handleTrackChange.bind(this);
+    this.handleFileLoad = Common.handleFileLoad.bind(this);
+    this.handleRemoveFileListeneres = Common.handleRemoveFileListeneres.bind(this);
+  }
   componentWillReceiveProps(nextProps) {
     if (this.props.surah !== nextProps.surah || this.props.qari !== nextProps.qari) {
       this.handleFileLoad(nextProps.file);
@@ -63,97 +69,10 @@ class Audioplayer extends Component {
     }
   }
 
-  handleRemoveFileListeneres(file) {
-    if (file) {
-      file.pause();
-      file.onloadeddata = null;
-      file.ontimeupdate = null;
-      file.onplay = null;
-      file.onended = null;
-    }
-  }
-
-  handleTrackChange = (fraction) => {
-    const { file, update } = this.props; // eslint-disable-line no-shadow
-
-    update({
-      progress: fraction * 100,
-      currentTime: fraction * file.duration
-    });
-
-    file.currentTime = fraction * file.duration;
-  }
-
-  handleFileLoad(file) {
-    const { update } = this.props; // eslint-disable-line no-shadow
-
-    // Preload file
-    file.setAttribute('preload', 'auto');
-
-    const onLoadeddata = () => {
-      // Default current time to zero. This will change
-      file.currentTime = 0; // eslint-disable-line no-param-reassign
-
-      update({
-        duration: file.duration
-      });
-    };
-
-    const onTimeupdate = () => {
-      const progress = (
-        file.currentTime /
-        file.duration * 100
-      );
-
-      update({
-        progress,
-        currentTime: file.currentTime,
-        isPlaying: !file.paused
-      });
-    };
-
-    const onEnded = () => {
-      const { shouldRepeat, shouldContinuous, shouldRandom} = this.props;
-
-      if (shouldRepeat) {
-        file.pause();
-        file.currentTime = 0; // eslint-disable-line no-param-reassign
-        file.play();
-      } else if (shouldContinuous) {
-        const { surah, surahs, qari } = this.props; // eslint-disable-line no-shadow
-        this.props.load({surah: Object.values(surahs)[surah.id], qari: qari});
-      } else if (shouldRandom) {
-        const {surahs, qari } = this.props; // eslint-disable-line no-shadow
-        const randomSurah = Math.floor(Math.random() * (113 + 1));
-        this.props.load({surah: Object.values(surahs)[randomSurah ], qari: qari});
-      } else {
-        if (file.readyState >= 3 && file.paused) {
-          file.pause();
-        }
-
-        update({
-          surah: null,
-          isPlaying: false
-        });
-      }
-    };
-
-    const onPlay = () => {};
-
-    file.onloadeddata = onLoadeddata;
-    file.ontimeupdate = onTimeupdate;
-    file.onplay = onPlay;
-    file.onended = onEnded;
-  }
-
-  renderLoading() {
-    return (<i className=" text-primary loading is-loading"></i>);
-  }
-
   renderPlayStopButtons() {
     const { isPlaying, playPause, file } = this.props; // eslint-disable-line no-shadow
     if (file.readyState < 4) {
-      return this.renderLoading();
+      return (<i className=" text-primary loading is-loading"></i>);
     }
 
     if (isPlaying && file.readyState >= 4) {
@@ -230,54 +149,56 @@ class Audioplayer extends Component {
     }
 
     return (
-      <Row>
-        <Col md={12}>
-          <Track
-            progress={progress}
-            onTrackChange={this.handleTrackChange}
-          />
-          <Grid fluid>
-            <Row>
-              <Col md={5} mdOffset={1} xs={12}>
-                <ul className={`list-inline vertical-align ${styles.controls}`}>
-                  {[this.renderPreviousButton(), this.renderPlayStopButtons(), this.renderNextButton()].map((item, index) => (
-                    <li className={styles.controlsItem} key={index}>
-                      {item}
-                     </li>
-                    ))}
-                  <li className={`text-left ${styles.name}`}>
-                  {
-                    qari && surah ?
-                    <h4>
-                      {cleanUpBrackets(qari.name)}
-                      <br />
-                      <small className={styles.surahName}>
-                        {surah.name.simple} ({surah.name.english})
-                      </small>
-                    </h4> :
-                    <h4>
-                      --
-                      <br />
-                      <small>
+      <div className={styles.audioplayer}>
+        <Row>
+          <Col md={12}>
+            <Track
+              progress={progress}
+              onTrackChange={this.handleTrackChange}
+            />
+            <Grid fluid>
+              <Row>
+                <Col md={5} mdOffset={1} xs={12}>
+                  <ul className={`list-inline vertical-align ${styles.controls}`}>
+                    {[this.renderPreviousButton(), this.renderPlayStopButtons(), this.renderNextButton()].map((item, index) => (
+                      <li className={styles.controlsItem} key={index}>
+                        {item}
+                      </li>
+                      ))}
+                    <li className={`text-left ${styles.name}`}>
+                    {
+                      qari && surah ?
+                      <h4>
+                        {cleanUpBrackets(qari.name)}
+                        <br />
+                        <small className={styles.surahName}>
+                          {surah.name.simple} ({surah.name.english})
+                        </small>
+                      </h4> :
+                      <h4>
                         --
-                      </small>
-                    </h4>
-                  }
-                  </li>
-                </ul>
-              </Col>
-              <Col md={6} className={`text-center ${styles.infoContainer}`}>
-                <ul className={`list-inline vertical-align ${styles.info}`}>
-                  <li>{!isNaN(file.duration) ? <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span> : ''}</li>
-                  <li>{this.renderRandomButton()}</li>
-                  <li>{this.renderRepeatButton()}</li>
-                </ul>
-                <p className={styles.surahNameEnglish}>{surah.name.simple} ({surah.name.english})</p>
-              </Col>
-            </Row>
-          </Grid>
-        </Col>
-      </Row>
+                        <br />
+                        <small>
+                          --
+                        </small>
+                      </h4>
+                    }
+                    </li>
+                  </ul>
+                </Col>
+                <Col md={6} className={`text-center ${styles.infoContainer}`}>
+                  <ul className={`list-inline vertical-align ${styles.info}`}>
+                    <li>{!isNaN(file.duration) ? <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span> : ''}</li>
+                    <li>{this.renderRandomButton()}</li>
+                    <li>{this.renderRepeatButton()}</li>
+                  </ul>
+                  <p className={styles.surahNameEnglish}>{surah.name.simple} ({surah.name.english})</p>
+                </Col>
+              </Row>
+            </Grid>
+          </Col>
+        </Row>
+      </div>
     );
   }
 }

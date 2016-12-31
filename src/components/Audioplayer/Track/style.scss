@@ -1,3 +1,5 @@
+@import "../../../styles/variables.scss";
+
 .container{
   height: 7px;
   width: 100%;
@@ -30,11 +32,14 @@
     top: -4px;
     box-shadow: 0 1px 2px rgba(0,0,0,0.45);
     transition:opacity 0.1s ease-in-out;
+    @include mobile() {
+      opacity: 1;
+      top: -6px;
+    }
   }
 }
 
 .activeHover .progress:after {
-
   opacity:1;
 }
 

@@ -3,7 +3,7 @@
     "username": "quran_dev",
     "password": null,
     "database": "audio_quran",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "postgres"
   },
   "test": {

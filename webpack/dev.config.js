@@ -1,10 +1,8 @@
 require('dotenv').load();
-var fs = require('fs');
-var path = require('path');
-var webpack = require('webpack');
-var path = require('path');
-var IsomorphicPlugin = require('webpack-isomorphic-tools/plugin');
-var webpackIsomorphicToolsPlugin = new IsomorphicPlugin(require('./isomorphic-tools-configuration'));
+const path = require('path');
+const webpack = require('webpack');
+const IsomorphicPlugin = require('webpack-isomorphic-tools/plugin');
+const webpackIsomorphicToolsPlugin = new IsomorphicPlugin(require('./isomorphic-tools-configuration'));
 
 module.exports = {
   context: path.join(process.env.PWD, './'),
@@ -56,9 +54,6 @@ module.exports = {
       { test: /\.scss$/, loader: 'style!css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]!autoprefixer?browsers=last 2 version!sass?outputStyle=expanded&sourceMap' }
     ]
   },
-  node: {
-    setImmediate: false
-  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
@@ -94,6 +89,7 @@ module.exports = {
   node: {
     console: true,
     fs: 'empty',
+    setImmediate: false,
     net: 'empty',
     tls: 'empty'
   }
