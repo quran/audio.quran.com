@@ -58,6 +58,8 @@ $brand-color: #2CA4AB;
         z-index: 1;
         margin-top: 10px;
         left: 15px;
+        position: relative;
+        top: 10px;
         
     }
 
@@ -86,7 +88,7 @@ $brand-color: #2CA4AB;
         bottom: 0;
         position: relative;
         width: 100%;
-        top: 35%;
+        top: 40%;
 
         @include desktop() {
 
