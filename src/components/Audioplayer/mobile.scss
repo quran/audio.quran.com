@@ -32,10 +32,6 @@ $brand-color: #2CA4AB;
         & .chevron {
             transform: rotate(180deg);
         }  
-
-        & .surahName {
-            line-height: 5px;
-        }
     }
 
     .qariName {
@@ -50,8 +46,8 @@ $brand-color: #2CA4AB;
         margin-bottom: 0;
         z-index: 1;
         left: 15px;
+        top: -4px;
     }
-    
 
     .surahName {
         font-size: 16px;
@@ -65,7 +61,7 @@ $brand-color: #2CA4AB;
     }
 
     .controlersContainer {
-        height: 100%;
+        height: 90%;
     }
 
     .surahMisc {
