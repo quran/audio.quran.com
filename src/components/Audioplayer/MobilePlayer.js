@@ -139,31 +139,43 @@ class MobilePlayer extends Component {
 
   render() {
     const { qari, surah, progress, file } = this.props; // eslint-disable-line no-shadow, react/prop-types
+    const { open } = this.state;
     const isOpen = this.state.open ? style.active : false;
     const validFileTiming = file && !isNaN(file.duration);
     if (!surah) return false;
+    const openPlayer = () => {
+      if (open) {
+        document.body.style.overflowY = 'hidde';
+      } else {
+        document.body.style.overflowY = 'auto';
+      }
+      this.setState({ open: !open });
+    };
     return (
       <div className={`${style.audioplayer} ${isOpen}`}>
-        <i onClick={() => this.setState({ open: !this.state.open })} className={`fa fa-chevron-up ${style.chevron}`} aria-hidden="true"></i>
+        <i onClick={openPlayer} className={`fa fa-chevron-up ${style.chevron}`} aria-hidden="true"></i>
         <h2 className={style.qariName}>{qari && qari.name}</h2>
         <h3 className={style.surahName}>{`Surat ${surah.name.simple}`}</h3>
-        <div className={style.surahMisc}>
-          <p> سورة {surah.name.arabic}</p>
-        </div>
-        <div className={style.controls}>
-          <ul className={style.timeline}>
-            <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.currentTime) : '00:00'}</li>
-            <li className={style.track}><Track simple={false} progress={validFileTiming ? progress : 0} onTrackChange={this.handleTrackChange} style={{ background: '#5b5b5b' }} /></li>
-            <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.duration) : '00:00'}</li>
-          </ul>
-          <div className={style.controlActions}>
-            {this.renderRandomButton()}
-            {this.renderPreviousButton()}
-            {this.renderPlayStopButtons()}
-            {this.renderNextButton()}
-            {this.renderRepeatButton()}
+        {open && <div className={style.controlersContainer}>
+          <div className={style.surahMisc}>
+            <p> سورة {surah.name.arabic}</p>
           </div>
-        </div>
+          <div className={style.controls}>
+            <ul className={style.timeline}>
+              <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.currentTime) : '00:00'}</li>
+              <li className={style.track}><Track simple={false} progress={validFileTiming ? progress : 0} onTrackChange={this.handleTrackChange} style={{ background: '#5b5b5b' }} /></li>
+              <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.duration) : '00:00'}</li>
+            </ul>
+            <div className={style.controlActions}>
+              {this.renderRandomButton()}
+              {this.renderPreviousButton()}
+              {this.renderPlayStopButtons()}
+              {this.renderNextButton()}
+              {this.renderRepeatButton()}
+            </div>
+          </div>
+          </div>
+      }
       </div>
     );
   }

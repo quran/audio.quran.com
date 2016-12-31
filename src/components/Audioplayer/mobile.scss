@@ -1,4 +1,5 @@
 @import "../../styles/variables.scss";
+@import "../../styles/mixins";
 @import "../../styles/loading.scss";
 
 $easing: cubic-bezier(0.47, 0, 0.745, 0.715);
@@ -21,8 +22,8 @@ $brand-color: #2CA4AB;
         z-index: 2;
         font-size: 30px;
         position: absolute;
-        left: 22px;
-        top: 27px;
+        left: 15px;
+        top: 20px;
         transition: all .8s $easing;
     }
 
@@ -60,6 +61,10 @@ $brand-color: #2CA4AB;
         
     }
 
+    .controlersContainer {
+        height: 100%;
+    }
+
     .surahMisc {
         border-radius: 20px;
         background-color: #666666;
@@ -71,7 +76,7 @@ $brand-color: #2CA4AB;
         align-items: center;
         position: relative;
         top: 20%;
-        font-size: 35px;
+        font-size: 40px;
     }
 
     .controls {
@@ -82,6 +87,10 @@ $brand-color: #2CA4AB;
         position: relative;
         width: 100%;
         top: 35%;
+
+        @include desktop() {
+
+        }
 
         .timeline {
             list-style: none;
