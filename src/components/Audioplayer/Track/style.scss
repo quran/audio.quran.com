@@ -34,7 +34,7 @@
     transition:opacity 0.1s ease-in-out;
     @include mobile() {
       opacity: 1;
-      top: -6px;
+      top: -4px;
     }
   }
 }
