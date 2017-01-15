@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Track from './Track';
 import Common from './CommonAudio';
+import { disableScroll, enableScroll } from 'utils/scroll';
 import {
   load,
   play,
@@ -149,9 +150,9 @@ class MobilePlayer extends Component {
     if (!surah) return false;
     const openPlayer = () => {
       if (open) {
-        document.body.style.overflowY = 'hidde';
+        enableScroll();
       } else {
-        document.body.style.overflowY = 'auto';
+        disableScroll();
       }
       this.setState({ open: !open });
     };
