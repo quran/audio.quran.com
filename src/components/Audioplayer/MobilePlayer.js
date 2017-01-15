@@ -150,9 +150,15 @@ class MobilePlayer extends Component {
     if (!surah) return false;
     const openPlayer = () => {
       if (open) {
+<<<<<<< HEAD
         enableScroll();
       } else {
         disableScroll();
+=======
+        document.body.style.overflowY = 'hidde';
+      } else {
+        document.body.style.overflowY = 'auto';
+>>>>>>> open on play and surah change
       }
       this.setState({ open: !open });
     };
