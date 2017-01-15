@@ -61,7 +61,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    
+
 
    & .list-inline {
      margin-bottom: 0;
@@ -80,7 +80,7 @@
   :global(i){
     vertical-align: bottom;
 
-   
+
   }
    @include mobile() {
       font-size: 20px
@@ -93,6 +93,6 @@
 
 .disabled{
   opacity: 0.5;
-  cursor: not-allowed !important;
+  cursor: not-allowed;
 }
 

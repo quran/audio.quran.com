@@ -15,7 +15,7 @@ $brand-color: #2CA4AB;
     display: flex;
     flex-direction: column;
     font-family: Montserrat;
-    transition: all .8s $easing;
+    transition: all .3s $easing;
     border-top: 5px solid #2CA4AB;
 
     .chevron {
@@ -24,14 +24,14 @@ $brand-color: #2CA4AB;
         position: absolute;
         left: 15px;
         top: 20px;
-        transition: all .8s $easing;
+        transition: all .3s $easing;
     }
 
     &.active {
      height: 100%;
         & .chevron {
             transform: rotate(180deg);
-        }  
+        }
     }
 
     .qariName {
