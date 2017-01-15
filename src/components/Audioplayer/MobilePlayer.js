@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Track from './Track';
 import Common from './CommonAudio';
-import { disableScroll, enableScroll } from 'utils/scroll';
 import { cleanUpBrackets } from 'utils/cleanUp';
 import {
   load,
@@ -151,11 +150,11 @@ class MobilePlayer extends Component {
     if (!surah) return false;
     const openPlayer = () => {
       if (open) {
-        document.querySelector('html').style.overflow = 'hidden';
-        enableScroll();
-      } else {
         document.querySelector('html').style.overflow = 'initial';
-        disableScroll();
+        document.querySelector('html').style.position = 'initial  ';
+      } else {
+        document.querySelector('html').style.position = 'fixed';
+        document.querySelector('html').style.overflow = 'hidden';
       }
       this.setState({ open: !open });
     };
