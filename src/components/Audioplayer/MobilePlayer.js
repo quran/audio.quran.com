@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Track from './Track';
 import Common from './CommonAudio';
 import { disableScroll, enableScroll } from 'utils/scroll';
+import { cleanUpBrackets } from 'utils/cleanUp';
 import {
   load,
   play,
@@ -158,9 +159,11 @@ class MobilePlayer extends Component {
     };
     return (
       <div className={`${style.audioplayer} ${isOpen}`}>
-        <i onClick={openPlayer} className={`fa fa-chevron-up ${style.chevron}`} alt="click to toggle" aria-hidden="true"></i>
-        <h2 className={style.qariName}>{qari && qari.name}</h2>
-        <h3 className={style.surahName}>{`Surat ${surah.name.simple}`}</h3>
+        <div onClick={openPlayer}>
+          <i onClick={openPlayer} className={`fa fa-chevron-up ${style.chevron}`} alt="click to toggle" aria-hidden="true"></i>
+          <h2 className={style.qariName}>{qari && cleanUpBrackets(qari.name)}</h2>
+          <h3 className={style.surahName}>{`Surat ${surah.name.simple}`}</h3>
+        </div>
         {open && <div className={style.controlersContainer}>
           <div className={style.surahMisc}>
             <p> سورة {surah.name.arabic}</p>
