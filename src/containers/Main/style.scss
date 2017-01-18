@@ -74,13 +74,14 @@
 }
 
 
-.aboutContainer {
+.page{
   position: relative;
   background: white;
   @include mobile() {
     top: 10px;
+    margin: 0 5%;
   }
-  margin: 0 10px;
+  margin: 0 20%;
 }
 
 .goTop {
