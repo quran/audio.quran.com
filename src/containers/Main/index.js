@@ -53,7 +53,7 @@ class Home extends Component {
       <div>
         <Header />
           <div className={`row ${styles.container}`}>
-            <Col md={12} className={styles.pills}>
+            <div className={styles.pills}>
               <Nav bsStyle="pills" justified activeKey={section} onSelect={this.handleSelect} className="home-nav-pills">
                 {
                   Object.values(sections).map(currentSection => (
@@ -61,7 +61,7 @@ class Home extends Component {
                   ))
                 }
               </Nav>
-            </Col>
+            </div>
             <Col md={12}>
               <div className={'row'}>
                 {formated.map((item, index) => <QarisList key={index} data={item} section={section} />)}
