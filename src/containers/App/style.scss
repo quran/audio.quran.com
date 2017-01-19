@@ -1,3 +1,4 @@
+@import "../../styles/globals.scss";
 @import "../../styles/variables.scss";
 .app {
   .brand {
@@ -12,7 +13,7 @@
     margin: 0 10px 0 0;
     border-radius: $size / 2;
   }
-  
+
   margin-bottom: 20px;
 
   nav :global(.fa) {
@@ -31,8 +32,8 @@
 
 .appContent {
   margin-top: -75px;
-  padding-bottom: 6rem;
-  margin-bottom: 150px;
+  // padding-bottom: 6rem;
+  // margin-bottom: 150px;
 }
 .link {
   color: white;

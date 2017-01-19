@@ -1,150 +1,147 @@
 @import "../../styles/variables.scss";
-
 .header {
-  background-color: $brand-primary;
-  background: url('../../../static/images/index-bg.jpg') center center no-repeat;
-  background-size: cover;
-  height: 300px;
-  color: #fff;
-
-  @media(max-width: $screen-sm){
-    height: 30vh;
-    padding: 1px;
-
-    &.fixed {
-      position: fixed;
-      top: 0px;
-      width:100%;
-      height: 120px;
-      background: #009faa;
-      color: #FFF;
-      font-size: 23px;
-      padding-top: 50px;
-      transition: height 0.3s linear 0s, padding 0.3s linear 0s;
-      overflow:hidden;
+    background-color: $brand-primary;
+    background: url('../../../static/images/index-bg.jpg') center center no-repeat;
+    background-size: cover;
+    height: 300px;
+    color: #fff;
+    @media(max-width: $screen-sm) {
+        height: 30vh;
+        padding: 1px;
+        &.fixed {
+            position: fixed;
+            top: 0px;
+            width: 100%;
+            height: 120px;
+            background: #009faa;
+            color: #FFF;
+            font-size: 23px;
+            padding-top: 50px;
+            transition: height 0.3s linear 0s, padding 0.3s linear 0s;
+            overflow: hidden;
+        }
     }
-  }
 }
 
 .header__text {
-  @media (max-width: $screen-sm) {
-    margin-top: 15%;
-  }
+    @media (max-width: $screen-sm) {
+        margin-top: 15%;
+    }
 }
 
 .heading {
-  font-family: 'Montserrat-Bold';
-  font-size: 48px;
-  margin-top: 80px;
-  left: 0;
-  position: relative;
+    font-family: 'Montserrat-Bold';
+    font-size: 48px;
+    margin-top: 80px;
+    left: 0;
+    position: relative;
 }
 
 .heading__link {
-  text-decoration: none;
-  color: #FFFFFF;
+    text-decoration: none;
+    color: #FFFFFF;
 }
 
 .container {
-  position: relative;
-  background: white;
-  bottom: 75px;
-  top: -75px;
-  @include mobile() {
-    top: 10px;
-  }
+    position: relative;
+    background: white;
+    bottom: 75px;
+    top: -75px;
+    position: relative;
+    left: 0%;
+    width: 1180px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    @include mobile() {
+        top: 10px;
+    }
 }
 
 .downloadLink {
-  font-weight: 600;
-  font-size: 20px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  border: 2px solid $brand-primary;
-  position: relative;
-  top: 50px;
-  text-decoration: none;
-
-  &:hover {
-    background: $brand-primary;
-    color: white;
-  }
+    font-weight: 600;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    border: 2px solid $brand-primary;
+    position: relative;
+    top: 50px;
+    text-decoration: none;
+    &:hover {
+        background: $brand-primary;
+        color: white;
+    }
 }
 
-
-.page{
-  position: relative;
-  background: white;
-  @include mobile() {
-    top: 10px;
-    margin: 0 5%;
-  }
-  margin: 0 20%;
+.page {
+    position: relative;
+    background: white;
+    @include mobile() {
+        top: 10px;
+        margin: 0 5%;
+    }
+    margin: 0 20%;
 }
 
 .goTop {
-  text-align: center;
-  font-size: 15px;
-  margin-right: 10px;
-  float: right;
-  width: 100%;
-  &:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  @include mobile() {
-    font-size: 20px;
-  }
-}
-
-.pills{
-  padding-top: 1rem;
-  padding-bottom: 1.5rem;
-
-  .pillsItem {
-    font-size: 16px;
-    &:hover {
-      background-color: $hover-grey;
-    }
-  }
-}
-
-.reciter{
-  height: 150px;
-  display: block;
-  color: #fff;
-  position: relative;
-  margin-top: 15px;
-  margin-bottom: 15px;
-
-  &:hover{
-    color: #fff;
-
-    .overlay{
-      background: rgba(0,0,0,0.25);
-    }
-  }
-
-  .text{
     text-align: center;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    font-size: 15px;
+    margin-right: 10px;
+    float: right;
     width: 100%;
-    font-size: 2rem;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+    @include mobile() {
+        font-size: 20px;
+    }
+}
 
-  .overlay{
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    background: rgba(0,0,0,0.65);
-    transition: all 0.5s;
-  }
+.pills {
+    padding-top: 1rem;
+    padding-bottom: 1.5rem;
+    .pillsItem {
+        font-size: 16px;
+        &:hover {
+            background-color: $hover-grey;
+        }
+    }
+}
+
+.reciter {
+    height: 150px;
+    display: block;
+    color: #fff;
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    &:hover {
+        color: #fff;
+        .overlay {
+            background: rgba(0, 0, 0, 0.25);
+        }
+    }
+    .text {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        font-size: 2rem;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .overlay {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background: rgba(0, 0, 0, 0.65);
+        transition: all 0.5s;
+    }
 }

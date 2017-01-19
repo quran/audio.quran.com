@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import Grid from 'react-bootstrap/lib/Grid';
-import Row from 'react-bootstrap/lib/Row';
+// import Grid from 'react-bootstrap/lib/Grid';
 import Col from 'react-bootstrap/lib/Col';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
-import formatQarisByLetter from '../../utils/formatQarisByLetter';
-import QarisList from '../../components/QarisList';
-import Header from '../../components/Header';
+import formatQarisByLetter from 'utils/formatQarisByLetter';
+import QarisList from 'components/QarisList';
+import Header from 'components/Header';
 
 const styles = require('./style.scss');
 
@@ -53,8 +52,7 @@ class Home extends Component {
     return (
       <div>
         <Header />
-        <Grid>
-          <Row className={styles.container}>
+          <div className={`row ${styles.container}`}>
             <Col md={12} className={styles.pills}>
               <Nav bsStyle="pills" justified activeKey={section} onSelect={this.handleSelect} className="home-nav-pills">
                 {
@@ -65,13 +63,12 @@ class Home extends Component {
               </Nav>
             </Col>
             <Col md={12}>
-              <Row>
+              <div className={'row'}>
                 {formated.map((item, index) => <QarisList key={index} data={item} section={section} />)}
-              </Row>
+              </div>
             </Col>
             <span className={styles.goTop} onClick={() => window.scrollTo(0, 0)}>Go to the top <i className="fa fa-chevron-up"></i></span>
-          </Row>
-        </Grid>
+          </div>
       </div>
     );
   }
