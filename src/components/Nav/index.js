@@ -1,10 +1,7 @@
 import React from 'react';
-// import Nav from 'react-bootstrap/lib/Nav';
-// import NavItem from 'react-bootstrap/lib/NavItem';
 const styles = require('./styles.scss');
 
 export default ({section, sections, handleSelect}) => {
-  console.log(handleSelect);
   return (
       <ul className={styles.pills__container}>
         {

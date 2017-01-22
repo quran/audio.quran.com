@@ -1,5 +1,5 @@
-$screen-sm:                  768px !default;
-$screen-md:                  992px !default;
+$screen-sm:                  999px !default;
+$screen-md:                  1000px !default;
 
 @mixin mobile($mobile-break-point: $screen-sm) {
   @media(max-width: $mobile-break-point){

@@ -19,15 +19,13 @@
             background-color: $hover-grey;
         }
         text-align: center;
+        letter-spacing: 1px;
         margin-bottom: 5px;
-        margin-left: 2px;
-        padding-bottom: 24px;
-        padding-left: 51px;
+        padding-top: 5vh;
+        padding-bottom: 4vh;
+        padding-left: 20px;
         padding-right: 42px;
-        padding-top: 27px;
-        @include desktop() {
-            border-bottom: 1px solid #F0F0F0;
-        }
+        border-bottom: 1px solid #F0F0F0;
         @include mobile() {
             padding-top: 10px;
             padding-right: 15px;
