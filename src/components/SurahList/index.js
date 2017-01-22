@@ -7,7 +7,6 @@ import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import formatSeconds from 'utils/formatSeconds';
 const styles = require('./styles.scss');
-console.log(styles.options);
 export default ({surahs, qari, files, progress, currentSurah, isPlaying, currentQari, currentTime, handleSurahSelection }) => {
   const currentSurahTime = (surah) => {
     return (surah.id === currentSurah.id) ? `${formatSeconds(currentTime)} / ` : '';

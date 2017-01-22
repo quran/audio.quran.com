@@ -1,9 +1,10 @@
 @import "../../styles/variables.scss";
 .reciterBackground {
     background-size: cover;
-    min-height: 250px;
-    color: #fff;
+    height: 300px;
+    background: #009faa;
     padding-top: 8rem;
+    color: #ffffff;
     padding-bottom: 5rem;
     background-color: $brand-primary;
     margin-left: -15px;
@@ -23,7 +24,7 @@
     margin-left: 5px;
     &:hover {
         background: $brand-primary;
-        color: white;
+        color: #ffffff;
     }
 }
 
@@ -34,14 +35,14 @@
 
 .button {
     border-radius: 50px;
-    border-color: white;
+    border-color: #ffffff;
     border-width: 2px;
     margin-right: 10px;
     padding: 10px 30px;
     user-select: inherit;
     &.shuffleAll {
-        border-color: white;
-        background: white;
+        border-color: #ffffff;
+        background: #ffffff;
         color: $brand-primary;
     }
     &:focus {
@@ -56,8 +57,8 @@
         padding-right: 10px;
     }
     &:hover {
-        border-color: white;
-        background: #FFF;
+        border-color: #ffffff;
+        background: #ffffff;
         color: $brand-primary;
     }
 }
@@ -66,7 +67,7 @@
     margin-left: 25%;
     width: 50%;
     a {
-        color: white;
+        color: #ffffff;
         text-decoration: underline;
     }
     @include mobile() {
