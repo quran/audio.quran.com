@@ -45,7 +45,6 @@ class Qaris extends Component {
     const { surahs, qari, files, currentSurah, shouldRandom, related, qaris } = this.props;
     const { toggleRelated } = this.state;
 
-
     const handleShuffleAll = () => {
       this.props.random();
       if (!shouldRandom) {
