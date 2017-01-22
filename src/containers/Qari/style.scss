@@ -1,15 +1,14 @@
 @import "../../styles/variables.scss";
 .reciterBackground {
     background-size: cover;
-    min-height: 300px;
-    min-height: 30vh;
+    min-height: 250px;
     color: #fff;
     padding-top: 8rem;
     padding-bottom: 5rem;
     background-color: $brand-primary;
     margin-left: -15px;
     margin-right: -15px;
-    @media (max-width: $screen-md) {
+    @include desktop() {
         padding-bottom: 8rem;
     }
 }
