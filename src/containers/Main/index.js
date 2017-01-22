@@ -1,12 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-// import Grid from 'react-bootstrap/lib/Grid';
-import Col from 'react-bootstrap/lib/Col';
-import Nav from 'react-bootstrap/lib/Nav';
-import NavItem from 'react-bootstrap/lib/NavItem';
 import formatQarisByLetter from 'utils/formatQarisByLetter';
 import QarisList from 'components/QarisList';
 import Header from 'components/Header';
+import Nav from 'components/Nav';
 
 const styles = require('./style.scss');
 
@@ -21,7 +18,6 @@ class Home extends Component {
     params: PropTypes.object
 
   };
-
   contextTypes: {
     router: React.PropTypes.func.isRequired
   }
@@ -52,21 +48,11 @@ class Home extends Component {
     return (
       <div>
         <Header />
-          <div className={`row ${styles.container}`}>
-            <div className={styles.pills}>
-              <Nav bsStyle="pills" justified activeKey={section} onSelect={this.handleSelect} className="home-nav-pills">
-                {
-                  Object.values(sections).map(currentSection => (
-                    <NavItem className={styles.pillsItem} key={currentSection.id} eventKey={currentSection.id}>{currentSection.name}</NavItem>
-                  ))
-                }
-              </Nav>
-            </div>
-            <Col md={12}>
-              <div className={'row'}>
+          <div className={`${styles.container}`}>
+            <Nav section={section} sections={sections} handleSelect={this.handleSelect}/>
+            <div md={12} className={styles.qariContainer}>
                 {formated.map((item, index) => <QarisList key={index} data={item} section={section} />)}
-              </div>
-            </Col>
+            </div>
             <span className={styles.goTop} onClick={() => window.scrollTo(0, 0)}>Go to the top <i className="fa fa-chevron-up"></i></span>
           </div>
       </div>

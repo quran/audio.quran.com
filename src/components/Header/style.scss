@@ -25,7 +25,7 @@
 
 .header__text {
     @include mobile() {
-        margin-top: 15%;
+        margin-top: 10vh;
     }
 }
 
@@ -35,11 +35,9 @@
     align-items: center;
     position: relative;
     top: 10%;
-
     @include mobile() {
-      left: 10%;
+        left: 10%;
     }
-
     .heading__text {
         font-family: 'Montserrat-Bold';
         font-size: 48px;

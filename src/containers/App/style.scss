@@ -1,52 +1,74 @@
 @import "../../styles/globals.scss";
 @import "../../styles/variables.scss";
 .app {
-  .brand {
-    position: absolute;
-    $size: 40px;
-    top: 5px;
-    left: 5px;
-    display: inline-block;
-    width: $size;
-    height: $size;
-    background-size: 80%;
-    margin: 0 10px 0 0;
-    border-radius: $size / 2;
-  }
-
-  margin-bottom: 20px;
-
-  nav :global(.fa) {
-    font-size: 2em;
-    line-height: 20px;
-  }
+    .brand {
+        position: absolute;
+        $size: 40px;
+        top: 5px;
+        left: 5px;
+        display: inline-block;
+        width: $size;
+        height: $size;
+        background-size: 80%;
+        margin: 0 10px 0 0;
+        border-radius: $size / 2;
+    }
+    margin-bottom: 20px;
+    nav :global(.fa) {
+        font-size: 2em;
+        line-height: 20px;
+    }
 }
 
 .quran {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .linkContainer {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .appContent {
-  margin-top: -75px;
-  // padding-bottom: 6rem;
-  // margin-bottom: 150px;
+    margin-top: -75px;
 }
-.link {
-  color: white;
-  font-size: 20px;
-  position: relative;
-  margin-left: 30px;
-  font-size: 30px;
-  z-index: 11;
 
-  &.linkRight {
-    left: 0;
+.navContainer {
+    width: 100%;
+    position: absolute;
     float: right;
+    text-align: right;
+    top: 10px;
+    right: 10vw;
+    z-index: 10;
+    @include mobile() {
+        right: 15vw;
+    }
+    li {
+        margin-right: 10px;
+        margin-left: 10px;
+        display: inline;
+        font-size: 16px;
+        a {
+            color: white;
+        }
+    }
+}
+
+.link {
+    color: white;
+    font-size: 20px;
     position: relative;
-    margin-right: 30px;
-  }
+    margin-left: 30px;
+    font-size: 30px;
+    z-index: 11;
+    right: 20px;
+    &.linkBurger {
+        border: 1px solid pink;
+    }
+    &.linkRight {
+        left: 0;
+        float: right;
+        position: relative;
+        margin-right: 30px;
+    }
 }
