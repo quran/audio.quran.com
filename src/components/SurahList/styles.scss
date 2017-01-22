@@ -1,0 +1,81 @@
+@import "../../styles/variables.scss";
+.muted {
+    color: $black;
+}
+
+.options {
+    color: $brand-primary;
+    background: transparent;
+    border-radius: 50px;
+    border-color: #e7e7e7;
+    visibility: hidden;
+    margin-left: 5px;
+    &:hover {
+        background: $brand-primary;
+        color: white;
+    }
+}
+
+.surahRow {
+    margin-right: -12px;
+}
+
+ :global(.list-group-item) {
+    padding-left: 0;
+    border-color: $border-color;
+    &.active {
+        // padding-right: 10px;
+        & .surahRow div>* {
+            color: $brand-primary;
+        }
+        & .surahRow .muted {
+            opacity: 1;
+        }
+    }
+     :global(.list-group-item:hover) {
+        background-color: $hover-grey;
+    }
+}
+
+.row {
+    cursor: pointer;
+     :global(.fa-play-circle) {
+        display: none;
+        color: $grey;
+    }
+    &.active {
+        background-color: $hover-grey;
+        .link {
+            color: $brand-primary;
+        }
+         :global(.fa-play-circle) {
+            display: inline;
+            line-height: 0.5em;
+        }
+         :global(.index) {
+            display: none;
+        }
+    }
+    @include desktop() {
+        &:hover {
+             :global(.fa-play-circle) {
+                display: inline;
+                line-height: 0.5em;
+            }
+             :global(.index) {
+                display: none;
+                text-align: center;
+            }
+            .options {
+                visibility: visible;
+            }
+        }
+    }
+}
+
+.numbering {
+    text-align: center;
+    @include mobile() {
+        margin-left: 10px;
+    }
+}

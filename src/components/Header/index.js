@@ -1,5 +1,4 @@
 import React from 'react';
-// import Col from 'react-bootstrap/lib/Col';
 const styles = require('./style.scss');
 export default () => (
   <div className={styles.header} fluid>

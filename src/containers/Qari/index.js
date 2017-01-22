@@ -8,12 +8,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Helmet from 'react-helmet';
 import { load, play, next, random} from 'actions/audioplayer';
 import { load as loadFiles } from 'actions/files';
-import { load as loadRelated } from 'actions/related';
-import zeroPad from 'utils/zeroPad';
-import formatSeconds from 'utils/formatSeconds';
-import Track from 'components/Audioplayer/Track';
-import LinkContainer from 'utils/LinkContainer';
-import Related from 'components/Related';
+import SurahList from 'components/SurahList';
 const styles = require('./style.scss');
 
 class Qaris extends Component {
@@ -64,11 +59,6 @@ class Qaris extends Component {
     };
 
     const description = qari.description ? qari.description : '';
-    const currentSurahTime = (surah) => {
-      return (surah.id === currentSurah.id) ? `${formatSeconds(currentTime)} / ` : '';
-    };
-
-    const progressBarStyle = {position: 'absolute', bottom: '-5px', height: '2px'};
 
     return (
       <div>
@@ -107,6 +97,7 @@ class Qaris extends Component {
           <Row>
             <Col md={11} mdOffset={1}>
               <div className={`panel panel-default ${styles.panel} ${isPlaying ? styles.panelPlaying : ''}`}>
+<<<<<<< HEAD
                 <ul className="list-group">
                   {
                     Object.values(surahs).filter(surah => files[surah.id]).map(surah => (
@@ -169,6 +160,9 @@ class Qaris extends Component {
                     ))
                   }
                 </ul>
+=======
+              <SurahList {...this.props} handleSurahSelection={this.handleSurahSelection} />
+>>>>>>> move surahlist to a component
               </div>
             </Col>
           </Row>
