@@ -7,16 +7,14 @@
     padding-top: 8rem;
     padding-bottom: 5rem;
     background-color: $brand-primary;
+    margin-left: -15px;
+    margin-right: -15px;
     @media (max-width: $screen-md) {
         padding-bottom: 8rem;
     }
 }
 
-
-
-
-    //todo: remove and use one in surahList
-
+//todo: remove and use one in surahList
 .panel .options {
     color: $brand-primary;
     background: transparent;
