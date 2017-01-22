@@ -3,6 +3,28 @@
     color: $black;
 }
 
+.list {
+    width: 70%;
+    margin: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    @include mobile() {
+        width: 100%;
+    }
+}
+
+.panel {
+    margin-bottom: 10px;
+    border-radius: 0px;
+    padding: 10px 0 10px 0;
+    border: none;
+    &.panelPlaying {
+        @include mobile() {
+            margin-bottom: 150px;
+        }
+    }
+}
+
 .options {
     color: $brand-primary;
     background: transparent;

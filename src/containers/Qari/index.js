@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
-import Grid from 'react-bootstrap/lib/Grid';
-import Row from 'react-bootstrap/lib/Row';
-import Col from 'react-bootstrap/lib/Col';
 import Button from 'react-bootstrap/lib/Button';
 import Helmet from 'react-helmet';
-import { load, play, next, random} from 'actions/audioplayer';
+import { load, play, next, random } from 'actions/audioplayer';
+import { load as loadRelated } from 'actions/related';
 import { load as loadFiles } from 'actions/files';
+import Related from 'components/Related';
 import SurahList from 'components/SurahList';
 const styles = require('./style.scss');
 
@@ -29,9 +28,7 @@ class Qaris extends Component {
     shouldRandom: PropTypes.bool,
     isPlaying: PropTypes.bool.isRequired
   };
-
   state = { toggleRelated: false };
-
   handleSurahSelection = (surah) => {
     const { qari, currentSurah, currentQari } = this.props;
     const currenSurahId = currentSurah ? currentSurah.id : {};
@@ -44,12 +41,12 @@ class Qaris extends Component {
       toggleRelated: !this.state.toggleRelated
     });
   }
-
   render() {
-    const { surahs, qari, files, currentSurah, isPlaying, shouldRandom, currentQari, currentTime, progress, qaris, related } = this.props;
-    const { toggleRelated} = this.state;
+    const { surahs, qari, files, currentSurah, shouldRandom, related, qaris } = this.props;
+    const { toggleRelated } = this.state;
 
-    const handlePlayAll = () => {
+
+    const handleShuffleAll = () => {
       this.props.random();
       if (!shouldRandom) {
         const randomSurah = Math.floor(Math.random() * (113 + 1));
@@ -63,110 +60,33 @@ class Qaris extends Component {
     return (
       <div>
         <Helmet title={`Holy Quran recritation by ${qari.name}`} />
-        <Grid
-          fluid
-          className={styles.reciterBackground}>
-          <Row>
-            <Col md={12} className="text-center">
-              <h1 className={styles.reciterName}>
-                {qari.name}
-              </h1>
-              <p className={styles.description} dangerouslySetInnerHTML={{__html: description.replace(/\\/g, '')}} />
-              <div className={styles.buttonContain}>
+        <div className={styles.reciterBackground}>
+          <div className="text-center">
+            <h1 className={styles.reciterName}>
+              {qari.name}
+            </h1>
+            <p className={styles.description} dangerouslySetInnerHTML={{ __html: description.replace(/\\/g, '') }} />
+            <div className={styles.buttonContain}>
+              <Button
+                bsStyle="primary"
+                className={`${styles.button} ${shouldRandom ? styles.shuffleAll : ''}`}
+                onClick={handleShuffleAll}
+              >
+                <i className={`fa ${shouldRandom ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Shuffle Play</span>
+              </Button>
+              {related.length > 0 && (
                 <Button
-                  bsStyle="primary"
-                  className={`${styles.button} ${shouldRandom ? styles.playAllActive : ''}`}
-                  onClick={handlePlayAll}
-                  >
-                  <i className={`fa ${shouldRandom ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Shuffle Play</span>
-                </Button>
-                 {related.length > 0 && (
-                 <Button
                   bsStyle="primary"
                   className={`${styles.button} ${this.state.toggleRelated ? styles.playAllActive : ''}`}
                   onClick={this.handleRelated}
-                  >
+                >
                   <i className={`fa fa-sitemap ${styles.icon}`} /><span>{'Toggle Other Recitations'}</span>
                 </Button>)}
-               <Related related={related} qaris={qaris} toggle={toggleRelated}/>
-              </div>
-            </Col>
-          </Row>
-        </Grid>
-        <Grid className={styles.list}>
-          <Row>
-            <Col md={11} mdOffset={1}>
-              <div className={`panel panel-default ${styles.panel} ${isPlaying ? styles.panelPlaying : ''}`}>
-<<<<<<< HEAD
-                <ul className="list-group">
-                  {
-                    Object.values(surahs).filter(surah => files[surah.id]).map(surah => (
-                       <li
-                        key={surah.id}
-                        className={`list-group-item ${styles.row} ${(surah.id === currentSurah.id && currentQari.id === qari.id) ? `${styles.active}` : ''}`}
-                        onClick={() => this.handleSurahSelection(surah)}
-                      >
-                        <Row className={styles.surahRow}>
-                          <Col md={5} xs={8}>
-                            <Row>
-                              <Col md={2} xs={2}>
-                              <h5 className={styles.numbering}>
-                                <span className={styles.muted}>
-                                  <span className="index">{surah.id}.</span>
-                                  <i className="fa fa-play-circle fa-lg" />
-                                </span>
-                              </h5>
-                              </Col>
-                              <Col md={10} xs={10}>
-                                <h5 className={`text-muted`}>Surat {surah.name.simple}</h5>
-                              </Col>
-                            </Row>
-                          </Col>
-                          <Col md={5} className="text-right hidden-xs hidden-sm">
-                            <LinkContainer to={`/sura/${surah.id}`}>
-                                <Button
-                                bsStyle="primary"
-                                className={styles.options}
-                                onClick={(event) => event.stopPropagation()}>
-                                <i className="fa fa-users" /> Other Qaris
-                              </Button>
-                            </LinkContainer>
-                             <Button
-                              bsStyle="primary"
-                              className={styles.options}
-                              href={`https://www.quran.com/${surah.id}`}
-                              target="_blank"
-                              onClick={(event) => event.stopPropagation()}>
-                              <i className="fa fa-book" /> Read
-                            </Button>
-                            <Button
-                              bsStyle="primary"
-                              className={styles.options}
-                              href={`https://download.quranicaudio.com/quran/${qari.relativePath}${zeroPad(surah.id, 3)}.mp3`}
-                              target="_blank"
-                              onClick={(event) => event.stopPropagation()}
-                              download>
-                              <i className="fa fa-arrow-circle-down" /> Download
-                            </Button>
-                          </Col>
-                          <Col md={2} xs={4} className="text-right">
-                            <h5 className={`text-muted ${styles.muted}`}>
-                              {currentSurahTime(surah)}{formatSeconds(files[surah.id].format.duration)}
-                            </h5>
-                          </Col>
-                        </Row>
-                        {surah.id === currentSurah.id ? <Track progress={progress} simple style={progressBarStyle} /> : false}
-                      </li>
-                    ))
-                  }
-                </ul>
-=======
-              <SurahList {...this.props} handleSurahSelection={this.handleSurahSelection} />
->>>>>>> move surahlist to a component
-              </div>
-            </Col>
-          </Row>
-        </Grid>
+              <Related related={related} qaris={qaris} toggle={toggleRelated} />
+            </div>
+          </div>
+        </div>
+        <SurahList {...this.props} handleSurahSelection={this.handleSurahSelection} />
       </div>
     );
   }
@@ -186,7 +106,7 @@ const connectedQaris = connect(
     currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
     currentQari: state.audioplayer.qari
   }),
-  { load, play, next, random}
+  { load, play, next, random }
 )(Qaris);
 
 export default asyncConnect([{

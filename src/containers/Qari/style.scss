@@ -12,32 +12,21 @@
     }
 }
 
-.list {
-    margin-top: -70px;
-}
 
-.panel {
-    margin-bottom: 10px;
-    border-radius: 0px;
-    padding: 10px 0 10px 0;
-    border: none;
-    &.panelPlaying {
-        @include mobile() {
-            margin-bottom: 150px;
-        }
-    }
+
+
     //todo: remove and use one in surahList
-    .options {
-        color: $brand-primary;
-        background: transparent;
-        border-radius: 50px;
-        border-color: #e7e7e7;
-        visibility: hidden;
-        margin-left: 5px;
-        &:hover {
-            background: $brand-primary;
-            color: white;
-        }
+
+.panel .options {
+    color: $brand-primary;
+    background: transparent;
+    border-radius: 50px;
+    border-color: #e7e7e7;
+    visibility: hidden;
+    margin-left: 5px;
+    &:hover {
+        background: $brand-primary;
+        color: white;
     }
 }
 
