@@ -1,4 +1,4 @@
-export const AUDIO_URL = 'http://download.quranicaudio.com/quran';
+export const AUDIO_URL = 'https://download.quranicaudio.com/quran';
 export const LOAD = '@@quran/audioplayer/LOAD';
 export const UPDATE = '@@quran/audioplayer/UPDATE';
 export const SET_USER_AGENT = '@@quran/audioplayer/SET_USER_AGENT';
