@@ -5,7 +5,7 @@ const createData = (files, index) => {
   const file = files[index];
 
   if (file.qari && (!file.format || !file.metadata)) {
-    const url = `http://download.quranicaudio.com/quran/${file.qari.relative_path}${file.file_name}`;
+    const url = `https://download.quranicaudio.com/quran/${file.qari.relative_path}${file.file_name}`;
     try {
       return probe(url, (err, data) => {
         file.metadata = data.metadata;

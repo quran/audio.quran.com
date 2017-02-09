@@ -29,7 +29,7 @@ class Download extends Component {
             <Col md={8} mdOffset={2}>
               {data.loaded ? <Row>
                 <h1>Surat {surahs[surahId].name.simple} by {qaris[qariId].name}</h1>
-                <a className={styles.downloadLink} href={`http://download.quranicaudio.com/quran/${qaris[qariId].relativePath}${zeroPad(surahId, 3)}.mp3`}>Download</a>
+                <a className={styles.downloadLink} href={`https://download.quranicaudio.com/quran/${qaris[qariId].relativePath}${zeroPad(surahId, 3)}.mp3`}>Download</a>
               </Row> : <h1>Not Found</h1>}
             </Col>
           </Row>

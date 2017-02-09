@@ -95,7 +95,7 @@ class Sura extends Component {
                             <Button
                               bsStyle="primary"
                               className={styles.options}
-                              href={`http://download.quranicaudio.com/quran/${qari.relativePath}${zeroPad(surah.id, 3)}.mp3`}
+                              href={`https://download.quranicaudio.com/quran/${qari.relativePath}${zeroPad(surah.id, 3)}.mp3`}
                               target="_blank"
                               onClick={(event) => event.stopPropagation()}
                               download>
