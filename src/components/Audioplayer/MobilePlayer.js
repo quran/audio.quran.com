@@ -172,7 +172,7 @@ class MobilePlayer extends Component {
           <div className={style.controls}>
             <ul className={style.timeline}>
               <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.currentTime) : '00:00'}</li>
-              <li className={style.track}><Track simple={false} progress={validFileTiming ? progress : 0 } showExpanded onTrackChange={this.handleTrackChange} style={{ background: '#5b5b5b' }} /></li>
+              <li className={style.track}><Track simple={false} progress={validFileTiming ? progress : 0 } onTrackChange={this.handleTrackChange} style={{ background: '#5b5b5b' }} /></li>
               <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.duration) : '00:00'}</li>
             </ul>
             <div className={style.controlActions}>
