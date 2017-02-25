@@ -1,0 +1,27 @@
+.container { 
+    list-style: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: height .5s, opacity 0.5s linear;
+    margin: 0;
+    height: 0;   
+    position: relative;
+    top: 10px;
+}
+
+.active {
+  visibility: visible;
+  opacity: 1;
+  margin: 5px;
+  height: 15px;   
+  
+}
+
+.item {
+    display: inline-block;
+    padding-right: 5px;
+}
+
+.link {
+    color: white;
+}
