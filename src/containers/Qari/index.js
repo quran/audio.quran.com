@@ -96,7 +96,7 @@ class Qaris extends Component {
                   className={`${styles.button} ${this.state.toggleRelated ? styles.playAllActive : ''}`}
                   onClick={this.handleRelated}
                   >
-                  <i className={`fa fa-sitemap ${styles.icon}`} /><span>{toggleRelated ? 'Hide Related' : 'Show Related'}</span>
+                  <i className={`fa fa-sitemap ${styles.icon}`} /><span>{'Toggle Other Recitations'}</span>
                 </Button>)}
                <Related related={related} qaris={qaris} toggle={toggleRelated}/>
               </div>
