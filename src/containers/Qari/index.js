@@ -31,7 +31,7 @@ class Qaris extends Component {
     currentQari: PropTypes.any,
     next: PropTypes.func.isRequired,
     random: PropTypes.func.isRequired,
-    shouldContinuous: PropTypes.bool,
+    shouldRandom: PropTypes.bool,
     isPlaying: PropTypes.bool.isRequired
   };
 
@@ -51,12 +51,12 @@ class Qaris extends Component {
   }
 
   render() {
-    const { surahs, qari, files, currentSurah, isPlaying, shouldContinuous, currentQari, currentTime, progress, qaris, related } = this.props;
+    const { surahs, qari, files, currentSurah, isPlaying, shouldRandom, currentQari, currentTime, progress, qaris, related } = this.props;
     const { toggleRelated} = this.state;
 
     const handlePlayAll = () => {
       this.props.random();
-      if (!shouldContinuous) {
+      if (!shouldRandom) {
         const randomSurah = Math.floor(Math.random() * (113 + 1));
         const surahId = (currentSurah && currentSurah.id) ? currentSurah.id + 1 : randomSurah;
         this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[surahId]);
@@ -85,10 +85,10 @@ class Qaris extends Component {
               <div className={styles.buttonContain}>
                 <Button
                   bsStyle="primary"
-                  className={`${styles.button} ${shouldContinuous ? styles.playAllActive : ''}`}
+                  className={`${styles.button} ${shouldRandom ? styles.playAllActive : ''}`}
                   onClick={handlePlayAll}
                   >
-                  <i className={`fa ${shouldContinuous ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Shuffle Play</span>
+                  <i className={`fa ${shouldRandom ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Shuffle Play</span>
                 </Button>
                  {related.length > 0 && (
                  <Button
@@ -187,7 +187,7 @@ const connectedQaris = connect(
     files: state.files.entities[ownProps.params.id],
     isPlaying: state.audioplayer.isPlaying,
     currentTime: state.audioplayer.currentTime,
-    shouldContinuous: state.audioplayer.shouldContinuous,
+    shouldRandom: state.audioplayer.shouldRandom,
     progress: state.audioplayer.progress,
     currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
     currentQari: state.audioplayer.qari
