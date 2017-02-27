@@ -161,7 +161,6 @@
     border-color: white;
     background: #FFF;
     color: $brand-primary;
-    height: 60px;
   }
 }
 
@@ -186,4 +185,10 @@
 
 .link {
   color: $black;
+}
+
+.relatedToggle {
+  background: black;
+  padding: 5px;
+  border-radius: 13px;
 }

@@ -28,5 +28,8 @@ router.get('/:id/audio_files/:type', (req, res) => {
   });
 });
 
+router.get('/related/:id', (req, res) => {
+  models.related.findAll({ where: { qari: req.params.id}}).then(related => res.send(related));
+});
 
 export default router;

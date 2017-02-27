@@ -79,5 +79,5 @@ export default asyncConnect([
         return dispatch(loadSurahs());
       }
     }
-  },
+  }
 ])(App);
