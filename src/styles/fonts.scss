@@ -10,7 +10,7 @@
 }
 
 @font-face{
-  font-family: 'Montserrat';
+  font-family: 'Montserrat-Light';
   src: url('./static/fonts/montserrat/Montserrat-Light.otf');
   font-weight: 300;
 }
@@ -27,11 +27,19 @@
   font-weight: 600;
 }
 
+@font-face{
+  font-family: 'CrimsonItalic';
+  src: url('./static/fonts/CrimsonText-BoldItalic.otf');
+}
+
 .source-sans{
   font-family: 'Source Sans Pro', sans-serif;
 }
 .montserrat{
   font-family: 'Montserrat', sans-serif;
+}
+.montserrat-light{
+  font-family: 'Montserrat-Light', sans-serif;
 }
 .times-new{
   font-family: 'Times New Roman', sans-serif;
