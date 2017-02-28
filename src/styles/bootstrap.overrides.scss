@@ -1,5 +1,9 @@
 @import 'fonts.scss';
 
+body {
+  font-family: "Montserrat-regular", sans-serif;
+}
+
 .navbar-brand {
   position: relative;
   padding-left: 50px;
@@ -27,18 +31,23 @@
 
 .home-nav-pills.nav-justified{
   li{
-    border-bottom: 1px solid $border-color;
+    border-bottom: 2px solid $border-color-dark;
+    padding-top: 1rem;
+
+    a{
+      color: $grey;
+    }
 
     a:hover{
       background: transparent;
     }
 
     &.active{
-      border-bottom: 2px solid $brand-primary;
+      border-bottom: 4px solid $brand-primary;
 
       a{
-        background: #fff;
-        color: $brand-primary;
+        background-color: transparent;
+        color: $black;
 
         &:hover{
           background: transparent;
