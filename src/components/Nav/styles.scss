@@ -1,25 +1,42 @@
 @import "../../styles/variables.scss";
-
-.navContainer {
+@import "../../styles/mixins.scss";
+.pills__container {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    background: white;
+    position: relative;
     width: 100%;
-    position: absolute;
-    float: right;
-    text-align: right;
-    top: 10px;
-    right: 80px;
-    z-index: 10;
-
     @include mobile() {
-     right: 25%;
+        width: 30%;
+        width: 95vw;
+        flex-direction: column;
     }
-
-    li {
-     margin-right: 10px;
-     margin-left: 10px;
-     display: inline;
-     font-size: 16px;
-     a {
-        color: white;
-     }
+    .pills__item {
+        font-size: 16px;
+        &:hover {
+            background-color: $hover-grey;
+        }
+        text-align: center;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+        padding-top: 5vh;
+        padding-bottom: 4vh;
+        padding-left: 20px;
+        padding-right: 42px;
+        border-bottom: 1px solid #F0F0F0;
+        @include mobile() {
+            padding-top: 10px;
+            padding-right: 15px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            &+.pills__item {
+                border-bottom: 1px solid #F0F0F0;
+            }
+        }
+        &.active {
+            border-bottom: 2px solid #2CA4AB;
+        }
     }
 }

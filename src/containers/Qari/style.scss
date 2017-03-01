@@ -1,40 +1,21 @@
 @import "../../styles/variables.scss";
-
-.reciterBackground{
-  background-size: cover;
-  min-height: 300px;
-  min-height: 30vh;
-  color: #fff;
-  padding-top: 8rem;
-  padding-bottom: 5rem;
-  background-color: $brand-primary;
-
-  @media (max-width: $screen-md) {
-    padding-bottom: 8rem;
-  }
-}
-
-.list{
-  margin-top: -70px;
-}
-
-.panel {
-  margin-bottom: 10px;
-  border-radius: 0px;
-  padding: 10px 0 10px 0;
-  border: none;
-
-  &.panelPlaying {
-    @include mobile() {
-      margin-bottom: 150px;
+.reciterBackground {
+    background-size: cover;
+    height: 300px;
+    background: #009faa;
+    padding-top: 8rem;
+    color: #ffffff;
+    padding-bottom: 5rem;
+    background-color: $brand-primary;
+    margin-left: -15px;
+    margin-right: -15px;
+    @include desktop() {
+        padding-bottom: 8rem;
     }
-  }
+}
 
-  .muted{
-    color: $black;
-  }
-
-  .options{
+//todo: remove and use one in surahList
+.panel .options {
     color: $brand-primary;
     background: transparent;
     border-radius: 50px;
@@ -42,136 +23,57 @@
     visibility: hidden;
     margin-left: 5px;
     &:hover {
-      background: $brand-primary;
-      color: white;
+        background: $brand-primary;
+        color: #ffffff;
     }
-  }
-
-  .surahRow {
-    margin-right: -12px;
-  }
-  :global(.list-group-item){
-    padding-left: 0;
-    border-color: $border-color;
-
-    &.active {
-      // padding-right: 10px;
-      & .surahRow div > * {
-        color: $brand-primary;
-      }
-      & .surahRow .muted {
-        opacity: 1;
-
-      }
-    }
-  }
-
-  :global(.list-group-item:hover){
-    background-color: $hover-grey;
-  }
-}
-
-.row{
-  cursor: pointer;
-
-  :global(.fa-play-circle){
-    display: none;
-    color: $grey;
-  }
-
-  &.active {
-    background-color: $hover-grey;
-
-    .link {
-      color: $brand-primary;
-    }
-
-    :global(.fa-play-circle){
-      display: inline;
-      line-height: 0.5em;
-    }
-
-    :global(.index){
-      display: none;
-    }
-  }
-
-  @include desktop() {
-
-    &:hover{
-      :global(.fa-play-circle){
-        display: inline;
-        line-height: 0.5em;
-      }
-
-      :global(.index){
-        display: none;
-        text-align: center;
-      }
-      .options{
-        visibility: visible;
-      }
-    }
-  }
 }
 
 .buttonContain {
-  padding-bottom: 3rem;
-  margin-top: 10px;
+    padding-bottom: 3rem;
+    margin-top: 10px;
 }
 
 .button {
-  border-radius: 50px;
-  border-color: white;
-  border-width: 2px;
-  margin-right: 10px;
-  padding: 10px 30px;
-  user-select: inherit;
-
-  &.playAllActive {
-    border-color: white;
-    background: white;
-    color: $brand-primary;
-  }
-
-  &:focus {
-    outline: none;
+    border-radius: 50px;
+    border-color: #ffffff;
+    border-width: 2px;
+    margin-right: 10px;
+    padding: 10px 30px;
     user-select: inherit;
-  }
-
-  span {
-    font-size: 14px;
-  }
-
-  .icon {
-    font-size: 20px;
-    padding-right: 10px;
-  }
-
-  &:hover {
-    border-color: white;
-    background: #FFF;
-    color: $brand-primary;
-  }
+    &.shuffleAll {
+        border-color: #ffffff;
+        background: #ffffff;
+        color: $brand-primary;
+    }
+    &:focus {
+        outline: none;
+        user-select: inherit;
+    }
+    span {
+        font-size: 14px;
+    }
+    .icon {
+        font-size: 20px;
+        padding-right: 10px;
+    }
+    &:hover {
+        border-color: #ffffff;
+        background: #ffffff;
+        color: $brand-primary;
+    }
 }
 
 .description {
-  margin-left: 25%;
-  width: 50%;
-  a {
-    color: white;
-    text-decoration: underline;
-  }
-  @include mobile() {
-    margin-left: inherit;
-    width: inherit;
-  }
-}
-.numbering {
-  text-align: center;
-  @include mobile() {
-    margin-left: 10px;
-  }
+    margin-left: 25%;
+    width: 50%;
+    a {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+    @include mobile() {
+        margin-left: inherit;
+        width: inherit;
+    }
 }
 
 .link {
@@ -182,4 +84,5 @@
   background: black;
   padding: 5px;
   border-radius: 13px;
+    color: $black;
 }

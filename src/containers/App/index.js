@@ -5,7 +5,6 @@ import Helmet from 'react-helmet';
 import Link from 'react-router/lib/Link';
 import Audioplayer from 'components/Audioplayer';
 import AudioplayerMobile from 'components/Audioplayer/MobilePlayer';
-import Nav from 'components/Nav';
 import config from '../../config';
 import { loadAll as loadQaris } from 'actions/qaris';
 import { loadAll as loadSections } from 'actions/sections';
@@ -30,7 +29,7 @@ class App extends Component {
 
   componentDidMount() {
     window.addEventListener('resize', () => {
-      this.setState({isMobile: isMobile()});
+      this.setState({ isMobile: isMobile() });
     });
   }
 
@@ -43,10 +42,13 @@ class App extends Component {
 
     return (
       <div className={styles.app}>
-        <Helmet {...config.app.head}/>
-        <Nav />
+        <Helmet {...config.app.head} />
+        <ul className={styles.navContainer}>
+          <li><Link to="/about">About</Link></li>
+          <li><a href="https://quran.zendesk.com/hc/en-us/requests/new">Contact Us</a></li>
+        </ul>
         <div className={styles.linkContainer}>
-          <Link to="/" title="Select from your favourite recriters" className={styles.link}>{isHome(this.props.location.pathname) ? <i className="fa fa-home" aria-hidden="true"></i> : <i></i>}</Link>
+    <Link to="/" title="Select from your favourite recriters" className={styles.link}>{isHome(this.props.location.pathname) && <i className="fa fa-home" aria-hidden="true"></i>}</Link>
           <a href="https://quran.com" title="Read the holy Quran, on quran.com" className={`${styles.link} ${styles.linkRight}`}><i className="fa fa-book" aria-hidden="true"></i></a>
         </div>
         <div className={styles.appContent}>

@@ -12,7 +12,6 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import { ReduxAsyncConnect } from 'redux-connect';
 import 'utils/googleAnalytics';
 import getRoutes from './routes';
-
 const client = new ApiClient();
 const dest = document.getElementById('content');
 const store = createStore(browserHistory, client, window.__data);

@@ -1,41 +1,48 @@
 @import "../../styles/variables.scss";
-
 .header {
-  background-color: $brand-primary;
-  background: url('../../../static/images/index-bg.jpg') center center no-repeat;
-  background-size: cover;
-  height: 300px;
-  color: #fff;
-
-  @include mobile() {
-    height: 30vh;
-    padding: 1px;
-
-    &.fixed {
-      position: fixed;
-      top: 0px;
-      width:100%;
-      height: 120px;
-      background: #009faa;
-      color: #FFF;
-      font-size: 23px;
-      padding-top: 50px;
-      transition: height 0.3s linear 0s, padding 0.3s linear 0s;
-      overflow:hidden;
+    background-color: $brand-primary;
+    background: url('../../../static/images/index-bg.jpg') center center no-repeat;
+    background-size: cover;
+    height: 300px;
+    color: #fff;
+    @include mobile() {
+        height: 30vh;
+        padding: 1px;
+        &.fixed {
+            position: fixed;
+            top: 0px;
+            width: 100%;
+            height: 120px;
+            background: #009faa;
+            color: #FFF;
+            font-size: 23px;
+            padding-top: 50px;
+            transition: height 0.3s linear 0s, padding 0.3s linear 0s;
+            overflow: hidden;
+        }
     }
-  }
 }
 
 .header__text {
-  @include mobile() {
-    margin-top: 15%;
-  }
+    @include mobile() {
+        margin-top: 10vh;
+    }
 }
 
-.heading {
-  font-family: 'Montserrat-Bold';
-  font-size: 48px;
-  margin-top: 80px;
-  left: 0;
-  position: relative;
+.heading__parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 10%;
+    @include mobile() {
+        left: 10%;
+    }
+    .heading__text {
+        font-family: 'Montserrat-Bold';
+        font-size: 48px;
+        margin-top: 80px;
+        left: 0;
+        position: relative;
+    }
 }

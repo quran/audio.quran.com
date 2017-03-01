@@ -1,0 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+    &::after {
+        content: " ";
+        display: table;
+    }
+}
