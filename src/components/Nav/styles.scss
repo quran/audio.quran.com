@@ -15,6 +15,7 @@
     }
     .pills__item {
         font-size: 16px;
+        cursor: pointer;
         &:hover {
             background-color: $hover-grey;
         }

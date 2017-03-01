@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import browserHistory from 'react-router/lib/browserHistory';
 import Link from 'react-router/lib/Link';
 const styles = require('./style.scss');
 export default class QarisList extends Component {
@@ -18,7 +19,7 @@ export default class QarisList extends Component {
       <div className={styles.container}>
         <span className={`${styles.letter} ${letter === 'I' ? styles.slimLetter : ''}`}>{letter}</span>
         <ul className={styles.list}>
-          {filterBasedOnSection.filter((item) => (item.sectionId === section && item.home)).map((qari, index) => (<li key={index} className={styles.listItem}><Link className={styles.link} to={`/quran/${qari.id}`}>{qari.name}</Link></li>))}
+          {filterBasedOnSection.filter((item) => (item.sectionId === section && item.home)).map((qari, index) => (<li key={index} className={styles.listItem} onClick={() => browserHistory.push(`/quran/${qari.id}`)}><Link className={styles.link} to={`/quran/${qari.id}`}>{qari.name}</Link></li>))}
         </ul>
 
       </div>

@@ -1,125 +1,108 @@
 @import "../../styles/variables.scss";
 .container {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-  min-height: 100px;
-
-  .letter {
-    font-family: $font-family-sans-serif;
-    border: 2px solid $border-color;
-    font-size: 16px;
-    color: $black;
-    padding: 7px 13px 6px 13px;
-    border-radius: 50%;
-    position: absolute;
-    margin-top: 10px;
-    left: 17px;
-    z-index: 10;
-
-  &.slimLetter {
-    padding-left: 15px;
-     &::after {
-      content: 'I';
-      visibility: hidden;
-    }
-  }
-
-
-    @include mobile() {
-      width: 100%;
-      background: #2CA4AB;
-      border-radius: 0;
-      position: relative;
-      text-align: left;
-      padding-left: 20px;
-      font-weight: 400;
-      font-size: 26px;
-      color: white;
-      left: 0;
-      border: none;
-    }
-  }
-
-  .list {
-    position: relative;
-    list-style: none;
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
-    margin-top: 10px;
-    left: 40px;
-    overflow: hidden;
-    z-index: 1;
-
-    &::after {
-      content: '';
-      width: 100%;
-      border-bottom: 1px solid $border-color;
-
-      @include mobile() {
-        border-bottom: none;
-      }
+    align-items: flex-start;
+    justify-content: flex-start;
+    min-height: 100px;
+    .letter {
+        font-family: $font-family-sans-serif;
+        border: 2px solid $border-color;
+        font-size: 16px;
+        color: $black;
+        padding: 7px 13px 6px 13px;
+        border-radius: 50%;
+        position: absolute;
+        margin-top: 10px;
+        left: 17px;
+        z-index: 10;
+        &.slimLetter {
+            padding-left: 15px;
+            &::after {
+                content: 'I';
+                visibility: hidden;
+            }
+        }
+        @include mobile() {
+            width: 100%;
+            background: #2CA4AB;
+            border-radius: 0;
+            position: relative;
+            text-align: left;
+            padding-left: 20px;
+            font-weight: 400;
+            font-size: 26px;
+            color: white;
+            left: 0;
+            border: none;
+        }
     }
-
-    @include mobile() {
-      padding-left: 0;
-      margin-top: 0;
-      margin-bottom: 0;
-      left: 0;
+    .list {
+        position: relative;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-top: 10px;
+        left: 40px;
+        overflow: hidden;
+        z-index: 1;
+        &::after {
+            content: '';
+            width: 100%;
+            border-bottom: 1px solid $border-color;
+            @include mobile() {
+                border-bottom: none;
+            }
+        }
+        @include mobile() {
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            left: 0;
+        }
     }
-
-
-  }
-
-  .listItem {
-    padding: 15px 0 15px 20px;
-    font-size: 14px;
-    width: 370px;
-    letter-spacing: 1px;
-    z-index: 1;
-    line-height: 1.5em;
-
-    .link {
-      color: $black;
+    .listItem {
+        padding: 15px 0 15px 20px;
+        font-size: 14px;
+        width: 370px;
+        letter-spacing: 1px;
+        z-index: 1;
+        line-height: 1.5em;
+        .link {
+            color: $black;
+        }
+        &:hover {
+            cursor: pointer;
+            background-color: $hover-grey;
+        }
+        @include mobile() {
+            border-bottom: 1px solid $border-color;
+            width: 100%;
+            margin: 0 10px 0 10px;
+            padding-top: 20px;
+            .link {
+                display: block;
+                line-height: 20px;
+                text-decoration: none;
+            }
+            &:last-child {
+                margin-bottom: 0;
+                margin-right: 0;
+                margin-left: 0;
+                padding-bottom: 20px;
+            }
+        }
     }
-
-    &:hover{
-      background-color: $hover-grey;
-    }
-
-    @include mobile() {
-      border-bottom: 1px solid $border-color;
-      width: 100%;
-      margin: 0 10px 0 10px;
-      padding-top: 20px;
-
-      .link {
+    .arabicName {
+        @include mobile() {
+            float: right;
+        }
+        color: #2CA4AB;
+        font-size: 16px;
         display: block;
-        line-height: 20px;
-        text-decoration: none;
-      }
-
-      &:last-child {
-        margin-bottom: 0;
-        margin-right: 0;
-        margin-left: 0;
-        padding-bottom: 20px;
-      }
-
+        &:hover {
+            text-decoration: underline;
+        }
     }
-  }
-  .arabicName {
-
-    @include mobile() {
-      float: right;
-    }
-    color: #2CA4AB;
-    font-size: 16px;
-    display: block;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }
