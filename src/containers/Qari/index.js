@@ -77,7 +77,7 @@ class Qaris extends Component {
               </Button>
               {related.length > 0 && (
                 <Button
-                 color={ toggleRelated ? 'inverted' : ''}
+                  color={ toggleRelated ? 'inverted' : ''}
                   className={`${styles.button} ${styles.related}`}
                   onClick={this.handleRelated}
                 >
