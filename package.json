@@ -124,6 +124,7 @@
     "pg": "^6.0.3",
     "piping": "^0.3.0",
     "pretty-error": "^1.2.0",
+    "quran-components": "0.0.30",
     "react": "^0.14.8",
     "react-bootstrap": "^0.28.1",
     "react-dom": "^0.14.8",

@@ -34,17 +34,9 @@
 }
 
 .button {
-    border-radius: 50px;
-    border-color: #ffffff;
-    border-width: 2px;
-    margin-right: 10px;
-    padding: 10px 30px;
+    position: relative;
+    top: 10px;
     user-select: inherit;
-    &.shuffleAll {
-        border-color: #ffffff;
-        background: #ffffff;
-        color: $brand-primary;
-    }
     &:focus {
         outline: none;
         user-select: inherit;
@@ -55,11 +47,16 @@
     .icon {
         font-size: 20px;
         padding-right: 10px;
+        top: 1px;
+        position: relative;
     }
-    &:hover {
-        border-color: #ffffff;
-        background: #ffffff;
-        color: $brand-primary;
+
+    &.related {
+      margin-left: 10px;
+      @include mobile() {
+        margin-left: 0;
+        margin-top: 10px;
+      }
     }
 }
 
@@ -77,12 +74,12 @@
 }
 
 .link {
-  color: $black;
+    color: $black;
 }
 
 .relatedToggle {
-  background: black;
-  padding: 5px;
-  border-radius: 13px;
+    background: black;
+    padding: 5px;
+    border-radius: 13px;
     color: $black;
 }
