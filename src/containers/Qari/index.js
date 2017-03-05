@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
-import Button from 'react-bootstrap/lib/Button';
+// import Button from 'react-bootstrap/lib/Button';
+import Button from 'quran-components/lib/Button';
+
 import Helmet from 'react-helmet';
 import { load, play, next, random } from 'actions/audioplayer';
 import { load as loadRelated } from 'actions/related';
@@ -67,19 +69,19 @@ class Qaris extends Component {
             <p className={styles.description} dangerouslySetInnerHTML={{ __html: description.replace(/\\/g, '') }} />
             <div className={styles.buttonContain}>
               <Button
-                bsStyle="primary"
-                className={`${styles.button} ${shouldRandom ? styles.shuffleAll : ''}`}
+                color={ shouldRandom ? 'inverted' : ''}
+                className={styles.button}
                 onClick={handleShuffleAll}
               >
                 <i className={`fa ${shouldRandom ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Shuffle Play</span>
               </Button>
               {related.length > 0 && (
                 <Button
-                  bsStyle="primary"
-                  className={`${styles.button} ${this.state.toggleRelated ? styles.playAllActive : ''}`}
+                  color={ toggleRelated ? 'inverted' : ''}
+                  className={`${styles.button} ${styles.related}`}
                   onClick={this.handleRelated}
                 >
-                  <i className={`fa fa-sitemap ${styles.icon}`} /><span>{'Toggle Other Recitations'}</span>
+                  <i className={`fa fa-sitemap ${styles.icon}`} /><span>{'Other Recitations'}</span>
                 </Button>)}
               <Related related={related} qaris={qaris} toggle={toggleRelated} />
             </div>
