@@ -26,12 +26,11 @@
 }
 
 .options {
-    color: $brand-primary;
-    background: transparent;
-    border-radius: 50px;
-    border-color: #e7e7e7;
+    width: 121px;
+    height: 35px;
     visibility: hidden;
     margin-left: 5px;
+    line-height: 31px;
     &:hover {
         background: $brand-primary;
         color: white;
