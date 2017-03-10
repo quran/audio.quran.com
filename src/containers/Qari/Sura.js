@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Helmet from 'react-helmet';
 import { load, play, next} from 'actions/audioplayer';
 import { load as loadFiles } from 'actions/files';
-import Button from 'react-bootstrap/lib/Button';
+import Button from 'quran-components/lib/Button';
 import zeroPad from 'utils/zeroPad';
 import Link from 'react-router/lib/Link';
 
@@ -93,12 +93,10 @@ class Sura extends Component {
                           </Col>
                           <Col md={2} xs={2} className="text-right pull-right hidden-xs" >
                             <Button
-                              bsStyle="primary"
                               className={styles.options}
                               href={`https://download.quranicaudio.com/quran/${qari.relativePath}${zeroPad(surah.id, 3)}.mp3`}
                               target="_blank"
-                              onClick={(event) => event.stopPropagation()}
-                              download>
+                              onClick={(event) => event.stopPropagation()}>
                               <i className="fa fa-arrow-circle-down" /> Download
                             </Button>
                           </Col>

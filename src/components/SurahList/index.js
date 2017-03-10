@@ -4,10 +4,11 @@ import Track from 'components/Audioplayer/Track';
 import LinkContainer from 'utils/LinkContainer';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-import Button from 'react-bootstrap/lib/Button';
+import Button from 'quran-components/lib/Button';
+
 import formatSeconds from 'utils/formatSeconds';
 const styles = require('./styles.scss');
-export default ({surahs, qari, files, progress, currentSurah, isPlaying, currentQari, currentTime, handleSurahSelection }) => {
+export default ({ surahs, qari, files, progress, currentSurah, isPlaying, currentQari, currentTime, handleSurahSelection }) => {
   const currentSurahTime = (surah) => {
     return (surah.id === currentSurah.id) ? `${formatSeconds(currentTime)} / ` : '';
   };
@@ -24,9 +25,9 @@ export default ({surahs, qari, files, progress, currentSurah, isPlaying, current
                 key={surah.id}
                 className={`list-group-item ${styles.row} ${(surah.id === currentSurah.id && currentQari.id === qari.id) ? `${styles.active}` : ''}`}
                 onClick={() => handleSurahSelection(surah)}
-                >
+              >
                 <Row className={styles.surahRow}>
-                  <Col md={5} xs={8}>
+                  <Col md={4} xs={8}>
                     <Row>
                       <Col md={2} xs={2}>
                         <h5 className={styles.numbering}>
@@ -36,37 +37,36 @@ export default ({surahs, qari, files, progress, currentSurah, isPlaying, current
                           </span>
                         </h5>
                       </Col>
-                      <Col md={10} xs={10}>
+                      <Col md={9} xs={9}>
                         <h5 className={`text-muted`}>Surat {surah.name.simple}</h5>
                       </Col>
                     </Row>
                   </Col>
-                  <Col md={5} className="text-right hidden-xs hidden-sm">
+                  <Col md={6} className="text-right hidden-xs hidden-sm">
                     <LinkContainer to={`/sura/${surah.id}`}>
                       <Button
-                        bsStyle="primary"
+                        color="inverted"
                         className={styles.options}
                         onClick={(event) => event.stopPropagation()}>
                         <i className="fa fa-users" /> Other Qaris
-                              </Button>
+                      </Button>
                     </LinkContainer>
                     <Button
-                      bsStyle="primary"
+                      color="inverted"
                       className={styles.options}
                       href={`https://www.quran.com/${surah.id}`}
                       target="_blank"
                       onClick={(event) => event.stopPropagation()}>
                       <i className="fa fa-book" /> Read
-                            </Button>
+                    </Button>
                     <Button
-                      bsStyle="primary"
+                      color="inverted"
                       className={styles.options}
                       href={`http://download.quranicaudio.com/quran/${qari.relativePath}${zeroPad(surah.id, 3)}.mp3`}
                       target="_blank"
-                      onClick={(event) => event.stopPropagation()}
-                      download>
+                      onClick={(event) => event.stopPropagation()}>
                       <i className="fa fa-arrow-circle-down" /> Download
-                            </Button>
+                    </Button>
                   </Col>
                   <Col md={2} xs={4} className="text-right">
                     <h5 className={`text-muted ${styles.muted}`}>
