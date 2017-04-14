@@ -11,25 +11,35 @@ export default class Track extends Component {
     progressStyle: PropTypes.object
   };
 
-  handleClick = (event) => {
+  handleClick = event => {
     const { onTrackChange } = this.props;
 
-    const fraction = (
+    const fraction =
       event.nativeEvent.offsetX /
-      this.refs.container.getBoundingClientRect().width
-    );
+      this.refs.container.getBoundingClientRect().width;
 
     return onTrackChange(fraction);
-  }
+  };
 
   render() {
-    const { progress, simple, style, progressStyle} = this.props;
-    const progressStyleObject = Object.assign({}, { width: `${progress}%` }, progressStyle);
+    const { progress, simple, style, progressStyle } = this.props;
+    const progressStyleObject = Object.assign(
+      {},
+      { width: `${progress}%` },
+      progressStyle
+    );
 
     return (
-      <div ref="container" className={`${styles.container} ${styles.activeHover}`}
-        onClick={this.handleClick} style={style}>
-        <div className={`${styles.progress} ${simple ? styles.simple : ''}`} style={progressStyleObject} />
+      <div
+        ref="container"
+        className={`${styles.container} ${styles.activeHover}`}
+        onClick={this.handleClick}
+        style={style}
+      >
+        <div
+          className={`${styles.progress} ${simple ? styles.simple : ''}`}
+          style={progressStyleObject}
+        />
       </div>
     );
   }

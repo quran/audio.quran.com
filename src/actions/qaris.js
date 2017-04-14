@@ -8,7 +8,7 @@ export function loadAll() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     schema: arrayOf(qarisSchema),
-    promise: (client) => client.get(`/qaris`)
+    promise: client => client.get(`/qaris`)
   };
 }
 
@@ -16,6 +16,6 @@ export function load(id) {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     schema: arrayOf(qarisSchema),
-    promise: (client) => client.get(`/qaris/${id}`)
+    promise: client => client.get(`/qaris/${id}`)
   };
 }

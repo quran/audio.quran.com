@@ -13,7 +13,11 @@ import {
 } from 'containers';
 
 function isValid(nextState, replaceState) {
-  if (isNaN(nextState.params.id) || nextState.params.id > 114 || nextState.params.id < 1) {
+  if (
+    isNaN(nextState.params.id) ||
+    nextState.params.id > 114 ||
+    nextState.params.id < 1
+  ) {
     replaceState('/');
   }
 }
@@ -21,8 +25,8 @@ export default () => {
   return (
     <Route path="/" component={App}>
 
-      { /* Home (main) route */ }
-      <IndexRoute component={Home}/>
+      {/* Home (main) route */}
+      <IndexRoute component={Home} />
       <Route path="/section/(:section)" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/qaris" component={Qaris} />
@@ -31,9 +35,9 @@ export default () => {
       <Route path="/quran/:id" component={Qari} />
       <Route path="/download/:id" component={Download} />
       <Route path="/stream.m3u/:id" component={Download} />
-      <Route path="/sura" component={Home} onEnter={isValid}/>
-      <Route path="/sura/:id" component={Sura} onEnter={isValid}/>
-      { /* Catch all route */ }
+      <Route path="/sura" component={Home} onEnter={isValid} />
+      <Route path="/sura/:id" component={Sura} onEnter={isValid} />
+      {/* Catch all route */}
       <Route path="*" component={NotFound} status={404} />
     </Route>
   );

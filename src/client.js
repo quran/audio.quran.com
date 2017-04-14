@@ -18,9 +18,17 @@ const store = createStore(browserHistory, client, window.__data);
 const history = syncHistoryWithStore(browserHistory, store);
 
 const component = (
-  <Router render={(props) =>
-        <ReduxAsyncConnect {...props} helpers={{client}} filter={item => !item.deferred} render={applyRouterMiddleware(useScroll())} />
-      } history={history}>
+  <Router
+    render={props => (
+      <ReduxAsyncConnect
+        {...props}
+        helpers={{ client }}
+        filter={item => !item.deferred}
+        render={applyRouterMiddleware(useScroll())}
+      />
+    )}
+    history={history}
+  >
     {getRoutes(store)}
   </Router>
 );
@@ -36,8 +44,15 @@ if (process.env.NODE_ENV !== 'production') {
   window.React = React; // enable debugger
   window.__store = store;
 
-  if (!dest || !dest.firstChild || !dest.firstChild.attributes || !dest.firstChild.attributes['data-react-checksum']) {
-    console.error('Server-side React render was discarded. Make sure that your initial render does not contain any client-side code.');
+  if (
+    !dest ||
+    !dest.firstChild ||
+    !dest.firstChild.attributes ||
+    !dest.firstChild.attributes['data-react-checksum']
+  ) {
+    console.error(
+      'Server-side React render was discarded. Make sure that your initial render does not contain any client-side code.'
+    );
   }
 }
 

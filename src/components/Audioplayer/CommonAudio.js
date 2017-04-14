@@ -1,5 +1,4 @@
 export default class CommonAudio {
-
   static handleTrackChange(fraction) {
     const { file, update } = this.props; // eslint-disable-line no-shadow
 
@@ -27,10 +26,7 @@ export default class CommonAudio {
     };
 
     const onTimeupdate = () => {
-      const progress = (
-        file.currentTime /
-        file.duration * 100
-      );
+      const progress = file.currentTime / file.duration * 100;
 
       update({
         progress,
@@ -40,7 +36,7 @@ export default class CommonAudio {
     };
 
     const onEnded = () => {
-      const { shouldRepeat, shouldContinuous, shouldRandom} = this.props;
+      const { shouldRepeat, shouldContinuous, shouldRandom } = this.props;
 
       if (shouldRepeat) {
         file.pause();
@@ -50,9 +46,12 @@ export default class CommonAudio {
         const { surah, surahs, qari } = this.props; // eslint-disable-line no-shadow
         this.props.load({ surah: Object.values(surahs)[surah.id], qari: qari });
       } else if (shouldRandom) {
-        const {surahs, qari } = this.props; // eslint-disable-line no-shadow
+        const { surahs, qari } = this.props; // eslint-disable-line no-shadow
         const randomSurah = Math.floor(Math.random() * (113 + 1));
-        this.props.load({ surah: Object.values(surahs)[randomSurah], qari: qari });
+        this.props.load({
+          surah: Object.values(surahs)[randomSurah],
+          qari: qari
+        });
       } else {
         if (file.readyState >= 3 && file.paused) {
           file.pause();
@@ -65,7 +64,7 @@ export default class CommonAudio {
       }
     };
 
-    const onPlay = () => { };
+    const onPlay = () => {};
 
     file.onloadeddata = onLoadeddata;
     file.ontimeupdate = onTimeupdate;

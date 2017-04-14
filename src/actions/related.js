@@ -9,7 +9,7 @@ export function load(id) {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     schema: arrayOf(relatedSchema),
-    promise: (client) => client.get(`/qaris/related/${id}`),
+    promise: client => client.get(`/qaris/related/${id}`),
     id
   };
 }

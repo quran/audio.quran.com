@@ -5,12 +5,7 @@ function isLeftClickEvent(event) {
 }
 
 function isModifiedEvent(event) {
-  return !!(
-    event.metaKey ||
-    event.altKey ||
-    event.ctrlKey ||
-    event.shiftKey
-  );
+  return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
 }
 
 function createLocationDescriptor(to, query, hash, state) {
@@ -25,34 +20,38 @@ const propTypes = {
   onlyActiveOnIndex: React.PropTypes.bool.isRequired,
   to: React.PropTypes.oneOfType([
     React.PropTypes.string,
-    React.PropTypes.object,
+    React.PropTypes.object
   ]).isRequired,
   query: React.PropTypes.string,
   hash: React.PropTypes.string,
   state: React.PropTypes.object,
-  action: React.PropTypes.oneOf([
-    'push',
-    'replace',
-  ]).isRequired,
+  action: React.PropTypes.oneOf(['push', 'replace']).isRequired,
   onClick: React.PropTypes.func,
   active: React.PropTypes.bool,
   target: React.PropTypes.string,
-  children: React.PropTypes.node.isRequired,
+  children: React.PropTypes.node.isRequired
 };
 
 const contextTypes = {
-  router: React.PropTypes.object,
+  router: React.PropTypes.object
 };
 
 const defaultProps = {
   onlyActiveOnIndex: false,
-  action: 'push',
+  action: 'push'
 };
 
 class LinkContainer extends React.Component {
-  onClick = (event) => {
+  onClick = event => {
     const {
-      to, query, hash, state, children, onClick, target, action,
+      to,
+      query,
+      hash,
+      state,
+      children,
+      onClick,
+      target,
+      action
     } = this.props;
 
     if (children.props.onClick) {

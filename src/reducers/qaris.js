@@ -1,7 +1,4 @@
-import {
-    LOAD,
-    LOAD_SUCCESS
-} from 'actions/qaris';
+import { LOAD, LOAD_SUCCESS } from 'actions/qaris';
 
 const initialState = {
   errored: false,
@@ -33,4 +30,3 @@ export default function reducer(state = initialState, action = {}) {
       return state;
   }
 }
-

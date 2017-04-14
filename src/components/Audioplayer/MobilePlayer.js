@@ -54,7 +54,9 @@ class MobilePlayer extends Component {
     super(props);
     this.handleTrackChange = Common.handleTrackChange.bind(this);
     this.handleFileLoad = Common.handleFileLoad.bind(this);
-    this.handleRemoveFileListeneres = Common.handleRemoveFileListeneres.bind(this);
+    this.handleRemoveFileListeneres = Common.handleRemoveFileListeneres.bind(
+      this
+    );
 
     this.state = {
       open: true
@@ -62,7 +64,9 @@ class MobilePlayer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.surah !== nextProps.surah || this.props.qari !== nextProps.qari) {
+    if (
+      this.props.surah !== nextProps.surah || this.props.qari !== nextProps.qari
+    ) {
       this.handleFileLoad(nextProps.file);
       this.handleRemoveFileListeneres(this.props.file);
       this.setState({
@@ -74,26 +78,42 @@ class MobilePlayer extends Component {
   renderPlayStopButtons() {
     const { isPlaying, playPause, file } = this.props; // eslint-disable-line no-shadow
     if (file.readyState < 4) {
-      return (<i className={`text-primary pointer loading is-loading ${style.isLoading}`}></i>);
+      return (
+        <i
+          className={`text-primary pointer loading is-loading ${style.isLoading}`}
+        />
+      );
     }
 
     if (isPlaying && file.readyState >= 4) {
-      return <i onClick={playPause} className={`text-primary pointer fa fa-pause-circle ${!file && style.disabled} ${style.playPause}`} />;
+      return (
+        <i
+          onClick={playPause}
+          className={`text-primary pointer fa fa-pause-circle ${!file && style.disabled} ${style.playPause}`}
+        />
+      );
     }
 
-    return <i onClick={playPause} className={`text-primary pointer fa fa-play-circle ${!file && style.disabled} ${style.playPause}`} />;
+    return (
+      <i
+        onClick={playPause}
+        className={`text-primary pointer fa fa-play-circle ${!file && style.disabled} ${style.playPause}`}
+      />
+    );
   }
 
   renderPreviousButton() {
     const { previous, surah, surahs, qaris, surahPage, qari } = this.props; // eslint-disable-line no-shadow
     const disableBasedOnSurah = surah ? surah.id === 114 && true : true;
-    const disabled = surahPage ? qari.id === Object.keys(qaris).length : disableBasedOnSurah;
+    const disabled = surahPage
+      ? qari.id === Object.keys(qaris).length
+      : disableBasedOnSurah;
 
     return (
       <i
         onClick={() => !disabled && previous({ surahs: Object.values(surahs) })}
         className={`pointer fa fa-fast-backward fa-lg ${disabled && style.disabled} ${style.previous}`}
-        />
+      />
     );
   }
   renderNextButton() {
@@ -105,7 +125,7 @@ class MobilePlayer extends Component {
       <i
         onClick={() => !disabled && next({ surahs: Object.values(surahs) })}
         className={`pointer fa fa-fast-forward fa-lg ${disabled && style.disabled} ${style.next}`}
-        />
+      />
     );
   }
 
@@ -115,11 +135,7 @@ class MobilePlayer extends Component {
     return (
       <div className={`${style.toggle} ${shouldRepeat && style.active}`}>
         <input type="checkbox" id="repeat" className="hidden" />
-        <label
-          htmlFor="repeat"
-          className={`pointer`}
-          onClick={repeat}
-          >
+        <label htmlFor="repeat" className={`pointer`} onClick={repeat}>
           <i className={`fa fa-repeat ${style.repeat}`} />
         </label>
       </div>
@@ -131,11 +147,7 @@ class MobilePlayer extends Component {
     return (
       <div className={`${style.toggle} ${shouldRandom && style.active}`}>
         <input type="checkbox" id="random" className="hidden" />
-        <label
-          htmlFor="repeat"
-          className={`pointer`}
-          onClick={random}
-          >
+        <label htmlFor="repeat" className={`pointer`} onClick={random}>
           <i className={`fa fa-random ${style.random}`} />
         </label>
       </div>
@@ -161,30 +173,48 @@ class MobilePlayer extends Component {
     return (
       <div className={`${style.audioplayer} ${isOpen}`}>
         <div onClick={openPlayer}>
-          <i onClick={openPlayer} className={`fa fa-chevron-up ${style.chevron}`} alt="click to toggle" aria-hidden="true"></i>
-          <h2 className={style.qariName}>{qari && cleanUpBrackets(qari.name)}</h2>
+          <i
+            onClick={openPlayer}
+            className={`fa fa-chevron-up ${style.chevron}`}
+            alt="click to toggle"
+            aria-hidden="true"
+          />
+          <h2 className={style.qariName}>
+            {qari && cleanUpBrackets(qari.name)}
+          </h2>
           <h3 className={style.surahName}>{`Surat ${surah.name.simple}`}</h3>
         </div>
-        {open && <div className={style.controlersContainer}>
-          <div className={style.surahMisc}>
-            <p> سورة {surah.name.arabic}</p>
-          </div>
-          <div className={style.controls}>
-            <ul className={style.timeline}>
-              <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.currentTime) : '00:00'}</li>
-              <li className={style.track}><Track simple={false} progress={validFileTiming ? progress : 0 } onTrackChange={this.handleTrackChange} style={{ background: '#5b5b5b' }} /></li>
-              <li className={style.timelineItem}>{validFileTiming ? formatSeconds(file.duration) : '00:00'}</li>
-            </ul>
-            <div className={style.controlActions}>
-              {this.renderRandomButton()}
-              {this.renderPreviousButton()}
-              {this.renderPlayStopButtons()}
-              {this.renderNextButton()}
-              {this.renderRepeatButton()}
+        {open &&
+          <div className={style.controlersContainer}>
+            <div className={style.surahMisc}>
+              <p> سورة {surah.name.arabic}</p>
             </div>
-          </div>
-          </div>
-      }
+            <div className={style.controls}>
+              <ul className={style.timeline}>
+                <li className={style.timelineItem}>
+                  {validFileTiming ? formatSeconds(file.currentTime) : '00:00'}
+                </li>
+                <li className={style.track}>
+                  <Track
+                    simple={false}
+                    progress={validFileTiming ? progress : 0}
+                    onTrackChange={this.handleTrackChange}
+                    style={{ background: '#5b5b5b' }}
+                  />
+                </li>
+                <li className={style.timelineItem}>
+                  {validFileTiming ? formatSeconds(file.duration) : '00:00'}
+                </li>
+              </ul>
+              <div className={style.controlActions}>
+                {this.renderRandomButton()}
+                {this.renderPreviousButton()}
+                {this.renderPlayStopButtons()}
+                {this.renderNextButton()}
+                {this.renderRepeatButton()}
+              </div>
+            </div>
+          </div>}
       </div>
     );
   }
@@ -204,7 +234,18 @@ export default connect(
     shouldRepeat: state.audioplayer.shouldRepeat,
     surahPage: state.audioplayer.surahPage,
     shouldContinuous: state.audioplayer.shouldContinuous,
-    shouldRandom: state.audioplayer.shouldRandom,
+    shouldRandom: state.audioplayer.shouldRandom
   }),
-  { load, play, pause, playPause, update, repeat, next, previous, continuous, random }
+  {
+    load,
+    play,
+    pause,
+    playPause,
+    update,
+    repeat,
+    next,
+    previous,
+    continuous,
+    random
+  }
 )(MobilePlayer);

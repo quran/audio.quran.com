@@ -1,7 +1,4 @@
-import {
-  LOAD,
-  LOAD_SUCCESS
-} from 'actions/related';
+import { LOAD, LOAD_SUCCESS } from 'actions/related';
 
 const initialState = {
   errored: false,
@@ -28,4 +25,3 @@ export default function reducer(state = initialState, action = {}) {
       return state;
   }
 }
-

@@ -1,3 +1,3 @@
-export default ({children, test}) => {
+export default ({ children, test }) => {
   return test ? children : false;
 };

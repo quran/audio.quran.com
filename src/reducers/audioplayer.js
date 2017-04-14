@@ -37,7 +37,9 @@ export default function reducer(state = initialState, action = {}) {
       if (__CLIENT__) {
         let file = {};
         try {
-          file = new Audio(`${AUDIO_URL}/${action.qari.relativePath}${zeroPad(action.surah.id, 3)}.mp3`);
+          file = new Audio(
+            `${AUDIO_URL}/${action.qari.relativePath}${zeroPad(action.surah.id, 3)}.mp3`
+          );
           file.play();
         } catch (error) {
           console.log(error);
@@ -125,7 +127,9 @@ export default function reducer(state = initialState, action = {}) {
       let newState = {};
       if (state.surahPage) {
         const nextQari = state.qaris[state.qari.id + 1];
-        file = new Audio(`${AUDIO_URL}/${nextQari.relativePath}${zeroPad(state.surah.id, 3)}.mp3`);
+        file = new Audio(
+          `${AUDIO_URL}/${nextQari.relativePath}${zeroPad(state.surah.id, 3)}.mp3`
+        );
         file.title = `${state.surah.name.simple} - ${nextQari.name}`;
         file.play();
         newState = {
@@ -136,7 +140,9 @@ export default function reducer(state = initialState, action = {}) {
           file
         };
       } else {
-        file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id + 1, 3)}.mp3`);
+        file = new Audio(
+          `${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id + 1, 3)}.mp3`
+        );
         file.title = `${state.surah.name.simple} - ${state.qari.name}`;
         newState = {
           ...state,
@@ -155,7 +161,9 @@ export default function reducer(state = initialState, action = {}) {
       let file = null;
       if (state.surahPage) {
         const previusQari = state.qaris[state.qari.id - 1];
-        file = new Audio(`${AUDIO_URL}/${previusQari.relativePath}${zeroPad(state.surah.id, 3)}.mp3`);
+        file = new Audio(
+          `${AUDIO_URL}/${previusQari.relativePath}${zeroPad(state.surah.id, 3)}.mp3`
+        );
         file.title = `${state.surah.name.simple} - ${previusQari.name}`;
         newState = {
           ...state,
@@ -165,7 +173,9 @@ export default function reducer(state = initialState, action = {}) {
           file
         };
       } else {
-        file = new Audio(`${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id - 1, 3)}.mp3`);
+        file = new Audio(
+          `${AUDIO_URL}/${state.qari.relativePath}${zeroPad(state.surah.id - 1, 3)}.mp3`
+        );
         file.title = `${state.surah.name.simple} - ${state.qari.name}`;
         newState = {
           ...state,

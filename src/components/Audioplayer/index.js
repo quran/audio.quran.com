@@ -60,10 +60,14 @@ class Audioplayer extends Component {
     super(props);
     this.handleTrackChange = Common.handleTrackChange.bind(this);
     this.handleFileLoad = Common.handleFileLoad.bind(this);
-    this.handleRemoveFileListeneres = Common.handleRemoveFileListeneres.bind(this);
+    this.handleRemoveFileListeneres = Common.handleRemoveFileListeneres.bind(
+      this
+    );
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.surah !== nextProps.surah || this.props.qari !== nextProps.qari) {
+    if (
+      this.props.surah !== nextProps.surah || this.props.qari !== nextProps.qari
+    ) {
       this.handleFileLoad(nextProps.file);
       this.handleRemoveFileListeneres(this.props.file);
     }
@@ -72,14 +76,24 @@ class Audioplayer extends Component {
   renderPlayStopButtons() {
     const { isPlaying, playPause, file } = this.props; // eslint-disable-line no-shadow
     if (file.readyState < 4) {
-      return (<i className=" text-primary loading is-loading"></i>);
+      return <i className=" text-primary loading is-loading" />;
     }
 
     if (isPlaying && file.readyState >= 4) {
-      return <i onClick={playPause} className={`text-primary pointer fa fa-pause-circle fa-3x ${!file && styles.disabled}`} />;
+      return (
+        <i
+          onClick={playPause}
+          className={`text-primary pointer fa fa-pause-circle fa-3x ${!file && styles.disabled}`}
+        />
+      );
     }
 
-    return <i onClick={playPause} className={`text-primary pointer fa fa-play-circle fa-3x ${!file && styles.disabled}`} />;
+    return (
+      <i
+        onClick={playPause}
+        className={`text-primary pointer fa fa-play-circle fa-3x ${!file && styles.disabled}`}
+      />
+    );
   }
 
   renderPreviousButton() {
@@ -89,7 +103,7 @@ class Audioplayer extends Component {
 
     return (
       <i
-        onClick={() => !disabled && previous({surahs: Object.values(surahs)})}
+        onClick={() => !disabled && previous({ surahs: Object.values(surahs) })}
         className={`pointer fa fa-fast-backward fa-lg ${disabled && styles.disabled}`}
       />
     );
@@ -98,11 +112,13 @@ class Audioplayer extends Component {
   renderNextButton() {
     const { next, surah, surahs, qaris, surahPage, qari } = this.props; // eslint-disable-line no-shadow
     const disableBasedOnSurah = surah ? surah.id === 114 && true : true;
-    const disabled = surahPage ? qari.id === Object.keys(qaris).length : disableBasedOnSurah;
+    const disabled = surahPage
+      ? qari.id === Object.keys(qaris).length
+      : disableBasedOnSurah;
 
     return (
       <i
-        onClick={() => !disabled && next({surahs: Object.values(surahs)})}
+        onClick={() => !disabled && next({ surahs: Object.values(surahs) })}
         className={`pointer fa fa-fast-forward fa-lg ${disabled && styles.disabled}`}
       />
     );
@@ -112,13 +128,11 @@ class Audioplayer extends Component {
     const { shouldRepeat, repeat } = this.props; // eslint-disable-line no-shadow
 
     return (
-      <div className={`text-center pull-right ${styles.toggle} ${shouldRepeat && styles.active}`}>
+      <div
+        className={`text-center pull-right ${styles.toggle} ${shouldRepeat && styles.active}`}
+      >
         <input type="checkbox" id="repeat" className="hidden" />
-        <label
-          htmlFor="repeat"
-          className={`pointer`}
-          onClick={repeat}
-        >
+        <label htmlFor="repeat" className={`pointer`} onClick={repeat}>
           <i className="fa fa-repeat" />
         </label>
       </div>
@@ -129,13 +143,11 @@ class Audioplayer extends Component {
     const { shouldRandom, random } = this.props; // eslint-disable-line no-shadow
 
     return (
-      <div className={`text-center pull-right ${styles.toggle} ${shouldRandom && styles.active}`}>
+      <div
+        className={`text-center pull-right ${styles.toggle} ${shouldRandom && styles.active}`}
+      >
         <input type="checkbox" id="random" className="hidden" />
-        <label
-          htmlFor="repeat"
-          className={`pointer`}
-          onClick={random}
-        >
+        <label htmlFor="repeat" className={`pointer`} onClick={random}>
           <i className="fa fa-random" />
         </label>
       </div>
@@ -143,7 +155,7 @@ class Audioplayer extends Component {
   }
 
   render() {
-    const { file, progress, qari, surah} = this.props; // eslint-disable-line no-shadow
+    const { file, progress, qari, surah } = this.props; // eslint-disable-line no-shadow
     if (!surah) {
       return <noscript />;
     }
@@ -152,47 +164,60 @@ class Audioplayer extends Component {
       <div className={styles.audioplayer}>
         <Row>
           <Col md={12}>
-            <Track
-              progress={progress}
-              onTrackChange={this.handleTrackChange}
-            />
+            <Track progress={progress} onTrackChange={this.handleTrackChange} />
             <Grid fluid>
               <Row>
                 <Col md={5} mdOffset={1} xs={12}>
-                  <ul className={`list-inline vertical-align ${styles.controls}`}>
-                    {[this.renderPreviousButton(), this.renderPlayStopButtons(), this.renderNextButton()].map((item, index) => (
+                  <ul
+                    className={`list-inline vertical-align ${styles.controls}`}
+                  >
+                    {[
+                      this.renderPreviousButton(),
+                      this.renderPlayStopButtons(),
+                      this.renderNextButton()
+                    ].map((item, index) => (
                       <li className={styles.controlsItem} key={index}>
                         {item}
                       </li>
-                      ))}
+                    ))}
                     <li className={`text-left ${styles.name}`}>
-                    {
-                      qari && surah ?
-                      <h4>
-                        {cleanUpBrackets(qari.name)}
-                        <br />
-                        <small className={styles.surahName}>
-                          {surah.name.simple} ({surah.name.english})
-                        </small>
-                      </h4> :
-                      <h4>
-                        --
-                        <br />
-                        <small>
-                          --
-                        </small>
-                      </h4>
-                    }
+                      {qari && surah
+                        ? <h4>
+                            {cleanUpBrackets(qari.name)}
+                            <br />
+                            <small className={styles.surahName}>
+                              {surah.name.simple} ({surah.name.english})
+                            </small>
+                          </h4>
+                        : <h4>
+                            --
+                            <br />
+                            <small>
+                              --
+                            </small>
+                          </h4>}
                     </li>
                   </ul>
                 </Col>
                 <Col md={6} className={`text-center ${styles.infoContainer}`}>
                   <ul className={`list-inline vertical-align ${styles.info}`}>
-                    <li>{!isNaN(file.duration) ? <span>{formatSeconds(file.currentTime)} / {formatSeconds(file.duration)}</span> : ''}</li>
+                    <li>
+                      {!isNaN(file.duration)
+                        ? <span>
+                            {formatSeconds(file.currentTime)}
+                            {' '}
+                            /
+                            {' '}
+                            {formatSeconds(file.duration)}
+                          </span>
+                        : ''}
+                    </li>
                     <li>{this.renderRandomButton()}</li>
                     <li>{this.renderRepeatButton()}</li>
                   </ul>
-                  <p className={styles.surahNameEnglish}>{surah.name.simple} ({surah.name.english})</p>
+                  <p className={styles.surahNameEnglish}>
+                    {surah.name.simple} ({surah.name.english})
+                  </p>
                 </Col>
               </Row>
             </Grid>
@@ -202,7 +227,6 @@ class Audioplayer extends Component {
     );
   }
 }
-
 
 export default connect(
   state => ({
@@ -218,7 +242,18 @@ export default connect(
     shouldRepeat: state.audioplayer.shouldRepeat,
     surahPage: state.audioplayer.surahPage,
     shouldContinuous: state.audioplayer.shouldContinuous,
-    shouldRandom: state.audioplayer.shouldRandom,
+    shouldRandom: state.audioplayer.shouldRandom
   }),
-  { load, play, pause, playPause, update, repeat, next, previous, continuous, random }
+  {
+    load,
+    play,
+    pause,
+    playPause,
+    update,
+    repeat,
+    next,
+    previous,
+    continuous,
+    random
+  }
 )(Audioplayer);
