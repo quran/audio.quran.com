@@ -20,7 +20,7 @@ module.exports = function audioFile(sequelize, DataTypes) {
       underscored: true,
       tableName: 'audio_files',
       classMethods: {
-        associate: models => {
+        associate: function associate(models) {
           this.belongsTo(models.qari, { foreignKey: 'qari_id' });
           this.belongsTo(models.surah, { foreignKey: 'surah_id' });
           this.belongsTo(models.recitation);

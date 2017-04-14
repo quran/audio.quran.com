@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
       classMethods: {
-        associate: models => {
+        associate: function associate(models) {
           this.hasMany(models.audioFile);
           this.belongsToMany(models.qari, { through: models.audioFile });
         }

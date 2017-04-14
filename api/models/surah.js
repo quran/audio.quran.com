@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = function surah(sequelize, DataTypes) {
   const Surah = sequelize.define(
     'surah',
     {
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       paranoid: true,
       tableName: 'surahs',
       classMethods: {
-        associate: models => {
+        associate: function associate(models) {
           this.hasMany(models.audioFile, { foreignKey: 'surah_id' });
           this.belongsToMany(models.qari, {
             through: models.audioFile,
@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
           };
         },
 
-        toJSON: () => {
+        toJSON: function toJSON() {
           return {
             id: this.surah_id,
             page: this.page,

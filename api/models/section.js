@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
       classMethods: {
-        associate: models => {
+        associate: function associate(models) {
           this.hasMany(models.qari, { foreignKey: 'section_id' });
         }
       }
