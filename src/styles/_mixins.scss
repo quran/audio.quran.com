@@ -1,13 +1,13 @@
-$screen-sm:                  999px !default;
-$screen-md:                  1000px !default;
+$screen-sm-quran:                  1100px !default;
+$screen-md-quran:                  1000px !default;
 
-@mixin mobile($mobile-break-point: $screen-sm) {
+@mixin mobile($mobile-break-point: $screen-sm-quran) {
   @media(max-width: $mobile-break-point){
     @content;
   }
 }
 
-@mixin desktop($mobile-break-point: $screen-md) {
+@mixin desktop($mobile-break-point: $screen-md-quran) {
   @media(min-width: $mobile-break-point){
     @content;
   }

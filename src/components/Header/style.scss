@@ -9,7 +9,4 @@
     font-size: 48px;
     position: relative;
     top: 123px;
-    @include mobile() {
-        left: 10%;
-    }
 }

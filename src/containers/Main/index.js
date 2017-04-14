@@ -46,12 +46,13 @@ class Home extends Component {
     return (
       <div>
         <Header />
+        <Nav
+          section={section}
+          sections={sections}
+          handleSelect={this.handleSelect}
+        />
         <div className={`${styles.container}`}>
-          <Nav
-            section={section}
-            sections={sections}
-            handleSelect={this.handleSelect}
-          />
+
           <div md={12} className={styles.qariContainer}>
             {formated.map((item, index) => (
               <QarisList key={index} data={item} section={section} />
