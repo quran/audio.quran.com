@@ -25,7 +25,7 @@ class App extends Component {
 
   state = {
     isMobile: isMobile()
-  }
+  };
 
   componentDidMount() {
     window.addEventListener('resize', () => {
@@ -34,8 +34,8 @@ class App extends Component {
   }
 
   render() {
-    const childrenWithProps = React.Children.map(this.props.children,
-      (child) => React.cloneElement(child, {
+    const childrenWithProps = React.Children.map(this.props.children, child =>
+      React.cloneElement(child, {
         context: this.context
       })
     );
@@ -45,11 +45,28 @@ class App extends Component {
         <Helmet {...config.app.head} />
         <ul className={styles.navContainer}>
           <li><Link to="/about">About</Link></li>
-          <li><a href="https://quran.zendesk.com/hc/en-us/requests/new">Contact Us</a></li>
+          <li>
+            <a href="https://quran.zendesk.com/hc/en-us/requests/new">
+              Contact Us
+            </a>
+          </li>
         </ul>
         <div className={styles.linkContainer}>
-    <Link to="/" title="Select from your favourite recriters" className={styles.link}>{isHome(this.props.location.pathname) && <i className="fa fa-home" aria-hidden="true"></i>}</Link>
-          <a href="https://quran.com" title="Read the holy Quran, on quran.com" className={`${styles.link} ${styles.linkRight}`}><i className="fa fa-book" aria-hidden="true"></i></a>
+          <Link
+            to="/"
+            title="Select from your favourite recriters"
+            className={styles.link}
+          >
+            {isHome(this.props.location.pathname) &&
+              <i className="fa fa-home" aria-hidden="true" />}
+          </Link>
+          <a
+            href="https://quran.com"
+            title="Read the holy Quran, on quran.com"
+            className={`${styles.link} ${styles.linkRight}`}
+          >
+            <i className="fa fa-book" aria-hidden="true" />
+          </a>
         </div>
         <div className={styles.appContent}>
           {childrenWithProps}

@@ -9,7 +9,7 @@ export function load(id) {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     schema: arrayOf(filesSchema),
-    promise: (client) => client.get(`/qaris/${id}/audio_files/mp3`),
+    promise: client => client.get(`/qaris/${id}/audio_files/mp3`),
     id
   };
 }

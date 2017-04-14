@@ -20,6 +20,8 @@
     "start-prod-api": "better-npm-run start-prod-api",
     "build": "better-npm-run build",
     "lint": "eslint -c .eslintrc src api",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "prettier --single-quote --write 'src/**/*.js'",
     "start-dev": "better-npm-run start-dev",
     "start-dev-api": "better-npm-run start-dev-api",
     "watch-client": "better-npm-run watch-client",
@@ -27,7 +29,15 @@
     "test": "karma start",
     "test-node": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register",
     "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register --watch",
-    "compress-images": "node compress-images.js"
+    "compress-images": "node compress-images.js",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run prettier",
+      "npm run lint:fix",
+      "git add"
+    ]
   },
   "betterScripts": {
     "start-prod": {
@@ -159,6 +169,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "chai": "^3.3.0",
     "concurrently": "^0.1.1",
+    "prettier": "^1.1.0",
     "eslint": "1.10.3",
     "eslint-config-airbnb": "0.1.0",
     "eslint-loader": "^1.0.0",
@@ -166,6 +177,7 @@
     "eslint-plugin-react": "^3.5.0",
     "font-awesome": "^4.4.0",
     "font-awesome-webpack": "0.0.4",
+    "husky": "^0.13.3",
     "imagemin": "^5.2.2",
     "imagemin-jpeg-recompress": "^5.1.0",
     "imagemin-jpegoptim": "^5.0.0",
@@ -180,6 +192,7 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-sourcemap-loader": "^0.3.5",
     "karma-webpack": "^1.7.0",
+    "lint-staged": "^3.4.0",
     "mocha": "^2.3.3",
     "phantomjs": "^1.9.18",
     "phantomjs-polyfill": "0.0.1",

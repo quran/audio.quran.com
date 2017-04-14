@@ -31,28 +31,40 @@ class Qaris extends Component {
     isPlaying: PropTypes.bool.isRequired
   };
   state = { toggleRelated: false };
-  handleSurahSelection = (surah) => {
+  handleSurahSelection = surah => {
     const { qari, currentSurah, currentQari } = this.props;
     const currenSurahId = currentSurah ? currentSurah.id : {};
     if (currenSurahId !== surah.id || currentQari.id !== qari.id) {
       this.props.load({ qari, surah });
     }
-  }
+  };
   handleRelated = () => {
     this.setState({
       toggleRelated: !this.state.toggleRelated
     });
-  }
+  };
   render() {
-    const { surahs, qari, files, currentSurah, shouldRandom, related, qaris } = this.props;
+    const {
+      surahs,
+      qari,
+      files,
+      currentSurah,
+      shouldRandom,
+      related,
+      qaris
+    } = this.props;
     const { toggleRelated } = this.state;
 
     const handleShuffleAll = () => {
       this.props.random();
       if (!shouldRandom) {
         const randomSurah = Math.floor(Math.random() * (113 + 1));
-        const surahId = (currentSurah && currentSurah.id) ? currentSurah.id + 1 : randomSurah;
-        this.handleSurahSelection(Object.values(surahs).filter(() => files[1])[surahId]);
+        const surahId = currentSurah && currentSurah.id
+          ? currentSurah.id + 1
+          : randomSurah;
+        this.handleSurahSelection(
+          Object.values(surahs).filter(() => files[1])[surahId]
+        );
       }
     };
 
@@ -66,28 +78,40 @@ class Qaris extends Component {
             <h1 className={styles.reciterName}>
               {qari.name}
             </h1>
-            <p className={styles.description} dangerouslySetInnerHTML={{ __html: description.replace(/\\/g, '') }} />
+            <p
+              className={styles.description}
+              dangerouslySetInnerHTML={{
+                __html: description.replace(/\\/g, '')
+              }}
+            />
             <div className={styles.buttonContain}>
               <Button
-                color={ shouldRandom ? 'inverted' : ''}
+                color={shouldRandom ? 'inverted' : ''}
                 className={styles.button}
                 onClick={handleShuffleAll}
               >
-                <i className={`fa ${shouldRandom ? 'fa-stop' : 'fa-play'} ${styles.icon}`} /><span>Shuffle Play</span>
+                <i
+                  className={`fa ${shouldRandom ? 'fa-stop' : 'fa-play'} ${styles.icon}`}
+                />
+                <span>Shuffle Play</span>
               </Button>
-              {related.length > 0 && (
+              {related.length > 0 &&
                 <Button
-                  color={ toggleRelated ? 'inverted' : ''}
+                  color={toggleRelated ? 'inverted' : ''}
                   className={`${styles.button} ${styles.related}`}
                   onClick={this.handleRelated}
                 >
-                  <i className={`fa fa-sitemap ${styles.icon}`} /><span>{'Other Recitations'}</span>
-                </Button>)}
+                  <i className={`fa fa-sitemap ${styles.icon}`} />
+                  <span>{'Other Recitations'}</span>
+                </Button>}
               <Related related={related} qaris={qaris} toggle={toggleRelated} />
             </div>
           </div>
         </div>
-        <SurahList {...this.props} handleSurahSelection={this.handleSurahSelection} />
+        <SurahList
+          {...this.props}
+          handleSurahSelection={this.handleSurahSelection}
+        />
       </div>
     );
   }
@@ -104,19 +128,23 @@ const connectedQaris = connect(
     currentTime: state.audioplayer.currentTime,
     shouldRandom: state.audioplayer.shouldRandom,
     progress: state.audioplayer.progress,
-    currentSurah: (state.audioplayer && state.audioplayer.surah) ? state.audioplayer.surah : {},
+    currentSurah: state.audioplayer && state.audioplayer.surah
+      ? state.audioplayer.surah
+      : {},
     currentQari: state.audioplayer.qari
   }),
   { load, play, next, random }
 )(Qaris);
 
-export default asyncConnect([{
-  promise({ params, store: { dispatch } }) {
-    return dispatch(loadFiles(params.id));
+export default asyncConnect([
+  {
+    promise({ params, store: { dispatch } }) {
+      return dispatch(loadFiles(params.id));
+    }
+  },
+  {
+    promise({ params, store: { dispatch } }) {
+      return dispatch(loadRelated(params.id));
+    }
   }
-},
-{
-  promise({ params, store: { dispatch } }) {
-    return dispatch(loadRelated(params.id));
-  }
-}])(connectedQaris);
+])(connectedQaris);

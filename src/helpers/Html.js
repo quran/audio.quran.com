@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom/server';
 import serialize from 'serialize-javascript';
 import Helmet from 'react-helmet';
@@ -20,7 +20,7 @@ export default class Html extends Component {
   };
 
   render() {
-    const {assets, component, store} = this.props;
+    const { assets, component, store } = this.props;
     const content = component ? ReactDOM.renderToString(component) : '';
     const head = Helmet.rewind();
 
@@ -34,20 +34,44 @@ export default class Html extends Component {
           {head.script.toComponent()}
 
           <link rel="shortcut icon" href="/favicon.ico" />
-          <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
-          <meta name="viewport" content="width = device-width, initial-scale = 1, maximum-scale = 1, user-scalable = no" />
+          <link
+            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+            rel="stylesheet"
+          />
+          <meta
+            name="viewport"
+            content="width = device-width, initial-scale = 1, maximum-scale = 1, user-scalable = no"
+          />
           {/* styles (will be present only in production with webpack extract text plugin) */}
-          {Object.keys(assets.styles).map((style, key) =>
-            <link href={assets.styles[style]} key={key} media="screen, projection"
-                  rel="stylesheet" type="text/css" charSet="UTF-8"/>
-          )}
+          {Object.keys(assets.styles).map((style, key) => (
+            <link
+              href={assets.styles[style]}
+              key={key}
+              media="screen, projection"
+              rel="stylesheet"
+              type="text/css"
+              charSet="UTF-8"
+            />
+          ))}
 
-          { Object.keys(assets.styles).length === 0 ? <style dangerouslySetInnerHTML={{__html: require('../../bootstrap.config.js') + require('../containers/App/style.scss')._style}}/> : null }
+          {Object.keys(assets.styles).length === 0
+            ? <style
+                dangerouslySetInnerHTML={{
+                  __html: require('../../bootstrap.config.js') +
+                    require('../containers/App/style.scss')._style
+                }}
+              />
+            : null}
         </head>
         <body>
-          <div id="content" dangerouslySetInnerHTML={{__html: content}}/>
-          <script dangerouslySetInnerHTML={{__html: `window.__data=${serialize(store.getState())};`}} charSet="UTF-8"/>
-          <script src={assets.javascript.main} charSet="UTF-8"/>
+          <div id="content" dangerouslySetInnerHTML={{ __html: content }} />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.__data=${serialize(store.getState())};`
+            }}
+            charSet="UTF-8"
+          />
+          <script src={assets.javascript.main} charSet="UTF-8" />
         </body>
       </html>
     );

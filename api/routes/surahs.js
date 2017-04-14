@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import superagent from 'superagent';
 
 import models from '../models';
 
-const router = Router();
+const routerInit = Router;
+const router = routerInit();
 
 router.get('/', (req, res) => {
   models.surah.all().then(surahs => res.send(surahs));

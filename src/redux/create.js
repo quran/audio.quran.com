@@ -13,12 +13,15 @@ export default function createStore(history, client, data) {
     const DevTools = require('../containers/DevTools/DevTools');
     const logger = createLogger({
       collapsed: true,
-      predicate: (getState, action) => action.type !== '@@quran/audioplayer/UPDATE'
+      predicate: (getState, action) =>
+        action.type !== '@@quran/audioplayer/UPDATE'
     });
     middleware.push(logger);
     finalCreateStore = compose(
       applyMiddleware(...middleware),
-      window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
+      window.devToolsExtension
+        ? window.devToolsExtension()
+        : DevTools.instrument(),
       persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
     )(_createStore);
   } else {

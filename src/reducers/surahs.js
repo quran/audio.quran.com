@@ -1,7 +1,4 @@
-import {
-    LOAD_SUCCESS,
-    LOAD
-} from 'actions/surahs';
+import { LOAD_SUCCESS, LOAD } from 'actions/surahs';
 
 const initialState = {
   errored: false,

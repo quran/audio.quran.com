@@ -1,8 +1,4 @@
-
-import {
-  LOAD,
-  LOAD_SUCCESS
-} from 'actions/sections';
+import { LOAD, LOAD_SUCCESS } from 'actions/sections';
 
 const initialState = {
   errored: false,

@@ -1,8 +1,4 @@
-import {
-  LOAD,
-  LOAD_SUCCESS,
-  LOAD_FAIL
-} from 'actions/download';
+import { LOAD, LOAD_SUCCESS, LOAD_FAIL } from 'actions/download';
 
 const initialState = {
   errored: false,
@@ -22,16 +18,15 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loaded: false,
-        errored: true,
+        errored: true
       };
     case LOAD_SUCCESS:
-
       return {
         ...state,
         loaded: true,
         errored: false,
         entities: {
-          ...state.entities,
+          ...state.entities
         },
         ...action.result
       };
