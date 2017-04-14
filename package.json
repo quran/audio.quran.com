@@ -35,6 +35,7 @@
   "lint-staged": {
     "*.js": [
       "npm run prettier",
+      "npm run lint:fix",
       "git add"
     ]
   },
@@ -132,7 +133,6 @@
     "normalizr": "^2.1.0",
     "pg": "^6.0.3",
     "piping": "^0.3.0",
-    "prettier": "^1.1.0",
     "pretty-error": "^1.2.0",
     "quran-components": "0.0.46",
     "react": "^0.14.8",
@@ -169,6 +169,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "chai": "^3.3.0",
     "concurrently": "^0.1.1",
+    "prettier": "^1.1.0",
     "eslint": "1.10.3",
     "eslint-config-airbnb": "0.1.0",
     "eslint-loader": "^1.0.0",
