@@ -62,7 +62,7 @@ export default ({
                   </Row>
                 </Col>
                 <Col md={6} className="text-right hidden-xs hidden-sm">
-                  <LinkContainer to={`/sura/${surah.id}`}>
+                  <LinkContainer to={`/`}>
                     <Button
                       color="inverted"
                       className={styles.options}

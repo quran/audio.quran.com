@@ -8,9 +8,10 @@
     background: white;
     position: relative;
     width: 100%;
+    min-width: 230px;
     @include mobile() {
-        width: 30%;
-        width: 95vw;
+        width: 100%;
+        padding: 0 10px;
         flex-direction: column;
     }
     .pills__item {
@@ -22,11 +23,13 @@
         text-align: center;
         letter-spacing: 1px;
         margin-bottom: 5px;
-        padding-top: 5vh;
-        padding-bottom: 4vh;
-        padding-left: 20px;
-        padding-right: 42px;
-        border-bottom: 1px solid #F0F0F0;
+        border-bottom: 2px solid #F0F0F0;
+        padding: 25px 25px 25px 25px;
+        a {
+            padding: 10px 15px;
+            text-decoration: none;
+            outline: 0;
+        }
         @include mobile() {
             padding-top: 10px;
             padding-right: 15px;
