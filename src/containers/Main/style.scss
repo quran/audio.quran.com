@@ -45,12 +45,14 @@
     .container {
         margin-right: auto;
         margin-left: auto;
+        margin-bottom: 50px;
         padding-left: 15px;
         padding-right: 15px;
         position: relative;
         background: white;
         position: relative;
-        left: 0%; // width: 60%;
+        left: 0%;
+        // width: 60%;
         // @media (min-width: 768px) {
         //     width: 750px;
         // }
@@ -69,8 +71,7 @@
 
     .qariContainer {
         background-color: white;
-        margin-left: -15px;
-        margin-right: -15px;
+        margin: 0 -15px;
     }
 
     .downloadLink {
