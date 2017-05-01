@@ -1,7 +1,7 @@
 @import "../../styles/variables.scss";
 .reciterBackground {
     background-size: cover;
-    height: 300px;
+    height: 320px;
     background: #009faa;
     padding-top: 8rem;
     color: #ffffff;
@@ -9,8 +9,16 @@
     background-color: $brand-primary;
     margin-left: -15px;
     margin-right: -15px;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    word-wrap: break-word;
+    word-break: break-word;
     @include desktop() {
         padding-bottom: 8rem;
+    }
+
+    @include mobile() {
+      height: 350px;
     }
 }
 
@@ -29,7 +37,6 @@
 }
 
 .buttonContain {
-    padding-bottom: 3rem;
     margin-top: 10px;
 }
 
@@ -52,10 +59,9 @@
     }
 
     &.related {
-      margin-left: 10px;
-      @include mobile() {
+      @include desktop() {
         margin-left: 0;
-        margin-top: 10px;
+        margin-top: 0;
       }
     }
 }
