@@ -28,6 +28,7 @@
         a {
             padding: 10px 15px;
             text-decoration: none;
+            outline: 0;
         }
         @include mobile() {
             padding-top: 10px;

@@ -10,7 +10,7 @@ export default ({ section, sections, handleSelect }) => {
           key={currentSection.id}
           onClick={() => handleSelect(currentSection.id)}
         >
-          <a>{currentSection.name}</a>
+          <a tabIndex="-1">{currentSection.name}</a>
         </li>
       ))}
     </ul>

@@ -4,10 +4,12 @@
 }
 
 .list {
-    width: 50%;
+    width: 75%;
     margin: 0 auto;
     padding-left: 15px;
     padding-right: 15px;
+    position: relative;
+    bottom: 50px;
     @include mobile() {
         width: 100%;
     }
@@ -16,7 +18,7 @@
 .panel {
     margin-bottom: 10px;
     border-radius: 0px;
-    padding: 10px 0 10px 0;
+    padding: 10px;
     border: none;
     &.panelPlaying {
         @include mobile() {

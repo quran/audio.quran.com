@@ -32,14 +32,14 @@
     margin-top: -75px;
 }
 
-.topNavContainer {
+.navContainer {
     width: 100%;
-    position: absolute; // float: right;
-    // text-align: right;
-    top: 10px; // right: 5vw;
+    position: absolute;
+    float: right;
+    text-align: right;
+    top: 10px;
+    right: 5vw;
     z-index: 10;
-    display: flex;
-    justify-content: flex-end;
     @include mobile() {
         right: 15vw;
     }
@@ -71,14 +71,4 @@
         position: relative;
         margin-right: 30px;
     }
-}
-
-.sisterSites {
-    display: inline-block;
-    color: white;
-    font-size: 20px;
-    position: relative;
-    // top: -3px;
-    right: 10px;
-    color: white;
 }

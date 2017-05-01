@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { asyncConnect } from 'redux-connect';
 import Helmet from 'react-helmet';
-import Sites from 'quran-components/lib/Sites';
-import Icon from 'quran-components/lib/Icon';
 
 import Link from 'react-router/lib/Link';
 import Audioplayer from 'components/Audioplayer';
@@ -45,19 +43,30 @@ class App extends Component {
     return (
       <div className={styles.app}>
         <Helmet {...config.app.head} />
+        <ul className={styles.navContainer}>
+          <li><Link to="/about">About</Link></li>
+          <li>
+            <a href="https://quran.zendesk.com/hc/en-us/requests/new">
+              Contact Us
+            </a>
+          </li>
+        </ul>
         <div className={styles.linkContainer}>
-          {isHome(this.props.location.pathname) &&
-            <Link
-              to="/"
-              title="Select from your favourite recriters"
-              className={styles.link}
-            >
-              <i className="fa fa-home" aria-hidden="true" />
-            </Link>}
-          <Icon type="rows" />
-          <div className={styles.sisterSites}>
-            <Sites />
-          </div>
+          <Link
+            to="/"
+            title="Select from your favourite recriters"
+            className={styles.link}
+          >
+            {isHome(this.props.location.pathname) &&
+              <i className="fa fa-home" aria-hidden="true" />}
+          </Link>
+          <a
+            href="https://quran.com"
+            title="Read the holy Quran, on quran.com"
+            className={`${styles.link} ${styles.linkRight}`}
+          >
+            <i className="fa fa-book" aria-hidden="true" />
+          </a>
         </div>
         <div className={styles.appContent}>
           {childrenWithProps}
