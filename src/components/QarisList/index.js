@@ -40,11 +40,11 @@ export default class QarisList extends Component {
     const isHaramainSection = section === 2;
 
     if (isHaramainSection) {
-      const Madinah = filterBasedOnSection.filter(item =>
-        item.name.indexOf('Madinah')
+      const Madinah = filterBasedOnSection.filter(
+        item => item.name.indexOf('Madinah') > -1
       );
-      const Makkah = filterBasedOnSection.filter(item =>
-        item.name.indexOf('Makkah')
+      const Makkah = filterBasedOnSection.filter(
+        item => item.name.indexOf('Makkah') > -1
       );
 
       return (

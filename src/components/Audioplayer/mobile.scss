@@ -3,7 +3,7 @@
 @import "../../styles/loading.scss";
 
 $easing: cubic-bezier(0.47, 0, 0.745, 0.715);
-$brand-color: #2CA4AB;
+$brand-color: $brand-primary;
 .audioplayer {
     position: fixed;
     left: 0px;
@@ -16,7 +16,7 @@ $brand-color: #2CA4AB;
     flex-direction: column;
     font-family: Montserrat;
     transition: all .3s $easing;
-    border-top: 5px solid #2CA4AB;
+    border-top: 5px solid $brand-primary;
 
     .chevron {
         z-index: 2;

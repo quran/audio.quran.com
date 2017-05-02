@@ -31,16 +31,14 @@
             outline: 0;
         }
         @include mobile() {
-            padding-top: 10px;
-            padding-right: 15px;
-            padding-bottom: 10px;
-            padding-left: 15px;
+            padding-top: 15px;
+            padding-bottom: 15px;
             &+.pills__item {
                 border-bottom: 1px solid #F0F0F0;
             }
         }
         &.active {
-            border-bottom: 2px solid #2CA4AB;
+            border-bottom: 2px solid $brand-primary;
         }
     }
 }

@@ -1,12 +1,22 @@
 @import "../../styles/variables.scss";
-.heading {
-    display: flex;
-    justify-content: center;
-    position: relative;
+@import "../../styles/mixins.scss";
+.jumbotron {
     height: 300px;
+}
+
+.heading {
+    display: inline-block;
     color: #fff;
     font-family: 'Montserrat-Bold';
     font-size: 48px;
     position: relative;
-    top: 123px;
+    @include desktop() {
+        top: 100px;
+        left: 40px;
+    }
+    @include mobile() {
+        top: 115px;
+        left: 40px;
+        font-size: 40px;
+    }
 }
