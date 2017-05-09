@@ -21,7 +21,7 @@
     "build": "better-npm-run build",
     "lint": "eslint -c .eslintrc src api",
     "lint:fix": "npm run lint -- --fix",
-    "prettier": "prettier --single-quote --write 'src/**/*.js'",
+    "prettier": "prettier --single-quote --write",
     "start-dev": "better-npm-run start-dev",
     "start-dev-api": "better-npm-run start-dev-api",
     "watch-client": "better-npm-run watch-client",
