@@ -1,4 +1,4 @@
-# audio.quran.com 
+# Quranic Audio [![SLACK](http://i.imgur.com/Lk5HsBo.png)](https://quranslack.herokuapp.com)
 
 The source code for the upcoming version of [quranicaudio.com](http://quranicaudio.com).
 
