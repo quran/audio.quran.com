@@ -57,21 +57,69 @@ class MobilePlayer extends Component {
     this.handleRemoveFileListeneres = Common.handleRemoveFileListeneres.bind(
       this
     );
+    this.handleKeyboardEvent = this.handleKeyboardEvent.bind(this);
 
     this.state = {
       open: true
     };
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyboardEvent);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (
-      this.props.surah !== nextProps.surah || this.props.qari !== nextProps.qari
+      this.props.surah !== nextProps.surah ||
+      this.props.qari !== nextProps.qari
     ) {
       this.handleFileLoad(nextProps.file);
       this.handleRemoveFileListeneres(this.props.file);
       this.setState({
         open: true
       });
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyboardEvent);
+  }
+
+  isPlayPreviousDisabled() {
+    const { surah, surahPage, qari } = this.props; // eslint-disable-line no-shadow
+    const disableBasedOnSurah = surah ? surah.id === 1 && true : true;
+    const disabled = surahPage ? qari.id === 1 && true : disableBasedOnSurah;
+    return disabled;
+  }
+
+  isPlayNextDisabled() {
+    const { surah, qaris, surahPage, qari } = this.props; // eslint-disable-line no-shadow
+    const disableBasedOnSurah = surah ? surah.id === 114 && true : true;
+    const disabled = surahPage
+      ? qari.id === Object.keys(qaris).length
+      : disableBasedOnSurah;
+    console.log(surah, surahPage, disableBasedOnSurah, disabled);
+    return disabled;
+  }
+
+  handleKeyboardEvent(event) {
+    const { code } = event;
+    const { previous, next, playPause, surahs } = this.props; // eslint-disable-line no-shadow
+    if (code === 'Space') {
+      event.preventDefault();
+      playPause();
+    } else if (
+      (code === 'ArrowRight' || code === 'ArrowDown') &&
+      !this.isPlayNextDisabled()
+    ) {
+      event.preventDefault();
+      next({ surahs: Object.values(surahs) });
+    } else if (
+      (code === 'ArrowLeft' || code === 'ArrowUp') &&
+      !this.isPlayPreviousDisabled()
+    ) {
+      event.preventDefault();
+      previous({ surahs: Object.values(surahs) });
     }
   }
 
@@ -89,7 +137,8 @@ class MobilePlayer extends Component {
       return (
         <i
           onClick={playPause}
-          className={`text-primary pointer fa fa-pause-circle ${!file && style.disabled} ${style.playPause}`}
+          className={`text-primary pointer fa fa-pause-circle ${!file &&
+            style.disabled} ${style.playPause}`}
         />
       );
     }
@@ -97,34 +146,33 @@ class MobilePlayer extends Component {
     return (
       <i
         onClick={playPause}
-        className={`text-primary pointer fa fa-play-circle ${!file && style.disabled} ${style.playPause}`}
+        className={`text-primary pointer fa fa-play-circle ${!file &&
+          style.disabled} ${style.playPause}`}
       />
     );
   }
 
   renderPreviousButton() {
-    const { previous, surah, surahs, qaris, surahPage, qari } = this.props; // eslint-disable-line no-shadow
-    const disableBasedOnSurah = surah ? surah.id === 114 && true : true;
-    const disabled = surahPage
-      ? qari.id === Object.keys(qaris).length
-      : disableBasedOnSurah;
+    const { previous, surahs } = this.props; // eslint-disable-line no-shadow
+    const disabled = this.isPlayPreviousDisabled();
 
     return (
       <i
         onClick={() => !disabled && previous({ surahs: Object.values(surahs) })}
-        className={`pointer fa fa-fast-backward fa-lg ${disabled && style.disabled} ${style.previous}`}
+        className={`pointer fa fa-fast-backward fa-lg ${disabled &&
+          style.disabled} ${style.previous}`}
       />
     );
   }
   renderNextButton() {
-    const { next, surah, surahs, surahPage, qari } = this.props; // eslint-disable-line no-shadow
-    const disableBasedOnSurah = surah ? surah.id === 1 && true : true;
-    const disabled = surahPage ? qari.id === 1 && true : disableBasedOnSurah;
+    const { next, surahs } = this.props; // eslint-disable-line no-shadow
+    const disabled = this.isPlayNextDisabled();
 
     return (
       <i
         onClick={() => !disabled && next({ surahs: Object.values(surahs) })}
-        className={`pointer fa fa-fast-forward fa-lg ${disabled && style.disabled} ${style.next}`}
+        className={`pointer fa fa-fast-forward fa-lg ${disabled &&
+          style.disabled} ${style.next}`}
       />
     );
   }
@@ -184,7 +232,7 @@ class MobilePlayer extends Component {
           </h2>
           <h3 className={style.surahName}>{`Surat ${surah.name.simple}`}</h3>
         </div>
-        {open &&
+        {open && (
           <div className={style.controlersContainer}>
             <div className={style.surahMisc}>
               <p> سورة {surah.name.arabic}</p>
@@ -214,7 +262,8 @@ class MobilePlayer extends Component {
                 {this.renderRepeatButton()}
               </div>
             </div>
-          </div>}
+          </div>
+        )}
       </div>
     );
   }
