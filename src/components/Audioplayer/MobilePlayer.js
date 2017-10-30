@@ -57,7 +57,9 @@ class MobilePlayer extends Component {
     this.handleRemoveFileListeneres = Common.handleRemoveFileListeneres.bind(
       this
     );
-    this.handleKeyboardEvent = this.handleKeyboardEvent.bind(this);
+    this.isPlayPreviousDisabled = Common.isPlayPreviousDisabled.bind(this);
+    this.isPlayNextDisabled = Common.isPlayNextDisabled.bind(this);
+    this.handleKeyboardEvent = Common.handleKeyboardEvent.bind(this);
 
     this.state = {
       open: true
@@ -83,44 +85,6 @@ class MobilePlayer extends Component {
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyboardEvent);
-  }
-
-  isPlayPreviousDisabled() {
-    const { surah, surahPage, qari } = this.props; // eslint-disable-line no-shadow
-    const disableBasedOnSurah = surah ? surah.id === 1 && true : true;
-    const disabled = surahPage ? qari.id === 1 && true : disableBasedOnSurah;
-    return disabled;
-  }
-
-  isPlayNextDisabled() {
-    const { surah, qaris, surahPage, qari } = this.props; // eslint-disable-line no-shadow
-    const disableBasedOnSurah = surah ? surah.id === 114 && true : true;
-    const disabled = surahPage
-      ? qari.id === Object.keys(qaris).length
-      : disableBasedOnSurah;
-    console.log(surah, surahPage, disableBasedOnSurah, disabled);
-    return disabled;
-  }
-
-  handleKeyboardEvent(event) {
-    const { code } = event;
-    const { previous, next, playPause, surahs } = this.props; // eslint-disable-line no-shadow
-    if (code === 'Space') {
-      event.preventDefault();
-      playPause();
-    } else if (
-      (code === 'ArrowRight' || code === 'ArrowDown') &&
-      !this.isPlayNextDisabled()
-    ) {
-      event.preventDefault();
-      next({ surahs: Object.values(surahs) });
-    } else if (
-      (code === 'ArrowLeft' || code === 'ArrowUp') &&
-      !this.isPlayPreviousDisabled()
-    ) {
-      event.preventDefault();
-      previous({ surahs: Object.values(surahs) });
-    }
   }
 
   renderPlayStopButtons() {
