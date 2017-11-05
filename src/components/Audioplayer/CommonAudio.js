@@ -1,3 +1,5 @@
+/* global MediaMetadata */
+
 export default class CommonAudio {
   static handleTrackChange(fraction) {
     const { file, update } = this.props; // eslint-disable-line no-shadow
@@ -17,12 +19,37 @@ export default class CommonAudio {
     file.setAttribute('preload', 'auto');
 
     const onLoadeddata = () => {
+      const { qari, surah, previous, next, playPause, surahs } = this.props;
+
       // Default current time to zero. This will change
       file.currentTime = 0; // eslint-disable-line no-param-reassign
 
       update({
         duration: file.duration
       });
+
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: `${surah.name.simple} (${surah.name.english})`,
+          artist: qari.name,
+          album: 'The Holy Quran'
+        });
+
+        const previousTrackHandler = this.isPlayPreviousDisabled()
+          ? null
+          : () => previous({ surahs: Object.values(surahs) });
+        const nextTrackHandler = this.isPlayNextDisabled()
+          ? null
+          : () => next({ surahs: Object.values(surahs) });
+
+        navigator.mediaSession.setActionHandler('play', playPause);
+        navigator.mediaSession.setActionHandler('pause', playPause);
+        navigator.mediaSession.setActionHandler(
+          'previoustrack',
+          previousTrackHandler
+        );
+        navigator.mediaSession.setActionHandler('nexttrack', nextTrackHandler);
+      }
     };
 
     const onTimeupdate = () => {
@@ -84,14 +111,14 @@ export default class CommonAudio {
 
   static isPlayPreviousDisabled() {
     const { surah, surahPage, qari } = this.props; // eslint-disable-line no-shadow
-    const disableBasedOnSurah = surah ? surah.id === 1 && true : true;
+    const disableBasedOnSurah = surah.id === 1;
     const disabled = surahPage ? qari.id === 1 && true : disableBasedOnSurah;
     return disabled;
   }
 
   static isPlayNextDisabled() {
     const { surah, qaris, surahPage, qari } = this.props; // eslint-disable-line no-shadow
-    const disableBasedOnSurah = surah ? surah.id === 114 && true : true;
+    const disableBasedOnSurah = surah.id === 114;
     const disabled = surahPage
       ? qari.id === Object.keys(qaris).length
       : disableBasedOnSurah;
