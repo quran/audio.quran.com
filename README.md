@@ -24,7 +24,7 @@ npm run start
 ```
 
 ## Database
-This project uses a Postgres database. Assuming you have Postgres installed create a user/role `quran_dev` then run the commands belo
+This project uses a Postgres database. Assuming you have Postgres installed create a user/role `quran_dev` then run the commands below
 ```
 psql -c 'create database audio_quran;' -U quran_dev
 psql audio_quran < audio_quran.psql
