@@ -12,10 +12,10 @@ export default app => {
     res.end(
       `
       API:
-      Qaris: '/qaris'
-      audio_files: '/audio_files'
-      surahs: '/surahs'
-      sections: '/sections'
+      Qaris: '/api/qaris'
+      audio_files: '/api/audio_files'
+      surahs: '/api/surahs'
+      sections: '/api/sections'
     `
     )
   );

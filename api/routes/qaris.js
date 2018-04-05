@@ -6,6 +6,15 @@ import archiver from 'archiver';
 
 const routerInit = Router;
 const router = routerInit();
+const header = {
+  'Content-Type': 'application/x-zip',
+  Pragma: 'public',
+  Expires: '0',
+  'Cache-Control': 'private, must-revalidate, post-check=0, pre-check=0',
+  'Content-disposition': `attachment; filename=\"complete_quran.zip\"`,
+  'Transfer-Encoding': 'chunked',
+  'Content-Transfer-Encoding': 'binary'
+};
 
 router.get('/', (req, res) => {
   return models.qari.all().then(qaris => res.send(qaris));
@@ -45,23 +54,15 @@ router.get('/related/:id', (req, res) => {
 });
 
 router.get('/:id/download', (req, res) => {
+  const qariId = req.params.id;
   const archive = archiver('zip', {
     zlib: { level: 9 } // Sets the compression level.
   });
-  const header = {
-    'Content-Type': 'application/x-zip',
-    Pragma: 'public',
-    Expires: '0',
-    'Cache-Control': 'private, must-revalidate, post-check=0, pre-check=0',
-    'Content-disposition': `attachment; filename=\"complete_quran.zip\"`,
-    'Transfer-Encoding': 'chunked',
-    'Content-Transfer-Encoding': 'binary'
-  };
 
   archive
     .on('warning', err => {
       if (err.code === 'ENOENT') {
-        console.log(err);
+        console.debug(err);
       } else {
         throw err;
       }
@@ -77,7 +78,6 @@ router.get('/:id/download', (req, res) => {
 
   archive.pipe(res);
 
-  const qariId = req.params.id;
   models.qari
     .findById(qariId, {
       include: [
@@ -102,8 +102,6 @@ router.get('/:id/download', (req, res) => {
       archive.append(`Name: ${qari.name}\n Arabic Name: ${qari.arabic_name}`, {
         name: 'qari_name.txt'
       });
-      console.log(`Complete download of qari ${qari.name}`);
-      console.log(archive.pointer() + ' total bytes');
       archive.finalize();
     });
 });
