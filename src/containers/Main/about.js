@@ -18,16 +18,7 @@ export default () => {
           <a href="http://kalamullah.com">Kalamullah.com</a>
           ,
           {' '}
-          <a href="http://sabbir.com">Sabbir.com</a>
-          ,
-          {' '}
           <a href="http://dhikrullah.com">dhikrullah.com</a>
-          ,
-          {' '}
-          <a href="http://zanjabil.net">zanjabil.net</a>
-          ,
-          {' '}
-          <a href="http://shuraym.com">shuraym.com</a>
           , and others. Many of the files have also been sent to us by some of our users, may Allah reward them greatly.
         </p>
       </div>
