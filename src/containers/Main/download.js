@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import Header from '../../components/Header';
+import AUDIO_URL from '../../actions/audioplayer';
+
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import { load } from 'actions/download';
@@ -28,7 +30,7 @@ class Download extends Component {
                 </h1>
                 <a
                   className={styles.downloadLink}
-                  href={`http://download.quranicaudio.com/quran/${qaris[qariId].relativePath}${zeroPad(surahId, 3)}.mp3`}
+                  href={`${AUDIO_URL}/${qaris[qariId].relativePath}${zeroPad(surahId, 3)}.mp3`}
                 >
                   Download
                 </a>
