@@ -1,4 +1,5 @@
 import React from 'react';
+import AUDIO_URL from '../../actions/audioplayer';
 import zeroPad from 'utils/zeroPad';
 import Track from 'components/Audioplayer/Track';
 import LinkContainer from 'utils/LinkContainer';
@@ -83,7 +84,7 @@ export default ({
                   <Button
                     color="inverted"
                     className={styles.options}
-                    href={`http://download.quranicaudio.com/quran/${qari.relativePath}${zeroPad(surah.id, 3)}.mp3`}
+                    href={`${AUDIO_URL}/${qari.relativePath}${zeroPad(surah.id, 3)}.mp3`}
                     target="_blank"
                     onClick={event => event.stopPropagation()}
                   >

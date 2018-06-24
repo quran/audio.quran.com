@@ -10,6 +10,7 @@ import { load as loadFiles } from 'actions/files';
 import Button from 'quran-components/lib/Button';
 import zeroPad from 'utils/zeroPad';
 import Link from 'react-router/lib/Link';
+import AUDIO_URL from '../../actions/audioplayer';
 
 const styles = require('./style.scss');
 
@@ -104,7 +105,7 @@ class Sura extends Component {
                           >
                             <Button
                               className={styles.options}
-                              href={`https://download.quranicaudio.com/quran/${qari.relativePath}${zeroPad(surah.id, 3)}.mp3`}
+                              href={`${AUDIO_URL}/${qari.relativePath}${zeroPad(surah.id, 3)}.mp3`}
                               target="_blank"
                               onClick={event => event.stopPropagation()}
                             >
