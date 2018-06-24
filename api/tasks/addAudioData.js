@@ -3,10 +3,9 @@ import probe from 'node-ffprobe';
 
 const createData = (files, index) => {
   const file = files[index];
-  const baseUrl = 'https://audio.qurancdn.com/quran';
 
   if (file.qari && (!file.format || !file.metadata)) {
-    const url = `${baseUrl}/${file.qari.relative_path}${file.file_name}`;
+    const url = `https://download.quranicaudio.com/quran/${file.qari.relative_path}${file.file_name}`;
     try {
       return probe(url, (err, data) => {
         file.metadata = data.metadata;
@@ -24,4 +23,3 @@ const createData = (files, index) => {
 models.audioFile.all({ where: {extension: 'mp3', metadata: null, format: null}, include: [models.qari] }).then(files => {
   return createData(files, 0);
 });
-
