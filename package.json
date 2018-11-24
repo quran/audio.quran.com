@@ -128,7 +128,7 @@
     "morgan": "^1.7.0",
     "multireducer": "^2.0.0",
     "node-ffprobe": "^1.2.2",
-    "node-sass": "^3.4.2",
+    "node-sass": "^4.10.0",
     "normalizr": "^2.1.0",
     "pg": "^6.0.3",
     "piping": "^0.3.0",
