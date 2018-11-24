@@ -1,6 +1,4 @@
-import superagent from 'superagent';
 import config from '../config';
-
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
 function formatUrl(path) {
@@ -14,30 +12,31 @@ function formatUrl(path) {
 }
 
 export default class ApiClient {
-  constructor(req) {
+  constructor() {
     methods.forEach(
       method =>
-        this[method] = (path, { params, data } = {}) =>
-          new Promise((resolve, reject) => {
-            const request = superagent[method](formatUrl(path));
+        (this[method] = async (path, { params, data } = {}) => {
+          const options = {
+            method: method.toUpperCase(),
+            credentials: 'same-origin',
+            body: data
+          };
 
-            if (params) {
-              request.query(params);
-            }
+          if (data) {
+            options.body = data;
+          }
 
-            if (__SERVER__ && req.get('cookie')) {
-              request.set('cookie', req.get('cookie'));
-            }
+          if (params) {
+            console.error('add support for querystrings');
+          }
+          const request = await fetch(formatUrl(path), options);
 
-            if (data) {
-              request.send(data);
-            }
+          if (!request.ok) {
+            throw Error(request.statusText);
+          }
 
-            request.end(
-              (err, { body } = {}) =>
-                (err ? reject(body || err) : resolve(body))
-            );
-          })
+          return request.json();
+        })
     );
   }
   /*

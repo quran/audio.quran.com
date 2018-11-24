@@ -1,3 +1,4 @@
+import 'isomorphic-fetch';
 import Express from 'express';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
