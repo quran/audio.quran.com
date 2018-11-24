@@ -1,4 +1,4 @@
-FROM node:6.3
+FROM node:10.13.0
 
 ENV API_URL http://localhost:8080
 ENV USE_LOCAL_ASSETS true

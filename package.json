@@ -113,7 +113,6 @@
     "compression": "^1.6.0",
     "css-loader": "^0.23.1",
     "express": "^4.13.3",
-    "express-session": "^1.12.1",
     "express-useragent": "^0.2.4",
     "extract-text-webpack-plugin": "2.0.0-beta.3",
     "file-loader": "^0.9.0",
@@ -129,7 +128,7 @@
     "morgan": "^1.7.0",
     "multireducer": "^2.0.0",
     "node-ffprobe": "^1.2.2",
-    "node-sass": "^3.4.2",
+    "node-sass": "^4.10.0",
     "normalizr": "^2.1.0",
     "pg": "^6.0.3",
     "piping": "^0.3.0",
@@ -169,7 +168,7 @@
     "babel-preset-react-hmre": "^1.1.1",
     "chai": "^3.3.0",
     "concurrently": "^0.1.1",
-    "prettier": "^1.1.0",
+    "prettier": "^1.15.2",
     "eslint": "1.10.3",
     "eslint-config-airbnb": "0.1.0",
     "eslint-loader": "^1.0.0",
@@ -211,6 +210,6 @@
     "webpack-hot-middleware": "^2.5.0"
   },
   "engines": {
-    "node": "6.3.1"
+    "node": "^10.13.0"
   }
 }
