@@ -23,16 +23,16 @@ class Download extends Component {
         <div className={styles.page}>
           {data.loaded
             ? <div>
-                <h1>
-                  Surat {surahs[surahId].name.simple} by {qaris[qariId].name}
-                </h1>
-                <a
-                  className={styles.downloadLink}
-                  href={`http://download.quranicaudio.com/quran/${qaris[qariId].relativePath}${zeroPad(surahId, 3)}.mp3`}
-                >
-                  Download
+              <h1>
+                Surat {surahs[surahId].name.simple} by {qaris[qariId].name}
+              </h1>
+              <a
+                className={styles.downloadLink}
+                href={`//download.quranicaudio.com/quran/${qaris[qariId].relativePath}${zeroPad(surahId, 3)}.mp3`}
+              >
+                Download
                 </a>
-              </div>
+            </div>
             : <h1>Not Found</h1>}
         </div>
       </div>
