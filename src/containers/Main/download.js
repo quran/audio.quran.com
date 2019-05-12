@@ -28,7 +28,7 @@ class Download extends Component {
               </h1>
               <a
                 className={styles.downloadLink}
-                href={`//download.quranicaudio.com/quran/${qaris[qariId].relativePath}${zeroPad(surahId, 3)}.mp3`}
+                href={`https://download.quranicaudio.com/quran/${qaris[qariId].relativePath}${zeroPad(surahId, 3)}.mp3`}
               >
                 Download
                 </a>
