@@ -155,7 +155,7 @@
     "serve-favicon": "^2.3.0",
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.0",
-    "superagent": "^1.4.0",
+    "superagent": "^5.0.2",
     "url-loader": "^0.5.7",
     "warning": "^2.1.0",
     "webpack": "2.1.0-beta.20",
