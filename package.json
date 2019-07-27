@@ -169,7 +169,7 @@
     "chai": "^3.3.0",
     "concurrently": "^0.1.1",
     "prettier": "^1.15.2",
-    "eslint": "1.10.3",
+    "eslint": "4.18.2",
     "eslint-config-airbnb": "0.1.0",
     "eslint-loader": "^1.0.0",
     "eslint-plugin-import": "^0.8.0",
