@@ -9,6 +9,6 @@ export function loadAll() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     schema: arrayOf(sectionsSchema),
-    promise: client => client.get(`/sections`)
+    promise: client => client.get('/sections')
   };
 }

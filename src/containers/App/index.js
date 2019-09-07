@@ -44,7 +44,9 @@ class App extends Component {
       <div className={styles.app}>
         <Helmet {...config.app.head} />
         <ul className={styles.navContainer}>
-          <li><Link to="/about">About</Link></li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
           <li>
             <a href="https://quran.zendesk.com/hc/en-us/requests/new">
               Contact Us
@@ -57,8 +59,9 @@ class App extends Component {
             title="Select from your favourite recriters"
             className={styles.link}
           >
-            {isHome(this.props.location.pathname) &&
-              <i className="fa fa-home" aria-hidden="true" />}
+            {isHome(this.props.location.pathname) && (
+              <i className="fa fa-home" aria-hidden="true" />
+            )}
           </Link>
           <a
             href="https://quran.com"
@@ -79,6 +82,7 @@ class App extends Component {
 
 export default asyncConnect([
   {
+    // eslint-disable-next-line consistent-return
     promise({ store: { getState, dispatch } }) {
       if (!Object.keys(getState().qaris.entities).length) {
         return dispatch(loadQaris());
@@ -86,6 +90,7 @@ export default asyncConnect([
     }
   },
   {
+    // eslint-disable-next-line consistent-return
     promise({ store: { getState, dispatch } }) {
       if (!Object.keys(getState().sections.entities).length) {
         return dispatch(loadSections());
@@ -93,6 +98,7 @@ export default asyncConnect([
     }
   },
   {
+    // eslint-disable-next-line consistent-return
     promise({ store: { getState, dispatch } }) {
       if (!Object.keys(getState().surahs.entities).length) {
         return dispatch(loadSurahs());

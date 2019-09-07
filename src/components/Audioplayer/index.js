@@ -146,7 +146,7 @@ class Audioplayer extends Component {
           styles.active}`}
       >
         <input type="checkbox" id="repeat" className="hidden" />
-        <label htmlFor="repeat" className={`pointer`} onClick={repeat}>
+        <label htmlFor="repeat" className={'pointer'} onClick={repeat}>
           <i className="fa fa-repeat" />
         </label>
       </div>
@@ -162,7 +162,7 @@ class Audioplayer extends Component {
           styles.active}`}
       >
         <input type="checkbox" id="random" className="hidden" />
-        <label htmlFor="repeat" className={`pointer`} onClick={random}>
+        <label htmlFor="repeat" className={'pointer'} onClick={random}>
           <i className="fa fa-random" />
         </label>
       </div>
