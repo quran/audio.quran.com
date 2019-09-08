@@ -150,7 +150,7 @@
     "redux-logger": "^2.7.0",
     "sass-loader": "^3.1.2",
     "scroll-behavior": "^0.3.2",
-    "sequelize": "^3.35.0",
+    "sequelize": "^5.3.0",
     "sequelize-cli": "^2.4.0",
     "serialize-javascript": "^1.1.2",
     "serve-favicon": "^2.3.0",
