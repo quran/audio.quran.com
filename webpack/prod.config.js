@@ -11,6 +11,8 @@ var strip = require('strip-loader');
 var webpackIsomorphicToolsPlugin = new IsomorphicPlugin(require('./isomorphic-tools-configuration'));
 var relativeAssetsPath = '../static/dist';
 var assetsPath = path.join(__dirname, relativeAssetsPath);
+var BabiliPlugin = require('babili-webpack-plugin');
+
 
 module.exports = {
   context: path.join(process.env.PWD, './'),
@@ -101,12 +103,7 @@ module.exports = {
     // Optimizations
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      },
-      minimize: true
-		}),
+    new BabiliPlugin(),
     new webpack.LoaderOptionsPlugin({
       test: /\.css$/, // optionally pass test, include and exclude, default affects all loaders
       minimize: true,
