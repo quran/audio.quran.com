@@ -161,14 +161,14 @@
     "url-loader": "^0.5.7",
     "warning": "^2.1.0",
     "webpack": "2.1.0-beta.20",
-    "webpack-isomorphic-tools": "^2.5.6"
+    "webpack-isomorphic-tools": "^2.5.6",
+    "babili-webpack-plugin": "^0.1.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "babel-plugin-react-transform": "^2.0.0",
     "babel-plugin-typecheck": "^3.6.0",
     "babel-preset-react-hmre": "^1.1.1",
-    "babili-webpack-plugin": "^0.1.2",
     "chai": "^3.3.0",
     "concurrently": "^0.1.1",
     "eslint": "6.3.0",
