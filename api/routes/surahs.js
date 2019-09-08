@@ -13,37 +13,40 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  if (req.params.id) {
-    return models.surah
-      .findById(req.params.id)
-      .then(surah => res.send(surah))
-      .catch(error => res.status(500).send({ error }));
+  if (!req.params.id) {
+    res.status(500).send({ error: 'missing or invalid id' });
   }
-  res.status(500).send({ error: 'missing or invalid id' });
+
+  models.surah
+    .findById(req.params.id)
+    .then(surah => res.send(surah))
+    .catch(error => res.status(500).send({ error }));
 });
 
 router.get('/:id/audio_files', (req, res) => {
-  if (req.params.id) {
-    return models.surah
-      .findById(req.params.id)
-      .then(surah => {
-        return surah.getAudioFiles().then(files => res.send(files));
-      })
-      .catch(error => res.status(500).send({ error }));
+  if (!req.params.id) {
+    res.status(500).send({ error: 'missing or invalid id' });
   }
-  res.status(500).send({ error: 'missing or invalid id' });
+
+  models.surah
+    .findById(req.params.id)
+    .then(surah => {
+      return surah.getAudioFiles().then(files => res.send(files));
+    })
+    .catch(error => res.status(500).send({ error }));
 });
 
 router.get('/:id/qaris', (req, res) => {
-  if (req.params.id) {
-    return models.surah
-      .findById(req.params.id)
-      .then(surah => {
-        surah.getQaris().then(qaris => res.send(qaris));
-      })
-      .catch(error => res.status(500).send({ error }));
+  if (!req.params.id) {
+    res.status(500).send({ error: 'missing or invalid id' });
   }
-  res.status(500).send({ error: 'missing or invalid id' });
+
+  return models.surah
+    .findById(req.params.id)
+    .then(surah => {
+      surah.getQaris().then(qaris => res.send(qaris));
+    })
+    .catch(error => res.status(500).send({ error }));
 });
 
 export default router;
