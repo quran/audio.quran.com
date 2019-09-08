@@ -92,7 +92,9 @@ class MobilePlayer extends Component {
     if (file.readyState < 4) {
       return (
         <i
-          className={`text-primary pointer loading is-loading ${style.isLoading}`}
+          className={`text-primary pointer loading is-loading ${
+            style.isLoading
+          }`}
         />
       );
     }
@@ -147,7 +149,7 @@ class MobilePlayer extends Component {
     return (
       <div className={`${style.toggle} ${shouldRepeat && style.active}`}>
         <input type="checkbox" id="repeat" className="hidden" />
-        <label htmlFor="repeat" className={`pointer`} onClick={repeat}>
+        <label htmlFor="repeat" className={'pointer'} onClick={repeat}>
           <i className={`fa fa-repeat ${style.repeat}`} />
         </label>
       </div>
@@ -159,7 +161,7 @@ class MobilePlayer extends Component {
     return (
       <div className={`${style.toggle} ${shouldRandom && style.active}`}>
         <input type="checkbox" id="random" className="hidden" />
-        <label htmlFor="repeat" className={`pointer`} onClick={random}>
+        <label htmlFor="repeat" className={'pointer'} onClick={random}>
           <i className={`fa fa-random ${style.random}`} />
         </label>
       </div>

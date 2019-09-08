@@ -21,19 +21,23 @@ class Download extends Component {
       <div>
         <Header />
         <div className={styles.page}>
-          {data.loaded
-            ? <div>
+          {data.loaded ? (
+            <div>
               <h1>
                 Surat {surahs[surahId].name.simple} by {qaris[qariId].name}
               </h1>
               <a
                 className={styles.downloadLink}
-                href={`https://download.quranicaudio.com/quran/${qaris[qariId].relativePath}${zeroPad(surahId, 3)}.mp3`}
+                href={`https://download.quranicaudio.com/quran/${
+                  qaris[qariId].relativePath
+                }${zeroPad(surahId, 3)}.mp3`}
               >
                 Download
-                </a>
+              </a>
             </div>
-            : <h1>Not Found</h1>}
+          ) : (
+            <h1>Not Found</h1>
+          )}
         </div>
       </div>
     );

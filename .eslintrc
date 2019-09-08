@@ -2,7 +2,8 @@
   "env": {
     "browser": true,
     "node": true,
-    "mocha": true
+    "mocha": true,
+    "es6": true
   },
   "rules": {
     "react/no-multi-comp": 0,
@@ -15,7 +16,10 @@
     "comma-dangle": 0,  // not sure why airbnb turned this on. gross!
     "indent": [2, 2, {"SwitchCase": 1}],
     "no-console": 0,
-    "no-alert": 0
+    "no-alert": 0,
+    "no-empty-label": 0,
+    "space-after-keywords": 0,
+    "space-return-throw-case": 0
   },
   "plugins": [
     "react", "import"
@@ -34,5 +38,9 @@
     "__DEVTOOLS__": true,
     "socket": true,
     "webpackIsomorphicTools": true
+  },
+  "parserOptions" : {
+    "ecmaVersion": 6,
+    "sourceType": "module",
   }
 }
