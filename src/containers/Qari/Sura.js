@@ -42,9 +42,7 @@ class Sura extends Component {
         <Grid fluid className={styles.reciterBackground}>
           <Row>
             <Col md={12} className="text-center">
-              <h1>
-                Surat {`${surah.name.simple}`}
-              </h1>
+              <h1>Surat {`${surah.name.simple}`}</h1>
               <div className={styles.buttonContain}>
                 <Button
                   bsStyle="primary"
@@ -62,7 +60,9 @@ class Sura extends Component {
           <Row>
             <Col md={10} mdOffset={1}>
               <div
-                className={`panel panel-default ${styles.panel} ${Playing ? styles.panelPlaying : ''}`}
+                className={`panel panel-default ${styles.panel} ${
+                  Playing ? styles.panelPlaying : ''
+                }`}
               >
                 <ul className="list-group">
                   {Object.keys(qaris).map(qariId => {
@@ -70,7 +70,9 @@ class Sura extends Component {
                     return (
                       <li
                         key={qari.id}
-                        className={`list-group-item ${styles.row} ${qari.id === currentQari.id ? `${styles.active}` : ''}`}
+                        className={`list-group-item ${styles.row} ${
+                          qari.id === currentQari.id ? `${styles.active}` : ''
+                        }`}
                         onClick={() => this.handleSurahSelection(qari)}
                       >
                         <Row className={styles.surahRow}>
@@ -85,7 +87,7 @@ class Sura extends Component {
                                 </h5>
                               </Col>
                               <Col md={10} xs={10}>
-                                <h5 className={`text-muted`}>
+                                <h5 className={'text-muted'}>
                                   <Link
                                     className={styles.link}
                                     onClick={event => event.stopPropagation()}
@@ -104,7 +106,9 @@ class Sura extends Component {
                           >
                             <Button
                               className={styles.options}
-                              href={`https://download.quranicaudio.com/quran/${qari.relativePath}${zeroPad(surah.id, 3)}.mp3`}
+                              href={`https://download.quranicaudio.com/quran/${
+                                qari.relativePath
+                              }${zeroPad(surah.id, 3)}.mp3`}
                               target="_blank"
                               onClick={event => event.stopPropagation()}
                             >
@@ -133,9 +137,8 @@ const connectedSura = connect(
     files: state.files.entities,
     Playing: state.audioplayer.isPlaying,
     state: state,
-    currentQari: state.audioplayer && state.audioplayer.qari
-      ? state.audioplayer.qari
-      : {}
+    currentQari:
+      state.audioplayer && state.audioplayer.qari ? state.audioplayer.qari : {}
   }),
   { load, play, next }
 )(Sura);
