@@ -161,7 +161,8 @@
     "url-loader": "^0.5.7",
     "warning": "^2.1.0",
     "webpack": "2.1.0-beta.20",
-    "webpack-isomorphic-tools": "^2.5.6"
+    "webpack-isomorphic-tools": "^2.5.6",
+    "babili-webpack-plugin": "^0.1.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
