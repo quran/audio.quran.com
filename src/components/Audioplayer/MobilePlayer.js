@@ -57,15 +57,23 @@ class MobilePlayer extends Component {
     this.handleRemoveFileListeneres = Common.handleRemoveFileListeneres.bind(
       this
     );
+    this.isPlayPreviousDisabled = Common.isPlayPreviousDisabled.bind(this);
+    this.isPlayNextDisabled = Common.isPlayNextDisabled.bind(this);
+    this.handleKeyboardEvent = Common.handleKeyboardEvent.bind(this);
 
     this.state = {
       open: true
     };
   }
 
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyboardEvent);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (
-      this.props.surah !== nextProps.surah || this.props.qari !== nextProps.qari
+      this.props.surah !== nextProps.surah ||
+      this.props.qari !== nextProps.qari
     ) {
       this.handleFileLoad(nextProps.file);
       this.handleRemoveFileListeneres(this.props.file);
@@ -75,12 +83,18 @@ class MobilePlayer extends Component {
     }
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyboardEvent);
+  }
+
   renderPlayStopButtons() {
     const { isPlaying, playPause, file } = this.props; // eslint-disable-line no-shadow
     if (file.readyState < 4) {
       return (
         <i
-          className={`text-primary pointer loading is-loading ${style.isLoading}`}
+          className={`text-primary pointer loading is-loading ${
+            style.isLoading
+          }`}
         />
       );
     }
@@ -89,7 +103,8 @@ class MobilePlayer extends Component {
       return (
         <i
           onClick={playPause}
-          className={`text-primary pointer fa fa-pause-circle ${!file && style.disabled} ${style.playPause}`}
+          className={`text-primary pointer fa fa-pause-circle ${!file &&
+            style.disabled} ${style.playPause}`}
         />
       );
     }
@@ -97,34 +112,33 @@ class MobilePlayer extends Component {
     return (
       <i
         onClick={playPause}
-        className={`text-primary pointer fa fa-play-circle ${!file && style.disabled} ${style.playPause}`}
+        className={`text-primary pointer fa fa-play-circle ${!file &&
+          style.disabled} ${style.playPause}`}
       />
     );
   }
 
   renderPreviousButton() {
-    const { previous, surah, surahs, qaris, surahPage, qari } = this.props; // eslint-disable-line no-shadow
-    const disableBasedOnSurah = surah ? surah.id === 114 && true : true;
-    const disabled = surahPage
-      ? qari.id === Object.keys(qaris).length
-      : disableBasedOnSurah;
+    const { previous, surahs } = this.props; // eslint-disable-line no-shadow
+    const disabled = this.isPlayPreviousDisabled();
 
     return (
       <i
         onClick={() => !disabled && previous({ surahs: Object.values(surahs) })}
-        className={`pointer fa fa-fast-backward fa-lg ${disabled && style.disabled} ${style.previous}`}
+        className={`pointer fa fa-fast-backward fa-lg ${disabled &&
+          style.disabled} ${style.previous}`}
       />
     );
   }
   renderNextButton() {
-    const { next, surah, surahs, surahPage, qari } = this.props; // eslint-disable-line no-shadow
-    const disableBasedOnSurah = surah ? surah.id === 1 && true : true;
-    const disabled = surahPage ? qari.id === 1 && true : disableBasedOnSurah;
+    const { next, surahs } = this.props; // eslint-disable-line no-shadow
+    const disabled = this.isPlayNextDisabled();
 
     return (
       <i
         onClick={() => !disabled && next({ surahs: Object.values(surahs) })}
-        className={`pointer fa fa-fast-forward fa-lg ${disabled && style.disabled} ${style.next}`}
+        className={`pointer fa fa-fast-forward fa-lg ${disabled &&
+          style.disabled} ${style.next}`}
       />
     );
   }
@@ -135,7 +149,7 @@ class MobilePlayer extends Component {
     return (
       <div className={`${style.toggle} ${shouldRepeat && style.active}`}>
         <input type="checkbox" id="repeat" className="hidden" />
-        <label htmlFor="repeat" className={`pointer`} onClick={repeat}>
+        <label htmlFor="repeat" className={'pointer'} onClick={repeat}>
           <i className={`fa fa-repeat ${style.repeat}`} />
         </label>
       </div>
@@ -147,7 +161,7 @@ class MobilePlayer extends Component {
     return (
       <div className={`${style.toggle} ${shouldRandom && style.active}`}>
         <input type="checkbox" id="random" className="hidden" />
-        <label htmlFor="repeat" className={`pointer`} onClick={random}>
+        <label htmlFor="repeat" className={'pointer'} onClick={random}>
           <i className={`fa fa-random ${style.random}`} />
         </label>
       </div>
@@ -184,7 +198,7 @@ class MobilePlayer extends Component {
           </h2>
           <h3 className={style.surahName}>{`Surat ${surah.name.simple}`}</h3>
         </div>
-        {open &&
+        {open && (
           <div className={style.controlersContainer}>
             <div className={style.surahMisc}>
               <p> سورة {surah.name.arabic}</p>
@@ -214,7 +228,8 @@ class MobilePlayer extends Component {
                 {this.renderRepeatButton()}
               </div>
             </div>
-          </div>}
+          </div>
+        )}
       </div>
     );
   }

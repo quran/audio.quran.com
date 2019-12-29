@@ -52,7 +52,6 @@ app.use('/api', (req, res) => {
 
 // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
 proxy.on('error', (error, req, res) => {
-  let json;
   if (error.code !== 'ECONNRESET') {
     console.error('proxy error', error);
   }
@@ -60,7 +59,7 @@ proxy.on('error', (error, req, res) => {
     res.writeHead(500, { 'content-type': 'application/json' });
   }
 
-  json = { error: 'proxy_error', reason: error.message };
+  const json = { error: 'proxy_error', reason: error.message };
   res.end(JSON.stringify(json));
 });
 
@@ -105,26 +104,31 @@ app.use((req, res) => {
           ...renderProps,
           store,
           helpers: { client }
-        }).then(() => {
-          const component = (
-            <Provider store={store} key="provider">
-              <ReduxAsyncConnect {...renderProps} />
-            </Provider>
-          );
+        })
+          .then(() => {
+            const component = (
+              <Provider store={store} key="provider">
+                <ReduxAsyncConnect {...renderProps} />
+              </Provider>
+            );
 
-          res.status(200);
+            res.status(200);
 
-          res.send(
-            '<!doctype html>\n' +
-              ReactDOM.renderToString(
-                <Html
-                  assets={webpackIsomorphicTools.assets()}
-                  component={component}
-                  store={store}
-                />
-              )
-          );
-        });
+            res.send(
+              '<!doctype html>\n' +
+                ReactDOM.renderToString(
+                  <Html
+                    assets={webpackIsomorphicTools.assets()}
+                    component={component}
+                    store={store}
+                  />
+                )
+            );
+          })
+          .catch(err => {
+            console.error('ROUTER ERROR:', pretty.render(err));
+            res.status(404).send('Not found');
+          });
       } else {
         res.status(404).send('Not found');
       }

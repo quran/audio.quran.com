@@ -28,7 +28,7 @@ module.exports = Object.assign(
           },
           {
             name: 'keyword',
-            content: 'quran, quran mp3, quran audio, quranic audio, islam audio, quran play, quran recritation, islam'
+            content: 'quran, quran mp3, quran audio, quranic audio, islam audio, quran play, quran recitation, islam'
           },
           { charset: 'utf-8' },
           {

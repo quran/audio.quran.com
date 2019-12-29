@@ -54,14 +54,15 @@ export default class Html extends Component {
             />
           ))}
 
-          {Object.keys(assets.styles).length === 0
-            ? <style
-                dangerouslySetInnerHTML={{
-                  __html: require('../../bootstrap.config.js') +
-                    require('../containers/App/style.scss')._style
-                }}
-              />
-            : null}
+          {Object.keys(assets.styles).length === 0 ? (
+            <style
+              dangerouslySetInnerHTML={{
+                __html:
+                  require('../../bootstrap.config.js') +
+                  require('../containers/App/style.scss')._style
+              }}
+            />
+          ) : null}
         </head>
         <body>
           <div id="content" dangerouslySetInnerHTML={{ __html: content }} />

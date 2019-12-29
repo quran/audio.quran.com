@@ -10,7 +10,6 @@ function preventDefault(evemt = window.event) {
 function preventDefaultForScrollKeys(evemt) {
   if (keys[evemt.keyCode]) {
     preventDefault(evemt);
-    return false;
   }
 }
 

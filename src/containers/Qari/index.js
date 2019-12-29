@@ -72,7 +72,7 @@ class Qaris extends Component {
 
     return (
       <div>
-        <Helmet title={`Holy Quran recritation by ${qari.name}`} />
+        <Helmet title={`Holy Quran Recitation by ${qari.name}`} />
         <div
           className={`${styles.reciterBackground} ${related.length > 0 && styles.hasRelated}`}
         >
