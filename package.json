@@ -152,7 +152,7 @@
     "scroll-behavior": "^0.3.2",
     "sequelize": "^3.35.0",
     "sequelize-cli": "^2.4.0",
-    "serialize-javascript": "^1.1.2",
+    "serialize-javascript": "^3.1.0",
     "serve-favicon": "^2.3.0",
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.0",
