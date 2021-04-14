@@ -1,7 +1,6 @@
 require('babel-polyfill');
 
-// TODO: Swtich to produciton when api is deployed 'https://api.quran.com/api/v4/audio';
-const API_URL = 'http://staging.quran.com:32792/api/v4/audio';
+const API_URL = 'https://api.quran.com/api/v4/audio';
 
 const environment = {
   development: {
