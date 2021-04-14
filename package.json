@@ -15,7 +15,7 @@
   ],
   "main": "bin/server.js",
   "scripts": {
-    "start": "npm run start-prod & npm run start-prod-api",
+    "start": "npm run start-prod",
     "start-prod": "better-npm-run start-prod",
     "start-prod-api": "better-npm-run start-prod-api",
     "build": "better-npm-run build",
@@ -46,7 +46,8 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
         "PORT": 8000,
-        "APIPORT": 8080
+        "APIPORT": 8080,
+        "USE_LOCAL_ASSETS": true
       }
     },
     "start-prod-api": {
