@@ -17,7 +17,7 @@ module.exports = Object.assign(
     port: process.env.PORT,
     apiHost: process.env.APIHOST || 'localhost',
     apiPort: process.env.APIPORT,
-    apiURL: process.env.API_URL || API_URL,
+    apiURL: API_URL || process.env.API_URL,
     app: {
       title: 'Quran Mp3 and Audio Downloads in High Quality - QuranicAudio.com',
       description:
