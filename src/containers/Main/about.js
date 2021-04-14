@@ -18,15 +18,16 @@ export default () => {
           companies.
         </p>
         <p>
-          Files on QuranicAudio.com come from many different sources. Many of
-          them are hand ripped from cds. Others have been downloaded from
-          various other high quality sites on the internet, including
-          HidayahOnline, DawahAcademy,{' '}
-          <a href="http://kalamullah.com">Kalamullah.com</a>,{' '}
-          <a href="http://sabbir.com">Sabbir.com</a>,{' '}
-          <a href="http://dhikrullah.com">dhikrullah.com</a>, and others. Many
-          of the files have also been sent to us by some of our users, may Allah
-          reward them greatly.
+          Files on QuranicAudio.com come from many different sources. Many of them are hand ripped from cds. Others have been downloaded from various other high quality sites on the internet, including HidayahOnline, DawahAcademy,
+          {' '}
+          <a href="http://kalamullah.com">Kalamullah.com</a>
+          ,
+          {' '}
+          <a href="http://sabbir.com">Sabbir.com</a>
+          ,
+          {' '}
+          <a href="http://dhikrullah.com">dhikrullah.com</a>
+          , and others. Many of the files have also been sent to us by some of our users, may Allah reward them greatly.
         </p>
       </div>
     </div>
