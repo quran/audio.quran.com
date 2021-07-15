@@ -10,7 +10,12 @@ export default () => {
       <div className={styles.page}>
         <h1>About</h1>
         <p>
-          QuranicAudio.com is the largest collection of cd quality Quran recitations on the internet. Mp3s on this site may be downloaded and used for personal use free of charge. However, you may not use these files for commercial purposes as many of these files have rules and regulations that prevent their sale except by the publishing companies.
+          QuranicAudio.com is the largest collection of cd quality Quran
+          recitations on the internet. Mp3s on this site may be downloaded and
+          used for personal use free of charge. However, you may not use these
+          files for commercial purposes as many of these files have rules and
+          regulations that prevent their sale except by the publishing
+          companies.
         </p>
         <p>
           Files on QuranicAudio.com come from many different sources. Many of them are hand ripped from cds. Others have been downloaded from various other high quality sites on the internet, including HidayahOnline, DawahAcademy,

@@ -1,6 +1,6 @@
 FROM node:10.13.0
 
-ENV API_URL http://localhost:8080
+ENV API_URL https://api.quran.com/api/v4/audio
 ENV USE_LOCAL_ASSETS true
 ENV NODE_ENV production
 ENV PORT 8000
