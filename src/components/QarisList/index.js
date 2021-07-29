@@ -22,6 +22,7 @@ export default class QarisList extends Component {
         <ul className={styles.list}>
           {listItems
             .filter(item => item.sectionId === section && item.home)
+            .sort((first, second) => first.name.localeCompare(second.name))
             .map((qari, index) => (
               <li
                 key={index}
@@ -60,7 +61,9 @@ export default class QarisList extends Component {
     return (
       <div className={styles.container}>
         <span
-          className={`${styles.letter} ${letter === 'I' ? styles.slimLetter : ''}`}
+          className={`${styles.letter} ${
+            letter === 'I' ? styles.slimLetter : ''
+          }`}
         >
           {letter}
         </span>
