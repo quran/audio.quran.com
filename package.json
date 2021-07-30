@@ -29,7 +29,6 @@
     "test": "karma start",
     "test-node": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register",
     "test-node-watch": "./node_modules/mocha/bin/mocha $(find api -name '*-test.js') --compilers js:babel-core/register --watch",
-    "compress-images": "node compress-images.js",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -188,12 +187,6 @@
     "font-awesome": "^4.4.0",
     "font-awesome-webpack": "0.0.4",
     "husky": "^0.13.3",
-    "imagemin": "^5.2.2",
-    "imagemin-jpeg-recompress": "^7.0.0",
-    "imagemin-jpegoptim": "^7.0.0",
-    "imagemin-jpegtran": "^7.0.0",
-    "imagemin-mozjpeg": "^9.0.0",
-    "imagemin-pngquant": "^9.0.2",
     "json-loader": "^0.5.4",
     "karma": "^6.3.4",
     "karma-cli": "^0.1.1",
