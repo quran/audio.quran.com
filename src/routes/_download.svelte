@@ -10,15 +10,21 @@
 	let ok = $derived(qari && surah)
 </script>
 
-<div class="qa-container qa-downloadPage">
-	{#if ok}
-		<h1 class="qa-downloadTitle">Surat {surah.name.simple} by {qari.name}</h1>
-		<a
-			class="qa-downloadLink"
-			href="https://download.quranicaudio.com/quran/{qari.relative_path}{audioFile.file_name}"
-			>Download</a
-		>
-	{:else}
-		<h1 class="qa-downloadTitle">Not Found</h1>
-	{/if}
+<header class="qa-header">
+	<h1 class="qa-heading">QuranicAudio</h1>
+</header>
+
+<div class="qa-container">
+	<div class="qa-downloadPage">
+		{#if ok}
+			<h1 class="qa-downloadTitle">Surat {surah.name.simple} by {qari.name}</h1>
+			<a
+				class="qa-downloadLink"
+				href="https://download.quranicaudio.com/quran/{qari.relative_path}{audioFile.file_name}"
+				>Download</a
+			>
+		{:else}
+			<h1 class="qa-downloadTitle">Not Found</h1>
+		{/if}
+	</div>
 </div>
