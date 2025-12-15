@@ -308,6 +308,33 @@ body {
 	white-space: nowrap;
 }
 
+.qa-downloadPage {
+	padding: 40px 15px;
+	text-align: center;
+}
+
+.qa-downloadTitle {
+	font-size: 32px;
+	font-weight: 300;
+	margin: 10px 0 30px;
+}
+
+.qa-downloadLink {
+	display: inline-block;
+	min-width: 520px;
+	max-width: 100%;
+	padding: 14px 16px;
+	border: 1px solid var(--brand-primary);
+	color: var(--brand-primary);
+	text-decoration: none;
+	font-weight: 700;
+}
+
+.qa-downloadLink:hover {
+	background: var(--brand-primary);
+	color: #fff;
+}
+
 @media (max-width: 768px) {
 	.qa-navContainer {
 		right: 15vw;
@@ -360,5 +387,15 @@ body {
 
 	.qa-qariList {
 		margin-top: 0;
+	}
+
+	.qa-downloadTitle {
+		font-size: 26px;
+		padding: 0 10px;
+	}
+
+	.qa-downloadLink {
+		min-width: 0;
+		width: 100%;
 	}
 }

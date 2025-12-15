@@ -1,33 +1,33 @@
 <script>
-	let { data } = $props();
+	let { data } = $props()
 
-	let shuffling = $state(false);
+	let shuffling = $state(false)
 
-	let surahById = $derived.by(() => new Map(data.surahs.map((s) => [s.id, s])));
-	let sortedFiles = $derived.by(() => [...data.files].sort((a, b) => a.surah_id - b.surah_id));
+	let surahById = $derived.by(() => new Map(data.surahs.map((s) => [s.id, s])))
+	let sortedFiles = $derived.by(() => [...data.files].sort((a, b) => a.surah_id - b.surah_id))
 
 	const formatSeconds = (seconds) => {
-		const total = Math.round(seconds);
-		const h = Math.floor(total / 3600);
-		const m = Math.floor((total % 3600) / 60);
-		const s = total % 60;
-		const pad2 = (n) => String(n).padStart(2, '0');
-		return h ? `${pad2(h)}:${pad2(m)}:${pad2(s)}` : `${pad2(m)}:${pad2(s)}`;
-	};
+		const total = Math.round(seconds)
+		const h = Math.floor(total / 3600)
+		const m = Math.floor((total % 3600) / 60)
+		const s = total % 60
+		const pad2 = (n) => String(n).padStart(2, '0')
+		return h ? `${pad2(h)}:${pad2(m)}:${pad2(s)}` : `${pad2(m)}:${pad2(s)}`
+	}
 
 	const toggleShuffle = () => {
-		shuffling = !shuffling;
-		if (!shuffling) return;
+		shuffling = !shuffling
+		if (!shuffling) return
 
-		const f = sortedFiles[Math.floor(Math.random() * sortedFiles.length)];
-		if (!f) return;
+		const f = sortedFiles[Math.floor(Math.random() * sortedFiles.length)]
+		if (!f) return
 
 		window.open(
 			`https://download.quranicaudio.com/quran/${data.qari.relative_path}${f.file_name}`,
 			'_blank',
 			'noopener'
-		);
-	};
+		)
+	}
 </script>
 
 <svelte:head>

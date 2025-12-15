@@ -1,15 +1,15 @@
 <script>
-	let { sections, qaris, section } = $props();
+	let { sections, qaris, section } = $props()
 
-	const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+	const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
 	let haramain = $derived.by(() => {
-		const list = qaris.filter((q) => q.section_id === 2 && q.home);
+		const list = qaris.filter((q) => q.section_id === 2 && q.home)
 		return {
 			makkah: list.filter((q) => q.name.includes('Makkah')),
 			madinah: list.filter((q) => q.name.includes('Madinah'))
-		};
-	});
+		}
+	})
 
 	let grouped = $derived.by(() =>
 		letters
@@ -18,7 +18,7 @@
 				qaris: qaris.filter((q) => q.section_id === section && q.home && q.name?.[0] === letter)
 			}))
 			.filter((g) => g.qaris.length)
-	);
+	)
 </script>
 
 <div>

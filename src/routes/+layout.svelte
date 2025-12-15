@@ -1,8 +1,8 @@
 <script>
-	import './layout.css';
-	import { page } from '$app/state';
+	import './layout.css'
+	import { page } from '$app/state'
 
-	let { children } = $props();
+	let { children } = $props()
 </script>
 
 <svelte:head>
