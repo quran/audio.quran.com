@@ -34,32 +34,41 @@
 	<title>Holy Quran Recitation by {data.qari?.name} - QuranicAudio.com</title>
 </svelte:head>
 
-<div class="qa-reciterBackground">
-	<div class="qa-reciterInner">
-		<h1 class="qa-reciterName">{data.qari?.name}</h1>
+<div class="bg-[#2ca4ab] pt-[70px] pb-[40px] text-white">
+	<div class="mx-auto max-w-[1170px] px-[15px] text-center">
+		<h1 class="m-0 text-[32px] font-bold">{data.qari?.name}</h1>
 
-		<button class="qa-reciterButton" type="button" onclick={toggleShuffle}>
-			<i class="fa {shuffling ? 'fa-stop' : 'fa-play'} qa-reciterButtonIcon" aria-hidden="true"></i>
+		<button
+			class="mt-[14px] inline-flex cursor-pointer items-center rounded-full border border-[#e7e7e7] bg-transparent px-[18px] py-[8px] text-[14px] text-white hover:bg-[rgba(255,255,255,0.12)]"
+			type="button"
+			onclick={toggleShuffle}
+		>
+			<i
+				class="fa {shuffling ? 'fa-stop' : 'fa-play'} relative top-[1px] pr-[8px] text-[18px]"
+				aria-hidden="true"
+			></i>
 			<span>Shuffle Play</span>
 		</button>
 	</div>
 </div>
 
-<div class="qa-qariList">
-	<div class="qa-container">
-		<ul class="qa-surahList">
+<div class="mt-0 md:mt-[-30px]">
+	<div class="relative m-0 w-full bg-white px-[15px] md:mx-auto md:mb-[50px] md:max-w-[1170px]">
+		<ul class="m-0 list-none p-0">
 			{#each sortedFiles as f (f.surah_id)}
 				{@const s = surahById.get(f.surah_id)}
-				<li class="qa-surahListItem">
+				<li class="border-b border-b-[#f0f0f0]">
 					<a
-						class="qa-surahLink"
+						class="flex items-baseline gap-[12px] px-[10px] py-[14px] text-[#2e2e2e] no-underline hover:bg-[#f7f7f7]"
 						href="https://download.quranicaudio.com/quran/{data.qari.relative_path}{f.file_name}"
 						target="_blank"
 						rel="noreferrer"
 					>
-						<span class="qa-surahNumber">{f.surah_id}.</span>
-						<span class="qa-surahName">Surat {s?.name?.simple || `Surah ${f.surah_id}`}</span>
-						<span class="qa-surahDuration">{formatSeconds(Number(f.format?.duration))}</span>
+						<span class="min-w-[34px] text-right text-[#2e2e2e]">{f.surah_id}.</span>
+						<span class="flex-1">Surat {s?.name?.simple || 'Surah ' + f.surah_id}</span>
+						<span class="whitespace-nowrap text-[#2e2e2e] opacity-70"
+							>{formatSeconds(Number(f.format?.duration))}</span
+						>
 					</a>
 				</li>
 			{/each}

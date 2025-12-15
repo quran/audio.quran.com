@@ -1,4 +1,6 @@
 <script>
+	import { resolve } from '$app/paths'
+
 	let { sections, qaris, section } = $props()
 
 	const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
@@ -22,48 +24,95 @@
 </script>
 
 <div>
-	<header class="qa-header">
-		<h1 class="qa-heading">QuranicAudio</h1>
+	<header
+		class="h-[300px] bg-[#2ca4ab] bg-[url('https://quranicaudio.com/public/images/background.jpg')] bg-cover bg-center bg-no-repeat pt-[10px] pb-[10px] text-center text-white"
+	>
+		<h1
+			class="relative top-[115px] left-[40px] mt-[20px] inline-block font-['Montserrat-Bold'] text-[40px] leading-[1.1] font-medium md:top-[100px] md:text-[48px]"
+		>
+			QuranicAudio
+		</h1>
 	</header>
 
-	<ul class="qa-pills">
+	<ul
+		class="m-0 mb-[10px] flex w-full min-w-[230px] list-none flex-col bg-white p-0 px-[10px] md:flex-row md:justify-center md:px-0"
+	>
 		{#each sections as s (s.id)}
-			<li>
+			<li
+				class="mb-[5px] cursor-pointer list-none border-b-[1.66667px] border-b-[#f0f0f0] p-[25px] text-center hover:bg-[#f7f7f7] {s.id ===
+				section
+					? 'border-b-[#2ca4ab]'
+					: ''}"
+			>
 				{#if s.id === 1}
-					<a class="qa-pill {s.id === section ? 'qa-pillActive' : ''}" href="/">{s.name}</a>
+					<a
+						class="inline bg-transparent px-[15px] py-[15px] text-[16px] tracking-[1px] text-[#2ca4ab] no-underline md:py-[10px]"
+						href={resolve('/')}>{s.name}</a
+					>
 				{:else}
-					<a class="qa-pill {s.id === section ? 'qa-pillActive' : ''}" href="/section/{s.id}"
-						>{s.name}</a
+					<a
+						class="inline bg-transparent px-[15px] py-[15px] text-[16px] tracking-[1px] text-[#2ca4ab] no-underline md:py-[10px]"
+						href={resolve('/section/[section]', { section: String(s.id) })}>{s.name}</a
 					>
 				{/if}
 			</li>
 		{/each}
 	</ul>
 
-	<div class="qa-container">
-		<div class="qa-qariContainer">
+	<div class="relative m-0 w-full bg-white px-[15px] md:mx-auto md:mb-[50px] md:max-w-[1170px]">
+		<div class="mx-[-15px] bg-white">
 			{#if section === 2}
-				<div class="qa-letterBlock">
-					<h2 class="qa-sectionSplitName">Makkah</h2>
-					<ul class="qa-list" style="left: 0;">
+				<div class="relative flex min-h-[100px] flex-wrap items-start justify-start">
+					<h2 class="my-[10px] w-full border-b-2 border-b-[#2ca4ab]">Makkah</h2>
+					<ul
+						class="relative z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
+					>
 						{#each haramain.makkah as q (q.id)}
-							<li class="qa-listItem"><a href="/quran/{q.id}">{q.name}</a></li>
+							<li
+								class="mx-[10px] w-full cursor-pointer border-b border-b-[#f0f0f0] pt-[20px] pb-[15px] pl-[20px] text-[14px] leading-[1.5em] tracking-[1px] last:pb-[20px] hover:bg-[#f7f7f7] md:mx-0 md:w-[370px] md:border-b-0 md:py-[15px] md:last:pb-[15px]"
+							>
+								<a
+									class="text-[#2e2e2e] no-underline"
+									href={resolve('/quran/[id]', { id: String(q.id) })}>{q.name}</a
+								>
+							</li>
 						{/each}
 					</ul>
-					<h2 class="qa-sectionSplitName">Madinah</h2>
-					<ul class="qa-list" style="left: 0;">
+					<h2 class="my-[10px] w-full border-b-2 border-b-[#2ca4ab]">Madinah</h2>
+					<ul
+						class="relative z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
+					>
 						{#each haramain.madinah as q (q.id)}
-							<li class="qa-listItem"><a href="/quran/{q.id}">{q.name}</a></li>
+							<li
+								class="mx-[10px] w-full cursor-pointer border-b border-b-[#f0f0f0] pt-[20px] pb-[15px] pl-[20px] text-[14px] leading-[1.5em] tracking-[1px] last:pb-[20px] hover:bg-[#f7f7f7] md:mx-0 md:w-[370px] md:border-b-0 md:py-[15px] md:last:pb-[15px]"
+							>
+								<a
+									class="text-[#2e2e2e] no-underline"
+									href={resolve('/quran/[id]', { id: String(q.id) })}>{q.name}</a
+								>
+							</li>
 						{/each}
 					</ul>
 				</div>
 			{:else}
 				{#each grouped as g (g.letter)}
-					<div class="qa-letterBlock">
-						<span class="qa-letter">{g.letter}</span>
-						<ul class="qa-list">
+					<div class="relative flex min-h-[100px] flex-wrap items-start justify-start">
+						<span
+							class="relative left-0 w-full rounded-none border-0 bg-[#2ca4ab] pt-[7px] pr-[13px] pb-[6px] pl-[20px] text-left text-[26px] leading-[22.8571px] font-normal text-white md:absolute md:left-[17px] md:z-10 md:mt-[10px] md:rounded-full md:border-[1.66667px] md:border-[#f0f0f0] md:bg-transparent md:pl-[13px] md:text-[16px] md:text-[#2e2e2e]"
+							>{g.letter}</span
+						>
+						<ul
+							class="relative z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:my-[10px] md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
+						>
 							{#each g.qaris as q (q.id)}
-								<li class="qa-listItem"><a href="/quran/{q.id}">{q.name}</a></li>
+								<li
+									class="mx-[10px] w-full cursor-pointer border-b border-b-[#f0f0f0] pt-[20px] pb-[15px] pl-[20px] text-[14px] leading-[1.5em] tracking-[1px] last:pb-[20px] hover:bg-[#f7f7f7] md:mx-0 md:w-[370px] md:border-b-0 md:py-[15px] md:last:pb-[15px]"
+								>
+									<a
+										class="text-[#2e2e2e] no-underline"
+										href={resolve('/quran/[id]', { id: String(q.id) })}>{q.name}</a
+									>
+								</li>
 							{/each}
 						</ul>
 					</div>
@@ -71,7 +120,11 @@
 			{/if}
 		</div>
 
-		<button type="button" class="qa-goTop" onclick={() => window.scrollTo(0, 0)}>
+		<button
+			type="button"
+			class="float-right mr-[10px] w-full cursor-pointer text-center text-[20px] hover:underline md:text-[15px]"
+			onclick={() => window.scrollTo(0, 0)}
+		>
 			Go to the top <i class="fa fa-chevron-up"></i>
 		</button>
 	</div>

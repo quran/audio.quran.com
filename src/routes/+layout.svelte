@@ -1,6 +1,7 @@
 <script>
 	import './layout.css'
 	import { page } from '$app/state'
+	import { resolve } from '$app/paths'
 
 	let { children } = $props()
 </script>
@@ -38,19 +39,28 @@
 	/>
 </svelte:head>
 
-<ul class="qa-navContainer">
-	<li><a href="/about">About</a></li>
-	<li><a href="https://quran.zendesk.com/hc/en-us/requests/new">Contact Us</a></li>
+<ul
+	class="absolute top-[10px] right-[15vw] z-10 w-full pl-[40px] text-right text-[14px] leading-[20px] md:right-[5vw]"
+>
+	<li class="mx-[10px] inline"><a class="text-white" href={resolve('/about')}>About</a></li>
+	<li class="mx-[10px] inline">
+		<a class="text-white" href="https://quran.zendesk.com/hc/en-us/requests/new">Contact Us</a>
+	</li>
 </ul>
 
-<div class="qa-linkContainer">
-	<a class="qa-link" href="/" title="Select from your favourite recriters" aria-label="Home">
-		{#if page.url.pathname === '/' || page.url.pathname.startsWith('/section/')}
+<div class="mb-0">
+	<a
+		class="relative right-[20px] z-[11] ml-[30px] text-[30px] text-white"
+		href={resolve('/')}
+		title="Select from your favourite recriters"
+		aria-label="Home"
+	>
+		{#if page.url.pathname !== '/' && !page.url.pathname.startsWith('/section/')}
 			<i class="fa fa-home" aria-hidden="true"></i>
 		{/if}
 	</a>
 	<a
-		class="qa-link qa-linkRight"
+		class="relative right-[20px] z-[11] float-right mr-[30px] ml-[30px] text-[30px] text-white"
 		href="https://quran.com"
 		title="Read the holy Quran, on quran.com"
 		aria-label="Quran.com"

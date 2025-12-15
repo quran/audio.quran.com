@@ -10,5 +10,7 @@ export async function load({ params, fetch }) {
 		fetch('/api/qaris').then((r) => r.json())
 	])
 
+	qaris.sort((a, b) => a.id - b.id)
+
 	return { section, sections, qaris }
 }
