@@ -9,4 +9,3 @@ export async function load({ params, fetch }) {
 
 	return { id, qari, files, surahs };
 }
-

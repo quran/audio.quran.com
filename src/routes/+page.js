@@ -7,4 +7,3 @@ export async function load({ fetch }) {
 
 	return { section: 1, sections, qaris };
 }
-

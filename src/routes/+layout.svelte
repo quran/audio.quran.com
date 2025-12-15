@@ -15,7 +15,10 @@
 		name="keyword"
 		content="quran, quran mp3, quran audio, quranic audio, islam audio, quran play, quran recitation, islam"
 	/>
-	<meta property="og:site_name" content="Quran Mp3 and Audio Downloads in High Quality - QuranicAudio.com" />
+	<meta
+		property="og:site_name"
+		content="Quran Mp3 and Audio Downloads in High Quality - QuranicAudio.com"
+	/>
 	<meta property="og:image" content="/images/QuranicAudio.png" />
 	<meta property="og:locale" content="en_US" />
 	<meta property="og:title" content="Quran Mp3 and Audio Downloads in High Quality" />

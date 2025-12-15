@@ -9,6 +9,7 @@ import svelteConfig from './svelte.config.js';
 const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
 
 /** @type {import('eslint').Linter.Config[]} */ export default [
+	{ ignores: ['old/**'] },
 	includeIgnoreFile(gitignorePath),
 	js.configs.recommended,
 	...svelte.configs.recommended,
@@ -21,6 +22,7 @@ const gitignorePath = fileURLToPath(new URL('./.gitignore', import.meta.url));
 
 	{
 		files: ['**/*.svelte', '**/*.svelte.js'],
-		languageOptions: { parserOptions: { svelteConfig } }
+		languageOptions: { parserOptions: { svelteConfig } },
+		rules: { 'svelte/no-navigation-without-resolve': 'off' }
 	}
 ];

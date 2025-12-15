@@ -32,7 +32,9 @@
 				{#if s.id === 1}
 					<a class="qa-pill {s.id === section ? 'qa-pillActive' : ''}" href="/">{s.name}</a>
 				{:else}
-					<a class="qa-pill {s.id === section ? 'qa-pillActive' : ''}" href="/section/{s.id}">{s.name}</a>
+					<a class="qa-pill {s.id === section ? 'qa-pillActive' : ''}" href="/section/{s.id}"
+						>{s.name}</a
+					>
 				{/if}
 			</li>
 		{/each}

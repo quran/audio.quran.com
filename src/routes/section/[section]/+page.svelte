@@ -5,4 +5,3 @@
 </script>
 
 <Home section={data.section} sections={data.sections} qaris={data.qaris} />
-
