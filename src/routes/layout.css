@@ -335,6 +335,74 @@ body {
 	color: #fff;
 }
 
+.qa-suraHeader {
+	padding: 80px 0 50px;
+}
+
+.qa-suraName {
+	font-size: 32px;
+	font-weight: 700;
+	margin: 0;
+}
+
+.qa-suraRead {
+	display: inline-block;
+	margin-top: 14px;
+}
+
+.qa-suraList {
+	margin-top: -30px;
+}
+
+.qa-suraRows {
+	list-style: none;
+	padding-left: 0;
+	margin: 0;
+}
+
+.qa-suraRow {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 12px 10px;
+	border-bottom: 1px solid var(--border-color);
+}
+
+.qa-suraRow:hover {
+	background: var(--hover-grey);
+}
+
+.qa-suraRowNumber {
+	min-width: 64px;
+	text-align: right;
+	opacity: 0.7;
+}
+
+.qa-suraQari {
+	color: var(--black);
+	text-decoration: none;
+	flex: 1 1 auto;
+}
+
+.qa-suraDownload {
+	visibility: hidden;
+	color: var(--brand-primary);
+	border: 1px solid #e7e7e7;
+	border-radius: 999px;
+	padding: 6px 12px;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.qa-suraRow:hover .qa-suraDownload {
+	visibility: visible;
+}
+
+.qa-suraDownload:hover {
+	background: var(--brand-primary);
+	color: #fff;
+}
+
 @media (max-width: 768px) {
 	.qa-navContainer {
 		right: 15vw;
@@ -397,5 +465,13 @@ body {
 	.qa-downloadLink {
 		min-width: 0;
 		width: 100%;
+	}
+
+	.qa-suraRowNumber {
+		min-width: 52px;
+	}
+
+	.qa-suraDownload {
+		visibility: visible;
 	}
 }
