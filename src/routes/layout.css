@@ -1,1 +1,268 @@
 @import 'tailwindcss';
+
+:root {
+	--brand-primary: #2ca4ab;
+	--border-color: #f0f0f0;
+	--hover-grey: #f7f7f7;
+	--black: #2e2e2e;
+}
+
+@font-face {
+	font-family: 'Montserrat';
+	src: url('https://quranicaudio.com/public/fonts/Montserrat-Light.otf') format('opentype');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Montserrat';
+	src: url('https://quranicaudio.com/public/fonts/Montserrat-Bold.otf') format('opentype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	font-family: Montserrat, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+	color: var(--black);
+	background: url('https://quranicaudio.com/public/images/background.jpg') center center no-repeat;
+	background-size: cover;
+}
+
+.qa-navContainer {
+	position: absolute;
+	top: 10px;
+	right: 5vw;
+	z-index: 10;
+	width: 100%;
+	text-align: right;
+}
+
+.qa-navContainer li {
+	display: inline;
+	margin: 0 10px;
+	font-size: 16px;
+}
+
+.qa-navContainer a {
+	color: white;
+}
+
+.qa-linkContainer {
+	margin-bottom: 0;
+}
+
+.qa-link {
+	color: white;
+	font-size: 30px;
+	position: relative;
+	margin-left: 30px;
+	z-index: 11;
+	right: 20px;
+}
+
+.qa-linkRight {
+	float: right;
+	margin-right: 30px;
+}
+
+.qa-appContent {
+	margin-top: -75px;
+}
+
+.qa-header {
+	background: url('https://quranicaudio.com/public/images/background.jpg') center center no-repeat;
+	background-size: cover;
+	height: 300px;
+	color: #fff;
+}
+
+.qa-heading {
+	font-size: 48px;
+	margin-top: 80px;
+	left: 40px;
+	position: relative;
+	font-weight: 700;
+}
+
+.qa-container {
+	margin: 0 auto 50px;
+	padding: 0 15px;
+	background: white;
+	position: relative;
+	max-width: 1170px;
+}
+
+.qa-qariContainer {
+	background: white;
+	margin: 0 -15px;
+}
+
+.qa-pills {
+	display: flex;
+	justify-content: center;
+	list-style: none;
+	padding: 0;
+	background: white;
+	width: 100%;
+	min-width: 230px;
+}
+
+.qa-pill {
+	font-size: 16px;
+	cursor: pointer;
+	text-align: center;
+	letter-spacing: 1px;
+	margin-bottom: 5px;
+	border-bottom: 2px solid var(--border-color);
+	padding: 25px;
+	background: transparent;
+	width: 100%;
+	display: block;
+	text-decoration: none;
+	color: var(--black);
+}
+
+.qa-pill:hover {
+	background: var(--hover-grey);
+}
+
+.qa-pillActive {
+	border-bottom-color: var(--brand-primary);
+}
+
+.qa-pills li {
+	flex: 1 1 auto;
+}
+
+.qa-letterBlock {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: flex-start;
+	min-height: 100px;
+	position: relative;
+}
+
+.qa-letter {
+	border: 2px solid var(--border-color);
+	font-size: 16px;
+	color: var(--black);
+	padding: 7px 13px 6px;
+	border-radius: 999px;
+	position: absolute;
+	margin-top: 10px;
+	left: 17px;
+	z-index: 10;
+}
+
+.qa-list {
+	position: relative;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	margin-top: 10px;
+	left: 40px;
+	overflow: hidden;
+	z-index: 1;
+	padding-left: 0;
+}
+
+.qa-list::after {
+	content: '';
+	width: 100%;
+	border-bottom: 1px solid var(--border-color);
+}
+
+.qa-listItem {
+	padding: 15px 0 15px 20px;
+	font-size: 14px;
+	width: 370px;
+	letter-spacing: 1px;
+	line-height: 1.5em;
+}
+
+.qa-listItem:hover {
+	cursor: pointer;
+	background: var(--hover-grey);
+}
+
+.qa-listItem a {
+	color: var(--black);
+	text-decoration: none;
+}
+
+.qa-goTop {
+	text-align: center;
+	font-size: 15px;
+	margin-right: 10px;
+	float: right;
+	width: 100%;
+}
+
+.qa-goTop:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.qa-sectionSplitName {
+	border-bottom: 2px solid var(--brand-primary);
+	margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+	.qa-navContainer {
+		right: 15vw;
+	}
+	.qa-pills {
+		flex-direction: column;
+		padding: 0 10px;
+	}
+	.qa-pill {
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+	.qa-letter {
+		width: 100%;
+		background: var(--brand-primary);
+		border-radius: 0;
+		position: relative;
+		text-align: left;
+		padding-left: 20px;
+		font-weight: 400;
+		font-size: 26px;
+		color: white;
+		left: 0;
+		border: none;
+	}
+	.qa-list {
+		margin-top: 0;
+		margin-bottom: 0;
+		left: 0;
+	}
+	.qa-list::after {
+		border-bottom: none;
+	}
+	.qa-listItem {
+		border-bottom: 1px solid var(--border-color);
+		width: 100%;
+		margin: 0 10px;
+		padding-top: 20px;
+	}
+	.qa-listItem:last-child {
+		padding-bottom: 20px;
+	}
+	.qa-goTop {
+		font-size: 20px;
+	}
+	.qa-container {
+		width: 100%;
+		margin: 0;
+	}
+}
