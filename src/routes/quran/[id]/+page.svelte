@@ -4,9 +4,53 @@
 
 	let { data } = $props()
 
-	let surahById = $derived.by(() => new Map(data.surahs.map((s) => [s.id, s])))
-	let sortedFiles = $derived.by(() => [...data.files].sort((a, b) => a.surah_id - b.surah_id))
+	let surahById = $derived.by(() => Object.fromEntries(data.surahs.map((s) => [s.id, s])))
 	let relatedOpen = $state(false)
+
+	const partNumber = (fileName) => Number(fileName.match(/\[part_(\d+)_of_\d+\]/)?.[1]) || 0
+	const pad3 = (n) => String(n).padStart(3, '0')
+
+	let surahGroups = $derived.by(() => {
+		const bySurah = Object.create(null)
+		for (const f of data.files) {
+			if (!f.surah_id) continue
+			const existing = bySurah[f.surah_id]
+			if (existing) existing.push(f)
+			else bySurah[f.surah_id] = [f]
+		}
+
+		const groups = []
+		let startIndex = 0
+		for (const surahId of Object.keys(bySurah).map(Number).sort((a, b) => a - b)) {
+			const sorted = [...bySurah[surahId]].sort(
+				(a, b) => partNumber(a.file_name) - partNumber(b.file_name) || a.file_name.localeCompare(b.file_name)
+			)
+			const duration = Math.max(...sorted.map((f) => Number(f.format?.duration) || 0))
+			groups.push({ surahId, files: sorted, startIndex, duration })
+			startIndex += sorted.length
+		}
+		return groups
+	})
+
+	let flatQueue = $derived.by(() =>
+		surahGroups.flatMap((g) =>
+			g.files.map((f) => {
+				const s = surahById[f.surah_id]
+				const simple = s?.name?.simple || `Surah ${f.surah_id}`
+				const english = s?.name?.english
+				const src = `https://download.quranicaudio.com/quran/${data.qari.relative_path}${f.file_name}`
+				return {
+					key: `qari:${data.id}:${f.surah_id}:${f.file_name}`,
+					surahId: f.surah_id,
+					qariId: data.id,
+					src,
+					title: english ? `${data.qari.name} ${simple} (${english})` : `${data.qari.name} ${simple}`,
+					duration: Number(f.format?.duration) || 0,
+					simple
+				}
+			})
+		)
+	)
 
 	let descriptionParts = $derived.by(() => {
 		const html = String(data.qari?.description || '').replaceAll('\\', '')
@@ -25,26 +69,29 @@
 	})
 
 	let queue = $derived.by(() =>
-		sortedFiles.map((f) => {
-			const s = surahById.get(f.surah_id)
-			const simple = s?.name?.simple || `Surah ${f.surah_id}`
+		surahGroups.map((g) => {
+			const s = surahById[g.surahId]
+			const simple = s?.name?.simple || `Surah ${g.surahId}`
 			const english = s?.name?.english
-			const src = `https://download.quranicaudio.com/quran/${data.qari.relative_path}${f.file_name}`
+			const downloadHref = `https://download.quranicaudio.com/quran/${data.qari.relative_path}${pad3(g.surahId)}.mp3`
 			return {
-				key: `qari:${data.id}:${f.surah_id}`,
-				surahId: f.surah_id,
+				key: `qari:${data.id}:${g.surahId}`,
+				surahId: g.surahId,
 				qariId: data.id,
-				src,
-				downloadHref: src,
-				readHref: `https://www.quran.com/${f.surah_id}`,
+				startIndex: g.startIndex,
+				downloadHref,
+				readHref: `https://www.quran.com/${g.surahId}`,
 				title: english ? `${data.qari.name} ${simple} (${english})` : `${data.qari.name} ${simple}`,
-				duration: Number(f.format?.duration) || 0,
+				duration: g.duration,
 				simple
 			}
 		})
 	)
 
-	const isActive = (track) => $player.queue[$player.index]?.key === track.key
+	const isActive = (track) => {
+		const current = $player.queue[$player.index]
+		return current?.qariId === track.qariId && current?.surahId === track.surahId
+	}
 
 	const formatSeconds = (seconds) => {
 		const total = Math.round(seconds)
@@ -63,10 +110,10 @@
 
 		toggleRandom()
 		const index = Math.floor(Math.random() * queue.length)
-		if (queue[index]) setQueue(queue, index, true)
+		if (queue[index]) setQueue(flatQueue, queue[index].startIndex, true)
 	}
 
-	const play = (index) => setQueue(queue, index, true)
+	const play = (index) => setQueue(flatQueue, queue[index].startIndex, true)
 </script>
 
 <svelte:head>
