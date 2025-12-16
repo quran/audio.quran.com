@@ -123,10 +123,12 @@
 
 <div class="min-h-[350px] bg-[#2ca4ab] pt-[128px] pb-[80px] text-white">
 	<div class="text-center">
-		<h1 class="m-0 text-[32px] font-bold">{data.qari?.name}</h1>
+		<h1 class="m-0 mt-[20px] mb-[10px] text-[36px] leading-[39.6px] font-medium">
+			{data.qari?.name}
+		</h1>
 
 		{#if data.qari?.description}
-			<p class="mx-auto w-full px-[15px] break-words md:w-[70%] md:px-[80px]">
+			<p class="m-0 mb-[10px] mx-auto w-full px-[15px] break-words md:w-[70%] md:px-[50px]">
 				{#each descriptionParts as p, i (i)}
 					{#if p.href}
 						<a
