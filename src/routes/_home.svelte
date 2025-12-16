@@ -6,12 +6,10 @@
 
 	const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
-	let haramain = $derived.by(() => {
-		const list = qaris.filter((q) => q.section_id === 2 && q.home)
-		return {
-			makkah: list.filter((q) => q.name.includes('Makkah')),
-			madinah: list.filter((q) => q.name.includes('Madinah'))
-		}
+	let haramainList = $derived(qaris.filter((q) => q.section_id === 2 && q.home))
+	let haramain = $derived({
+		makkah: haramainList.filter((q) => q.name.includes('Makkah')),
+		madinah: haramainList.filter((q) => q.name.includes('Madinah'))
 	})
 
 	let grouped = $derived(
@@ -60,7 +58,7 @@
 		{/each}
 	</ul>
 
-	<div class="relative m-0 w-full bg-white px-[15px] pb-[20px] md:mx-auto md:mb-[50px] md:max-w-[1170px]">
+		<div class="relative m-0 w-full bg-white px-[15px] pb-[35px] md:mx-auto md:mb-[50px] md:max-w-[1170px]">
 		<div class="mx-[-15px] bg-white">
 			{#if section === 2}
 				<div class="relative flex min-h-[100px] flex-wrap items-start justify-start">

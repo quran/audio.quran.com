@@ -37,35 +37,35 @@
 	<link rel="icon" href="/favicon.ico" />
 </svelte:head>
 
-<div class="absolute top-[10px] left-[12vw] right-[12vw] z-[11] flex items-center md:left-[4vw] md:right-[4vw]">
-	<a
-		class="text-[30px] text-white"
-		href={resolve('/')}
-		title="Select from your favourite recriters"
-		aria-label="Home"
-	>
-		{#if page.url.pathname !== '/' && !page.url.pathname.startsWith('/section/')}
-			<House size={30} aria-hidden="true" />
-		{/if}
-	</a>
+	<div class="absolute top-[10px] left-[10vw] right-[10vw] z-[11] flex items-center md:left-[3vw] md:right-[3vw]">
+		<a
+			class="text-white"
+			href={resolve('/')}
+			title="Select from your favourite recriters"
+			aria-label="Home"
+		>
+			{#if page.url.pathname !== '/' && !page.url.pathname.startsWith('/section/')}
+				<House class="h-[26px] w-[26px] md:h-[30px] md:w-[30px]" aria-hidden="true" />
+			{/if}
+		</a>
 
-	<ul class="ml-auto flex list-none items-center gap-[20px] p-0 text-[16px] leading-[20px]">
-		<li><a class="text-white" href={resolve('/about')}>About</a></li>
-		<li>
-			<a class="text-white" href="https://quran.zendesk.com/hc/en-us/requests/new">Contact Us</a>
-		</li>
-		<li>
-			<a
-				class="text-[30px] text-white"
-				href="https://quran.com"
-				title="Read the holy Quran, on quran.com"
-				aria-label="Quran.com"
-			>
-				<Book size={30} aria-hidden="true" />
-			</a>
-		</li>
-	</ul>
-</div>
+		<ul class="ml-auto flex list-none items-center gap-[12px] p-0 text-[14px] leading-[20px] md:gap-[20px] md:text-[16px]">
+			<li><a class="text-white" href={resolve('/about')}>About</a></li>
+			<li>
+				<a class="text-white" href="https://quran.zendesk.com/hc/en-us/requests/new">Contact Us</a>
+			</li>
+			<li>
+				<a
+					class="text-white"
+					href="https://quran.com"
+					title="Read the holy Quran, on quran.com"
+					aria-label="Quran.com"
+				>
+					<Book class="h-[26px] w-[26px] md:h-[30px] md:w-[30px]" aria-hidden="true" />
+				</a>
+			</li>
+		</ul>
+	</div>
 
 <div class="mt-[-75px]">
 	{@render children()}

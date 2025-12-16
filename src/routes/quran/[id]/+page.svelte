@@ -188,19 +188,19 @@
 <div class="relative bottom-[60px] mx-auto w-full px-[15px] md:w-[75%] md:px-0">
 	<div class="mb-[10px] bg-white p-[10px]">
 		<ul class="m-0 list-none p-0">
-			{#each queue as t, index (t.key)}
-				<li class="group border-b border-b-[#f0f0f0] {isActive(t) ? 'bg-[#f7f7f7]' : ''}">
-					<div
-						class="flex flex-wrap items-center gap-y-[6px] px-[10px] py-[14px] hover:bg-[#f7f7f7]"
-					>
-						<button
-							type="button"
-							aria-label="Play Surat {t.simple}"
-							class="flex w-full flex-wrap items-center md:w-[50%]"
-							onclick={() => play(index)}
+				{#each queue as t, index (t.key)}
+					<li class="group border-b border-b-[#f0f0f0] {isActive(t) ? 'bg-[#f7f7f7]' : ''}">
+						<div
+							class="flex flex-wrap items-center gap-y-[6px] px-[10px] py-[14px] hover:bg-[#f7f7f7] md:flex-nowrap"
 						>
-							<div class="flex w-full flex-wrap items-center md:w-[66.6667%]">
-								<div class="w-[52px] text-center md:w-[60px]">
+							<button
+								type="button"
+								aria-label="Play Surat {t.simple}"
+								class="flex w-full flex-wrap items-center md:w-[33.3333%]"
+								onclick={() => play(index)}
+							>
+								<div class="flex w-full flex-wrap items-center md:w-[66.6667%]">
+									<div class="w-[52px] text-center md:w-[60px]">
 									<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">
 										<span class="index {isActive(t) ? 'hidden' : 'inline'} md:group-hover:hidden"
 											>{t.surahId}.</span
@@ -234,14 +234,14 @@
 										: ''}
 									{formatSeconds(t.duration)}
 								</span>
-							</div>
-						</button>
+								</div>
+							</button>
 
-						<div class="hidden w-[50%] items-center justify-end gap-[10px] md:flex">
-							<div class="flex justify-end gap-[5px]">
-								<a
-									class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
-										t
+							<div class="hidden w-[50%] items-center justify-end md:flex">
+								<div class="flex justify-end gap-[5px]">
+									<a
+										class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
+											t
 									)
 										? 'visible'
 										: ''}"
@@ -285,24 +285,26 @@
 										size={16}
 										class="relative top-[2px] mr-[6px] inline-block"
 										aria-hidden="true"
-									/>
-									Download
-								</a>
+										/>
+										Download
+									</a>
+								</div>
 							</div>
 
-							<span
-								class="whitespace-nowrap text-[#2e2e2e] opacity-70 {isActive(t)
-									? 'text-[#2ca4ab] opacity-100'
-									: ''}"
-							>
-								{isActive(t) && $player.currentTime ? `${formatSeconds($player.currentTime)} / ` : ''}
-								{formatSeconds(t.duration)}
-							</span>
+							<div class="hidden w-[16.6667%] items-center justify-end md:flex">
+								<span
+									class="whitespace-nowrap text-[#2e2e2e] leading-[20px] opacity-70 {isActive(t)
+										? 'text-[#2ca4ab] opacity-100'
+										: ''}"
+								>
+									{isActive(t) && $player.currentTime ? `${formatSeconds($player.currentTime)} / ` : ''}
+									{formatSeconds(t.duration)}
+								</span>
+							</div>
 						</div>
-					</div>
 
-					{#if isActive(t)}
-						<div class="relative bottom-[-5px] h-[2px] w-full bg-transparent">
+						{#if isActive(t)}
+							<div class="relative bottom-[-5px] h-[2px] w-full bg-transparent">
 							<div
 								class="h-full bg-[#2ca4ab]"
 								style="width: {($player.duration
