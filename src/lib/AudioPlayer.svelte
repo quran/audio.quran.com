@@ -41,17 +41,30 @@
 
 	const attachAudio = (node) => {
 		audio = node
+		let lastKey = ''
+		let lastPlaying = false
+		let lastRepeat = false
+
 		const unsub = player.subscribe((state) => {
 			const track = state.queue[state.index]
 			if (!track) return
 
-			if (node.src !== track.src) {
+			if (track.key !== lastKey) {
 				node.src = track.src
 				node.currentTime = 0
+				lastKey = track.key
 			}
 
-			if (state.playing && node.paused) node.play()
-			if (!state.playing && !node.paused) node.pause()
+			if (state.repeat !== lastRepeat) {
+				node.loop = state.repeat
+				lastRepeat = state.repeat
+			}
+
+			if (state.playing !== lastPlaying) {
+				if (state.playing) node.play()
+				else node.pause()
+				lastPlaying = state.playing
+			}
 		})
 		return () => {
 			unsub()
@@ -154,15 +167,7 @@
 			onloadedmetadata={syncTiming}
 			onplay={() => setPlaying(true)}
 			onpause={() => setPlaying(false)}
-			onended={() => {
-				if (!audio) return
-				if ($player.repeat) {
-					audio.currentTime = 0
-					audio.play()
-					return
-				}
-				next()
-			}}
+			onended={() => (!$player.repeat ? next() : undefined)}
 		></audio>
 	</div>
 {/if}
