@@ -223,7 +223,7 @@
 								</div>
 							</div>
 
-							<div class="w-full text-right md:w-[33.3333%]">
+							<div class="w-full text-right md:hidden">
 								<span
 									class="whitespace-nowrap text-[#2e2e2e] opacity-70 {isActive(t)
 										? 'text-[#2ca4ab] opacity-100'
@@ -237,44 +237,67 @@
 							</div>
 						</button>
 
-						<div class="hidden w-[50%] justify-end gap-[5px] md:flex">
-							<a
-								class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
-									t
-								)
-									? 'visible'
+						<div class="hidden w-[50%] items-center justify-end gap-[10px] md:flex">
+							<div class="flex justify-end gap-[5px]">
+								<a
+									class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
+										t
+									)
+										? 'visible'
+										: ''}"
+									href={resolve('/')}
+								>
+									<Users
+										size={16}
+										class="relative top-[2px] mr-[6px] inline-block"
+										aria-hidden="true"
+									/>
+									Other Qaris
+								</a>
+								<a
+									class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
+										t
+									)
+										? 'visible'
+										: ''}"
+									{...{ href: t.readHref }}
+									target="_blank"
+									rel="noreferrer"
+								>
+									<Book
+										size={16}
+										class="relative top-[2px] mr-[6px] inline-block"
+										aria-hidden="true"
+									/>
+									Read
+								</a>
+								<a
+									class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
+										t
+									)
+										? 'visible'
+										: ''}"
+									{...{ href: t.downloadHref }}
+									target="_blank"
+									rel="noreferrer"
+								>
+									<Download
+										size={16}
+										class="relative top-[2px] mr-[6px] inline-block"
+										aria-hidden="true"
+									/>
+									Download
+								</a>
+							</div>
+
+							<span
+								class="whitespace-nowrap text-[#2e2e2e] opacity-70 {isActive(t)
+									? 'text-[#2ca4ab] opacity-100'
 									: ''}"
-								href={resolve('/')}
 							>
-								<Users size={16} class="relative top-[2px] mr-[6px] inline-block" aria-hidden="true" />
-								Other Qaris
-							</a>
-							<a
-								class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
-									t
-								)
-									? 'visible'
-									: ''}"
-								{...{ href: t.readHref }}
-								target="_blank"
-								rel="noreferrer"
-							>
-								<Book size={16} class="relative top-[2px] mr-[6px] inline-block" aria-hidden="true" />
-								Read
-							</a>
-							<a
-								class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
-									t
-								)
-									? 'visible'
-									: ''}"
-								{...{ href: t.downloadHref }}
-								target="_blank"
-								rel="noreferrer"
-							>
-								<Download size={16} class="relative top-[2px] mr-[6px] inline-block" aria-hidden="true" />
-								Download
-							</a>
+								{isActive(t) && $player.currentTime ? `${formatSeconds($player.currentTime)} / ` : ''}
+								{formatSeconds(t.duration)}
+							</span>
 						</div>
 					</div>
 
