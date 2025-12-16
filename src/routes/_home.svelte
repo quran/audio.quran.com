@@ -58,12 +58,12 @@
 		{/each}
 	</ul>
 
-		<div class="relative m-0 w-full bg-white px-[15px] pb-[35px] md:mx-auto md:mb-[50px] md:max-w-[1170px]">
-		<div class="mx-[-15px] bg-white">
+	<div class="relative m-0 w-full bg-white px-[15px] pb-[35px] md:mx-auto md:mb-[50px] md:max-w-[1170px]">
+		<div class="-mx-[15px] bg-white md:mx-0">
 			{#if section === 2}
 				<div class="relative flex min-h-[100px] flex-wrap items-start justify-start">
 					<h2
-						class="my-[10px] w-full border-b-2 border-b-[#2ca4ab] bg-[#2ca4ab] py-[5px] pl-[20px] text-white md:w-fit md:bg-transparent md:py-0 md:pl-0 md:text-[#2e2e2e]"
+						class="my-[10px] w-full border-b-2 border-b-[#2ca4ab] bg-[#2ca4ab] py-[5px] pl-[20px] text-[26px] leading-[33px] text-white md:mt-[20px] md:mb-[10px] md:w-fit md:bg-transparent md:py-0 md:pl-0 md:text-[30px] md:text-[#2e2e2e]"
 					>
 						Makkah
 					</h2>
@@ -82,7 +82,7 @@
 						{/each}
 					</ul>
 					<h2
-						class="my-[10px] w-full border-b-2 border-b-[#2ca4ab] bg-[#2ca4ab] py-[5px] pl-[20px] text-white md:w-fit md:bg-transparent md:py-0 md:pl-0 md:text-[#2e2e2e]"
+						class="my-[10px] w-full border-b-2 border-b-[#2ca4ab] bg-[#2ca4ab] py-[5px] pl-[20px] text-[26px] leading-[33px] text-white md:mt-[20px] md:mb-[10px] md:w-fit md:bg-transparent md:py-0 md:pl-0 md:text-[30px] md:text-[#2e2e2e]"
 					>
 						Madinah
 					</h2>
