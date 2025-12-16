@@ -37,7 +37,7 @@
 	<link rel="icon" href="/favicon.ico" />
 </svelte:head>
 
-<div class="absolute top-[10px] left-[15vw] right-[15vw] z-[11] flex items-center md:left-[5vw] md:right-[5vw]">
+<div class="absolute top-[10px] left-[12vw] right-[12vw] z-[11] flex items-center md:left-[4vw] md:right-[4vw]">
 	<a
 		class="text-[30px] text-white"
 		href={resolve('/')}
