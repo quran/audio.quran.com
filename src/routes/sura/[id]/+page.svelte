@@ -1,4 +1,5 @@
 <script>
+	import { Book, CirclePlay, Download } from '@lucide/svelte'
 	import { resolve } from '$app/paths'
 	import { player, setQueue } from '../../../stores/audio.js'
 
@@ -44,7 +45,7 @@
 			target="_blank"
 			rel="noreferrer"
 		>
-			<i class="fa fa-book relative top-[1px] pr-[8px] text-[18px]" aria-hidden="true"></i>
+			<Book size={18} class="relative top-[1px] pr-[8px]" aria-hidden="true" />
 			<span>Read</span>
 		</a>
 	</div>
@@ -79,10 +80,11 @@
 								: ''}"
 						>
 							<span class="index">{q.id}.</span>
-							<i
-								class="fa fa-play-circle fa-lg {isActive(t) ? 'text-[#2ca4ab]' : ''}"
+							<CirclePlay
+								size={24}
+								class={isActive(t) ? 'text-[#2ca4ab]' : ''}
 								aria-hidden="true"
-							></i>
+							/>
 						</span>
 
 						<span class="flex-1 text-left text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">
@@ -102,7 +104,8 @@
 							rel="noreferrer"
 							onclick={(e) => e.stopPropagation()}
 						>
-							<i class="fa fa-arrow-circle-down" aria-hidden="true"></i> Download
+							<Download size={16} class="relative top-[2px] mr-[6px] inline-block" aria-hidden="true" />
+							Download
 						</a>
 					</div>
 				</li>

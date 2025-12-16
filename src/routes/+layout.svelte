@@ -2,6 +2,7 @@
 	import './layout.css'
 	import { page } from '$app/state'
 	import { resolve } from '$app/paths'
+	import { Book, House } from '@lucide/svelte'
 	import AudioPlayer from '$lib/AudioPlayer.svelte'
 
 	let { children } = $props()
@@ -34,10 +35,6 @@
 	<meta property="og:image:width" content="200" />
 	<meta property="og:image:height" content="200" />
 	<link rel="icon" href="/favicon.ico" />
-	<link
-		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
-		rel="stylesheet"
-	/>
 </svelte:head>
 
 <div class="absolute top-[10px] left-[15vw] right-[15vw] z-[11] flex items-center md:left-[5vw] md:right-[5vw]">
@@ -48,7 +45,7 @@
 		aria-label="Home"
 	>
 		{#if page.url.pathname !== '/' && !page.url.pathname.startsWith('/section/')}
-			<i class="fa fa-home" aria-hidden="true"></i>
+			<House size={30} aria-hidden="true" />
 		{/if}
 	</a>
 
@@ -64,7 +61,7 @@
 				title="Read the holy Quran, on quran.com"
 				aria-label="Quran.com"
 			>
-				<i class="fa fa-book" aria-hidden="true"></i>
+				<Book size={30} aria-hidden="true" />
 			</a>
 		</li>
 	</ul>

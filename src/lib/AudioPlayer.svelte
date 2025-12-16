@@ -1,4 +1,5 @@
 <script>
+	import { CirclePause, CirclePlay, Repeat, Shuffle, SkipBack, SkipForward } from '@lucide/svelte'
 	import {
 		next,
 		player,
@@ -86,7 +87,7 @@
 						onclick={previous}
 						disabled={$player.index <= 0}
 					>
-						<i class="fa fa-fast-backward fa-lg" aria-hidden="true"></i>
+						<SkipBack size={24} aria-hidden="true" />
 					</button>
 
 					<button
@@ -95,10 +96,11 @@
 						class="cursor-pointer text-[#2ca4ab] disabled:cursor-not-allowed disabled:opacity-50"
 						onclick={togglePlaying}
 					>
-						<i
-							class="fa {$player.playing ? 'fa-pause-circle' : 'fa-play-circle'} fa-3x"
-							aria-hidden="true"
-						></i>
+						{#if $player.playing}
+							<CirclePause size={48} aria-hidden="true" />
+						{:else}
+							<CirclePlay size={48} aria-hidden="true" />
+						{/if}
 					</button>
 
 					<button
@@ -108,7 +110,7 @@
 						onclick={next}
 						disabled={$player.index >= $player.queue.length - 1 && !$player.random}
 					>
-						<i class="fa fa-fast-forward fa-lg" aria-hidden="true"></i>
+						<SkipForward size={24} aria-hidden="true" />
 					</button>
 
 					<div class="pl-[5px]">
@@ -131,7 +133,7 @@
 						class="cursor-pointer {$player.random ? 'text-[#2ca4ab]' : 'text-[#2e2e2e]'}"
 						onclick={toggleRandom}
 					>
-						<i class="fa fa-random" aria-hidden="true"></i>
+						<Shuffle size={20} aria-hidden="true" />
 					</button>
 					<button
 						type="button"
@@ -139,7 +141,7 @@
 						class="cursor-pointer {$player.repeat ? 'text-[#2ca4ab]' : 'text-[#2e2e2e]'}"
 						onclick={toggleRepeat}
 					>
-						<i class="fa fa-repeat" aria-hidden="true"></i>
+						<Repeat size={20} aria-hidden="true" />
 					</button>
 				</div>
 			</div>

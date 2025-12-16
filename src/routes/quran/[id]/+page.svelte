@@ -1,4 +1,5 @@
 <script>
+	import { Book, CirclePlay, Download, Network, Shuffle, Square, Users } from '@lucide/svelte'
 	import { player, setQueue, toggleRandom } from '../../../stores/audio.js'
 	import { resolve } from '$app/paths'
 
@@ -148,10 +149,11 @@
 			type="button"
 			onclick={toggleShuffle}
 		>
-			<i
-				class="fa {$player.random ? 'fa-stop' : 'fa-play'} relative top-[1px] pr-[8px] text-[18px]"
-				aria-hidden="true"
-			></i>
+			{#if $player.random}
+				<Square size={18} class="relative top-[1px] pr-[8px]" aria-hidden="true" />
+			{:else}
+				<Shuffle size={18} class="relative top-[1px] pr-[8px]" aria-hidden="true" />
+			{/if}
 			<span>Shuffle Play</span>
 		</button>
 
@@ -161,7 +163,7 @@
 				type="button"
 				onclick={() => (relatedOpen = !relatedOpen)}
 			>
-				<i class="fa fa-sitemap relative top-[1px] pr-[8px] text-[18px]" aria-hidden="true"></i>
+				<Network size={18} class="relative top-[1px] pr-[8px]" aria-hidden="true" />
 				<span>Other Recitations</span>
 			</button>
 			<ul
@@ -201,12 +203,15 @@
 										<span class="index {isActive(t) ? 'hidden' : 'inline'} md:group-hover:hidden"
 											>{t.surahId}.</span
 										>
-										<i
-											class="fa fa-play-circle fa-lg {isActive(t)
-												? 'inline'
-												: 'hidden'} md:group-hover:inline"
+										<CirclePlay
+											size={24}
+											class={
+												isActive(t)
+													? 'inline-block md:group-hover:inline-block'
+													: 'hidden md:group-hover:inline-block'
+											}
 											aria-hidden="true"
-										></i>
+										/>
 									</span>
 								</div>
 								<div class="w-[calc(100%-52px)] md:w-[calc(100%-60px)]">
@@ -239,7 +244,8 @@
 									: ''}"
 								href={resolve('/')}
 							>
-								<i class="fa fa-users" aria-hidden="true"></i> Other Qaris
+								<Users size={16} class="relative top-[2px] mr-[6px] inline-block" aria-hidden="true" />
+								Other Qaris
 							</a>
 							<a
 								class="invisible h-[35px] w-[121px] rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
@@ -251,7 +257,8 @@
 								target="_blank"
 								rel="noreferrer"
 							>
-								<i class="fa fa-book" aria-hidden="true"></i> Read
+								<Book size={16} class="relative top-[2px] mr-[6px] inline-block" aria-hidden="true" />
+								Read
 							</a>
 							<a
 								class="invisible h-[35px] w-[121px] rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
@@ -263,7 +270,8 @@
 								target="_blank"
 								rel="noreferrer"
 							>
-								<i class="fa fa-arrow-circle-down" aria-hidden="true"></i> Download
+								<Download size={16} class="relative top-[2px] mr-[6px] inline-block" aria-hidden="true" />
+								Download
 							</a>
 						</div>
 					</div>
