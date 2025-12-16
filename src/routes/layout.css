@@ -9,6 +9,13 @@
 }
 @font-face {
 	font-family: 'Montserrat';
+	src: url('/fonts/Montserrat-Regular.otf') format('opentype');
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: 'Montserrat';
 	src: url('/fonts/Montserrat-Bold.otf') format('opentype');
 	font-weight: 700;
 	font-style: normal;
@@ -27,4 +34,9 @@
 	font-weight: 300;
 	font-style: normal;
 	font-display: swap;
+}
+
+html,
+body {
+	font-family: 'Montserrat', sans-serif;
 }
