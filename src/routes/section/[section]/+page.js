@@ -1,16 +1,10 @@
 import { redirect } from '@sveltejs/kit'
 
 /** @type {import('./$types').PageLoad} */
-export async function load({ params, fetch }) {
+export async function load({ params, parent }) {
 	const section = Number(params.section) || 1
 	if (section === 1) throw redirect(307, '/')
 
-	const [sections, qaris] = await Promise.all([
-		fetch('/api/sections').then((r) => r.json()),
-		fetch('/api/qaris').then((r) => r.json())
-	])
-
-	qaris.sort((a, b) => a.id - b.id)
-
+	const { sections, qaris } = await parent()
 	return { section, sections, qaris }
 }

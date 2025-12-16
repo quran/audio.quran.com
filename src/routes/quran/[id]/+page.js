@@ -1,10 +1,10 @@
 /** @type {import('./$types').PageLoad} */
-export async function load({ params, fetch }) {
+export async function load({ params, fetch, parent }) {
 	const id = Number(params.id)
-	const [qari, files, surahs, relatedIds] = await Promise.all([
+	const { surahs } = await parent()
+	const [qari, files, relatedIds] = await Promise.all([
 		fetch(`/api/qaris/${id}`).then((r) => r.json()),
 		fetch(`/api/qaris/${id}/audio_files/mp3`).then((r) => r.json()),
-		fetch('/api/surahs').then((r) => r.json()),
 		fetch(`/api/qaris/related/${id}`).then((r) => r.json())
 	])
 
