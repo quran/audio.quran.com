@@ -38,19 +38,19 @@
 	>
 		{#each sections as s (s.id)}
 			<li
-				class="mb-[5px] cursor-pointer list-none border-b-2 p-[25px] text-center tracking-[1px] hover:bg-[#f7f7f7] {s.id ===
+				class="mb-[5px] cursor-pointer list-none border-b-2 p-0 text-center tracking-[1px] hover:bg-[#f7f7f7] {s.id ===
 				section
 					? 'border-b-[#2ca4ab]'
-					: 'border-b-[#f0f0f0]'} md:pt-[25px] md:pb-[25px]"
+					: 'border-b-[#f0f0f0]'}"
 			>
 				{#if s.id === 1}
 					<a
-						class="inline bg-transparent px-[15px] py-[10px] text-[16px] text-[#2ca4ab] no-underline"
+						class="block bg-transparent px-[15px] py-[25px] text-[16px] text-[#2ca4ab] no-underline"
 						href={resolve('/')}>{s.name}</a
 					>
 				{:else}
 					<a
-						class="inline bg-transparent px-[15px] py-[10px] text-[16px] text-[#2ca4ab] no-underline"
+						class="block bg-transparent px-[15px] py-[25px] text-[16px] text-[#2ca4ab] no-underline"
 						href={resolve('/section/[section]', { section: String(s.id) })}>{s.name}</a
 					>
 				{/if}
