@@ -10,6 +10,10 @@
 
 	const partNumber = (fileName) => Number(fileName.match(/\[part_(\d+)_of_\d+\]/)?.[1]) || 0
 	const pad3 = (n) => String(n).padStart(3, '0')
+	const pillBase =
+		'invisible inline-block h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] ' +
+		'px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white ' +
+		'md:group-hover:visible'
 
 	let surahGroups = $derived.by(() => {
 		const bySurah = Object.create(null)
@@ -123,7 +127,7 @@
 
 <div class="min-h-[350px] bg-[#2ca4ab] pt-[128px] pb-[80px] text-white">
 	<div class="text-center">
-		<h1 class="m-0 mt-[20px] mb-[10px] text-[36px] leading-[39.6px] font-medium">
+		<h1 class="m-0 mt-[20px] mb-[10px] text-[36px] leading-[39.6px]">
 			{data.qari?.name}
 		</h1>
 
@@ -147,7 +151,8 @@
 		{/if}
 
 		<button
-			class="mt-[14px] inline-flex cursor-pointer items-center rounded-full border border-[#e7e7e7] bg-transparent px-[18px] py-[8px] text-[14px] text-white hover:bg-[rgba(255,255,255,0.12)]"
+			class="mt-[14px] inline-flex items-center rounded-full border border-[#e7e7e7] bg-transparent
+				px-[18px] py-[8px] text-[14px] text-white hover:bg-[rgba(255,255,255,0.12)]"
 			type="button"
 			onclick={toggleShuffle}
 		>
@@ -161,7 +166,8 @@
 
 		{#if data.related?.length}
 			<button
-				class="mt-[14px] ml-[10px] inline-flex cursor-pointer items-center rounded-full border border-[#e7e7e7] bg-transparent px-[18px] py-[8px] text-[14px] text-white hover:bg-[rgba(255,255,255,0.12)]"
+				class="mt-[14px] ml-[10px] inline-flex items-center rounded-full border border-[#e7e7e7] bg-transparent
+					px-[18px] py-[8px] text-[14px] text-white hover:bg-[rgba(255,255,255,0.12)]"
 				type="button"
 				onclick={() => (relatedOpen = !relatedOpen)}
 			>
@@ -175,9 +181,7 @@
 			>
 				{#each data.related as r (r.id)}
 					<li class="inline pr-[5px]">
-						<a class="text-white underline" href={resolve('/quran/[id]', { id: String(r.id) })}
-							>{r.name}</a
-						>
+						<a class="text-white underline" href={resolve('/quran/[id]', { id: String(r.id) })}>{r.name}</a>
 					</li>
 				{/each}
 			</ul>
@@ -185,9 +189,9 @@
 	</div>
 </div>
 
-<div class="relative bottom-[60px] mx-auto w-full px-[15px] md:w-[75%] md:px-0">
+<div class="relative bottom-[60px] mx-auto w-full px-[15px] md:max-w-[1170px]">
 	<div class="mb-[10px] bg-white p-[10px]">
-		<ul class="m-0 list-none p-0">
+			<ul class="m-0 list-none p-0">
 				{#each queue as t, index (t.key)}
 					<li class="group border-b border-b-[#f0f0f0] {isActive(t) ? 'bg-[#f7f7f7]' : ''}">
 						<div
@@ -199,29 +203,27 @@
 								class="flex w-full flex-wrap items-center text-left md:w-[33.3333%]"
 								onclick={() => play(index)}
 							>
-								<div class="flex w-full flex-wrap items-center md:w-[66.6667%]">
+								<div class="flex w-full flex-wrap items-center">
 									<div class="w-[52px] text-center md:w-[60px]">
-									<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">
-										<span class="index {isActive(t) ? 'hidden' : 'inline'} md:group-hover:hidden"
-											>{t.surahId}.</span
-										>
-										<CirclePlay
-											size={24}
-											class={
-												isActive(t)
-													? 'inline-block md:group-hover:inline-block'
-													: 'hidden md:group-hover:inline-block'
-											}
-											aria-hidden="true"
-										/>
-									</span>
+										<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">
+											<span class="index {isActive(t) ? 'hidden' : 'inline'} md:group-hover:hidden"
+												>{t.surahId}.</span>
+											<CirclePlay
+												size={24}
+												class={
+													isActive(t)
+														? 'inline-block md:group-hover:inline-block'
+														: 'hidden md:group-hover:inline-block'
+												}
+												aria-hidden="true"
+											/>
+										</span>
+									</div>
+									<div class="w-[calc(100%-52px)] md:w-[calc(100%-60px)]">
+										<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}"
+											>Surat {t.simple}</span>
+									</div>
 								</div>
-								<div class="w-[calc(100%-52px)] md:w-[calc(100%-60px)]">
-									<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}"
-										>Surat {t.simple}</span
-									>
-								</div>
-							</div>
 
 							<div class="w-full text-right md:hidden">
 								<span
@@ -234,19 +236,12 @@
 										: ''}
 									{formatSeconds(t.duration)}
 								</span>
-								</div>
+							</div>
 							</button>
 
 							<div class="hidden w-[50%] items-center justify-end md:flex">
 								<div class="flex justify-end gap-[5px]">
-									<a
-										class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
-											t
-									)
-										? 'visible'
-										: ''}"
-									href={resolve('/')}
-								>
+									<a class="{pillBase} {isActive(t) ? 'visible' : ''}" href={resolve('/')}>
 									<Users
 										size={16}
 										class="relative top-[2px] mr-[6px] inline-block"
@@ -255,11 +250,7 @@
 									Other Qaris
 								</a>
 								<a
-									class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
-										t
-									)
-										? 'visible'
-										: ''}"
+									class="{pillBase} {isActive(t) ? 'visible' : ''}"
 									{...{ href: t.readHref }}
 									target="_blank"
 									rel="noreferrer"
@@ -272,11 +263,7 @@
 									Read
 								</a>
 								<a
-									class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
-										t
-									)
-										? 'visible'
-										: ''}"
+									class="{pillBase} {isActive(t) ? 'visible' : ''}"
 									{...{ href: t.downloadHref }}
 									target="_blank"
 									rel="noreferrer"
@@ -285,9 +272,9 @@
 										size={16}
 										class="relative top-[2px] mr-[6px] inline-block"
 										aria-hidden="true"
-										/>
-										Download
-									</a>
+									/>
+									Download
+								</a>
 								</div>
 							</div>
 
@@ -305,14 +292,14 @@
 
 						{#if isActive(t)}
 							<div class="relative bottom-[-5px] h-[2px] w-full bg-transparent">
-							<div
-								class="h-full bg-[#2ca4ab]"
-								style="width: {($player.duration
-									? ($player.currentTime / $player.duration) * 100
-									: 0
-								).toFixed(4)}%"
-							></div>
-						</div>
+								<div
+									class="h-full bg-[#2ca4ab]"
+									style="width: {($player.duration
+										? ($player.currentTime / $player.duration) * 100
+										: 0
+									).toFixed(4)}%"
+								></div>
+							</div>
 					{/if}
 				</li>
 			{/each}
