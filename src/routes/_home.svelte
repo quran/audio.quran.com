@@ -72,10 +72,10 @@
 					>
 						{#each haramain.makkah as q (q.id)}
 							<li
-								class="mx-[10px] w-full cursor-pointer border-b border-b-[#f0f0f0] pt-[20px] pb-[15px] pl-[20px] text-[14px] leading-[1.5em] tracking-[1px] last:pb-[20px] hover:bg-[#f7f7f7] md:mx-0 md:w-[370px] md:border-b-0 md:py-[15px] md:last:pb-[15px]"
+								class="mx-[10px] w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:mx-0 md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
 							>
 								<a
-									class="text-[#2e2e2e] no-underline"
+									class="block cursor-pointer pt-[20px] pb-[15px] pl-[20px] text-[#2e2e2e] no-underline hover:bg-[#f7f7f7] md:py-[15px]"
 									href={resolve('/quran/[id]', { id: String(q.id) })}>{q.name}</a
 								>
 							</li>
@@ -91,10 +91,10 @@
 					>
 						{#each haramain.madinah as q (q.id)}
 							<li
-								class="mx-[10px] w-full cursor-pointer border-b border-b-[#f0f0f0] pt-[20px] pb-[15px] pl-[20px] text-[14px] leading-[1.5em] tracking-[1px] last:pb-[20px] hover:bg-[#f7f7f7] md:mx-0 md:w-[370px] md:border-b-0 md:py-[15px] md:last:pb-[15px]"
+								class="mx-[10px] w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:mx-0 md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
 							>
 								<a
-									class="text-[#2e2e2e] no-underline"
+									class="block cursor-pointer pt-[20px] pb-[15px] pl-[20px] text-[#2e2e2e] no-underline hover:bg-[#f7f7f7] md:py-[15px]"
 									href={resolve('/quran/[id]', { id: String(q.id) })}>{q.name}</a
 								>
 							</li>
@@ -117,10 +117,10 @@
 						>
 							{#each g.qaris as q (q.id)}
 								<li
-									class="mx-[10px] w-full cursor-pointer border-b border-b-[#f0f0f0] pt-[20px] pb-[15px] pl-[20px] text-[14px] leading-[1.5em] tracking-[1px] last:pb-[20px] hover:bg-[#f7f7f7] md:mx-0 md:w-[370px] md:border-b-0 md:py-[15px] md:last:pb-[15px]"
+									class="mx-[10px] w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:mx-0 md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
 								>
 									<a
-										class="text-[#2e2e2e] no-underline"
+										class="block cursor-pointer pt-[20px] pb-[15px] pl-[20px] text-[#2e2e2e] no-underline hover:bg-[#f7f7f7] md:py-[15px]"
 										href={resolve('/quran/[id]', { id: String(q.id) })}>{q.name}</a
 									>
 								</li>
