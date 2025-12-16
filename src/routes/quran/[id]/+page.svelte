@@ -196,7 +196,7 @@
 							<button
 								type="button"
 								aria-label="Play Surat {t.simple}"
-								class="flex w-full flex-wrap items-center md:w-[33.3333%]"
+								class="flex w-full flex-wrap items-center text-left md:w-[33.3333%]"
 								onclick={() => play(index)}
 							>
 								<div class="flex w-full flex-wrap items-center md:w-[66.6667%]">
