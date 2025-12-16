@@ -239,7 +239,7 @@
 
 						<div class="hidden w-[50%] justify-end gap-[5px] md:flex">
 							<a
-								class="invisible h-[35px] w-[121px] rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
+								class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
 									t
 								)
 									? 'visible'
@@ -250,7 +250,7 @@
 								Other Qaris
 							</a>
 							<a
-								class="invisible h-[35px] w-[121px] rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
+								class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
 									t
 								)
 									? 'visible'
@@ -263,7 +263,7 @@
 								Read
 							</a>
 							<a
-								class="invisible h-[35px] w-[121px] rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
+								class="invisible h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
 									t
 								)
 									? 'visible'

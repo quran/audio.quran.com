@@ -70,7 +70,7 @@
 						Makkah
 					</h2>
 					<ul
-						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.makkah as q (q.id)}
 							<li
@@ -89,7 +89,7 @@
 						Madinah
 					</h2>
 					<ul
-						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.madinah as q (q.id)}
 							<li
@@ -115,7 +115,7 @@
 							{g.letter}{#if g.letter === 'I'}<span class="invisible">I</span>{/if}
 						</span>
 						<ul
-							class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
+							class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
 						>
 							{#each g.qaris as q (q.id)}
 								<li
