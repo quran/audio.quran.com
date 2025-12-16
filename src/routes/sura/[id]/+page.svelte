@@ -5,13 +5,14 @@
 	let { data } = $props()
 
 	const pad3 = (n) => String(n).padStart(3, '0')
-	const title = $derived.by(() => {
-		const english = data.surah.name.english
-		return english ? `${data.surah.name.simple} (${english})` : data.surah.name.simple
-	})
+	const title = $derived(
+		data.surah.name.english
+			? `${data.surah.name.simple} (${data.surah.name.english})`
+			: data.surah.name.simple
+	)
 	const readHref = $derived(`https://quran.com/${data.surah.id}`)
 
-	const queue = $derived.by(() =>
+	const queue = $derived(
 		data.qaris.map((q) => {
 			const src = `https://download.quranicaudio.com/quran/${q.relative_path}${pad3(data.surah.id)}.mp3`
 			return {

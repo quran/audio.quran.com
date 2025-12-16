@@ -13,7 +13,7 @@
 		}
 	})
 
-	let grouped = $derived.by(() =>
+	let grouped = $derived(
 		letters
 			.map((letter) => ({
 				letter,
@@ -59,7 +59,7 @@
 		{/each}
 	</ul>
 
-	<div class="relative m-0 w-full bg-white px-[15px] md:mx-auto md:mb-[50px] md:max-w-[1170px]">
+	<div class="relative m-0 w-full bg-white px-[15px] pb-[20px] md:mx-auto md:mb-[50px] md:max-w-[1170px]">
 		<div class="mx-[-15px] bg-white">
 			{#if section === 2}
 				<div class="relative flex min-h-[100px] flex-wrap items-start justify-start">
@@ -69,7 +69,7 @@
 						Makkah
 					</h2>
 					<ul
-						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:left-[40px] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.makkah as q (q.id)}
 							<li
@@ -88,7 +88,7 @@
 						Madinah
 					</h2>
 					<ul
-						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:left-[40px] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.madinah as q (q.id)}
 							<li
@@ -114,7 +114,7 @@
 							{g.letter}{#if g.letter === 'I'}<span class="invisible">I</span>{/if}
 						</span>
 						<ul
-							class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:left-[40px] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
+							class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
 						>
 							{#each g.qaris as q (q.id)}
 								<li

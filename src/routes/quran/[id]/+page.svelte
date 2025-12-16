@@ -4,7 +4,7 @@
 
 	let { data } = $props()
 
-	let surahById = $derived.by(() => Object.fromEntries(data.surahs.map((s) => [s.id, s])))
+	let surahById = $derived(Object.fromEntries(data.surahs.map((s) => [s.id, s])))
 	let relatedOpen = $state(false)
 
 	const partNumber = (fileName) => Number(fileName.match(/\[part_(\d+)_of_\d+\]/)?.[1]) || 0
@@ -32,7 +32,7 @@
 		return groups
 	})
 
-	let flatQueue = $derived.by(() =>
+	let flatQueue = $derived(
 		surahGroups.flatMap((g) =>
 			g.files.map((f) => {
 				const s = surahById[f.surah_id]
@@ -68,7 +68,7 @@
 		return parts
 	})
 
-	let queue = $derived.by(() =>
+	let queue = $derived(
 		surahGroups.map((g) => {
 			const s = surahById[g.surahId]
 			const simple = s?.name?.simple || `Surah ${g.surahId}`

@@ -40,18 +40,9 @@
 	/>
 </svelte:head>
 
-<ul
-	class="absolute top-[10px] right-[15vw] z-10 w-full list-none pl-[40px] text-right text-[16px] leading-[20px] md:right-[5vw]"
->
-	<li class="mx-[10px] inline"><a class="text-white" href={resolve('/about')}>About</a></li>
-	<li class="mx-[10px] inline">
-		<a class="text-white" href="https://quran.zendesk.com/hc/en-us/requests/new">Contact Us</a>
-	</li>
-</ul>
-
-<div class="mb-0">
+<div class="absolute top-[10px] left-[15vw] right-[15vw] z-[11] flex items-center md:left-[5vw] md:right-[5vw]">
 	<a
-		class="relative right-[20px] z-[11] ml-[30px] text-[30px] text-white"
+		class="text-[30px] text-white"
 		href={resolve('/')}
 		title="Select from your favourite recriters"
 		aria-label="Home"
@@ -60,14 +51,23 @@
 			<i class="fa fa-home" aria-hidden="true"></i>
 		{/if}
 	</a>
-	<a
-		class="relative right-[20px] z-[11] float-right mr-[30px] ml-[30px] text-[30px] text-white"
-		href="https://quran.com"
-		title="Read the holy Quran, on quran.com"
-		aria-label="Quran.com"
-	>
-		<i class="fa fa-book" aria-hidden="true"></i>
-	</a>
+
+	<ul class="ml-auto flex list-none items-center gap-[20px] p-0 text-[16px] leading-[20px]">
+		<li><a class="text-white" href={resolve('/about')}>About</a></li>
+		<li>
+			<a class="text-white" href="https://quran.zendesk.com/hc/en-us/requests/new">Contact Us</a>
+		</li>
+		<li>
+			<a
+				class="text-[30px] text-white"
+				href="https://quran.com"
+				title="Read the holy Quran, on quran.com"
+				aria-label="Quran.com"
+			>
+				<i class="fa fa-book" aria-hidden="true"></i>
+			</a>
+		</li>
+	</ul>
 </div>
 
 <div class="mt-[-75px]">

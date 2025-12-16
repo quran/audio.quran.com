@@ -1,13 +1,13 @@
 <script>
 	let { audioFile, qaris, surahs } = $props()
 
-	let qariById = $derived.by(() => new Map(qaris.map((q) => [q.id, q])))
-	let surahById = $derived.by(() => new Map(surahs.map((s) => [s.id, s])))
+	let qariById = $derived(Object.fromEntries(qaris.map((q) => [q.id, q])))
+	let surahById = $derived(Object.fromEntries(surahs.map((s) => [s.id, s])))
 
-	let qari = $derived(qariById.get(audioFile?.qari_id))
-	let surah = $derived(surahById.get(audioFile?.surah_id))
+	let qari = $derived(qariById[audioFile?.qari_id])
+	let surah = $derived(surahById[audioFile?.surah_id])
 
-	let ok = $derived(qari && surah)
+	let ok = $derived(!!(qari && surah))
 </script>
 
 <header
