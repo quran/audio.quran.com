@@ -1,8 +1,8 @@
 <header
-	class="h-[300px] bg-[#2ca4ab] bg-[url('https://quranicaudio.com/public/images/background.jpg')] bg-cover bg-center bg-no-repeat pt-[10px] pb-[10px] text-center text-white"
+	class="h-[300px] bg-[#2ca4ab] bg-[url('https://quranicaudio.com/public/images/background.jpg')] bg-cover bg-center bg-no-repeat pt-[115px] pb-[10px] text-center text-white md:pt-[100px]"
 >
 	<h1
-		class="relative top-[115px] left-[40px] mt-[20px] inline-block font-['Montserrat-Bold'] text-[40px] leading-[1.1] font-medium md:top-[100px] md:text-[48px]"
+		class="mt-[20px] mb-[10px] inline-block translate-x-[40px] font-['Montserrat-Bold'] text-[40px] leading-[1.1] font-medium md:text-[48px]"
 	>
 		QuranicAudio
 	</h1>

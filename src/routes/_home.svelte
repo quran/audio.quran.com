@@ -26,10 +26,10 @@
 
 <div>
 	<header
-		class="h-[300px] bg-[#2ca4ab] bg-[url('https://quranicaudio.com/public/images/background.jpg')] bg-cover bg-center bg-no-repeat pt-[10px] pb-[10px] text-center text-white"
+		class="h-[300px] bg-[#2ca4ab] bg-[url('https://quranicaudio.com/public/images/background.jpg')] bg-cover bg-center bg-no-repeat pt-[115px] pb-[10px] text-center text-white md:pt-[100px]"
 	>
 		<h1
-			class="relative top-[115px] left-[40px] mt-[20px] inline-block font-['Montserrat-Bold'] text-[40px] leading-[1.1] font-medium md:top-[100px] md:text-[48px]"
+			class="mt-[20px] mb-[10px] inline-block translate-x-[40px] font-['Montserrat-Bold'] text-[40px] leading-[1.1] font-medium md:text-[48px]"
 		>
 			QuranicAudio
 		</h1>
@@ -65,7 +65,7 @@
 			{#if section === 2}
 				<div class="relative flex min-h-[100px] flex-wrap items-start justify-start">
 					<h2
-						class="my-[10px] w-full border-b-2 border-b-[#2ca4ab] bg-[#2ca4ab] py-[5px] pl-[20px] text-white md:bg-transparent md:py-0 md:pl-0 md:text-[#2e2e2e]"
+						class="my-[10px] w-full border-b-2 border-b-[#2ca4ab] bg-[#2ca4ab] py-[5px] pl-[20px] text-white md:w-fit md:bg-transparent md:py-0 md:pl-0 md:text-[#2e2e2e]"
 					>
 						Makkah
 					</h2>
@@ -84,7 +84,7 @@
 						{/each}
 					</ul>
 					<h2
-						class="my-[10px] w-full border-b-2 border-b-[#2ca4ab] bg-[#2ca4ab] py-[5px] pl-[20px] text-white md:bg-transparent md:py-0 md:pl-0 md:text-[#2e2e2e]"
+						class="my-[10px] w-full border-b-2 border-b-[#2ca4ab] bg-[#2ca4ab] py-[5px] pl-[20px] text-white md:w-fit md:bg-transparent md:py-0 md:pl-0 md:text-[#2e2e2e]"
 					>
 						Madinah
 					</h2>
