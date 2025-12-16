@@ -1,10 +1,50 @@
 <script>
-	let { data } = $props()
+	import { player, setQueue, toggleRandom } from '../../../stores/audio.js'
+	import { resolve } from '$app/paths'
 
-	let shuffling = $state(false)
+	let { data } = $props()
 
 	let surahById = $derived.by(() => new Map(data.surahs.map((s) => [s.id, s])))
 	let sortedFiles = $derived.by(() => [...data.files].sort((a, b) => a.surah_id - b.surah_id))
+	let relatedOpen = $state(false)
+
+	let descriptionParts = $derived.by(() => {
+		const html = String(data.qari?.description || '').replaceAll('\\', '')
+		const re = /<a href="([^"]+)">([^<]+)<\/a>/g
+		const parts = []
+		let lastIndex = 0
+		for (const m of html.matchAll(re)) {
+			if (m.index > lastIndex) parts.push({ text: html.slice(lastIndex, m.index) })
+			const href = m[1]
+			const text = m[2]
+			if (href) parts.push({ href, text })
+			lastIndex = m.index + m[0].length
+		}
+		if (lastIndex < html.length) parts.push({ text: html.slice(lastIndex) })
+		return parts
+	})
+
+	let queue = $derived.by(() =>
+		sortedFiles.map((f) => {
+			const s = surahById.get(f.surah_id)
+			const simple = s?.name?.simple || `Surah ${f.surah_id}`
+			const english = s?.name?.english
+			const src = `https://download.quranicaudio.com/quran/${data.qari.relative_path}${f.file_name}`
+			return {
+				key: `qari:${data.id}:${f.surah_id}`,
+				surahId: f.surah_id,
+				qariId: data.id,
+				src,
+				downloadHref: src,
+				readHref: `https://www.quran.com/${f.surah_id}`,
+				title: english ? `${data.qari.name} ${simple} (${english})` : `${data.qari.name} ${simple}`,
+				duration: Number(f.format?.duration) || 0,
+				simple
+			}
+		})
+	)
+
+	const isActive = (track) => $player.queue[$player.index]?.key === track.key
 
 	const formatSeconds = (seconds) => {
 		const total = Math.round(seconds)
@@ -16,27 +56,45 @@
 	}
 
 	const toggleShuffle = () => {
-		shuffling = !shuffling
-		if (!shuffling) return
+		if ($player.random) {
+			toggleRandom()
+			return
+		}
 
-		const f = sortedFiles[Math.floor(Math.random() * sortedFiles.length)]
-		if (!f) return
-
-		window.open(
-			`https://download.quranicaudio.com/quran/${data.qari.relative_path}${f.file_name}`,
-			'_blank',
-			'noopener'
-		)
+		toggleRandom()
+		const index = Math.floor(Math.random() * queue.length)
+		if (queue[index]) setQueue(queue, index, true)
 	}
+
+	const play = (index) => setQueue(queue, index, true)
 </script>
 
 <svelte:head>
 	<title>Holy Quran Recitation by {data.qari?.name} - QuranicAudio.com</title>
 </svelte:head>
 
-<div class="bg-[#2ca4ab] pt-[70px] pb-[40px] text-white">
-	<div class="mx-auto max-w-[1170px] px-[15px] text-center">
+<div class="min-h-[350px] bg-[#2ca4ab] pt-[128px] pb-[80px] text-white">
+	<div class="text-center">
 		<h1 class="m-0 text-[32px] font-bold">{data.qari?.name}</h1>
+
+		{#if data.qari?.description}
+			<p class="mx-auto w-full px-[15px] break-words md:w-[70%] md:px-[80px]">
+				{#each descriptionParts as p, i (i)}
+					{#if p.href}
+						<a
+							class="text-white underline"
+							{...{
+								href: p.href.startsWith('/') ? resolve(/** @type {any} */ (p.href)) : p.href
+							}}
+						>
+							{p.text}
+						</a>
+					{:else}
+						{p.text}
+					{/if}
+				{/each}
+			</p>
+		{/if}
 
 		<button
 			class="mt-[14px] inline-flex cursor-pointer items-center rounded-full border border-[#e7e7e7] bg-transparent px-[18px] py-[8px] text-[14px] text-white hover:bg-[rgba(255,255,255,0.12)]"
@@ -44,32 +102,136 @@
 			onclick={toggleShuffle}
 		>
 			<i
-				class="fa {shuffling ? 'fa-stop' : 'fa-play'} relative top-[1px] pr-[8px] text-[18px]"
+				class="fa {$player.random ? 'fa-stop' : 'fa-play'} relative top-[1px] pr-[8px] text-[18px]"
 				aria-hidden="true"
 			></i>
 			<span>Shuffle Play</span>
 		</button>
+
+		{#if data.related?.length}
+			<button
+				class="mt-[14px] ml-[10px] inline-flex cursor-pointer items-center rounded-full border border-[#e7e7e7] bg-transparent px-[18px] py-[8px] text-[14px] text-white hover:bg-[rgba(255,255,255,0.12)]"
+				type="button"
+				onclick={() => (relatedOpen = !relatedOpen)}
+			>
+				<i class="fa fa-sitemap relative top-[1px] pr-[8px] text-[18px]" aria-hidden="true"></i>
+				<span>Other Recitations</span>
+			</button>
+			<ul
+				class="m-0 mt-[10px] h-0 list-none p-0 opacity-0 transition-[height,opacity] duration-500 {relatedOpen
+					? 'h-[15px] opacity-100'
+					: ''}"
+			>
+				{#each data.related as r (r.id)}
+					<li class="inline pr-[5px]">
+						<a class="text-white underline" href={resolve('/quran/[id]', { id: String(r.id) })}
+							>{r.name}</a
+						>
+					</li>
+				{/each}
+			</ul>
+		{/if}
 	</div>
 </div>
 
-<div class="mt-0 md:mt-[-30px]">
-	<div class="relative m-0 w-full bg-white px-[15px] md:mx-auto md:mb-[50px] md:max-w-[1170px]">
+<div class="relative bottom-[60px] mx-auto w-full px-[15px] md:w-[75%] md:px-0">
+	<div class="mb-[10px] bg-white p-[10px]">
 		<ul class="m-0 list-none p-0">
-			{#each sortedFiles as f (f.surah_id)}
-				{@const s = surahById.get(f.surah_id)}
-				<li class="border-b border-b-[#f0f0f0]">
-					<a
-						class="flex items-baseline gap-[12px] px-[10px] py-[14px] text-[#2e2e2e] no-underline hover:bg-[#f7f7f7]"
-						href="https://download.quranicaudio.com/quran/{data.qari.relative_path}{f.file_name}"
-						target="_blank"
-						rel="noreferrer"
+			{#each queue as t, index (t.key)}
+				<li class="group border-b border-b-[#f0f0f0] {isActive(t) ? 'bg-[#f7f7f7]' : ''}">
+					<div
+						class="flex flex-wrap items-center gap-y-[6px] px-[10px] py-[14px] hover:bg-[#f7f7f7]"
 					>
-						<span class="min-w-[34px] text-right text-[#2e2e2e]">{f.surah_id}.</span>
-						<span class="flex-1">Surat {s?.name?.simple || 'Surah ' + f.surah_id}</span>
-						<span class="whitespace-nowrap text-[#2e2e2e] opacity-70"
-							>{formatSeconds(Number(f.format?.duration))}</span
+						<button
+							type="button"
+							aria-label="Play Surat {t.simple}"
+							class="flex w-full flex-wrap items-center md:w-[50%]"
+							onclick={() => play(index)}
 						>
-					</a>
+							<div class="flex w-full flex-wrap items-center md:w-[66.6667%]">
+								<div class="w-[52px] text-center md:w-[60px]">
+									<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">
+										<span class="index {isActive(t) ? 'hidden' : 'inline'} md:group-hover:hidden"
+											>{t.surahId}.</span
+										>
+										<i
+											class="fa fa-play-circle fa-lg {isActive(t)
+												? 'inline'
+												: 'hidden'} md:group-hover:inline"
+											aria-hidden="true"
+										></i>
+									</span>
+								</div>
+								<div class="w-[calc(100%-52px)] md:w-[calc(100%-60px)]">
+									<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}"
+										>Surat {t.simple}</span
+									>
+								</div>
+							</div>
+
+							<div class="w-full text-right md:w-[33.3333%]">
+								<span
+									class="whitespace-nowrap text-[#2e2e2e] opacity-70 {isActive(t)
+										? 'text-[#2ca4ab] opacity-100'
+										: ''}"
+								>
+									{isActive(t) && $player.currentTime
+										? `${formatSeconds($player.currentTime)} / `
+										: ''}
+									{formatSeconds(t.duration)}
+								</span>
+							</div>
+						</button>
+
+						<div class="hidden w-[50%] justify-end gap-[5px] md:flex">
+							<a
+								class="invisible h-[35px] w-[121px] rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
+									t
+								)
+									? 'visible'
+									: ''}"
+								href={resolve('/')}
+							>
+								<i class="fa fa-users" aria-hidden="true"></i> Other Qaris
+							</a>
+							<a
+								class="invisible h-[35px] w-[121px] rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
+									t
+								)
+									? 'visible'
+									: ''}"
+								{...{ href: t.readHref }}
+								target="_blank"
+								rel="noreferrer"
+							>
+								<i class="fa fa-book" aria-hidden="true"></i> Read
+							</a>
+							<a
+								class="invisible h-[35px] w-[121px] rounded-full border border-[#e7e7e7] bg-transparent px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:group-hover:visible {isActive(
+									t
+								)
+									? 'visible'
+									: ''}"
+								{...{ href: t.downloadHref }}
+								target="_blank"
+								rel="noreferrer"
+							>
+								<i class="fa fa-arrow-circle-down" aria-hidden="true"></i> Download
+							</a>
+						</div>
+					</div>
+
+					{#if isActive(t)}
+						<div class="relative bottom-[-5px] h-[2px] w-full bg-transparent">
+							<div
+								class="h-full bg-[#2ca4ab]"
+								style="width: {($player.duration
+									? ($player.currentTime / $player.duration) * 100
+									: 0
+								).toFixed(4)}%"
+							></div>
+						</div>
+					{/if}
 				</li>
 			{/each}
 		</ul>

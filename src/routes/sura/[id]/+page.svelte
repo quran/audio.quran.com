@@ -1,22 +1,45 @@
 <script>
 	import { resolve } from '$app/paths'
+	import { player, setQueue } from '../../../stores/audio.js'
 
 	let { data } = $props()
 
 	const pad3 = (n) => String(n).padStart(3, '0')
+	const title = $derived.by(() => {
+		const english = data.surah.name.english
+		return english ? `${data.surah.name.simple} (${english})` : data.surah.name.simple
+	})
+	const readHref = $derived(`https://quran.com/${data.surah.id}`)
+
+	const queue = $derived.by(() =>
+		data.qaris.map((q) => {
+			const src = `https://download.quranicaudio.com/quran/${q.relative_path}${pad3(data.surah.id)}.mp3`
+			return {
+				key: `sura:${data.surah.id}:${q.id}`,
+				qariId: q.id,
+				surahId: data.surah.id,
+				src,
+				title: `${q.name} ${title}`,
+				downloadHref: src
+			}
+		})
+	)
+
+	const isActive = (track) => $player.queue[$player.index]?.key === track.key
+	const play = (index) => setQueue(queue, index, true)
 </script>
 
 <svelte:head>
 	<title>Surah {data.surah.name.simple} - QuranicAudio.com</title>
 </svelte:head>
 
-<div class="bg-[#2ca4ab] pt-[80px] pb-[50px] text-white">
+<div class="mb-[20px] min-h-[350px] bg-[#2ca4ab] pt-[80px] pb-[50px] text-white">
 	<div class="mx-auto max-w-[1170px] px-[15px] text-center">
 		<h1 class="m-0 text-[32px] font-bold">Surat {data.surah.name.simple}</h1>
 
 		<a
-			class="mt-[14px] inline-flex cursor-pointer items-center rounded-full border border-[#e7e7e7] bg-transparent px-[18px] py-[8px] text-[14px] text-white no-underline hover:bg-[rgba(255,255,255,0.12)]"
-			href="https://quran.com/{data.surah.id}"
+			class="relative top-[10px] mt-[10px] inline-flex min-w-[220px] cursor-pointer items-center justify-center rounded-full border border-[#e7e7e7] bg-transparent px-[42px] py-[8px] text-[14px] text-white no-underline hover:bg-[rgba(255,255,255,0.12)]"
+			{...{ href: readHref }}
 			target="_blank"
 			rel="noreferrer"
 		>
@@ -26,30 +49,61 @@
 	</div>
 </div>
 
-<div class="mt-0 md:mt-[-30px]">
+<div class="mt-0">
 	<div class="relative m-0 w-full bg-white px-[15px] md:mx-auto md:mb-[50px] md:max-w-[1170px]">
-		<ul class="m-0 list-none p-0">
-			{#each data.qaris as q (q.id)}
-				<li
-					class="group flex items-center gap-[14px] border-b border-b-[#f0f0f0] px-[10px] py-[12px] hover:bg-[#f7f7f7]"
-				>
-					<span class="min-w-[52px] text-right opacity-70 md:min-w-[64px]">
-						{q.id}. <i class="fa fa-play" aria-hidden="true"></i>
-					</span>
-					<a
-						class="flex-1 text-[#2e2e2e] no-underline"
-						href={resolve('/quran/[id]', { id: String(q.id) })}>{q.name}</a
+		<ul
+			class="m-0 list-none p-0 md:mx-auto md:max-w-[970px] md:rounded-[4px] md:border md:border-[#ddd] md:bg-white"
+		>
+			{#each queue as t, index (t.key)}
+				{@const q = data.qaris[index]}
+				<li class="group border-b border-b-[#f0f0f0] {isActive(t) ? 'bg-[#f7f7f7]' : ''}">
+					<div
+						class="flex cursor-pointer items-center gap-[14px] px-[10px] py-[12px] hover:bg-[#f7f7f7]"
+						role="button"
+						tabindex="0"
+						onclick={() => play(index)}
+						onkeydown={(e) => {
+							if (e.key === 'Enter') play(index)
+							if (e.key === ' ') {
+								e.preventDefault()
+								play(index)
+							}
+						}}
 					>
-					<a
-						class="visible rounded-full border border-[#e7e7e7] px-[12px] py-[6px] whitespace-nowrap text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:invisible md:group-hover:visible"
-						href="https://download.quranicaudio.com/quran/{q.relative_path}{pad3(
-							data.surah.id
-						)}.mp3"
-						target="_blank"
-						rel="noreferrer"
-					>
-						<i class="fa fa-arrow-circle-down" aria-hidden="true"></i> Download
-					</a>
+						<span
+							class="flex min-w-[52px] items-center justify-end gap-[6px] text-right opacity-70 md:min-w-[64px] {isActive(
+								t
+							)
+								? 'text-[#2ca4ab] opacity-100'
+								: ''}"
+						>
+							<span class="index">{q.id}.</span>
+							<i
+								class="fa fa-play-circle fa-lg {isActive(t) ? 'text-[#2ca4ab]' : ''}"
+								aria-hidden="true"
+							></i>
+						</span>
+
+						<span class="flex-1 text-left text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">
+							<a
+								class="inline no-underline"
+								href={resolve('/quran/[id]', { id: String(q.id) })}
+								onclick={(e) => e.stopPropagation()}
+							>
+								{q.name}
+							</a>
+						</span>
+
+						<a
+							class="hidden rounded-full border border-[#e7e7e7] px-[12px] py-[6px] whitespace-nowrap text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:invisible md:inline-flex md:group-hover:visible"
+							{...{ href: t.downloadHref }}
+							target="_blank"
+							rel="noreferrer"
+							onclick={(e) => e.stopPropagation()}
+						>
+							<i class="fa fa-arrow-circle-down" aria-hidden="true"></i> Download
+						</a>
+					</div>
 				</li>
 			{/each}
 		</ul>

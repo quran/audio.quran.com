@@ -2,6 +2,7 @@
 	import './layout.css'
 	import { page } from '$app/state'
 	import { resolve } from '$app/paths'
+	import AudioPlayer from '$lib/AudioPlayer.svelte'
 
 	let { children } = $props()
 </script>
@@ -40,7 +41,7 @@
 </svelte:head>
 
 <ul
-	class="absolute top-[10px] right-[15vw] z-10 w-full pl-[40px] text-right text-[14px] leading-[20px] md:right-[5vw]"
+	class="absolute top-[10px] right-[15vw] z-10 w-full list-none pl-[40px] text-right text-[16px] leading-[20px] md:right-[5vw]"
 >
 	<li class="mx-[10px] inline"><a class="text-white" href={resolve('/about')}>About</a></li>
 	<li class="mx-[10px] inline">
@@ -69,4 +70,8 @@
 	</a>
 </div>
 
-{@render children()}
+<div class="mt-[-75px]">
+	{@render children()}
+</div>
+
+<AudioPlayer />

@@ -39,19 +39,19 @@
 	>
 		{#each sections as s (s.id)}
 			<li
-				class="mb-[5px] cursor-pointer list-none border-b-[1.66667px] border-b-[#f0f0f0] p-[25px] text-center hover:bg-[#f7f7f7] {s.id ===
+				class="mb-[5px] cursor-pointer list-none border-b-2 p-[25px] text-center tracking-[1px] hover:bg-[#f7f7f7] {s.id ===
 				section
 					? 'border-b-[#2ca4ab]'
-					: ''}"
+					: 'border-b-[#f0f0f0]'} md:pt-[25px] md:pb-[25px]"
 			>
 				{#if s.id === 1}
 					<a
-						class="inline bg-transparent px-[15px] py-[15px] text-[16px] tracking-[1px] text-[#2ca4ab] no-underline md:py-[10px]"
+						class="inline bg-transparent px-[15px] py-[10px] text-[16px] text-[#2ca4ab] no-underline"
 						href={resolve('/')}>{s.name}</a
 					>
 				{:else}
 					<a
-						class="inline bg-transparent px-[15px] py-[15px] text-[16px] tracking-[1px] text-[#2ca4ab] no-underline md:py-[10px]"
+						class="inline bg-transparent px-[15px] py-[10px] text-[16px] text-[#2ca4ab] no-underline"
 						href={resolve('/section/[section]', { section: String(s.id) })}>{s.name}</a
 					>
 				{/if}
@@ -63,9 +63,13 @@
 		<div class="mx-[-15px] bg-white">
 			{#if section === 2}
 				<div class="relative flex min-h-[100px] flex-wrap items-start justify-start">
-					<h2 class="my-[10px] w-full border-b-2 border-b-[#2ca4ab]">Makkah</h2>
+					<h2
+						class="my-[10px] w-full border-b-2 border-b-[#2ca4ab] bg-[#2ca4ab] py-[5px] pl-[20px] text-white md:bg-transparent md:py-0 md:pl-0 md:text-[#2e2e2e]"
+					>
+						Makkah
+					</h2>
 					<ul
-						class="relative z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:left-[40px] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.makkah as q (q.id)}
 							<li
@@ -78,9 +82,13 @@
 							</li>
 						{/each}
 					</ul>
-					<h2 class="my-[10px] w-full border-b-2 border-b-[#2ca4ab]">Madinah</h2>
+					<h2
+						class="my-[10px] w-full border-b-2 border-b-[#2ca4ab] bg-[#2ca4ab] py-[5px] pl-[20px] text-white md:bg-transparent md:py-0 md:pl-0 md:text-[#2e2e2e]"
+					>
+						Madinah
+					</h2>
 					<ul
-						class="relative z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:left-[40px] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.madinah as q (q.id)}
 							<li
@@ -98,11 +106,15 @@
 				{#each grouped as g (g.letter)}
 					<div class="relative flex min-h-[100px] flex-wrap items-start justify-start">
 						<span
-							class="relative left-0 w-full rounded-none border-0 bg-[#2ca4ab] pt-[7px] pr-[13px] pb-[6px] pl-[20px] text-left text-[26px] leading-[22.8571px] font-normal text-white md:absolute md:left-[17px] md:z-10 md:mt-[10px] md:rounded-full md:border-[1.66667px] md:border-[#f0f0f0] md:bg-transparent md:pl-[13px] md:text-[16px] md:text-[#2e2e2e]"
-							>{g.letter}</span
+							class="relative left-0 w-full rounded-none border-0 bg-[#2ca4ab] pt-[7px] pr-[13px] pb-[6px] pl-[20px] text-left text-[26px] leading-[22.8571px] font-normal text-white md:absolute md:left-[17px] md:z-10 md:mt-[10px] md:w-fit md:rounded-full md:border-[1.66667px] md:border-[#f0f0f0] md:bg-transparent md:pl-[13px] md:text-[16px] md:text-[#2e2e2e] {g.letter ===
+							'I'
+								? 'md:pl-[15px]'
+								: ''}"
 						>
+							{g.letter}{#if g.letter === 'I'}<span class="invisible">I</span>{/if}
+						</span>
 						<ul
-							class="relative z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:my-[10px] md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
+							class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:left-[40px] md:my-[10px] md:after:border-b md:after:border-b-[#f0f0f0]"
 						>
 							{#each g.qaris as q (q.id)}
 								<li
