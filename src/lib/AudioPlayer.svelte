@@ -78,11 +78,11 @@
 		<button
 			type="button"
 			aria-label="Seek"
-			class="h-[7px] w-full cursor-pointer bg-[#f7f7f7] transition-[height] duration-100 hover:h-[14px]"
+			class="h-[14px] w-full cursor-pointer bg-[#f7f7f7]"
 			onclick={onTrackClick}
 		>
 			<div
-				class="h-full bg-[#2ca4ab]"
+				class="relative h-full bg-[#2ca4ab] pl-[12px] after:absolute after:top-[-4px] after:right-[-5px] after:block after:h-[20px] after:w-[20px] after:rounded-full after:bg-white after:shadow-[0_1px_2px_rgba(0,0,0,0.45)] after:content-['']"
 				style="width: {($player.duration
 					? ($player.currentTime / $player.duration) * 100
 					: 0
