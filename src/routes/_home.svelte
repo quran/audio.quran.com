@@ -37,9 +37,7 @@
 		class="m-0 mb-[10px] flex w-full min-w-[230px] list-none flex-col bg-white p-0 px-[10px] md:flex-row md:justify-center md:px-0"
 	>
 		{#each sections as s (s.id)}
-			<li
-				class="mb-[5px] list-none p-0 text-center tracking-[1px] hover:bg-[#f7f7f7]"
-			>
+			<li class="mb-[5px] list-none p-0 text-center tracking-[1px] hover:bg-[#f7f7f7]">
 				{#if s.id === 1}
 					<a
 						class="block border-b-2 bg-transparent px-[15px] py-[25px] text-[16px] text-[#2ca4ab] no-underline {s.id ===
@@ -61,7 +59,9 @@
 		{/each}
 	</ul>
 
-	<div class="relative m-0 w-full bg-white px-[15px] pb-[35px] md:mx-auto md:mb-[50px] md:max-w-[1170px]">
+	<div
+		class="relative m-0 w-full bg-white px-[15px] pb-[35px] md:mx-auto md:mb-[50px] md:max-w-[970px]"
+	>
 		<div class="-mx-[15px] bg-white md:mx-0">
 			{#if section === 2}
 				<div class="relative flex min-h-[100px] flex-wrap items-start justify-start">
@@ -71,11 +71,11 @@
 						Makkah
 					</h2>
 					<ul
-						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.makkah as q (q.id)}
 							<li
-								class="w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
+								class="w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] md:w-[370px] md:border-b-0 last:[&>a]:pb-[20px] md:last:[&>a]:pb-[15px]"
 							>
 								<a
 									class="block cursor-pointer pt-[20px] pb-[15px] pl-[20px] text-[#2e2e2e] no-underline hover:bg-[#f7f7f7] md:py-[15px]"
@@ -90,11 +90,11 @@
 						Madinah
 					</h2>
 					<ul
-						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.madinah as q (q.id)}
 							<li
-								class="w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
+								class="w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] md:w-[370px] md:border-b-0 last:[&>a]:pb-[20px] md:last:[&>a]:pb-[15px]"
 							>
 								<a
 									class="block cursor-pointer pt-[20px] pb-[15px] pl-[20px] text-[#2e2e2e] no-underline hover:bg-[#f7f7f7] md:py-[15px]"
@@ -116,11 +116,11 @@
 							{g.letter}{#if g.letter === 'I'}<span class="invisible">I</span>{/if}
 						</span>
 						<ul
-							class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
+							class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:after:border-b md:after:border-b-[#f0f0f0]"
 						>
 							{#each g.qaris as q (q.id)}
 								<li
-									class="w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
+									class="w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] md:w-[370px] md:border-b-0 last:[&>a]:pb-[20px] md:last:[&>a]:pb-[15px]"
 								>
 									<a
 										class="block cursor-pointer pt-[20px] pb-[15px] pl-[20px] text-[#2e2e2e] no-underline hover:bg-[#f7f7f7] md:py-[15px]"
