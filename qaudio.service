@@ -1,0 +1,11 @@
+[Service]
+User=web
+WorkingDirectory=/srv/apps/qaudio
+Environment="PORT=3812"
+ExecStart=mise x -- node index.js
+Restart=on-failure
+RestartSec=5s
+StandardError=append:/var/log/qaudio-error.log
+
+[Install]
+WantedBy=multi-user.target
