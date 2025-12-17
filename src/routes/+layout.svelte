@@ -24,7 +24,7 @@
 	/>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://quranicaudio.com{page.url.pathname}" />
-	<meta property="og:image" content="https://quranicaudio.com/ogimage.jpg" />
+	<meta property="og:image" content="/ogimage.jpg" />
 	<meta property="og:locale" content="en_US" />
 	<meta property="og:title" content="Quran Mp3 and Audio Downloads in High Quality" />
 	<meta
