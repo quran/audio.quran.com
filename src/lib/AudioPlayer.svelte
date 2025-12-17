@@ -127,9 +127,16 @@
 						<SkipForward size={24} aria-hidden="true" />
 					</button>
 
-					<div class="pl-[5px]">
-						<h4 class="m-0 leading-[1.2] text-[#2e2e2e]">
-							{current.title}
+					<div class="min-w-0 pl-[5px]">
+						<h4 class="m-0 text-[#2e2e2e]">
+							<span class="block truncate text-[22px] leading-[1.2] sm:text-[24px]">
+								{current.qariName ?? current.title}
+							</span>
+							{#if current.surahTitle}
+								<span class="block truncate text-[18px] leading-[1.2] opacity-70">
+									{current.surahTitle}
+								</span>
+							{/if}
 						</h4>
 					</div>
 				</div>

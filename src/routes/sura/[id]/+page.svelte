@@ -19,8 +19,10 @@
 			return {
 				key: `sura:${data.surah.id}:${q.id}`,
 				qariId: q.id,
+				qariName: q.name,
 				surahId: data.surah.id,
 				src,
+				surahTitle: title,
 				title: `${q.name} ${title}`,
 				downloadHref: src
 			}
@@ -59,7 +61,9 @@
 			{#each queue as t, index (t.key)}
 				{@const q = data.qaris[index]}
 				<li
-					class="group relative cursor-pointer border-b border-b-[#f0f0f0] hover:bg-[#f7f7f7] {isActive(t)
+					class="group relative cursor-pointer border-b border-b-[#f0f0f0] hover:bg-[#f7f7f7] {isActive(
+						t
+					)
 						? 'bg-[#f7f7f7]'
 						: ''}"
 				>
@@ -70,7 +74,9 @@
 						onclick={() => play(index)}
 					></button>
 
-					<div class="pointer-events-none relative z-10 flex items-center gap-[14px] px-[10px] py-[12px]">
+					<div
+						class="pointer-events-none relative z-10 flex items-center gap-[14px] px-[10px] py-[12px]"
+					>
 						<span
 							class="flex min-w-[52px] items-center justify-end gap-[6px] text-right opacity-70 md:min-w-[64px] {isActive(
 								t
@@ -96,12 +102,16 @@
 						</span>
 
 						<a
-							class="pointer-events-auto hidden whitespace-nowrap rounded-full border border-[#e7e7e7] px-[12px] py-[6px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:invisible md:inline-flex md:group-hover:visible"
+							class="pointer-events-auto hidden rounded-full border border-[#e7e7e7] px-[12px] py-[6px] whitespace-nowrap text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:invisible md:inline-flex md:group-hover:visible"
 							{...{ href: t.downloadHref }}
 							target="_blank"
 							rel="noreferrer"
 						>
-							<Download size={16} class="relative top-[2px] mr-[6px] inline-block" aria-hidden="true" />
+							<Download
+								size={16}
+								class="relative top-[2px] mr-[6px] inline-block"
+								aria-hidden="true"
+							/>
 							Download
 						</a>
 					</div>

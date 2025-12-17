@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store'
 
-/** @typedef {{ key: string, src: string, title: string, downloadHref?: string, readHref?: string }} Track */
+/** @typedef {{ key: string, src: string, title: string, qariId?: number, surahId?: number, qariName?: string, surahTitle?: string, downloadHref?: string, readHref?: string }} Track */
 /** @typedef {{ queue: Track[], index: number, playing: boolean, repeat: boolean, random: boolean, currentTime: number, duration: number }} PlayerState */
 
 /** @type {import('svelte/store').Writable<PlayerState>} */

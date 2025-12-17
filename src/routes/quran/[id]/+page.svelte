@@ -26,9 +26,13 @@
 
 		const groups = []
 		let startIndex = 0
-		for (const surahId of Object.keys(bySurah).map(Number).sort((a, b) => a - b)) {
+		for (const surahId of Object.keys(bySurah)
+			.map(Number)
+			.sort((a, b) => a - b)) {
 			const sorted = [...bySurah[surahId]].sort(
-				(a, b) => partNumber(a.file_name) - partNumber(b.file_name) || a.file_name.localeCompare(b.file_name)
+				(a, b) =>
+					partNumber(a.file_name) - partNumber(b.file_name) ||
+					a.file_name.localeCompare(b.file_name)
 			)
 			const duration = Math.max(...sorted.map((f) => Number(f.format?.duration) || 0))
 			groups.push({ surahId, files: sorted, startIndex, duration })
@@ -43,13 +47,16 @@
 				const s = surahById[f.surah_id]
 				const simple = s?.name?.simple || `Surah ${f.surah_id}`
 				const english = s?.name?.english
+				const surahTitle = english ? `${simple} (${english})` : simple
 				const src = `https://download.quranicaudio.com/quran/${data.qari.relative_path}${f.file_name}`
 				return {
 					key: `qari:${data.id}:${f.surah_id}:${f.file_name}`,
 					surahId: f.surah_id,
 					qariId: data.id,
+					qariName: data.qari.name,
 					src,
-					title: english ? `${data.qari.name} ${simple} (${english})` : `${data.qari.name} ${simple}`,
+					surahTitle,
+					title: `${data.qari.name} ${surahTitle}`,
 					duration: Number(f.format?.duration) || 0,
 					simple
 				}
@@ -78,15 +85,18 @@
 			const s = surahById[g.surahId]
 			const simple = s?.name?.simple || `Surah ${g.surahId}`
 			const english = s?.name?.english
+			const surahTitle = english ? `${simple} (${english})` : simple
 			const downloadHref = `https://download.quranicaudio.com/quran/${data.qari.relative_path}${pad3(g.surahId)}.mp3`
 			return {
 				key: `qari:${data.id}:${g.surahId}`,
 				surahId: g.surahId,
 				qariId: data.id,
+				qariName: data.qari.name,
 				startIndex: g.startIndex,
 				downloadHref,
 				readHref: `https://www.quran.com/${g.surahId}`,
-				title: english ? `${data.qari.name} ${simple} (${english})` : `${data.qari.name} ${simple}`,
+				surahTitle,
+				title: `${data.qari.name} ${surahTitle}`,
 				duration: g.duration,
 				simple
 			}
@@ -132,7 +142,7 @@
 		</h1>
 
 		{#if data.qari?.description}
-			<p class="m-0 mx-auto mb-[10px] w-full break-words px-[15px] md:w-[80%]">
+			<p class="m-0 mx-auto mb-[10px] w-full px-[15px] break-words md:w-[80%]">
 				{#each descriptionParts as p, i (i)}
 					{#if p.href}
 						<a
@@ -181,7 +191,9 @@
 			>
 				{#each data.related as r (r.id)}
 					<li class="inline pr-[5px]">
-						<a class="text-white underline" href={resolve('/quran/[id]', { id: String(r.id) })}>{r.name}</a>
+						<a class="text-white underline" href={resolve('/quran/[id]', { id: String(r.id) })}
+							>{r.name}</a
+						>
 					</li>
 				{/each}
 			</ul>
@@ -191,45 +203,47 @@
 
 <div class="relative bottom-[60px] mx-auto w-full px-[15px] md:max-w-[1170px]">
 	<div class="mb-[10px] bg-white p-[10px]">
-			<ul class="m-0 list-none p-0">
-				{#each queue as t, index (t.key)}
-					<li
-						class="group relative cursor-pointer border-b border-b-[#f0f0f0] hover:bg-[#f7f7f7] {isActive(t)
-							? 'bg-[#f7f7f7]'
-							: ''}"
-					>
-						<button
-							type="button"
-							aria-label="Play Surat {t.simple}"
-							class="absolute inset-0 z-0"
-							onclick={() => play(index)}
-						></button>
+		<ul class="m-0 list-none p-0">
+			{#each queue as t, index (t.key)}
+				<li
+					class="group relative cursor-pointer border-b border-b-[#f0f0f0] hover:bg-[#f7f7f7] {isActive(
+						t
+					)
+						? 'bg-[#f7f7f7]'
+						: ''}"
+				>
+					<button
+						type="button"
+						aria-label="Play Surat {t.simple}"
+						class="absolute inset-0 z-0"
+						onclick={() => play(index)}
+					></button>
 
-						<div
-							class="pointer-events-none relative z-10 flex flex-wrap items-center gap-y-[6px] px-[10px] py-[14px] md:flex-nowrap"
-						>
-							<div class="flex w-full flex-wrap items-center text-left md:w-[33.3333%]">
-								<div class="flex w-full flex-wrap items-center">
-									<div class="w-[52px] text-center md:w-[60px]">
-										<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">
-											<span class="index {isActive(t) ? 'hidden' : 'inline'} md:group-hover:hidden"
-												>{t.surahId}.</span>
-											<CirclePlay
-												size={24}
-												class={
-													isActive(t)
-														? 'inline-block md:group-hover:inline-block'
-														: 'hidden md:group-hover:inline-block'
-												}
-												aria-hidden="true"
-											/>
-										</span>
-									</div>
-									<div class="w-[calc(100%-52px)] md:w-[calc(100%-60px)]">
-										<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}"
-											>Surat {t.simple}</span>
-									</div>
+					<div
+						class="pointer-events-none relative z-10 flex flex-wrap items-center gap-y-[6px] px-[10px] py-[14px] md:flex-nowrap"
+					>
+						<div class="flex w-full flex-wrap items-center text-left md:w-[33.3333%]">
+							<div class="flex w-full flex-wrap items-center">
+								<div class="w-[52px] text-center md:w-[60px]">
+									<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">
+										<span class="index {isActive(t) ? 'hidden' : 'inline'} md:group-hover:hidden"
+											>{t.surahId}.</span
+										>
+										<CirclePlay
+											size={24}
+											class={isActive(t)
+												? 'inline-block md:group-hover:inline-block'
+												: 'hidden md:group-hover:inline-block'}
+											aria-hidden="true"
+										/>
+									</span>
 								</div>
+								<div class="w-[calc(100%-52px)] md:w-[calc(100%-60px)]">
+									<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}"
+										>Surat {t.simple}</span
+									>
+								</div>
+							</div>
 
 							<div class="w-full text-right md:hidden">
 								<span
@@ -243,11 +257,16 @@
 									{formatSeconds(t.duration)}
 								</span>
 							</div>
-							</div>
+						</div>
 
-							<div class="relative hidden w-[50%] items-center justify-end pointer-events-none md:flex">
-								<div class="flex justify-end gap-[5px]">
-									<a class="{pillBase} {isActive(t) ? 'visible' : ''} pointer-events-auto" href={resolve('/')}>
+						<div
+							class="pointer-events-none relative hidden w-[50%] items-center justify-end md:flex"
+						>
+							<div class="flex justify-end gap-[5px]">
+								<a
+									class="{pillBase} {isActive(t) ? 'visible' : ''} pointer-events-auto"
+									href={resolve('/')}
+								>
 									<Users
 										size={16}
 										class="relative top-[2px] mr-[6px] inline-block"
@@ -281,31 +300,33 @@
 									/>
 									Download
 								</a>
-								</div>
-							</div>
-
-							<div class="hidden w-[16.6667%] items-center justify-end md:flex">
-								<span
-									class="whitespace-nowrap text-[#2e2e2e] leading-[20px] opacity-70 {isActive(t)
-										? 'text-[#2ca4ab] opacity-100'
-										: ''}"
-								>
-									{isActive(t) && $player.currentTime ? `${formatSeconds($player.currentTime)} / ` : ''}
-									{formatSeconds(t.duration)}
-								</span>
 							</div>
 						</div>
 
-						{#if isActive(t)}
-							<div class="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] bg-transparent">
-								<div
-									class="h-full bg-[#2ca4ab]"
-									style="width: {($player.duration
-										? ($player.currentTime / $player.duration) * 100
-										: 0
-									).toFixed(4)}%"
-								></div>
-							</div>
+						<div class="hidden w-[16.6667%] items-center justify-end md:flex">
+							<span
+								class="leading-[20px] whitespace-nowrap text-[#2e2e2e] opacity-70 {isActive(t)
+									? 'text-[#2ca4ab] opacity-100'
+									: ''}"
+							>
+								{isActive(t) && $player.currentTime
+									? `${formatSeconds($player.currentTime)} / `
+									: ''}
+								{formatSeconds(t.duration)}
+							</span>
+						</div>
+					</div>
+
+					{#if isActive(t)}
+						<div class="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] bg-transparent">
+							<div
+								class="h-full bg-[#2ca4ab]"
+								style="width: {($player.duration
+									? ($player.currentTime / $player.duration) * 100
+									: 0
+								).toFixed(4)}%"
+							></div>
+						</div>
 					{/if}
 				</li>
 			{/each}
