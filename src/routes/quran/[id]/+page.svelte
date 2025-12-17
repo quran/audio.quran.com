@@ -193,16 +193,22 @@
 	<div class="mb-[10px] bg-white p-[10px]">
 			<ul class="m-0 list-none p-0">
 				{#each queue as t, index (t.key)}
-					<li class="group border-b border-b-[#f0f0f0] {isActive(t) ? 'bg-[#f7f7f7]' : ''}">
+					<li
+						class="group relative cursor-pointer border-b border-b-[#f0f0f0] hover:bg-[#f7f7f7] {isActive(t)
+							? 'bg-[#f7f7f7]'
+							: ''}"
+					>
+						<button
+							type="button"
+							aria-label="Play Surat {t.simple}"
+							class="absolute inset-0 z-0"
+							onclick={() => play(index)}
+						></button>
+
 						<div
-							class="flex flex-wrap items-center gap-y-[6px] px-[10px] py-[14px] hover:bg-[#f7f7f7] md:flex-nowrap"
+							class="pointer-events-none relative z-10 flex flex-wrap items-center gap-y-[6px] px-[10px] py-[14px] md:flex-nowrap"
 						>
-							<button
-								type="button"
-								aria-label="Play Surat {t.simple}"
-								class="flex w-full flex-wrap items-center text-left md:w-[33.3333%]"
-								onclick={() => play(index)}
-							>
+							<div class="flex w-full flex-wrap items-center text-left md:w-[33.3333%]">
 								<div class="flex w-full flex-wrap items-center">
 									<div class="w-[52px] text-center md:w-[60px]">
 										<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">
@@ -237,11 +243,11 @@
 									{formatSeconds(t.duration)}
 								</span>
 							</div>
-							</button>
+							</div>
 
-							<div class="hidden w-[50%] items-center justify-end md:flex">
+							<div class="relative hidden w-[50%] items-center justify-end pointer-events-none md:flex">
 								<div class="flex justify-end gap-[5px]">
-									<a class="{pillBase} {isActive(t) ? 'visible' : ''}" href={resolve('/')}>
+									<a class="{pillBase} {isActive(t) ? 'visible' : ''} pointer-events-auto" href={resolve('/')}>
 									<Users
 										size={16}
 										class="relative top-[2px] mr-[6px] inline-block"
@@ -250,7 +256,7 @@
 									Other Qaris
 								</a>
 								<a
-									class="{pillBase} {isActive(t) ? 'visible' : ''}"
+									class="{pillBase} {isActive(t) ? 'visible' : ''} pointer-events-auto"
 									{...{ href: t.readHref }}
 									target="_blank"
 									rel="noreferrer"
@@ -263,7 +269,7 @@
 									Read
 								</a>
 								<a
-									class="{pillBase} {isActive(t) ? 'visible' : ''}"
+									class="{pillBase} {isActive(t) ? 'visible' : ''} pointer-events-auto"
 									{...{ href: t.downloadHref }}
 									target="_blank"
 									rel="noreferrer"
