@@ -1,8 +1,15 @@
-cat qaudio.service | ssh ${DEPLOY_HOST} '
-    mkdir -p /srv/apps/qaudio
-    cat - > /srv/apps/qaudio.service
-    sudo systemctl enable /srv/apps/qaudio.service
-'
+#!/bin/bash
+
+set -euxo pipefail
+
+# Setup
+# cat qaudio.service | ssh ${DEPLOY_HOST} '
+#     mkdir -p /srv/apps/qaudio
+#     cat - > /srv/apps/qaudio.service
+#     sudo systemctl enable /srv/apps/qaudio.service
+# '
+
+pnpm vite build
 cp package.json pnpm-lock.yaml build
 APP_NAME=qaudio
 app_new_tmp_dir=${APP_NAME}-new-$(date +%s)
