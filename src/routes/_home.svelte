@@ -60,7 +60,7 @@
 	</ul>
 
 	<div
-		class="relative m-0 w-full bg-white px-[15px] pb-[35px] md:mx-auto md:mb-[50px] md:max-w-[970px]"
+		class="relative m-0 w-full bg-white px-[15px] pb-[35px] md:mx-auto md:mb-[50px] md:max-w-[1170px]"
 	>
 		<div class="-mx-[15px] bg-white md:mx-0">
 			{#if section === 2}
@@ -71,7 +71,7 @@
 						Makkah
 					</h2>
 					<ul
-						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:left-[40px] md:mt-[10px] md:px-0 md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.makkah as q (q.id)}
 							<li
@@ -90,7 +90,7 @@
 						Madinah
 					</h2>
 					<ul
-						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:left-[40px] md:mt-[10px] md:px-0 md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.madinah as q (q.id)}
 							<li
@@ -116,7 +116,7 @@
 							{g.letter}{#if g.letter === 'I'}<span class="invisible">I</span>{/if}
 						</span>
 						<ul
-							class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:after:border-b md:after:border-b-[#f0f0f0]"
+							class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:left-[40px] md:mt-[10px] md:px-0 md:after:border-b md:after:border-b-[#f0f0f0]"
 						>
 							{#each g.qaris as q (q.id)}
 								<li
