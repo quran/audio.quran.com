@@ -37,7 +37,7 @@
 	<link rel="icon" href="/favicon.ico" />
 </svelte:head>
 
-	<div class="absolute top-[10px] left-[10vw] right-[10vw] z-[11] flex items-center md:left-[3vw] md:right-[3vw]">
+	<div class="absolute top-[10px] left-[5vw] right-[5vw] z-[11] flex items-center md:left-[2vw] md:right-[2vw]">
 		<a
 			class="text-white"
 			href={resolve('/')}
@@ -49,7 +49,9 @@
 			{/if}
 		</a>
 
-		<ul class="ml-auto flex list-none items-center gap-[12px] p-0 text-[14px] leading-[20px] md:gap-[20px] md:text-[16px]">
+		<ul
+			class="ml-auto flex flex-wrap list-none items-center gap-x-[12px] gap-y-[6px] p-0 text-[14px] leading-[20px] md:gap-x-[20px] md:gap-y-0 md:text-[16px]"
+		>
 			<li><a class="text-white" href={resolve('/about')}>About</a></li>
 			<li>
 				<a class="text-white" href="https://quran.zendesk.com/hc/en-us/requests/new">Contact Us</a>
@@ -67,7 +69,7 @@
 		</ul>
 	</div>
 
-<div class="mt-[-75px]">
+<div class="mt-[-75px] pb-[90px]">
 	{@render children()}
 </div>
 

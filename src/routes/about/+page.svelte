@@ -9,7 +9,7 @@
 </header>
 
 <div class="relative bg-white top-[10px] mx-[5%] md:top-0 md:mx-[20%]">
-	<h1 class="mt-[20px] mb-[10px] text-[36px] leading-[39.6px] font-light text-[#444]">About</h1>
+	<h1 class="mt-[20px] mb-[10px] text-[36px] leading-[39.6px] text-[#444]">About</h1>
 	<p class="m-0 mb-[10px] text-[#444] text-[14px] leading-[20px]">
 		QuranicAudio.com is the largest collection of cd quality Quran recitations on the internet.
 		Mp3s on this site may be downloaded and used for personal use free of charge. However, you may

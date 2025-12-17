@@ -40,4 +40,7 @@ html,
 body {
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 300;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
 }

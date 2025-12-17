@@ -132,7 +132,7 @@
 		</h1>
 
 		{#if data.qari?.description}
-			<p class="m-0 mb-[10px] mx-auto w-full px-[15px] break-words md:w-[70%] md:px-[50px]">
+			<p class="m-0 mx-auto mb-[10px] w-full break-words px-[15px] md:w-[80%]">
 				{#each descriptionParts as p, i (i)}
 					{#if p.href}
 						<a

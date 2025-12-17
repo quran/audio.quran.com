@@ -38,19 +38,22 @@
 	>
 		{#each sections as s (s.id)}
 			<li
-				class="mb-[5px] cursor-pointer list-none border-b-2 p-0 text-center tracking-[1px] hover:bg-[#f7f7f7] {s.id ===
-				section
-					? 'border-b-[#2ca4ab]'
-					: 'border-b-[#f0f0f0]'}"
+				class="mb-[5px] list-none p-0 text-center tracking-[1px] hover:bg-[#f7f7f7]"
 			>
 				{#if s.id === 1}
 					<a
-						class="block bg-transparent px-[15px] py-[25px] text-[16px] text-[#2ca4ab] no-underline"
+						class="block border-b-2 bg-transparent px-[15px] py-[25px] text-[16px] text-[#2ca4ab] no-underline {s.id ===
+						section
+							? 'border-b-[#2ca4ab]'
+							: 'border-b-[#f0f0f0]'}"
 						href={resolve('/')}>{s.name}</a
 					>
 				{:else}
 					<a
-						class="block bg-transparent px-[15px] py-[25px] text-[16px] text-[#2ca4ab] no-underline"
+						class="block border-b-2 bg-transparent px-[15px] py-[25px] text-[16px] text-[#2ca4ab] no-underline {s.id ===
+						section
+							? 'border-b-[#2ca4ab]'
+							: 'border-b-[#f0f0f0]'}"
 						href={resolve('/section/[section]', { section: String(s.id) })}>{s.name}</a
 					>
 				{/if}
@@ -68,11 +71,11 @@
 						Makkah
 					</h2>
 					<ul
-						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.makkah as q (q.id)}
 							<li
-								class="mx-[10px] w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:mx-0 md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
+								class="w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
 							>
 								<a
 									class="block cursor-pointer pt-[20px] pb-[15px] pl-[20px] text-[#2e2e2e] no-underline hover:bg-[#f7f7f7] md:py-[15px]"
@@ -87,11 +90,11 @@
 						Madinah
 					</h2>
 					<ul
-						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
+						class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
 					>
 						{#each haramain.madinah as q (q.id)}
 							<li
-								class="mx-[10px] w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:mx-0 md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
+								class="w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
 							>
 								<a
 									class="block cursor-pointer pt-[20px] pb-[15px] pl-[20px] text-[#2e2e2e] no-underline hover:bg-[#f7f7f7] md:py-[15px]"
@@ -113,11 +116,11 @@
 							{g.letter}{#if g.letter === 'I'}<span class="invisible">I</span>{/if}
 						</span>
 						<ul
-							class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 after:block after:w-full after:content-[''] md:ml-[40px] md:w-[calc(100%-40px)] md:my-[10px] md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
+							class="relative left-0 z-[1] m-0 flex w-full list-none flex-wrap overflow-hidden p-0 px-[10px] after:block after:w-full after:content-[''] md:my-[10px] md:ml-[40px] md:w-[calc(100%-40px)] md:px-0 md:pl-[40px] md:after:border-b md:after:border-b-[#f0f0f0]"
 						>
 							{#each g.qaris as q (q.id)}
 								<li
-									class="mx-[10px] w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:mx-0 md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
+									class="w-full border-b border-b-[#f0f0f0] text-[14px] leading-[1.5em] tracking-[1px] last:[&>a]:pb-[20px] md:w-[370px] md:border-b-0 md:last:[&>a]:pb-[15px]"
 								>
 									<a
 										class="block cursor-pointer pt-[20px] pb-[15px] pl-[20px] text-[#2e2e2e] no-underline hover:bg-[#f7f7f7] md:py-[15px]"
