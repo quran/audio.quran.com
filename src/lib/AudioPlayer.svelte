@@ -53,6 +53,7 @@
 				node.src = track.src
 				node.currentTime = 0
 				lastKey = track.key
+				if (state.playing) node.play()
 			}
 
 			if (state.repeat !== lastRepeat) {
