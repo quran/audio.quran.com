@@ -22,18 +22,20 @@
 		property="og:site_name"
 		content="Quran Mp3 and Audio Downloads in High Quality - QuranicAudio.com"
 	/>
-	<meta property="og:image" content="/images/QuranicAudio.png" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://quranicaudio.com{page.url.pathname}" />
+	<meta property="og:image" content="https://quranicaudio.com/ogimage.jpg" />
 	<meta property="og:locale" content="en_US" />
 	<meta property="og:title" content="Quran Mp3 and Audio Downloads in High Quality" />
 	<meta
 		property="og:description"
 		content="QuranicAudio is your source for high quality recitations of the Quran. Stream or download all the Quran recitations"
 	/>
-	<meta property="og:card" content="summary" />
-	<meta property="og:site" content="@quran" />
-	<meta property="og:creator" content="@quran" />
-	<meta property="og:image:width" content="200" />
-	<meta property="og:image:height" content="200" />
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="twitter:site" content="@quran" />
+	<meta property="twitter:creator" content="@quran" />
+	<meta property="og:image:width" content="1536" />
+	<meta property="og:image:height" content="1024" />
 	<link rel="icon" href="/favicon.ico" />
 </svelte:head>
 
