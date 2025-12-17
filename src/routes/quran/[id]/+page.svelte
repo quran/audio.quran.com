@@ -297,7 +297,7 @@
 						</div>
 
 						{#if isActive(t)}
-							<div class="relative bottom-[-5px] h-[2px] w-full bg-transparent">
+							<div class="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] bg-transparent">
 								<div
 									class="h-full bg-[#2ca4ab]"
 									style="width: {($player.duration
