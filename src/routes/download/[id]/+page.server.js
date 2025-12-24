@@ -1,5 +1,5 @@
-const API_ORIGIN = process.env.API_ORIGIN || 'https://quranicaudio.com'
-const api = (path) => new URL(`/api${path}`, API_ORIGIN)
+const API_ORIGIN = process.env.API_ORIGIN
+const api = (path) => (API_ORIGIN ? new URL(`/api${path}`, API_ORIGIN) : `/api${path}`)
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params, fetch, parent }) {
