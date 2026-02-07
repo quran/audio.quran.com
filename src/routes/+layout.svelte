@@ -5,7 +5,7 @@
 	import { Book, House } from '@lucide/svelte'
 	import AudioPlayer from '$lib/AudioPlayer.svelte'
 
-	let { children } = $props()
+	let { data, children } = $props()
 </script>
 
 <svelte:head>
@@ -39,40 +39,42 @@
 	<link rel="icon" href="/favicon.ico" />
 </svelte:head>
 
-	<div class="absolute top-[10px] left-[5vw] right-[5vw] z-[11] flex items-center md:left-[2vw] md:right-[2vw]">
-		<a
-			class="text-white"
-			href={resolve('/')}
-			title="Select from your favourite recriters"
-			aria-label="Home"
-		>
-			{#if page.url.pathname !== '/' && !page.url.pathname.startsWith('/section/')}
-				<House class="h-[26px] w-[26px] md:h-[30px] md:w-[30px]" aria-hidden="true" />
-			{/if}
-		</a>
+<div
+	class="absolute top-[10px] right-[5vw] left-[5vw] z-[11] flex items-center md:right-[2vw] md:left-[2vw]"
+>
+	<a
+		class="text-white"
+		href={resolve('/')}
+		title="Select from your favourite recriters"
+		aria-label="Home"
+	>
+		{#if page.url.pathname !== '/' && !page.url.pathname.startsWith('/section/')}
+			<House class="h-[26px] w-[26px] md:h-[30px] md:w-[30px]" aria-hidden="true" />
+		{/if}
+	</a>
 
-		<ul
-			class="ml-auto flex flex-wrap list-none items-center gap-x-[12px] gap-y-[6px] p-0 text-[14px] leading-[20px] md:gap-x-[20px] md:gap-y-0 md:text-[16px]"
-		>
-			<li><a class="text-white" href={resolve('/about')}>About</a></li>
-			<li>
-				<a class="text-white" href="https://quran.zendesk.com/hc/en-us/requests/new">Contact Us</a>
-			</li>
-			<li>
-				<a
-					class="text-white"
-					href="https://quran.com"
-					title="Read the holy Quran, on quran.com"
-					aria-label="Quran.com"
-				>
-					<Book class="h-[26px] w-[26px] md:h-[30px] md:w-[30px]" aria-hidden="true" />
-				</a>
-			</li>
-		</ul>
-	</div>
+	<ul
+		class="ml-auto flex list-none flex-wrap items-center gap-x-[12px] gap-y-[6px] p-0 text-[14px] leading-[20px] md:gap-x-[20px] md:gap-y-0 md:text-[16px]"
+	>
+		<li><a class="text-white" href={resolve('/about')}>About</a></li>
+		<li>
+			<a class="text-white" href="https://quran.zendesk.com/hc/en-us/requests/new">Contact Us</a>
+		</li>
+		<li>
+			<a
+				class="text-white"
+				href="https://quran.com"
+				title="Read the holy Quran, on quran.com"
+				aria-label="Quran.com"
+			>
+				<Book class="h-[26px] w-[26px] md:h-[30px] md:w-[30px]" aria-hidden="true" />
+			</a>
+		</li>
+	</ul>
+</div>
 
 <div class="mt-[-75px] pb-[90px]">
 	{@render children()}
 </div>
 
-<AudioPlayer />
+<AudioPlayer streamDefault={data?.config?.audio?.streamDefault ?? 'auto'} />

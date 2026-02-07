@@ -86,14 +86,14 @@
 			const simple = s?.name?.simple || `Surah ${g.surahId}`
 			const english = s?.name?.english
 			const surahTitle = english ? `${simple} (${english})` : simple
-			const downloadHref = `https://download.quranicaudio.com/quran/${data.qari.relative_path}${pad3(g.surahId)}.mp3`
+			const mp3Href = `https://download.quranicaudio.com/quran/${data.qari.relative_path}${pad3(g.surahId)}.mp3`
 			return {
 				key: `qari:${data.id}:${g.surahId}`,
 				surahId: g.surahId,
 				qariId: data.id,
 				qariName: data.qari.name,
 				startIndex: g.startIndex,
-				downloadHref,
+				downloadHref: mp3Href,
 				readHref: `https://www.quran.com/${g.surahId}`,
 				surahTitle,
 				title: `${data.qari.name} ${surahTitle}`,
