@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-node": "^5.4.0",
-		"@sveltejs/kit": "^2.49.1",
+		"@sveltejs/kit": "^2.49.5",
 		"pg": "^8.16.3"
 	},
 	"devDependencies": {
