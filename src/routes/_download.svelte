@@ -8,6 +8,9 @@
 	let surah = $derived(surahById[audioFile?.surah_id])
 
 	let ok = $derived(!!(qari && surah))
+	let mp3Href = $derived(
+		ok ? `https://download.quranicaudio.com/quran/${qari.relative_path}${audioFile.file_name}` : ''
+	)
 </script>
 
 <header
@@ -28,8 +31,7 @@
 			</h1>
 			<a
 				class="inline-block w-full max-w-full min-w-0 border border-[#2ca4ab] px-[16px] py-[14px] font-bold text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:w-auto md:min-w-[520px]"
-				href="https://download.quranicaudio.com/quran/{qari.relative_path}{audioFile.file_name}"
-				>Download</a
+				{...{ href: mp3Href }}>Download</a
 			>
 		{:else}
 			<h1 class="mt-[10px] mb-[30px] px-[10px] text-[26px] font-[300] md:px-0 md:text-[32px]">

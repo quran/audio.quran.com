@@ -15,16 +15,16 @@
 
 	const queue = $derived(
 		data.qaris.map((q) => {
-			const src = `https://download.quranicaudio.com/quran/${q.relative_path}${pad3(data.surah.id)}.mp3`
+			const mp3Src = `https://download.quranicaudio.com/quran/${q.relative_path}${pad3(data.surah.id)}.mp3`
 			return {
 				key: `sura:${data.surah.id}:${q.id}`,
 				qariId: q.id,
 				qariName: q.name,
 				surahId: data.surah.id,
-				src,
+				src: mp3Src,
 				surahTitle: title,
 				title: `${q.name} ${title}`,
-				downloadHref: src
+				downloadHref: mp3Src
 			}
 		})
 	)

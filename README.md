@@ -36,3 +36,14 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+
+## Audio Format Configuration
+
+Environment variables:
+
+- `AUDIO_STREAM_DEFAULT`: `auto` (default), `opus`, or `mp3`
+
+Defaults:
+
+- Streaming: prefers Opus when supported (`auto`), otherwise MP3
+- Downloads: MP3
