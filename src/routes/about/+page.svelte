@@ -22,7 +22,9 @@
 		including HidayahOnline, DawahAcademy,
 		<a class="text-[#2ca4ab]" href="http://kalamullah.com/">Kalamullah.com</a>,
 		<a class="text-[#2ca4ab]" href="http://sabbir.com/">Sabbir.com</a>,
-		<a class="text-[#2ca4ab]" href="http://dhikrullah.com/">dhikrullah.com</a>, and others. Many of
-		the files have also been sent to us by some of our users, may Allah reward them greatly.
+		dhikrullah,
+		<a class="text-[#2ca4ab]" href="https://mp3quran.net/">mp3quran</a>,
+		<a class="text-[#2ca4ab]" href="https://tvquran.com/">tvquran</a>, and others. Many of the files
+		have also been sent to us by some of our users, may Allah reward them greatly.
 	</p>
 </div>
