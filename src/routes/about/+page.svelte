@@ -19,9 +19,9 @@
 	<p class="m-0 mb-[10px] text-[14px] leading-[20px] text-[#444]">
 		Files on QuranicAudio.com come from many different sources. Many of them are hand ripped from
 		cds. Others have been downloaded from various other high quality sites on the internet,
-		including HidayahOnline, DawahAcademy,
-		<a class="text-[#2ca4ab]" href="http://kalamullah.com/">Kalamullah.com</a>,
-		<a class="text-[#2ca4ab]" href="http://sabbir.com/">Sabbir.com</a>,
+		including HidayahOnline, DawahAcademy, <a class="text-[#2ca4ab]" href="http://sabbir.com/"
+			>Sabbir.com</a
+		>,
 		dhikrullah,
 		<a class="text-[#2ca4ab]" href="https://mp3quran.net/">mp3quran</a>,
 		<a class="text-[#2ca4ab]" href="https://tvquran.com/">tvquran</a>, and others. Many of the files
