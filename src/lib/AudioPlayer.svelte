@@ -7,7 +7,7 @@
 			onclick={onTrackClick}
 		>
 			<div
-				class="relative h-full bg-[#2ca4ab] pl-[12px] after:absolute after:top-[-4px] after:right-[-5px] after:block after:h-[20px] after:w-[20px] after:rounded-full after:bg-white after:shadow-[0_1px_2px_rgba(0,0,0,0.45)] after:content-['']"
+				class="relative h-full bg-brand pl-[12px] after:absolute after:top-[-4px] after:right-[-5px] after:block after:h-[20px] after:w-[20px] after:rounded-full after:bg-white after:shadow-[0_1px_2px_rgba(0,0,0,0.45)] after:content-['']"
 				style="width: {($player.duration
 					? ($player.currentTime / $player.duration) * 100
 					: 0
@@ -31,7 +31,7 @@
 					<button
 						type="button"
 						aria-label={$player.playing ? 'Pause' : 'Play'}
-						class="cursor-pointer text-[#2ca4ab] disabled:cursor-not-allowed disabled:opacity-50"
+						class="cursor-pointer text-brand disabled:cursor-not-allowed disabled:opacity-50"
 						onclick={togglePlaying}
 					>
 						{#if $player.playing}
@@ -75,7 +75,7 @@
 					<button
 						type="button"
 						aria-label="Toggle random"
-						class="cursor-pointer {$player.random ? 'text-[#2ca4ab]' : 'text-[#2e2e2e]'}"
+						class="cursor-pointer {$player.random ? 'text-brand' : 'text-[#2e2e2e]'}"
 						onclick={toggleRandom}
 					>
 						<Shuffle size={20} aria-hidden="true" />
@@ -83,7 +83,7 @@
 					<button
 						type="button"
 						aria-label="Toggle repeat"
-						class="cursor-pointer {$player.repeat ? 'text-[#2ca4ab]' : 'text-[#2e2e2e]'}"
+						class="cursor-pointer {$player.repeat ? 'text-brand' : 'text-[#2e2e2e]'}"
 						onclick={toggleRepeat}
 					>
 						<Repeat size={20} aria-hidden="true" />

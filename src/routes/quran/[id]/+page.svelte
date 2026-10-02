@@ -2,7 +2,7 @@
 	<title>Holy Quran Recitation by {data.qari?.name} - QuranicAudio.com</title>
 </svelte:head>
 
-<div class="min-h-[350px] bg-[#2ca4ab] pt-[128px] pb-[80px] text-white">
+<div class="min-h-[350px] bg-brand pt-[128px] pb-[80px] text-white">
 	<div class="text-center">
 		<h1 class="m-0 mt-[20px] mb-[10px] text-[36px] leading-[39.6px]">
 			{data.qari?.name}
@@ -92,7 +92,7 @@
 						<div class="flex w-full flex-wrap items-center text-left md:w-[33.3333%]">
 							<div class="flex w-full flex-wrap items-center">
 								<div class="w-[52px] text-center md:w-[60px]">
-									<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">
+									<span class="text-[#2e2e2e] {isActive(t) ? 'text-brand' : ''}">
 										<span class="index {isActive(t) ? 'hidden' : 'inline'} md:group-hover:hidden"
 											>{t.surahId}.</span
 										>
@@ -106,14 +106,14 @@
 									</span>
 								</div>
 								<div class="w-[calc(100%-52px)] md:w-[calc(100%-60px)]">
-									<span class="text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">Surat {t.simple}</span>
+									<span class="text-[#2e2e2e] {isActive(t) ? 'text-brand' : ''}">Surat {t.simple}</span>
 								</div>
 							</div>
 
 							<div class="w-full text-right md:hidden">
 								<span
 									class="whitespace-nowrap text-[#2e2e2e] opacity-70 {isActive(t)
-										? 'text-[#2ca4ab] opacity-100'
+										? 'text-brand opacity-100'
 										: ''}"
 								>
 									{isActive(t) && $player.currentTime
@@ -171,7 +171,7 @@
 						<div class="hidden w-[16.6667%] items-center justify-end md:flex">
 							<span
 								class="leading-[20px] whitespace-nowrap text-[#2e2e2e] opacity-70 {isActive(t)
-									? 'text-[#2ca4ab] opacity-100'
+									? 'text-brand opacity-100'
 									: ''}"
 							>
 								{isActive(t) && $player.currentTime
@@ -185,7 +185,7 @@
 					{#if isActive(t)}
 						<div class="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] bg-transparent">
 							<div
-								class="h-full bg-[#2ca4ab]"
+								class="h-full bg-brand"
 								style="width: {($player.duration
 									? ($player.currentTime / $player.duration) * 100
 									: 0
@@ -213,7 +213,7 @@ const partNumber = (fileName) => Number(fileName.match(/\[part_(\d+)_of_\d+\]/)?
 const pad3 = (n) => String(n).padStart(3, '0')
 const pillBase =
 	'invisible inline-block h-[35px] min-w-[121px] whitespace-nowrap rounded-full border border-[#e7e7e7] ' +
-	'px-[12px] text-center leading-[31px] text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white ' +
+	'px-[12px] text-center leading-[31px] text-brand no-underline hover:bg-brand hover:text-white ' +
 	'md:group-hover:visible'
 
 let surahGroups = $derived.by(() => {

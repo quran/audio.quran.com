@@ -2,7 +2,7 @@
 	<title>Surah {data.surah.name.simple} - QuranicAudio.com</title>
 </svelte:head>
 
-<div class="mb-[20px] min-h-[350px] bg-[#2ca4ab] pt-[80px] pb-[50px] text-white">
+<div class="mb-[20px] min-h-[350px] bg-brand pt-[80px] pb-[50px] text-white">
 	<div class="mx-auto max-w-[1170px] px-[15px] text-center">
 		<h1 class="m-0 text-[32px] font-bold">Surat {data.surah.name.simple}</h1>
 
@@ -43,17 +43,13 @@
 						class="pointer-events-none relative z-10 flex items-center gap-[14px] px-[10px] py-[12px]"
 					>
 						<span
-							class="flex min-w-[52px] items-center justify-end gap-[6px] text-right opacity-70 md:min-w-[64px] {isActive(t) ? 'text-[#2ca4ab] opacity-100' : ''}"
+							class="flex min-w-[52px] items-center justify-end gap-[6px] text-right opacity-70 md:min-w-[64px] {isActive(t) ? 'text-brand opacity-100' : ''}"
 						>
 							<span class="index">{q.id}.</span>
-							<CirclePlay
-								size={24}
-								class={isActive(t) ? 'text-[#2ca4ab]' : ''}
-								aria-hidden="true"
-							/>
+							<CirclePlay size={24} class={isActive(t) ? 'text-brand' : ''} aria-hidden="true" />
 						</span>
 
-						<span class="flex-1 text-left text-[#2e2e2e] {isActive(t) ? 'text-[#2ca4ab]' : ''}">
+						<span class="flex-1 text-left text-[#2e2e2e] {isActive(t) ? 'text-brand' : ''}">
 							<a
 								class="pointer-events-auto inline no-underline"
 								href={resolve('/quran/[id]', { id: String(q.id) })}
@@ -63,7 +59,7 @@
 						</span>
 
 						<a
-							class="pointer-events-auto hidden rounded-full border border-[#e7e7e7] px-[12px] py-[6px] whitespace-nowrap text-[#2ca4ab] no-underline hover:bg-[#2ca4ab] hover:text-white md:invisible md:inline-flex md:group-hover:visible"
+							class="pointer-events-auto hidden rounded-full border border-[#e7e7e7] px-[12px] py-[6px] whitespace-nowrap text-brand no-underline hover:bg-brand hover:text-white md:invisible md:inline-flex md:group-hover:visible"
 							{...{ href: t.downloadHref }}
 							target="_blank"
 							rel="noreferrer"

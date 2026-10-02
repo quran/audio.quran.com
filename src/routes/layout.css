@@ -1,5 +1,15 @@
 @import 'tailwindcss';
 
+@theme {
+	--color-brand: #7c2a00;
+	--color-brand-accent: #ff8a50;
+}
+
+::selection {
+	color: var(--color-brand);
+	background: var(--color-brand-accent);
+}
+
 @font-face {
 	font-family: 'Montserrat';
 	src: url('/fonts/Montserrat-Light.otf') format('opentype');

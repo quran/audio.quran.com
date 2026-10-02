@@ -2,31 +2,32 @@
 	<title>Quran Mp3 and Audio Downloads in High Quality - QuranicAudio.com</title>
 	<meta
 		name="description"
-		content="QuranicAudio is your source for high quality recitations of the Quran. Stream or download all the Quran recitations"
+		content="Quran Audio is your source for high quality recitations of the Quran. Stream or download all the Quran recitations"
 	/>
 	<meta
 		name="keyword"
 		content="quran, quran mp3, quran audio, quranic audio, islam audio, quran play, quran recitation, islam"
 	/>
-	<meta
-		property="og:site_name"
-		content="Quran Mp3 and Audio Downloads in High Quality - QuranicAudio.com"
-	/>
+	<meta property="og:site_name" content="Quran Audio" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://quranicaudio.com{page.url.pathname}" />
-	<meta property="og:image" content="/ogimage.jpg" />
+	<meta property="og:image" content="https://quranicaudio.com/ogimage.jpg" />
+	<meta property="og:image:alt" content="Quran Audio" />
 	<meta property="og:locale" content="en_US" />
 	<meta property="og:title" content="Quran Mp3 and Audio Downloads in High Quality" />
 	<meta
 		property="og:description"
-		content="QuranicAudio is your source for high quality recitations of the Quran. Stream or download all the Quran recitations"
+		content="Quran Audio is your source for high quality recitations of the Quran. Stream or download all the Quran recitations"
 	/>
 	<meta property="twitter:card" content="summary_large_image" />
 	<meta property="twitter:site" content="@quran" />
 	<meta property="twitter:creator" content="@quran" />
-	<meta property="og:image:width" content="1536" />
-	<meta property="og:image:height" content="1024" />
-	<link rel="icon" href="/favicon.ico" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta name="theme-color" content="#7c2a00" />
+	<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+	<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
 </svelte:head>
 
 <div
@@ -35,11 +36,11 @@
 	<a
 		class="text-white"
 		href={resolve('/')}
-		title="Select from your favourite recriters"
+		title="Select from your favourite reciters"
 		aria-label="Home"
 	>
 		{#if page.url.pathname !== '/' && !page.url.pathname.startsWith('/section/')}
-			<House class="h-[26px] w-[26px] md:h-[30px] md:w-[30px]" aria-hidden="true" />
+			<img src="/favicon.svg" alt="" width="36" height="36" />
 		{/if}
 	</a>
 
@@ -73,7 +74,7 @@
 import './layout.css'
 import { page } from '$app/state'
 import { resolve } from '$app/paths'
-import { Book, House } from '@lucide/svelte'
+import { Book } from '@lucide/svelte'
 import AudioPlayer from '$lib/AudioPlayer.svelte'
 
 let { data, children } = $props()
