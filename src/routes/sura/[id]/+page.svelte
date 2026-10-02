@@ -1,38 +1,3 @@
-<script>
-	import { Book, CirclePlay, Download } from '@lucide/svelte'
-	import { resolve } from '$app/paths'
-	import { player, setQueue } from '../../../stores/audio.js'
-
-	let { data } = $props()
-
-	const pad3 = (n) => String(n).padStart(3, '0')
-	const title = $derived(
-		data.surah.name.english
-			? `${data.surah.name.simple} (${data.surah.name.english})`
-			: data.surah.name.simple
-	)
-	const readHref = $derived(`https://quran.com/${data.surah.id}`)
-
-	const queue = $derived(
-		data.qaris.map((q) => {
-			const mp3Src = `https://download.quranicaudio.com/quran/${q.relative_path}${pad3(data.surah.id)}.mp3`
-			return {
-				key: `sura:${data.surah.id}:${q.id}`,
-				qariId: q.id,
-				qariName: q.name,
-				surahId: data.surah.id,
-				src: mp3Src,
-				surahTitle: title,
-				title: `${q.name} ${title}`,
-				downloadHref: mp3Src
-			}
-		})
-	)
-
-	const isActive = (track) => $player.queue[$player.index]?.key === track.key
-	const play = (index) => setQueue(queue, index, true)
-</script>
-
 <svelte:head>
 	<title>Surah {data.surah.name.simple} - QuranicAudio.com</title>
 </svelte:head>
@@ -78,11 +43,7 @@
 						class="pointer-events-none relative z-10 flex items-center gap-[14px] px-[10px] py-[12px]"
 					>
 						<span
-							class="flex min-w-[52px] items-center justify-end gap-[6px] text-right opacity-70 md:min-w-[64px] {isActive(
-								t
-							)
-								? 'text-[#2ca4ab] opacity-100'
-								: ''}"
+							class="flex min-w-[52px] items-center justify-end gap-[6px] text-right opacity-70 md:min-w-[64px] {isActive(t) ? 'text-[#2ca4ab] opacity-100' : ''}"
 						>
 							<span class="index">{q.id}.</span>
 							<CirclePlay
@@ -120,3 +81,38 @@
 		</ul>
 	</div>
 </div>
+
+<script>
+import { Book, CirclePlay, Download } from '@lucide/svelte'
+import { resolve } from '$app/paths'
+import { player, setQueue } from '../../../stores/audio.js'
+
+let { data } = $props()
+
+const pad3 = (n) => String(n).padStart(3, '0')
+const title = $derived(
+	data.surah.name.english
+		? `${data.surah.name.simple} (${data.surah.name.english})`
+		: data.surah.name.simple
+)
+const readHref = $derived(`https://quran.com/${data.surah.id}`)
+
+const queue = $derived(
+	data.qaris.map((q) => {
+		const mp3Src = `https://download.quranicaudio.com/quran/${q.relative_path}${pad3(data.surah.id)}.mp3`
+		return {
+			key: `sura:${data.surah.id}:${q.id}`,
+			qariId: q.id,
+			qariName: q.name,
+			surahId: data.surah.id,
+			src: mp3Src,
+			surahTitle: title,
+			title: `${q.name} ${title}`,
+			downloadHref: mp3Src
+		}
+	})
+)
+
+const isActive = (track) => $player.queue[$player.index]?.key === track.key
+const play = (index) => setQueue(queue, index, true)
+</script>

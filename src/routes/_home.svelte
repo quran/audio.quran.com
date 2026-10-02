@@ -1,27 +1,3 @@
-<script>
-	import { ChevronUp } from '@lucide/svelte'
-	import { resolve } from '$app/paths'
-
-	let { sections, qaris, section } = $props()
-
-	const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
-
-	let haramainList = $derived(qaris.filter((q) => q.section_id === 2 && q.home))
-	let haramain = $derived({
-		makkah: haramainList.filter((q) => q.name.includes('Makkah')),
-		madinah: haramainList.filter((q) => q.name.includes('Madinah'))
-	})
-
-	let grouped = $derived(
-		letters
-			.map((letter) => ({
-				letter,
-				qaris: qaris.filter((q) => q.section_id === section && q.home && q.name?.[0] === letter)
-			}))
-			.filter((g) => g.qaris.length)
-	)
-</script>
-
 <div>
 	<header
 		class="h-[300px] bg-[#2ca4ab] bg-[url('https://quranicaudio.com/public/images/background.jpg')] bg-cover bg-center bg-no-repeat pt-[115px] pb-[10px] text-center text-white md:pt-[100px]"
@@ -40,18 +16,12 @@
 			<li class="mb-[5px] list-none p-0 text-center tracking-[1px] hover:bg-[#f7f7f7]">
 				{#if s.id === 1}
 					<a
-						class="block border-b-2 bg-transparent px-[15px] py-[25px] text-[16px] text-[#2ca4ab] no-underline {s.id ===
-						section
-							? 'border-b-[#2ca4ab]'
-							: 'border-b-[#f0f0f0]'}"
+						class="block border-b-2 bg-transparent px-[15px] py-[25px] text-[16px] text-[#2ca4ab] no-underline {s.id === section ? 'border-b-[#2ca4ab]' : 'border-b-[#f0f0f0]'}"
 						href={resolve('/')}>{s.name}</a
 					>
 				{:else}
 					<a
-						class="block border-b-2 bg-transparent px-[15px] py-[25px] text-[16px] text-[#2ca4ab] no-underline {s.id ===
-						section
-							? 'border-b-[#2ca4ab]'
-							: 'border-b-[#f0f0f0]'}"
+						class="block border-b-2 bg-transparent px-[15px] py-[25px] text-[16px] text-[#2ca4ab] no-underline {s.id === section ? 'border-b-[#2ca4ab]' : 'border-b-[#f0f0f0]'}"
 						href={resolve('/section/[section]', { section: String(s.id) })}>{s.name}</a
 					>
 				{/if}
@@ -108,10 +78,7 @@
 				{#each grouped as g (g.letter)}
 					<div class="relative flex min-h-[100px] flex-wrap items-start justify-start">
 						<span
-							class="relative left-0 w-full rounded-none border-0 bg-[#2ca4ab] pt-[7px] pr-[13px] pb-[6px] pl-[20px] text-left text-[26px] leading-[22.8571px] font-normal text-white md:absolute md:left-[17px] md:z-10 md:mt-[10px] md:w-fit md:rounded-full md:border-[1.66667px] md:border-[#f0f0f0] md:bg-transparent md:pl-[13px] md:text-[16px] md:text-[#2e2e2e] {g.letter ===
-							'I'
-								? 'md:pl-[15px]'
-								: ''}"
+							class="relative left-0 w-full rounded-none border-0 bg-[#2ca4ab] pt-[7px] pr-[13px] pb-[6px] pl-[20px] text-left text-[26px] leading-[22.8571px] font-normal text-white md:absolute md:left-[17px] md:z-10 md:mt-[10px] md:w-fit md:rounded-full md:border-[1.66667px] md:border-[#f0f0f0] md:bg-transparent md:pl-[13px] md:text-[16px] md:text-[#2e2e2e] {g.letter === 'I' ? 'md:pl-[15px]' : ''}"
 						>
 							{g.letter}{#if g.letter === 'I'}<span class="invisible">I</span>{/if}
 						</span>
@@ -143,3 +110,27 @@
 		</button>
 	</div>
 </div>
+
+<script>
+import { ChevronUp } from '@lucide/svelte'
+import { resolve } from '$app/paths'
+
+let { sections, qaris, section } = $props()
+
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+
+let haramainList = $derived(qaris.filter((q) => q.section_id === 2 && q.home))
+let haramain = $derived({
+	makkah: haramainList.filter((q) => q.name.includes('Makkah')),
+	madinah: haramainList.filter((q) => q.name.includes('Madinah'))
+})
+
+let grouped = $derived(
+	letters
+		.map((letter) => ({
+			letter,
+			qaris: qaris.filter((q) => q.section_id === section && q.home && q.name?.[0] === letter)
+		}))
+		.filter((g) => g.qaris.length)
+)
+</script>

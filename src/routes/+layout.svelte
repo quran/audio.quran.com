@@ -1,13 +1,3 @@
-<script>
-	import './layout.css'
-	import { page } from '$app/state'
-	import { resolve } from '$app/paths'
-	import { Book, House } from '@lucide/svelte'
-	import AudioPlayer from '$lib/AudioPlayer.svelte'
-
-	let { data, children } = $props()
-</script>
-
 <svelte:head>
 	<title>Quran Mp3 and Audio Downloads in High Quality - QuranicAudio.com</title>
 	<meta
@@ -78,3 +68,13 @@
 </div>
 
 <AudioPlayer streamDefault={data?.config?.audio?.streamDefault ?? 'auto'} />
+
+<script>
+import './layout.css'
+import { page } from '$app/state'
+import { resolve } from '$app/paths'
+import { Book, House } from '@lucide/svelte'
+import AudioPlayer from '$lib/AudioPlayer.svelte'
+
+let { data, children } = $props()
+</script>

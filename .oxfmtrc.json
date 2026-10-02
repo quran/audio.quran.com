@@ -1,0 +1,25 @@
+{
+	"useTabs": true,
+	"semi": false,
+	"singleQuote": true,
+	"trailingComma": "none",
+	"printWidth": 100,
+	"sortPackageJson": false,
+	"sortTailwindcss": { "stylesheet": "src/routes/layout.css" },
+	"svelte": {
+		"sortOrder": "options-markup-scripts-styles",
+		"indentScriptAndStyle": false
+	},
+	"ignorePatterns": [
+		"static/**/*",
+		"old/**/*",
+		"node_modules/**/*",
+		".svelte-kit/**/*",
+		"build/**/*",
+		"pnpm-lock.yaml",
+		".mise.local.toml",
+		"AGENTS.md",
+		"svelte5.md",
+		"todo.md"
+	]
+}

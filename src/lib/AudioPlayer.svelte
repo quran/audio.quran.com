@@ -1,117 +1,3 @@
-<script>
-	import { CirclePause, CirclePlay, Repeat, Shuffle, SkipBack, SkipForward } from '@lucide/svelte'
-	import {
-		next,
-		player,
-		previous,
-		setPlaying,
-		setTiming,
-		togglePlaying,
-		toggleRandom,
-		toggleRepeat
-	} from '../stores/audio.js'
-	import { canPlayOpus, toOpusUrl } from './audio-url.js'
-
-	let { streamDefault = 'auto' } = $props()
-
-	/** @type {HTMLAudioElement | null} */
-	let audio = null
-	let sessionOpusDisabled = false
-
-	const current = $derived($player.queue[$player.index])
-
-	const pad2 = (n) => String(n).padStart(2, '0')
-	const formatSeconds = (seconds) => {
-		const total = Math.floor(Number(seconds) || 0)
-		const h = Math.floor(total / 3600)
-		const m = Math.floor((total % 3600) / 60)
-		const s = total % 60
-		return h ? `${pad2(h)}:${pad2(m)}:${pad2(s)}` : `${pad2(m)}:${pad2(s)}`
-	}
-
-	const syncTiming = () => {
-		if (!audio) return
-		setTiming(audio.currentTime || 0, audio.duration || 0)
-	}
-
-	/** @param {MouseEvent} e */
-	const onTrackClick = (e) => {
-		if (!audio?.duration) return
-		const rect = /** @type {HTMLElement} */ (e.currentTarget).getBoundingClientRect()
-		const pct = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width))
-		audio.currentTime = pct * audio.duration
-		syncTiming()
-	}
-
-	const pickSrc = (mp3Src) => {
-		const mode = String(streamDefault || 'auto').toLowerCase()
-		if (mode === 'mp3') return mp3Src
-
-		const opusSrc = toOpusUrl(mp3Src)
-		if (mode === 'opus') return sessionOpusDisabled ? mp3Src : opusSrc
-
-		if (sessionOpusDisabled) return mp3Src
-		return canPlayOpus() ? opusSrc : mp3Src
-	}
-
-	const attachAudio = (node) => {
-		audio = node
-		let lastKey = ''
-		let lastPlaying = false
-		let lastRepeat = false
-		let lastMp3Src = ''
-		let lastUsedOpus = false
-
-		const safePlay = () => {
-			// Avoid unhandled promise rejections in browsers that gate autoplay.
-			void node.play().catch(() => {})
-		}
-
-		const onError = () => {
-			// If Opus fails for any reason (missing file, codec issues, CDN), fall back to MP3.
-			if (!lastUsedOpus || !lastMp3Src) return
-			sessionOpusDisabled = true
-			lastUsedOpus = false
-			node.src = lastMp3Src
-			node.currentTime = 0
-			if (lastPlaying) safePlay()
-		}
-
-		node.addEventListener('error', onError)
-
-		const unsub = player.subscribe((state) => {
-			const track = state.queue[state.index]
-			if (!track) return
-
-			if (track.key !== lastKey) {
-				lastMp3Src = track.src
-				const nextSrc = pickSrc(track.src)
-				lastUsedOpus = nextSrc !== track.src
-				node.src = nextSrc
-				node.currentTime = 0
-				lastKey = track.key
-				if (state.playing) safePlay()
-			}
-
-			if (state.repeat !== lastRepeat) {
-				node.loop = state.repeat
-				lastRepeat = state.repeat
-			}
-
-			if (state.playing !== lastPlaying) {
-				if (state.playing) safePlay()
-				else node.pause()
-				lastPlaying = state.playing
-			}
-		})
-		return () => {
-			node.removeEventListener('error', onError)
-			unsub()
-			if (audio === node) audio = null
-		}
-	}
-</script>
-
 {#if current}
 	<div class="fixed inset-x-0 bottom-0 z-[11] bg-white">
 		<button
@@ -217,3 +103,117 @@
 		></audio>
 	</div>
 {/if}
+
+<script>
+import { CirclePause, CirclePlay, Repeat, Shuffle, SkipBack, SkipForward } from '@lucide/svelte'
+import {
+	next,
+	player,
+	previous,
+	setPlaying,
+	setTiming,
+	togglePlaying,
+	toggleRandom,
+	toggleRepeat
+} from '../stores/audio.js'
+import { canPlayOpus, toOpusUrl } from './audio-url.js'
+
+let { streamDefault = 'auto' } = $props()
+
+/** @type {HTMLAudioElement | null} */
+let audio = null
+let sessionOpusDisabled = false
+
+const current = $derived($player.queue[$player.index])
+
+const pad2 = (n) => String(n).padStart(2, '0')
+const formatSeconds = (seconds) => {
+	const total = Math.floor(Number(seconds) || 0)
+	const h = Math.floor(total / 3600)
+	const m = Math.floor((total % 3600) / 60)
+	const s = total % 60
+	return h ? `${pad2(h)}:${pad2(m)}:${pad2(s)}` : `${pad2(m)}:${pad2(s)}`
+}
+
+const syncTiming = () => {
+	if (!audio) return
+	setTiming(audio.currentTime || 0, audio.duration || 0)
+}
+
+/** @param {MouseEvent} e */
+const onTrackClick = (e) => {
+	if (!audio?.duration) return
+	const rect = /** @type {HTMLElement} */ (e.currentTarget).getBoundingClientRect()
+	const pct = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width))
+	audio.currentTime = pct * audio.duration
+	syncTiming()
+}
+
+const pickSrc = (mp3Src) => {
+	const mode = String(streamDefault || 'auto').toLowerCase()
+	if (mode === 'mp3') return mp3Src
+
+	const opusSrc = toOpusUrl(mp3Src)
+	if (mode === 'opus') return sessionOpusDisabled ? mp3Src : opusSrc
+
+	if (sessionOpusDisabled) return mp3Src
+	return canPlayOpus() ? opusSrc : mp3Src
+}
+
+const attachAudio = (node) => {
+	audio = node
+	let lastKey = ''
+	let lastPlaying = false
+	let lastRepeat = false
+	let lastMp3Src = ''
+	let lastUsedOpus = false
+
+	const safePlay = () => {
+		// Avoid unhandled promise rejections in browsers that gate autoplay.
+		void node.play().catch(() => {})
+	}
+
+	const onError = () => {
+		// If Opus fails for any reason (missing file, codec issues, CDN), fall back to MP3.
+		if (!lastUsedOpus || !lastMp3Src) return
+		sessionOpusDisabled = true
+		lastUsedOpus = false
+		node.src = lastMp3Src
+		node.currentTime = 0
+		if (lastPlaying) safePlay()
+	}
+
+	node.addEventListener('error', onError)
+
+	const unsub = player.subscribe((state) => {
+		const track = state.queue[state.index]
+		if (!track) return
+
+		if (track.key !== lastKey) {
+			lastMp3Src = track.src
+			const nextSrc = pickSrc(track.src)
+			lastUsedOpus = nextSrc !== track.src
+			node.src = nextSrc
+			node.currentTime = 0
+			lastKey = track.key
+			if (state.playing) safePlay()
+		}
+
+		if (state.repeat !== lastRepeat) {
+			node.loop = state.repeat
+			lastRepeat = state.repeat
+		}
+
+		if (state.playing !== lastPlaying) {
+			if (state.playing) safePlay()
+			else node.pause()
+			lastPlaying = state.playing
+		}
+	})
+	return () => {
+		node.removeEventListener('error', onError)
+		unsub()
+		if (audio === node) audio = null
+	}
+}
+</script>

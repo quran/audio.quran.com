@@ -1,18 +1,3 @@
-<script>
-	let { audioFile, qaris, surahs } = $props()
-
-	let qariById = $derived(Object.fromEntries(qaris.map((q) => [q.id, q])))
-	let surahById = $derived(Object.fromEntries(surahs.map((s) => [s.id, s])))
-
-	let qari = $derived(qariById[audioFile?.qari_id])
-	let surah = $derived(surahById[audioFile?.surah_id])
-
-	let ok = $derived(!!(qari && surah))
-	let mp3Href = $derived(
-		ok ? `https://download.quranicaudio.com/quran/${qari.relative_path}${audioFile.file_name}` : ''
-	)
-</script>
-
 <header
 	class="h-[300px] bg-[#2ca4ab] bg-[url('https://quranicaudio.com/public/images/background.jpg')] bg-cover bg-center bg-no-repeat pt-[115px] pb-[10px] text-center text-white md:pt-[100px]"
 >
@@ -40,3 +25,18 @@
 		{/if}
 	</div>
 </div>
+
+<script>
+let { audioFile, qaris, surahs } = $props()
+
+let qariById = $derived(Object.fromEntries(qaris.map((q) => [q.id, q])))
+let surahById = $derived(Object.fromEntries(surahs.map((s) => [s.id, s])))
+
+let qari = $derived(qariById[audioFile?.qari_id])
+let surah = $derived(surahById[audioFile?.surah_id])
+
+let ok = $derived(!!(qari && surah))
+let mp3Href = $derived(
+	ok ? `https://download.quranicaudio.com/quran/${qari.relative_path}${audioFile.file_name}` : ''
+)
+</script>

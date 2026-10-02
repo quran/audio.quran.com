@@ -1,0 +1,21 @@
+allowBuilds:
+  '@tailwindcss/oxide': true
+  esbuild: true
+  svelte-preprocesses: true
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@mustafaj/oxfmt-binding-darwin-arm64@0.58.0-svelte.6'
+  - '@mustafaj/oxfmt-binding-linux-x64-gnu@0.58.0-svelte.6'
+  - '@mustafaj/oxfmt-binding-win32-x64-msvc@0.58.0-svelte.6'
+  - '@mustafaj/oxfmt@0.58.0-svelte.6'
+  - '@mustafaj/oxlint-binding-darwin-arm64@1.73.0-svelte.9'
+  - '@mustafaj/oxlint-binding-linux-x64-gnu@1.73.0-svelte.9'
+  - '@mustafaj/oxlint@1.73.0-svelte.9'
+
+overrides:
+  ajv: '6.14.0'
+  cookie: '0.7.2'
+  devalue: '5.6.4'
+  flatted: '3.4.2'
+  minimatch: '3.1.4'
+  rollup: '4.60.0'

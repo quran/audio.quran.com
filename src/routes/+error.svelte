@@ -1,8 +1,3 @@
-<script>
-	import { page } from '$app/state'
-	import { resolve } from '$app/paths'
-</script>
-
 <header
 	class="h-[300px] bg-[#2ca4ab] bg-[url('https://quranicaudio.com/public/images/background.jpg')] bg-cover bg-center bg-no-repeat pt-[115px] pb-[10px] text-center text-white md:pt-[100px]"
 >
@@ -23,10 +18,13 @@
 		</p>
 		<a class="text-[#2ca4ab]" href={resolve('/')}>Go back home</a>
 	{:else}
-		<h1 class="mt-[20px] mb-[10px] text-[36px] leading-[39.6px] text-[#444]">
-			Something went wrong
-		</h1>
+		<h1 class="mt-[20px] mb-[10px] text-[36px] leading-[39.6px] text-[#444]">Something went wrong</h1>
 		<p class="m-0 mb-[10px] text-[14px] leading-[20px] text-[#444]">Please try again.</p>
 		<a class="text-[#2ca4ab]" href={resolve('/')}>Go back home</a>
 	{/if}
 </div>
+
+<script>
+import { page } from '$app/state'
+import { resolve } from '$app/paths'
+</script>
