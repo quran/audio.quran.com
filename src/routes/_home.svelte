@@ -95,7 +95,7 @@
 
 		<button
 			type="button"
-			class="float-right mr-[10px] w-full cursor-pointer text-center text-[20px] hover:underline md:text-[15px]"
+			class="float-right mr-[10px] w-full cursor-pointer pt-[30px] text-center text-[20px] hover:underline md:text-[15px]"
 			onclick={() => window.scrollTo(0, 0)}
 		>
 			Go to the top <ChevronUp size={18} class="ml-[4px] inline-block" aria-hidden="true" />

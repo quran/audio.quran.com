@@ -61,6 +61,12 @@
 				<Book class="h-[26px] w-[26px] md:h-[30px] md:w-[30px]" aria-hidden="true" />
 			</a>
 		</li>
+		{#if hasBrandHeader}
+			<li class="hidden h-[24px] w-px bg-white/25 sm:block" aria-hidden="true"></li>
+			<li class="hidden gap-[8px] sm:flex">
+				<StoreBadges />
+			</li>
+		{/if}
 	</ul>
 </div>
 
@@ -76,6 +82,16 @@ import { page } from '$app/state'
 import { resolve } from '$app/paths'
 import { Book } from '@lucide/svelte'
 import AudioPlayer from '$lib/AudioPlayer.svelte'
+import StoreBadges from '$lib/StoreBadges.svelte'
 
 let { data, children } = $props()
+
+// Pages rendering <BrandHeader /> get the store badges in the nav; reciter pages don't.
+const hasBrandHeader = $derived(
+	!!page.error ||
+		page.url.pathname === '/' ||
+		page.url.pathname === '/about' ||
+		page.url.pathname.startsWith('/section/') ||
+		page.url.pathname.startsWith('/download/')
+)
 </script>
