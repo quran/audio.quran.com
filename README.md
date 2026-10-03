@@ -25,6 +25,10 @@ npm run dev
 npm run dev -- --open
 ```
 
+Development proxies `/api` requests to `https://quranicaudio.com`, including
+SvelteKit server-side fetches, so no local database is required. Production keeps
+using its local API and database.
+
 ## Building
 
 To create a production version of your app:

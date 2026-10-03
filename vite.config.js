@@ -6,5 +6,9 @@ import domain from 'vite-plugin-domain'
 
 export default defineConfig({
 	plugins: [domain({ tld: 'localhost' }), tailwindcss(), sveltekit(), devtoolsJson()],
-	server: {}
+	server: {
+		proxy: {
+			'/api': { target: 'https://quranicaudio.com', changeOrigin: true }
+		}
+	}
 })
